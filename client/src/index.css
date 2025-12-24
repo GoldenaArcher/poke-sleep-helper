@@ -40,16 +40,18 @@ body {
   gap: 12px;
 }
 
-.nav button {
+.nav a {
   text-align: left;
   background: transparent;
   padding: 10px 12px;
   border-radius: 12px;
   font-size: 15px;
   color: #334155;
+  text-decoration: none;
+  display: block;
 }
 
-.nav button.active {
+.nav a.active {
   background: #1f2937;
   color: #fef6e4;
 }
@@ -140,6 +142,14 @@ label {
 }
 
 input {
+  border: 1px solid #cbd5f5;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 14px;
+  background: #f8fafc;
+}
+
+select {
   border: 1px solid #cbd5f5;
   border-radius: 10px;
   padding: 8px 12px;
@@ -309,6 +319,26 @@ button {
   color: #1f2937;
 }
 
+.ingredient-link {
+  color: #1f2937;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.ingredient-link:hover {
+  text-decoration: underline;
+}
+
+.dish-link {
+  color: #1f2937;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.dish-link:hover {
+  text-decoration: underline;
+}
+
 .ingredient-list {
   display: grid;
   gap: 4px;
@@ -319,6 +349,66 @@ button {
   font-weight: 600;
   color: #334155;
   margin-top: 4px;
+}
+
+.ingredient-table {
+  display: grid;
+  gap: 10px;
+}
+
+.ingredient-row {
+  display: grid;
+  grid-template-columns: minmax(200px, 1.4fr) 120px 160px;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.ingredient-row.header {
+  background: #0f172a;
+  color: #e2e8f0;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+.ingredient-dishes {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.ingredient-dishes.grid-cards {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.dish-mini {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  display: grid;
+  gap: 4px;
+}
+
+.level-grid {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) repeat(2, minmax(160px, 1fr));
+  gap: 16px;
+  align-items: end;
+  margin-top: 12px;
+}
+
+.stat {
+  display: grid;
+  gap: 6px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
 }
 
 .empty {
@@ -385,6 +475,18 @@ button {
   .dish-row.header {
     display: none;
   }
+
+  .ingredient-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ingredient-row.header {
+    display: none;
+  }
+
+  .level-grid {
+    grid-template-columns: 1fr;
+  }
 }
 .chip-group {
   display: inline-flex;
@@ -403,4 +505,17 @@ button {
 .chip.active {
   background: #1f2937;
   color: #fef6e4;
+}
+.back-button {
+  justify-self: start;
+  background: transparent;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.back-button:hover {
+  background: #f8fafc;
 }

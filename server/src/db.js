@@ -850,9 +850,19 @@ const initDb = async () => {
       name TEXT NOT NULL UNIQUE,
       type TEXT NOT NULL,
       description TEXT,
-      base_strength INTEGER NOT NULL DEFAULT 0
+      base_strength INTEGER NOT NULL DEFAULT 0,
+      dish_level INTEGER NOT NULL DEFAULT 1
     );
   `);
+
+  const dishColumns = await dbAll("pragma table_info(dishes)");
+  const hasDishLevel = dishColumns.some(
+    (column) => column.name === "dish_level"
+  );
+  if (!hasDishLevel) {
+    await dbRun("alter table dishes add column dish_level integer default 1");
+  }
+  await dbRun("update dishes set dish_level = 1 where dish_level is null");
 
   await dbRun(`
     CREATE TABLE IF NOT EXISTS dish_ingredients (
@@ -890,7 +900,7 @@ const initDb = async () => {
 
   for (const dish of dishCatalog) {
     await dbRun(
-      "insert or ignore into dishes (name, type, description, base_strength) values (?, ?, ?, 0)",
+      "insert or ignore into dishes (name, type, description, base_strength, dish_level) values (?, ?, ?, 0, 1)",
       [dish.name, dish.type, dish.description]
     );
     const dishRow = await dbGet("select id from dishes where name = ?", [
@@ -944,6 +954,7 @@ const initDb = async () => {
     "insert or ignore into settings (key, value) values (?, ?)",
     ["item_limit", "100"]
   );
+
 };
 
 export { dbAll, dbGet, dbRun, initDb };

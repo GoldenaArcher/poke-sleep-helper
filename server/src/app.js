@@ -219,7 +219,7 @@ app.delete("/api/bag/items/:id", async (req, res) => {
 app.get("/api/dishes", async (req, res) => {
   try {
     const dishes = await dbAll(
-      "select id, name, type, description, base_strength from dishes order by name"
+      "select id, name, type, description, base_strength, dish_level from dishes order by name"
     );
     const ingredients = await dbAll(
       `select dish_ingredients.dish_id,
@@ -283,7 +283,7 @@ app.get("/api/ingredients/catalog", async (req, res) => {
 
 app.put("/api/dishes/:id", async (req, res) => {
   const dishId = Number(req.params.id);
-  const { baseStrength } = req.body || {};
+  const { baseStrength, dishLevel } = req.body || {};
   if (!dishId) {
     res.status(400).json({ error: "invalid id" });
     return;
@@ -295,8 +295,14 @@ app.put("/api/dishes/:id", async (req, res) => {
         dishId
       ]);
     }
+    if (typeof dishLevel === "number") {
+      await dbRun("update dishes set dish_level = ? where id = ?", [
+        Math.max(1, dishLevel),
+        dishId
+      ]);
+    }
     const dish = await dbGet(
-      "select id, name, type, description, base_strength from dishes where id = ?",
+      "select id, name, type, description, base_strength, dish_level from dishes where id = ?",
       [dishId]
     );
     res.json(dish);
