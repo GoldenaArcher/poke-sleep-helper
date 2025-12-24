@@ -1,0 +1,58 @@
+{
+  "species": [
+    {
+      "dexNo": 133,
+      "name": "Eevee",
+      "primaryType": "Normal",
+      "specialty": "Skills",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Eevee",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:01:40",
+            "carryLimit": 12,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 20,
+            "recruitShards": 36
+          },
+          "berries": [
+            { "name": "Persim Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Moomoo Milk", "unlockLevel": 1 },
+            { "name": "Soothing Cacao", "unlockLevel": 30 },
+            { "name": "Bean Sausage", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Ingredient Magnet S"
+        },
+        {
+          "key": "holiday",
+          "name": "Eevee (Holiday)",
+          "isDefault": 0,
+          "isEvent": 1,
+          "notes": "Holiday event variant",
+          "stats": {
+            "baseFrequency": "00:51:40",
+            "carryLimit": 20,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 27,
+            "recruitShards": 75
+          },
+          "berries": [
+            { "name": "Persim Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Moomoo Milk", "unlockLevel": 1 },
+            { "name": "Soothing Cacao", "unlockLevel": 30 }
+          ],
+          "mainSkill": "Dream Shard Magnet S"
+        }
+      ],
+      "subSkills": []
+    }
+  ]
+}

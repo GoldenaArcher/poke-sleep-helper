@@ -36,7 +36,8 @@ app.get("/api/settings", async (req, res) => {
     }, {});
     res.json({
       ingredientLimit: Number(settings.ingredient_limit || 0),
-      itemLimit: Number(settings.item_limit || 0)
+      itemLimit: Number(settings.item_limit || 0),
+      pokemonBoxLimit: Number(settings.pokemon_box_limit || 0)
     });
   } catch (error) {
     res.status(500).json({ error: "Failed to load settings" });
@@ -219,7 +220,19 @@ app.delete("/api/bag/items/:id", async (req, res) => {
 app.get("/api/dishes", async (req, res) => {
   try {
     const dishes = await dbAll(
-      "select id, name, type, description, base_strength, dish_level from dishes order by name"
+      `select dishes.id,
+              dishes.name,
+              dishes.type,
+              dishes.description,
+              dishes.base_strength,
+              dishes.dish_level,
+              dish_levels.experience as level_experience,
+              dish_levels.value as level_value
+       from dishes
+       left join dish_levels
+         on dish_levels.dish_id = dishes.id
+        and dish_levels.level = dishes.dish_level
+       order by dishes.name`
     );
     const ingredients = await dbAll(
       `select dish_ingredients.dish_id,
@@ -302,12 +315,515 @@ app.put("/api/dishes/:id", async (req, res) => {
       ]);
     }
     const dish = await dbGet(
-      "select id, name, type, description, base_strength, dish_level from dishes where id = ?",
+      `select dishes.id,
+              dishes.name,
+              dishes.type,
+              dishes.description,
+              dishes.base_strength,
+              dishes.dish_level,
+              dish_levels.experience as level_experience,
+              dish_levels.value as level_value
+       from dishes
+       left join dish_levels
+         on dish_levels.dish_id = dishes.id
+        and dish_levels.level = dishes.dish_level
+       where dishes.id = ?`,
       [dishId]
     );
     res.json(dish);
   } catch (error) {
     res.status(500).json({ error: "Failed to update dish" });
+  }
+});
+
+app.get("/api/dishes/:id/levels", async (req, res) => {
+  const dishId = Number(req.params.id);
+  if (!dishId) {
+    res.status(400).json({ error: "invalid id" });
+    return;
+  }
+  try {
+    const rows = await dbAll(
+      "select level, experience, value from dish_levels where dish_id = ? order by level",
+      [dishId]
+    );
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load dish levels" });
+  }
+});
+
+app.get("/api/pokedex", async (req, res) => {
+  try {
+    const speciesRows = await dbAll(
+      "select id, dex_no, name, primary_type, secondary_type, specialty from pokemon_species order by dex_no"
+    );
+    const variantRows = await dbAll(
+      `select id, species_id, variant_key, variant_name, is_default, is_event, notes
+       from pokemon_variants
+       order by variant_name`
+    );
+    const variantsBySpecies = new Map();
+    variantRows.forEach((variant) => {
+      const list = variantsBySpecies.get(variant.species_id) || [];
+      list.push(variant);
+      variantsBySpecies.set(variant.species_id, list);
+    });
+    const payload = speciesRows.map((species) => ({
+      ...species,
+      variants: variantsBySpecies.get(species.id) || []
+    }));
+    res.json(payload);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load pokedex" });
+  }
+});
+
+app.get("/api/pokedex/:id", async (req, res) => {
+  const speciesId = Number(req.params.id);
+  if (!speciesId) {
+    res.status(400).json({ error: "invalid id" });
+    return;
+  }
+  try {
+    const species = await dbGet(
+      `select id, dex_no, name, primary_type, secondary_type, specialty
+       from pokemon_species where id = ?`,
+      [speciesId]
+    );
+    if (!species) {
+      res.status(404).json({ error: "not found" });
+      return;
+    }
+    const variants = await dbAll(
+      `select id, variant_key, variant_name, is_default, is_event, notes
+       from pokemon_variants
+       where species_id = ?
+       order by variant_name`,
+      [speciesId]
+    );
+    const stats = await dbAll(
+      `select variant_id, base_frequency, carry_limit, friendship_points_needed,
+              recruit_experience, recruit_shards
+       from pokemon_variant_stats`
+    );
+    const berryRows = await dbAll(
+      `select pokemon_variant_berries.variant_id,
+              pokemon_variant_berries.quantity,
+              berries.name
+       from pokemon_variant_berries
+       join berries on berries.id = pokemon_variant_berries.berry_id`
+    );
+    const ingredientRows = await dbAll(
+      `select pokemon_variant_ingredients.variant_id,
+              ingredients.name,
+              pokemon_variant_ingredients.unlock_level
+       from pokemon_variant_ingredients
+       join ingredients on ingredients.id = pokemon_variant_ingredients.ingredient_id`
+    );
+    const mainSkills = await dbAll(
+      `select pokemon_variant_main_skills.variant_id,
+              main_skills.name,
+              main_skills.notes,
+              main_skills.effect_type,
+              main_skills.target
+       from pokemon_variant_main_skills
+       join main_skills on main_skills.id = pokemon_variant_main_skills.main_skill_id`
+    );
+    const subSkills = await dbAll(
+      `select pokemon_sub_skills.species_id,
+              sub_skills.name,
+              sub_skills.description,
+              sub_skills.rarity,
+              sub_skills.upgradable_to,
+              pokemon_sub_skills.unlock_level
+       from pokemon_sub_skills
+       join sub_skills on sub_skills.id = pokemon_sub_skills.sub_skill_id
+       where pokemon_sub_skills.species_id = ?`,
+      [speciesId]
+    );
+
+    const statsMap = new Map(stats.map((row) => [row.variant_id, row]));
+    const berryMap = new Map();
+    berryRows.forEach((row) => {
+      const list = berryMap.get(row.variant_id) || [];
+      list.push({ name: row.name, quantity: row.quantity });
+      berryMap.set(row.variant_id, list);
+    });
+    const ingredientMap = new Map();
+    ingredientRows.forEach((row) => {
+      const list = ingredientMap.get(row.variant_id) || [];
+      list.push({ name: row.name, unlockLevel: row.unlock_level });
+      ingredientMap.set(row.variant_id, list);
+    });
+    const skillMap = new Map();
+    mainSkills.forEach((row) => {
+      const list = skillMap.get(row.variant_id) || [];
+      list.push({
+        name: row.name,
+        notes: row.notes,
+        effectType: row.effect_type,
+        target: row.target
+      });
+      skillMap.set(row.variant_id, list);
+    });
+
+    const payload = {
+      ...species,
+      subSkills,
+      variants: variants.map((variant) => ({
+        ...variant,
+        stats: statsMap.get(variant.id) || null,
+        berries: berryMap.get(variant.id) || [],
+        ingredients: ingredientMap.get(variant.id) || [],
+        mainSkills: skillMap.get(variant.id) || []
+      }))
+    };
+    res.json(payload);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load pokemon" });
+  }
+});
+
+app.get("/api/natures", async (req, res) => {
+  try {
+    const rows = await dbAll(
+      `select id, name, boost_stat, boost_pct, reduction_stat, reduction_pct
+       from natures
+       order by name`
+    );
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load natures" });
+  }
+});
+
+app.get("/api/pokemon-box", async (req, res) => {
+  try {
+    const rows = await dbAll(
+      `select pokemon_box.id,
+              pokemon_box.species_id,
+              pokemon_box.variant_id,
+              pokemon_box.nature_id,
+              pokemon_box.nickname,
+              pokemon_box.level,
+              pokemon_box.main_skill_level,
+              pokemon_species.name as species_name,
+              pokemon_species.dex_no as dex_no,
+              pokemon_variants.variant_name as variant_name,
+              natures.name as nature_name
+       from pokemon_box
+       join pokemon_species on pokemon_species.id = pokemon_box.species_id
+       join pokemon_variants on pokemon_variants.id = pokemon_box.variant_id
+       left join natures on natures.id = pokemon_box.nature_id
+       order by pokemon_box.created_at desc`
+    );
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load pokemon box" });
+  }
+});
+
+app.post("/api/pokemon-box", async (req, res) => {
+  const { speciesId, variantId, natureId, nickname, level, mainSkillLevel } =
+    req.body || {};
+  if (!speciesId || !variantId) {
+    res.status(400).json({ error: "speciesId and variantId are required" });
+    return;
+  }
+  try {
+    const limitRow = await dbGet(
+      "select value from settings where key = ?",
+      ["pokemon_box_limit"]
+    );
+    const countRow = await dbGet("select count(*) as count from pokemon_box");
+    const limit = Number(limitRow?.value || 80);
+    if (countRow?.count >= limit) {
+      res.status(400).json({ error: "Pokemon box is full" });
+      return;
+    }
+    await dbRun(
+      `insert into pokemon_box
+       (species_id, variant_id, nature_id, nickname, level, main_skill_level)
+       values (?, ?, ?, ?, ?, ?)`,
+      [
+        speciesId,
+        variantId,
+        natureId || null,
+        nickname || null,
+        Math.max(1, Number(level) || 1),
+        Math.max(1, Number(mainSkillLevel) || 1)
+      ]
+    );
+    const row = await dbGet(
+      `select pokemon_box.id,
+              pokemon_box.species_id,
+              pokemon_box.variant_id,
+              pokemon_box.nature_id,
+              pokemon_box.nickname,
+              pokemon_box.level,
+              pokemon_box.main_skill_level,
+              pokemon_species.name as species_name,
+              pokemon_species.dex_no as dex_no,
+              pokemon_variants.variant_name as variant_name,
+              natures.name as nature_name
+       from pokemon_box
+       join pokemon_species on pokemon_species.id = pokemon_box.species_id
+       join pokemon_variants on pokemon_variants.id = pokemon_box.variant_id
+       left join natures on natures.id = pokemon_box.nature_id
+       where pokemon_box.id = last_insert_rowid()`
+    );
+    res.json(row);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to add to pokemon box" });
+  }
+});
+
+app.put("/api/pokemon-box/:id", async (req, res) => {
+  const entryId = Number(req.params.id);
+  const { natureId, nickname, level, mainSkillLevel } = req.body || {};
+  if (!entryId) {
+    res.status(400).json({ error: "invalid id" });
+    return;
+  }
+  try {
+    await dbRun(
+      `update pokemon_box
+       set nature_id = ?,
+           nickname = ?,
+           level = ?,
+           main_skill_level = ?
+       where id = ?`,
+      [
+        natureId || null,
+        nickname || null,
+        Math.max(1, Number(level) || 1),
+        Math.max(1, Number(mainSkillLevel) || 1),
+        entryId
+      ]
+    );
+    const row = await dbGet(
+      `select pokemon_box.id,
+              pokemon_box.species_id,
+              pokemon_box.variant_id,
+              pokemon_box.nature_id,
+              pokemon_box.nickname,
+              pokemon_box.level,
+              pokemon_box.main_skill_level,
+              pokemon_species.name as species_name,
+              pokemon_species.dex_no as dex_no,
+              pokemon_variants.variant_name as variant_name,
+              natures.name as nature_name
+       from pokemon_box
+       join pokemon_species on pokemon_species.id = pokemon_box.species_id
+       join pokemon_variants on pokemon_variants.id = pokemon_box.variant_id
+       left join natures on natures.id = pokemon_box.nature_id
+       where pokemon_box.id = ?`,
+      [entryId]
+    );
+    res.json(row);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update pokemon box" });
+  }
+});
+
+app.get("/api/pokemon-box/:id/details", async (req, res) => {
+  const entryId = Number(req.params.id);
+  if (!entryId) {
+    res.status(400).json({ error: "invalid id" });
+    return;
+  }
+  try {
+    const entry = await dbGet(
+      `select pokemon_box.id,
+              pokemon_box.species_id,
+              pokemon_box.variant_id,
+              pokemon_box.nature_id,
+              pokemon_box.nickname,
+              pokemon_box.level,
+              pokemon_box.main_skill_level,
+              pokemon_species.name as species_name,
+              pokemon_species.dex_no as dex_no,
+              pokemon_variants.variant_name as variant_name,
+              natures.name as nature_name
+       from pokemon_box
+       join pokemon_species on pokemon_species.id = pokemon_box.species_id
+       join pokemon_variants on pokemon_variants.id = pokemon_box.variant_id
+       left join natures on natures.id = pokemon_box.nature_id
+       where pokemon_box.id = ?`,
+      [entryId]
+    );
+    if (!entry) {
+      res.status(404).json({ error: "not found" });
+      return;
+    }
+    const ingredients = await dbAll(
+      `select ingredients.name, pokemon_variant_ingredients.unlock_level
+       from pokemon_variant_ingredients
+       join ingredients on ingredients.id = pokemon_variant_ingredients.ingredient_id
+       where pokemon_variant_ingredients.variant_id = ?
+       order by pokemon_variant_ingredients.unlock_level`,
+      [entry.variant_id]
+    );
+    const subSkills = await dbAll(
+      `select sub_skills.name,
+              sub_skills.description,
+              sub_skills.rarity,
+              sub_skills.upgradable_to,
+              pokemon_sub_skills.unlock_level
+       from pokemon_sub_skills
+       join sub_skills on sub_skills.id = pokemon_sub_skills.sub_skill_id
+       where pokemon_sub_skills.species_id = ?
+       order by pokemon_sub_skills.unlock_level`,
+      [entry.species_id]
+    );
+    const mainSkill = await dbGet(
+      `select main_skills.name, main_skills.notes, main_skills.effect_type, main_skills.target
+       from pokemon_variant_main_skills
+       join main_skills on main_skills.id = pokemon_variant_main_skills.main_skill_id
+       where pokemon_variant_main_skills.variant_id = ?`,
+      [entry.variant_id]
+    );
+    res.json({
+      entry,
+      ingredients,
+      subSkills,
+      mainSkill
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load pokemon details" });
+  }
+});
+
+app.delete("/api/pokemon-box/:id", async (req, res) => {
+  const entryId = Number(req.params.id);
+  if (!entryId) {
+    res.status(400).json({ error: "invalid id" });
+    return;
+  }
+  try {
+    await dbRun("delete from pokemon_box where id = ?", [entryId]);
+    res.json({ ok: true });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to remove pokemon" });
+  }
+});
+
+app.get("/api/research-areas", async (req, res) => {
+  try {
+    const areas = await dbAll(
+      "select id, name, is_default from research_areas order by name"
+    );
+    const favorites = await dbAll(
+      `select research_area_favorite_berries.area_id,
+              research_area_favorite_berries.slot,
+              research_area_favorite_berries.berry_id,
+              berries.name as berry_name
+       from research_area_favorite_berries
+       left join berries on berries.id = research_area_favorite_berries.berry_id
+       order by research_area_favorite_berries.slot`
+    );
+    const favMap = new Map();
+    favorites.forEach((row) => {
+      const list = favMap.get(row.area_id) || [];
+      list.push(row);
+      favMap.set(row.area_id, list);
+    });
+    res.json(
+      areas.map((area) => ({
+        ...area,
+        favorites: (favMap.get(area.id) || []).sort(
+          (a, b) => a.slot - b.slot
+        )
+      }))
+    );
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load research areas" });
+  }
+});
+
+app.put("/api/research-areas/:id/default", async (req, res) => {
+  const areaId = Number(req.params.id);
+  if (!areaId) {
+    res.status(400).json({ error: "invalid id" });
+    return;
+  }
+  try {
+    await dbRun("update research_areas set is_default = 0");
+    await dbRun("update research_areas set is_default = 1 where id = ?", [
+      areaId
+    ]);
+    const areas = await dbAll(
+      "select id, name, is_default from research_areas order by name"
+    );
+    const favorites = await dbAll(
+      `select research_area_favorite_berries.area_id,
+              research_area_favorite_berries.slot,
+              research_area_favorite_berries.berry_id,
+              berries.name as berry_name
+       from research_area_favorite_berries
+       left join berries on berries.id = research_area_favorite_berries.berry_id
+       order by research_area_favorite_berries.slot`
+    );
+    const favMap = new Map();
+    favorites.forEach((row) => {
+      const list = favMap.get(row.area_id) || [];
+      list.push(row);
+      favMap.set(row.area_id, list);
+    });
+    res.json(
+      areas.map((area) => ({
+        ...area,
+        favorites: (favMap.get(area.id) || []).sort(
+          (a, b) => a.slot - b.slot
+        )
+      }))
+    );
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update default area" });
+  }
+});
+
+app.put("/api/research-areas/:id/favorites", async (req, res) => {
+  const areaId = Number(req.params.id);
+  const { favorites } = req.body || {};
+  if (!areaId || !Array.isArray(favorites)) {
+    res.status(400).json({ error: "invalid request" });
+    return;
+  }
+  try {
+    for (let index = 0; index < 3; index += 1) {
+      const berryId = favorites[index] || null;
+      await dbRun(
+        `insert or replace into research_area_favorite_berries
+         (area_id, slot, berry_id)
+         values (?, ?, ?)`,
+        [areaId, index + 1, berryId]
+      );
+    }
+    const favoritesRows = await dbAll(
+      `select research_area_favorite_berries.area_id,
+              research_area_favorite_berries.slot,
+              research_area_favorite_berries.berry_id,
+              berries.name as berry_name
+       from research_area_favorite_berries
+       left join berries on berries.id = research_area_favorite_berries.berry_id
+       where research_area_favorite_berries.area_id = ?
+       order by research_area_favorite_berries.slot`,
+      [areaId]
+    );
+    res.json(favoritesRows);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update favorites" });
+  }
+});
+
+app.get("/api/berries", async (req, res) => {
+  try {
+    const rows = await dbAll("select id, name from berries order by name");
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load berries" });
   }
 });
 

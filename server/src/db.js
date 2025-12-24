@@ -834,6 +834,959 @@ const dishCatalog = [
   }
 ];
 
+const dishLevelData = {
+  "Fancy Apple Salad": [
+    { level: 1, experience: 0, value: 855 },
+    { level: 2, experience: 1080, value: 872 },
+    { level: 3, experience: 2324, value: 889 },
+    { level: 4, experience: 3936, value: 906 },
+    { level: 5, experience: 5545, value: 923 },
+    { level: 6, experience: 7341, value: 932 },
+    { level: 7, experience: 9712, value: 949 },
+    { level: 8, experience: 12760, value: 966 },
+    { level: 9, experience: 16426, value: 992 },
+    { level: 10, experience: 20791, value: 1009 },
+    { level: 11, experience: 25639, value: 1017 },
+    { level: 12, experience: 30911, value: 1035 },
+    { level: 13, experience: 36621, value: 1052 },
+    { level: 14, experience: 42922, value: 1060 },
+    { level: 15, experience: 49882, value: 1077 },
+    { level: 16, experience: 57551, value: 1094 },
+    { level: 17, experience: 66001, value: 1112 },
+    { level: 18, experience: 75131, value: 1120 },
+    { level: 19, experience: 84981, value: 1137 },
+    { level: 20, experience: 95642, value: 1154 },
+    { level: 21, experience: 107159, value: 1171 },
+    { level: 22, experience: 119576, value: 1197 },
+    { level: 23, experience: 132938, value: 1214 },
+    { level: 24, experience: 147309, value: 1240 },
+    { level: 25, experience: 162621, value: 1257 },
+    { level: 26, experience: 178929, value: 1283 },
+    { level: 27, experience: 196563, value: 1300 },
+    { level: 28, experience: 215605, value: 1325 },
+    { level: 29, experience: 236149, value: 1351 },
+    { level: 30, experience: 258299, value: 1377 },
+    { level: 31, experience: 281955, value: 1402 },
+    { level: 32, experience: 306759, value: 1428 },
+    { level: 33, experience: 332769, value: 1454 },
+    { level: 34, experience: 360469, value: 1488 },
+    { level: 35, experience: 389943, value: 1513 },
+    { level: 36, experience: 421521, value: 1548 },
+    { level: 37, experience: 455380, value: 1573 },
+    { level: 38, experience: 491055, value: 1607 },
+    { level: 39, experience: 528663, value: 1642 },
+    { level: 40, experience: 568918, value: 1676 },
+    { level: 41, experience: 611541, value: 1710 },
+    { level: 42, experience: 656646, value: 1744 },
+    { level: 43, experience: 704344, value: 1778 },
+    { level: 44, experience: 754748, value: 1821 },
+    { level: 45, experience: 807184, value: 1855 },
+    { level: 46, experience: 862205, value: 1898 },
+    { level: 47, experience: 920936, value: 1941 },
+    { level: 48, experience: 983590, value: 1984 },
+    { level: 49, experience: 1050391, value: 2026 },
+    { level: 50, experience: 1121582, value: 2069 },
+    { level: 51, experience: 1196687, value: 2120 },
+    { level: 52, experience: 1319485, value: 2163 },
+    { level: 53, experience: 1471363, value: 2214 },
+    { level: 54, experience: 1672589, value: 2266 },
+    { level: 55, experience: 1930878, value: 2317 },
+    { level: 56, experience: 2231322, value: 2368 },
+    { level: 57, experience: 2579312, value: 2420 },
+    { level: 58, experience: 2977994, value: 2480 },
+    { level: 59, experience: 3413120, value: 2539 },
+    { level: 60, experience: 3891145, value: 2591 },
+    { level: 61, experience: 4433557, value: 2642 },
+    { level: 62, experience: 5054788, value: 2693 },
+    { level: 63, experience: 5773019, value: 2745 },
+    { level: 64, experience: 6606405, value: 2796 },
+    { level: 65, experience: 7599103, value: 2856 }
+  ],
+  "Dazzling Apple Cheese Salad": [
+    { level: 1, experience: 0, value: 2655 },
+    { level: 2, experience: 1080, value: 2708 },
+    { level: 3, experience: 2324, value: 2761 },
+    { level: 4, experience: 3936, value: 2814 },
+    { level: 5, experience: 5545, value: 2867 },
+    { level: 6, experience: 7341, value: 2894 },
+    { level: 7, experience: 9712, value: 2947 },
+    { level: 8, experience: 12760, value: 3000 },
+    { level: 9, experience: 16426, value: 3080 },
+    { level: 10, experience: 20791, value: 3133 },
+    { level: 11, experience: 25639, value: 3159 },
+    { level: 12, experience: 30911, value: 3213 },
+    { level: 13, experience: 36621, value: 3266 },
+    { level: 14, experience: 42922, value: 3292 },
+    { level: 15, experience: 49882, value: 3345 },
+    { level: 16, experience: 57551, value: 3398 },
+    { level: 17, experience: 66001, value: 3452 },
+    { level: 18, experience: 75131, value: 3478 },
+    { level: 19, experience: 84981, value: 3531 },
+    { level: 20, experience: 95642, value: 3584 },
+    { level: 21, experience: 107159, value: 3637 },
+    { level: 22, experience: 119576, value: 3717 },
+    { level: 23, experience: 132938, value: 3770 },
+    { level: 24, experience: 147309, value: 3850 },
+    { level: 25, experience: 162621, value: 3903 },
+    { level: 26, experience: 178929, value: 3983 },
+    { level: 27, experience: 196563, value: 4036 },
+    { level: 28, experience: 215605, value: 4115 },
+    { level: 29, experience: 236149, value: 4195 },
+    { level: 30, experience: 258299, value: 4275 },
+    { level: 31, experience: 281955, value: 4354 },
+    { level: 32, experience: 306759, value: 4434 },
+    { level: 33, experience: 332769, value: 4514 },
+    { level: 34, experience: 360469, value: 4620 },
+    { level: 35, experience: 389943, value: 4699 },
+    { level: 36, experience: 421521, value: 4806 },
+    { level: 37, experience: 455380, value: 4885 },
+    { level: 38, experience: 491055, value: 4991 },
+    { level: 39, experience: 528663, value: 5098 },
+    { level: 40, experience: 568918, value: 5204 },
+    { level: 41, experience: 611541, value: 5310 },
+    { level: 42, experience: 656646, value: 5416 },
+    { level: 43, experience: 704344, value: 5522 },
+    { level: 44, experience: 754748, value: 5655 },
+    { level: 45, experience: 807184, value: 5761 },
+    { level: 46, experience: 862205, value: 5894 },
+    { level: 47, experience: 920936, value: 6027 },
+    { level: 48, experience: 983590, value: 6160 },
+    { level: 49, experience: 1050391, value: 6292 },
+    { level: 50, experience: 1121582, value: 6425 },
+    { level: 51, experience: 1196687, value: 6584 },
+    { level: 52, experience: 1319485, value: 6717 },
+    { level: 53, experience: 1471363, value: 6876 },
+    { level: 54, experience: 1672589, value: 7036 },
+    { level: 55, experience: 1930878, value: 7195 },
+    { level: 56, experience: 2231322, value: 7354 },
+    { level: 57, experience: 2579312, value: 7514 },
+    { level: 58, experience: 2977994, value: 7700 },
+    { level: 59, experience: 3413120, value: 7885 },
+    { level: 60, experience: 3891145, value: 8045 },
+    { level: 61, experience: 4433557, value: 8204 },
+    { level: 62, experience: 5054788, value: 8363 },
+    { level: 63, experience: 5773019, value: 8523 },
+    { level: 64, experience: 6606405, value: 8682 },
+    { level: 65, experience: 7599103, value: 8868 }
+  ],
+  "Fancy Apple Curry": [
+    { level: 1, experience: 0, value: 748 },
+    { level: 2, experience: 1080, value: 763 },
+    { level: 3, experience: 2324, value: 778 },
+    { level: 4, experience: 3936, value: 793 },
+    { level: 5, experience: 5545, value: 808 },
+    { level: 6, experience: 7341, value: 815 },
+    { level: 7, experience: 9712, value: 830 },
+    { level: 8, experience: 12760, value: 845 },
+    { level: 9, experience: 16426, value: 868 },
+    { level: 10, experience: 20791, value: 883 },
+    { level: 11, experience: 25639, value: 890 },
+    { level: 12, experience: 30911, value: 905 },
+    { level: 13, experience: 36621, value: 920 },
+    { level: 14, experience: 42922, value: 928 },
+    { level: 15, experience: 49882, value: 942 },
+    { level: 16, experience: 57551, value: 957 },
+    { level: 17, experience: 66001, value: 972 },
+    { level: 18, experience: 75131, value: 980 },
+    { level: 19, experience: 84981, value: 995 },
+    { level: 20, experience: 95642, value: 1010 },
+    { level: 21, experience: 107159, value: 1025 },
+    { level: 22, experience: 119576, value: 1047 },
+    { level: 23, experience: 132938, value: 1062 },
+    { level: 24, experience: 147309, value: 1085 },
+    { level: 25, experience: 162621, value: 1100 },
+    { level: 26, experience: 178929, value: 1122 },
+    { level: 27, experience: 196563, value: 1137 },
+    { level: 28, experience: 215605, value: 1159 },
+    { level: 29, experience: 236149, value: 1182 },
+    { level: 30, experience: 258299, value: 1204 },
+    { level: 31, experience: 281955, value: 1227 },
+    { level: 32, experience: 306759, value: 1249 },
+    { level: 33, experience: 332769, value: 1272 },
+    { level: 34, experience: 360469, value: 1302 },
+    { level: 35, experience: 389943, value: 1324 },
+    { level: 36, experience: 421521, value: 1354 },
+    { level: 37, experience: 455380, value: 1376 },
+    { level: 38, experience: 491055, value: 1406 },
+    { level: 39, experience: 528663, value: 1436 },
+    { level: 40, experience: 568918, value: 1466 },
+    { level: 41, experience: 611541, value: 1496 },
+    { level: 42, experience: 656646, value: 1526 },
+    { level: 43, experience: 704344, value: 1556 },
+    { level: 44, experience: 754748, value: 1593 },
+    { level: 45, experience: 807184, value: 1623 },
+    { level: 46, experience: 862205, value: 1661 },
+    { level: 47, experience: 920936, value: 1698 },
+    { level: 48, experience: 983590, value: 1735 },
+    { level: 49, experience: 1050391, value: 1773 },
+    { level: 50, experience: 1121582, value: 1810 },
+    { level: 51, experience: 1196687, value: 1855 },
+    { level: 52, experience: 1319485, value: 1892 },
+    { level: 53, experience: 1471363, value: 1937 },
+    { level: 54, experience: 1672589, value: 1982 },
+    { level: 55, experience: 1930878, value: 2027 },
+    { level: 56, experience: 2231322, value: 2072 },
+    { level: 57, experience: 2579312, value: 2117 },
+    { level: 58, experience: 2977994, value: 2169 },
+    { level: 59, experience: 3413120, value: 2222 },
+    { level: 60, experience: 3891145, value: 2266 },
+    { level: 61, experience: 4433557, value: 2311 },
+    { level: 62, experience: 5054788, value: 2356 },
+    { level: 63, experience: 5773019, value: 2401 },
+    { level: 64, experience: 6606405, value: 2446 },
+    { level: 65, experience: 7599103, value: 2498 }
+  ],
+  "Simple Chowder": [
+    { level: 1, experience: 0, value: 814 },
+    { level: 2, experience: 1080, value: 830 },
+    { level: 3, experience: 2324, value: 847 },
+    { level: 4, experience: 3936, value: 863 },
+    { level: 5, experience: 5545, value: 879 },
+    { level: 6, experience: 7341, value: 887 },
+    { level: 7, experience: 9712, value: 904 },
+    { level: 8, experience: 12760, value: 920 },
+    { level: 9, experience: 16426, value: 944 },
+    { level: 10, experience: 20791, value: 961 },
+    { level: 11, experience: 25639, value: 969 },
+    { level: 12, experience: 30911, value: 985 },
+    { level: 13, experience: 36621, value: 1001 },
+    { level: 14, experience: 42922, value: 1009 },
+    { level: 15, experience: 49882, value: 1026 },
+    { level: 16, experience: 57551, value: 1042 },
+    { level: 17, experience: 66001, value: 1058 },
+    { level: 18, experience: 75131, value: 1066 },
+    { level: 19, experience: 84981, value: 1083 },
+    { level: 20, experience: 95642, value: 1099 },
+    { level: 21, experience: 107159, value: 1115 },
+    { level: 22, experience: 119576, value: 1140 },
+    { level: 23, experience: 132938, value: 1156 },
+    { level: 24, experience: 147309, value: 1180 },
+    { level: 25, experience: 162621, value: 1197 },
+    { level: 26, experience: 178929, value: 1221 },
+    { level: 27, experience: 196563, value: 1237 },
+    { level: 28, experience: 215605, value: 1262 },
+    { level: 29, experience: 236149, value: 1286 },
+    { level: 30, experience: 258299, value: 1311 },
+    { level: 31, experience: 281955, value: 1335 },
+    { level: 32, experience: 306759, value: 1359 },
+    { level: 33, experience: 332769, value: 1384 },
+    { level: 34, experience: 360469, value: 1416 },
+    { level: 35, experience: 389943, value: 1441 },
+    { level: 36, experience: 421521, value: 1473 },
+    { level: 37, experience: 455380, value: 1498 },
+    { level: 38, experience: 491055, value: 1530 },
+    { level: 39, experience: 528663, value: 1563 },
+    { level: 40, experience: 568918, value: 1595 },
+    { level: 41, experience: 611541, value: 1628 },
+    { level: 42, experience: 656646, value: 1661 },
+    { level: 43, experience: 704344, value: 1693 },
+    { level: 44, experience: 754748, value: 1734 },
+    { level: 45, experience: 807184, value: 1766 },
+    { level: 46, experience: 862205, value: 1807 },
+    { level: 47, experience: 920936, value: 1848 },
+    { level: 48, experience: 983590, value: 1888 },
+    { level: 49, experience: 1050391, value: 1929 },
+    { level: 50, experience: 1121582, value: 1970 },
+    { level: 51, experience: 1196687, value: 2019 },
+    { level: 52, experience: 1319485, value: 2059 },
+    { level: 53, experience: 1471363, value: 2108 },
+    { level: 54, experience: 1672589, value: 2157 },
+    { level: 55, experience: 1930878, value: 2206 },
+    { level: 56, experience: 2231322, value: 2255 },
+    { level: 57, experience: 2579312, value: 2304 },
+    { level: 58, experience: 2977994, value: 2361 },
+    { level: 59, experience: 3413120, value: 2418 },
+    { level: 60, experience: 3891145, value: 2466 },
+    { level: 61, experience: 4433557, value: 2515 },
+    { level: 62, experience: 5054788, value: 2564 },
+    { level: 63, experience: 5773019, value: 2613 },
+    { level: 64, experience: 6606405, value: 2662 },
+    { level: 65, experience: 7599103, value: 2719 }
+  ],
+  "Beanburger Curry": [
+    { level: 1, experience: 0, value: 856 },
+    { level: 2, experience: 1080, value: 873 },
+    { level: 3, experience: 2324, value: 890 },
+    { level: 4, experience: 3936, value: 907 },
+    { level: 5, experience: 5545, value: 924 },
+    { level: 6, experience: 7341, value: 933 },
+    { level: 7, experience: 9712, value: 950 },
+    { level: 8, experience: 12760, value: 967 },
+    { level: 9, experience: 16426, value: 993 },
+    { level: 10, experience: 20791, value: 1010 },
+    { level: 11, experience: 25639, value: 1019 },
+    { level: 12, experience: 30911, value: 1036 },
+    { level: 13, experience: 36621, value: 1053 },
+    { level: 14, experience: 42922, value: 1061 },
+    { level: 15, experience: 49882, value: 1079 },
+    { level: 16, experience: 57551, value: 1096 },
+    { level: 17, experience: 66001, value: 1113 },
+    { level: 18, experience: 75131, value: 1121 },
+    { level: 19, experience: 84981, value: 1138 },
+    { level: 20, experience: 95642, value: 1156 },
+    { level: 21, experience: 107159, value: 1173 },
+    { level: 22, experience: 119576, value: 1198 },
+    { level: 23, experience: 132938, value: 1216 },
+    { level: 24, experience: 147309, value: 1241 },
+    { level: 25, experience: 162621, value: 1258 },
+    { level: 26, experience: 178929, value: 1284 },
+    { level: 27, experience: 196563, value: 1301 },
+    { level: 28, experience: 215605, value: 1327 },
+    { level: 29, experience: 236149, value: 1352 },
+    { level: 30, experience: 258299, value: 1378 },
+    { level: 31, experience: 281955, value: 1404 },
+    { level: 32, experience: 306759, value: 1430 },
+    { level: 33, experience: 332769, value: 1455 },
+    { level: 34, experience: 360469, value: 1489 },
+    { level: 35, experience: 389943, value: 1515 },
+    { level: 36, experience: 421521, value: 1549 },
+    { level: 37, experience: 455380, value: 1575 },
+    { level: 38, experience: 491055, value: 1609 },
+    { level: 39, experience: 528663, value: 1644 },
+    { level: 40, experience: 568918, value: 1678 },
+    { level: 41, experience: 611541, value: 1712 },
+    { level: 42, experience: 656646, value: 1746 },
+    { level: 43, experience: 704344, value: 1780 },
+    { level: 44, experience: 754748, value: 1823 },
+    { level: 45, experience: 807184, value: 1858 },
+    { level: 46, experience: 862205, value: 1900 },
+    { level: 47, experience: 920936, value: 1943 },
+    { level: 48, experience: 983590, value: 1986 },
+    { level: 49, experience: 1050391, value: 2029 },
+    { level: 50, experience: 1121582, value: 2072 },
+    { level: 51, experience: 1196687, value: 2123 },
+    { level: 52, experience: 1319485, value: 2166 },
+    { level: 53, experience: 1471363, value: 2217 },
+    { level: 54, experience: 1672589, value: 2268 },
+    { level: 55, experience: 1930878, value: 2320 },
+    { level: 56, experience: 2231322, value: 2371 },
+    { level: 57, experience: 2579312, value: 2422 },
+    { level: 58, experience: 2977994, value: 2482 },
+    { level: 59, experience: 3413120, value: 2542 },
+    { level: 60, experience: 3891145, value: 2594 },
+    { level: 61, experience: 4433557, value: 2645 },
+    { level: 62, experience: 5054788, value: 2696 },
+    { level: 63, experience: 5773019, value: 2748 },
+    { level: 64, experience: 6606405, value: 2799 },
+    { level: 65, experience: 7599103, value: 2859 }
+  ],
+  "Mild Honey Curry": [
+    { level: 1, experience: 0, value: 839 },
+    { level: 2, experience: 1080, value: 856 },
+    { level: 3, experience: 2324, value: 873 },
+    { level: 4, experience: 3936, value: 889 },
+    { level: 5, experience: 5545, value: 906 },
+    { level: 6, experience: 7341, value: 915 },
+    { level: 7, experience: 9712, value: 931 },
+    { level: 8, experience: 12760, value: 948 },
+    { level: 9, experience: 16426, value: 973 },
+    { level: 10, experience: 20791, value: 990 },
+    { level: 11, experience: 25639, value: 998 },
+    { level: 12, experience: 30911, value: 1015 },
+    { level: 13, experience: 36621, value: 1032 },
+    { level: 14, experience: 42922, value: 1040 },
+    { level: 15, experience: 49882, value: 1057 },
+    { level: 16, experience: 57551, value: 1074 },
+    { level: 17, experience: 66001, value: 1091 },
+    { level: 18, experience: 75131, value: 1099 },
+    { level: 19, experience: 84981, value: 1116 },
+    { level: 20, experience: 95642, value: 1133 },
+    { level: 21, experience: 107159, value: 1149 },
+    { level: 22, experience: 119576, value: 1175 },
+    { level: 23, experience: 132938, value: 1191 },
+    { level: 24, experience: 147309, value: 1217 },
+    { level: 25, experience: 162621, value: 1233 },
+    { level: 26, experience: 178929, value: 1259 },
+    { level: 27, experience: 196563, value: 1275 },
+    { level: 28, experience: 215605, value: 1300 },
+    { level: 29, experience: 236149, value: 1326 },
+    { level: 30, experience: 258299, value: 1351 },
+    { level: 31, experience: 281955, value: 1376 },
+    { level: 32, experience: 306759, value: 1401 },
+    { level: 33, experience: 332769, value: 1426 },
+    { level: 34, experience: 360469, value: 1460 },
+    { level: 35, experience: 389943, value: 1485 },
+    { level: 36, experience: 421521, value: 1519 },
+    { level: 37, experience: 455380, value: 1544 },
+    { level: 38, experience: 491055, value: 1577 },
+    { level: 39, experience: 528663, value: 1611 },
+    { level: 40, experience: 568918, value: 1644 },
+    { level: 41, experience: 611541, value: 1678 },
+    { level: 42, experience: 656646, value: 1712 },
+    { level: 43, experience: 704344, value: 1745 },
+    { level: 44, experience: 754748, value: 1787 },
+    { level: 45, experience: 807184, value: 1821 },
+    { level: 46, experience: 862205, value: 1863 },
+    { level: 47, experience: 920936, value: 1905 },
+    { level: 48, experience: 983590, value: 1946 },
+    { level: 49, experience: 1050391, value: 1988 },
+    { level: 50, experience: 1121582, value: 2030 },
+    { level: 51, experience: 1196687, value: 2081 },
+    { level: 52, experience: 1319485, value: 2123 },
+    { level: 53, experience: 1471363, value: 2173 },
+    { level: 54, experience: 1672589, value: 2223 },
+    { level: 55, experience: 1930878, value: 2274 },
+    { level: 56, experience: 2231322, value: 2324 },
+    { level: 57, experience: 2579312, value: 2374 },
+    { level: 58, experience: 2977994, value: 2433 },
+    { level: 59, experience: 3413120, value: 2492 },
+    { level: 60, experience: 3891145, value: 2542 },
+    { level: 61, experience: 4433557, value: 2593 },
+    { level: 62, experience: 5054788, value: 2643 },
+    { level: 63, experience: 5773019, value: 2693 },
+    { level: 64, experience: 6606405, value: 2744 },
+    { level: 65, experience: 7599103, value: 2802 }
+  ]
+};
+
+const pokemonSeedPath = new URL("../data/pokemon_seed.json", import.meta.url);
+const pokemonSeed = JSON.parse(fs.readFileSync(pokemonSeedPath, "utf8"));
+
+const researchAreas = [
+  { name: "Greengrass Isle", isDefault: 1 },
+  { name: "Cyan Beach", isDefault: 0 },
+  { name: "Taupe Hollow", isDefault: 0 },
+  { name: "Snowdrop Tundra", isDefault: 0 },
+  { name: "Lapis Lakeside", isDefault: 0 },
+  { name: "Old Gold Power Plant", isDefault: 0 },
+  { name: "Amber Canyon", isDefault: 0 }
+];
+
+const pokemonTypes = [
+  "Normal",
+  "Fire",
+  "Water",
+  "Electric",
+  "Grass",
+  "Ice",
+  "Fighting",
+  "Poison",
+  "Ground",
+  "Flying",
+  "Psychic",
+  "Bug",
+  "Rock",
+  "Ghost",
+  "Dragon",
+  "Dark",
+  "Steel",
+  "Fairy"
+];
+
+const berryCatalog = [
+  { name: "Belue Berry" },
+  { name: "Bluk Berry" },
+  { name: "Cheri Berry" },
+  { name: "Chesto Berry" },
+  { name: "Durin Berry" },
+  { name: "Figy Berry" },
+  { name: "Grepa Berry" },
+  { name: "Leppa Berry" },
+  { name: "Lum Berry" },
+  { name: "Mago Berry" },
+  { name: "Oran Berry" },
+  { name: "Pamtre Berry" },
+  { name: "Pecha Berry" },
+  { name: "Persim Berry" },
+  { name: "Rawst Berry" },
+  { name: "Sitrus Berry" },
+  { name: "Wiki Berry" },
+  { name: "Yache Berry" }
+];
+
+const mainSkillCatalog = [
+  {
+    name: "Charge Strength S",
+    effectType: "snorlax_strength",
+    target: "snorlax",
+    notes: "Increases Snorlax's Strength by anywhere from 200 to 800."
+  },
+  {
+    name: "Charge Strength M",
+    effectType: "snorlax_strength",
+    target: "snorlax",
+    notes: "Increases Snorlax's Strength by 880."
+  },
+  {
+    name: "Dream Shard Magnet S",
+    effectType: "dream_shard",
+    target: "player",
+    notes: "Obtain 44 to 176 Dream Shards."
+  },
+  {
+    name: "Energizing Cheer S",
+    effectType: "energy_restore",
+    target: "random_ally",
+    notes: "Restores 14 Energy to another Pokémon chosen at random."
+  },
+  {
+    name: "Charge Energy S",
+    effectType: "energy_restore",
+    target: "self",
+    notes: "Restores 12 Energy to the user."
+  },
+  {
+    name: "Energy for Everyone S",
+    effectType: "energy_restore",
+    target: "team",
+    notes: "Restores 5 Energy to each helper Pokémon on your team."
+  },
+  {
+    name: "Extra Helpful S",
+    effectType: "helper_boost",
+    target: "single_helper",
+    notes: "Instantly gets you x4 the usual help from a helper Pokémon."
+  },
+  {
+    name: "Ingredient Magnet S",
+    effectType: "ingredient_magnet",
+    target: "player",
+    notes: "Gets you 6 ingredients chosen at random."
+  },
+  {
+    name: "Cooking Power-Up S",
+    effectType: "pot_expand",
+    target: "player",
+    notes: "Gives your pot room for 7 more ingredients next time you cook."
+  },
+  {
+    name: "Metronome",
+    effectType: "skill_copy",
+    target: "random_skill",
+    notes: "Uses one randomly chosen main skill."
+  },
+  {
+    name: "Tasty Chance S",
+    effectType: "extra_tasty",
+    target: "player",
+    notes:
+      "Raises your Extra Tasty rate by ??%. The effect lasts until you cook an Extra Tasty dish or change sites. This can stack up to 70% at any one time."
+  },
+  {
+    name: "Helper Boost",
+    effectType: "helper_boost",
+    target: "team",
+    notes:
+      "Instantly gets you x? the usual help from all Pokémon on the team. Meet certain conditions to boost effect. - Each one is different based on the Pokémon"
+  },
+  {
+    name: "Stockpile (Charge Strength S)",
+    effectType: "snorlax_strength",
+    target: "snorlax",
+    notes:
+      "When Spit Up triggers, Snorlax gains strength according to the number of times Stockpile was triggered. After Spit Up Triggers, Stockpile's number resets"
+  },
+  {
+    name: "Disguise (Berry Burst)",
+    effectType: "berry_burst",
+    target: "team",
+    notes:
+      "Gets ? Berries plus ? of each of the Berries other Pokémon on your team collect. May activate Greater Success which drops an increase. It can be activated once per day"
+  },
+  {
+    name: "Moonlight (Charge Energy S)",
+    effectType: "energy_restore",
+    target: "self_or_random_ally",
+    notes:
+      "Restores 12 Energy to the user. Has a chance of restoring 5 energy to another Pokémon"
+  },
+  {
+    name: "Transform (Skill Copy)",
+    effectType: "skill_copy",
+    target: "random_ally",
+    notes:
+      "Copies and performs the main skill of one randomly selected Pokémon on the team."
+  },
+  {
+    name: "Mimic (Skill Copy)",
+    effectType: "skill_copy",
+    target: "random_ally",
+    notes:
+      "Copies and performs the main skill of one randomly selected Pokémon on the team."
+  },
+  {
+    name: "Berry Burst",
+    effectType: "berry_burst",
+    target: "team",
+    notes:
+      "Gets ? Berries plus ? of each of the Berries other Pokémon on your team collect."
+  },
+  {
+    name: "Lunar Blessing (Energy for Everyone S)",
+    effectType: "energy_restore",
+    target: "team",
+    notes:
+      "Restores some Energy to all helper Pokémon on your team plus gives ? of each of the Berries other Pokémon on your team collect."
+  },
+  {
+    name: "Bad Dreams (Charge Strength M)",
+    effectType: "snorlax_strength",
+    target: "snorlax",
+    notes:
+      "Increases Snorlax's Strength by ?, but at the same time, reduces the Energy of helper Pokémon on your team that aren't Dark type by 12."
+  },
+  {
+    name: "Super Luck (Ingredient Draw S)",
+    effectType: "ingredient_draw",
+    target: "player",
+    notes:
+      "Gets one type of ingredient chosen randomly from a specific selection of ingredients. On rare occasions, gets a great number of Dream Shards instead."
+  },
+  {
+    name: "Hyper Cutter (Ingredient Draw S)",
+    effectType: "ingredient_draw",
+    target: "player",
+    notes:
+      "Gets one type of ingredient chosen randomly from a specific selection of ingredients. Sometimes gets more ingredients than usual."
+  },
+  {
+    name: "Minus (Cooking Power-Up S)",
+    effectType: "pot_expand",
+    target: "player",
+    notes:
+      "Gives your cooking pot room for more ingredients next time you cook. Restores Energy to one random Pokémon on your team if there's one or more other Pokémon on the team with the Plus or Minus main skills."
+  },
+  {
+    name: "Plus (Ingredient Magnet S)",
+    effectType: "ingredient_magnet",
+    target: "player",
+    notes:
+      "Gets you ingredients chosen at random. If there's one or more other Pokémon on the team with the Plus or Minus main skills, gets even more ingredients."
+  },
+  {
+    name: "Ingredient Draw S",
+    effectType: "ingredient_draw",
+    target: "player",
+    notes:
+      "Gets one type of ingredient chosen randomly from a specific selection of ingredients."
+  },
+  {
+    name: "Present (Ingredient Magnet S)",
+    effectType: "ingredient_magnet",
+    target: "player",
+    notes:
+      "Gets you ? ingredients chosen at random. Sometimes gets an additional 4 candies for one Pokémon on your team."
+  },
+  {
+    name: "Nuzzle (Energizing Cheer S)",
+    effectType: "energy_restore",
+    target: "random_ally",
+    notes:
+      "Restores ? Energy to one random Pokémon on your team. If you're lucky, that Pokémon will also gain a main skill activation bonus."
+  }
+];
+
+const subSkillCatalog = [
+  {
+    name: "Berry Finding S",
+    description:
+      "Increases the number of Berries this Pokémon finds at one time by 1.",
+    rarity: "Gold",
+    upgradableTo: ""
+  },
+  {
+    name: "Dream Shard Bonus",
+    description:
+      "Boosts the number of Dream Shards you earn from sleep research by 6%.",
+    rarity: "Gold",
+    upgradableTo: ""
+  },
+  {
+    name: "Energy Recovery Bonus",
+    description:
+      "Multiplies the Energy the team recovers from sleep sessions by 1.12.",
+    rarity: "Gold",
+    upgradableTo: ""
+  },
+  {
+    name: "Energy Recovery M",
+    description:
+      "Boosts the Energy this Pokémon recovers from sleep sessions by %.",
+    rarity: "",
+    upgradableTo: ""
+  },
+  {
+    name: "Energy Recovery S",
+    description:
+      "Boosts the Energy this Pokémon recovers from sleep sessions by %.",
+    rarity: "",
+    upgradableTo: ""
+  },
+  {
+    name: "Helping Bonus",
+    description:
+      "Reduces the time needed by team members to help out by 5%.",
+    rarity: "Gold",
+    upgradableTo: ""
+  },
+  {
+    name: "Helping Speed M",
+    description:
+      "Reduces the time needed for this Pokémon to help out by 14%.",
+    rarity: "Silver",
+    upgradableTo: ""
+  },
+  {
+    name: "Helping Speed S",
+    description:
+      "Reduces the time needed for this Pokémon to help out by 7%.",
+    rarity: "White",
+    upgradableTo: "Helping Speed M"
+  },
+  {
+    name: "Ingredient Finder M",
+    description:
+      "Boosts the likelihood of this Pokémon finding ingredients by 36%.",
+    rarity: "Silver",
+    upgradableTo: ""
+  },
+  {
+    name: "Ingredient Finder S",
+    description:
+      "Slightly boosts the likelihood of this Pokémon finding ingredients by 18%.",
+    rarity: "White",
+    upgradableTo: "Ingredient Finder M"
+  },
+  {
+    name: "Inventory Up L",
+    description:
+      "Increases the max number of Berries and ingredients this Pokémon can have by 18.",
+    rarity: "Silver",
+    upgradableTo: ""
+  },
+  {
+    name: "Inventory Up M",
+    description:
+      "Increases the max number of Berries and ingredients this Pokémon can have by 12.",
+    rarity: "Silver",
+    upgradableTo: "Inventory Up L"
+  },
+  {
+    name: "Inventory Up S",
+    description:
+      "Increases the max number of Berries and ingredients this Pokémon can have by 6.",
+    rarity: "White",
+    upgradableTo: "Inventory Up M"
+  },
+  {
+    name: "Research EXP Bonus",
+    description:
+      "Boosts the EXP you earn from doing sleep research by 9%.",
+    rarity: "Gold",
+    upgradableTo: ""
+  },
+  {
+    name: "Skill Level Up M",
+    description: "Boosts the level of this Pokémon's main skill by 2.",
+    rarity: "Gold",
+    upgradableTo: ""
+  },
+  {
+    name: "Skill Level Up S",
+    description: "Boosts the level of this Pokémon's main skill by 1.",
+    rarity: "Silver",
+    upgradableTo: "Skill Level Up M"
+  },
+  {
+    name: "Skill Trigger M",
+    description:
+      "Boosts the chance of this Pokémon's main skill being used by 36%.",
+    rarity: "Silver",
+    upgradableTo: ""
+  },
+  {
+    name: "Skill Trigger S",
+    description:
+      "Slightly boosts the chance of this Pokémon's main skill being used by 18%.",
+    rarity: "White",
+    upgradableTo: "Skill Trigger M"
+  },
+  {
+    name: "Sleep EXP Bonus",
+    description:
+      "Boosts the EXP earned by the team after sleep sessions by 14%.",
+    rarity: "Gold",
+    upgradableTo: ""
+  }
+];
+const natureCatalog = [
+  {
+    name: "Lonely",
+    boostStat: "speed_help",
+    boostPct: 10,
+    reductionStat: "energy_recovery",
+    reductionPct: 12
+  },
+  {
+    name: "Adamant",
+    boostStat: "speed_help",
+    boostPct: 10,
+    reductionStat: "ingredient_finding",
+    reductionPct: 20
+  },
+  {
+    name: "Naughty",
+    boostStat: "speed_help",
+    boostPct: 10,
+    reductionStat: "main_skill_chance",
+    reductionPct: 20
+  },
+  {
+    name: "Brave",
+    boostStat: "speed_help",
+    boostPct: 10,
+    reductionStat: "exp_gains",
+    reductionPct: 18
+  },
+  {
+    name: "Bold",
+    boostStat: "energy_recovery",
+    boostPct: 20,
+    reductionStat: "speed_help",
+    reductionPct: 10
+  },
+  {
+    name: "Impish",
+    boostStat: "energy_recovery",
+    boostPct: 20,
+    reductionStat: "ingredient_finding",
+    reductionPct: 20
+  },
+  {
+    name: "Lax",
+    boostStat: "energy_recovery",
+    boostPct: 20,
+    reductionStat: "main_skill_chance",
+    reductionPct: 20
+  },
+  {
+    name: "Relaxed",
+    boostStat: "energy_recovery",
+    boostPct: 20,
+    reductionStat: "exp_gains",
+    reductionPct: 18
+  },
+  {
+    name: "Modest",
+    boostStat: "ingredient_finding",
+    boostPct: 20,
+    reductionStat: "speed_help",
+    reductionPct: 10
+  },
+  {
+    name: "Mild",
+    boostStat: "ingredient_finding",
+    boostPct: 20,
+    reductionStat: "energy_recovery",
+    reductionPct: 12
+  },
+  {
+    name: "Rash",
+    boostStat: "ingredient_finding",
+    boostPct: 20,
+    reductionStat: "main_skill_chance",
+    reductionPct: 20
+  },
+  {
+    name: "Quiet",
+    boostStat: "ingredient_finding",
+    boostPct: 20,
+    reductionStat: "exp_gains",
+    reductionPct: 18
+  },
+  {
+    name: "Calm",
+    boostStat: "main_skill_chance",
+    boostPct: 20,
+    reductionStat: "speed_help",
+    reductionPct: 10
+  },
+  {
+    name: "Gentle",
+    boostStat: "main_skill_chance",
+    boostPct: 20,
+    reductionStat: "energy_recovery",
+    reductionPct: 12
+  },
+  {
+    name: "Careful",
+    boostStat: "main_skill_chance",
+    boostPct: 20,
+    reductionStat: "ingredient_finding",
+    reductionPct: 20
+  },
+  {
+    name: "Sassy",
+    boostStat: "main_skill_chance",
+    boostPct: 20,
+    reductionStat: "exp_gains",
+    reductionPct: 18
+  },
+  {
+    name: "Timid",
+    boostStat: "exp_gains",
+    boostPct: 18,
+    reductionStat: "speed_help",
+    reductionPct: 10
+  },
+  {
+    name: "Hasty",
+    boostStat: "exp_gains",
+    boostPct: 18,
+    reductionStat: "energy_recovery",
+    reductionPct: 12
+  },
+  {
+    name: "Jolly",
+    boostStat: "exp_gains",
+    boostPct: 18,
+    reductionStat: "ingredient_finding",
+    reductionPct: 20
+  },
+  {
+    name: "Naive",
+    boostStat: "exp_gains",
+    boostPct: 18,
+    reductionStat: "main_skill_chance",
+    reductionPct: 20
+  },
+  {
+    name: "Bashful",
+    boostStat: "none",
+    boostPct: 0,
+    reductionStat: "none",
+    reductionPct: 0
+  },
+  {
+    name: "Hardy",
+    boostStat: "none",
+    boostPct: 0,
+    reductionStat: "none",
+    reductionPct: 0
+  },
+  {
+    name: "Docile",
+    boostStat: "none",
+    boostPct: 0,
+    reductionStat: "none",
+    reductionPct: 0
+  },
+  {
+    name: "Quirky",
+    boostStat: "none",
+    boostPct: 0,
+    reductionStat: "none",
+    reductionPct: 0
+  },
+  {
+    name: "Serious",
+    boostStat: "none",
+    boostPct: 0,
+    reductionStat: "none",
+    reductionPct: 0
+  }
+];
+
 const initDb = async () => {
   await dbRun("PRAGMA journal_mode = WAL");
 
@@ -874,6 +1827,358 @@ const initDb = async () => {
       FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
     );
   `);
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS dish_levels (
+      dish_id INTEGER NOT NULL,
+      level INTEGER NOT NULL,
+      experience INTEGER NOT NULL,
+      value INTEGER NOT NULL,
+      PRIMARY KEY (dish_id, level),
+      FOREIGN KEY (dish_id) REFERENCES dishes(id)
+    );
+  `);
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS pokemon_species (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      dex_no INTEGER NOT NULL UNIQUE,
+      name TEXT NOT NULL UNIQUE,
+      primary_type TEXT,
+      secondary_type TEXT,
+      specialty TEXT
+    );
+  `);
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS pokemon_types (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL UNIQUE
+    );
+  `);
+
+  const speciesColumns = await dbAll("pragma table_info(pokemon_species)");
+  const hasSpecialty = speciesColumns.some(
+    (column) => column.name === "specialty"
+  );
+  if (!hasSpecialty) {
+    await dbRun("alter table pokemon_species add column specialty text");
+  }
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS pokemon_variants (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      species_id INTEGER NOT NULL,
+      variant_key TEXT NOT NULL,
+      variant_name TEXT NOT NULL,
+      is_default INTEGER NOT NULL DEFAULT 0,
+      is_event INTEGER NOT NULL DEFAULT 0,
+      notes TEXT,
+      UNIQUE (species_id, variant_key),
+      FOREIGN KEY (species_id) REFERENCES pokemon_species(id)
+    );
+  `);
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS pokemon_box (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      species_id INTEGER NOT NULL,
+      variant_id INTEGER NOT NULL,
+      nature_id INTEGER,
+      nickname TEXT,
+      level INTEGER NOT NULL DEFAULT 1,
+      main_skill_level INTEGER NOT NULL DEFAULT 1,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      FOREIGN KEY (species_id) REFERENCES pokemon_species(id),
+      FOREIGN KEY (variant_id) REFERENCES pokemon_variants(id),
+      FOREIGN KEY (nature_id) REFERENCES natures(id)
+    );
+  `);
+
+  const boxColumns = await dbAll("pragma table_info(pokemon_box)");
+  const hasNickname = boxColumns.some((column) => column.name === "nickname");
+  if (!hasNickname) {
+    await dbRun("alter table pokemon_box add column nickname text");
+  }
+  const hasLevel = boxColumns.some((column) => column.name === "level");
+  if (!hasLevel) {
+    await dbRun("alter table pokemon_box add column level integer default 1");
+  }
+  const hasMainSkillLevel = boxColumns.some(
+    (column) => column.name === "main_skill_level"
+  );
+  if (!hasMainSkillLevel) {
+    await dbRun(
+      "alter table pokemon_box add column main_skill_level integer default 1"
+    );
+  }
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS berries (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL UNIQUE
+    );
+  `);
+
+  const berryColumns = await dbAll("pragma table_info(berries)");
+  const hasDescription = berryColumns.some(
+    (column) => column.name === "description"
+  );
+  if (hasDescription) {
+    await dbRun("alter table berries rename to berries_old");
+    await dbRun(`
+      CREATE TABLE berries (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL UNIQUE
+      );
+    `);
+    await dbRun(`
+      insert into berries (name)
+      select name from berries_old
+    `);
+    await dbRun("drop table berries_old");
+  }
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS pokemon_variant_berries (
+      variant_id INTEGER NOT NULL,
+      berry_id INTEGER NOT NULL,
+      quantity INTEGER NOT NULL DEFAULT 1,
+      PRIMARY KEY (variant_id, berry_id),
+      FOREIGN KEY (variant_id) REFERENCES pokemon_variants(id),
+      FOREIGN KEY (berry_id) REFERENCES berries(id)
+    );
+  `);
+
+  const variantBerryColumns = await dbAll(
+    "pragma table_info(pokemon_variant_berries)"
+  );
+  const hasBerryQuantity = variantBerryColumns.some(
+    (column) => column.name === "quantity"
+  );
+  if (!hasBerryQuantity) {
+    await dbRun("alter table pokemon_variant_berries rename to berries_old");
+    await dbRun(`
+      CREATE TABLE pokemon_variant_berries (
+        variant_id INTEGER NOT NULL,
+        berry_id INTEGER NOT NULL,
+        quantity INTEGER NOT NULL DEFAULT 1,
+        PRIMARY KEY (variant_id, berry_id),
+        FOREIGN KEY (variant_id) REFERENCES pokemon_variants(id),
+        FOREIGN KEY (berry_id) REFERENCES berries(id)
+      );
+    `);
+    await dbRun(`
+      insert into pokemon_variant_berries (variant_id, berry_id, quantity)
+      select variant_id, berry_id, 1 from berries_old
+    `);
+    await dbRun("drop table berries_old");
+  }
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS pokemon_variant_ingredients (
+      variant_id INTEGER NOT NULL,
+      ingredient_id INTEGER NOT NULL,
+      unlock_level INTEGER NOT NULL DEFAULT 1,
+      PRIMARY KEY (variant_id, ingredient_id),
+      FOREIGN KEY (variant_id) REFERENCES pokemon_variants(id),
+      FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
+    );
+  `);
+
+  const variantIngredientColumns = await dbAll(
+    "pragma table_info(pokemon_variant_ingredients)"
+  );
+  const hasUnlockLevel = variantIngredientColumns.some(
+    (column) => column.name === "unlock_level"
+  );
+  if (!hasUnlockLevel) {
+    await dbRun(
+      "alter table pokemon_variant_ingredients rename to pokemon_variant_ingredients_old"
+    );
+    await dbRun(`
+      CREATE TABLE pokemon_variant_ingredients (
+        variant_id INTEGER NOT NULL,
+        ingredient_id INTEGER NOT NULL,
+        unlock_level INTEGER NOT NULL DEFAULT 1,
+        PRIMARY KEY (variant_id, ingredient_id),
+        FOREIGN KEY (variant_id) REFERENCES pokemon_variants(id),
+        FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
+      );
+    `);
+    await dbRun(`
+      insert into pokemon_variant_ingredients (variant_id, ingredient_id, unlock_level)
+      select variant_id, ingredient_id, 1 from pokemon_variant_ingredients_old
+    `);
+    await dbRun("drop table pokemon_variant_ingredients_old");
+  }
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS pokemon_variant_stats (
+      variant_id INTEGER PRIMARY KEY,
+      base_frequency TEXT,
+      carry_limit INTEGER,
+      friendship_points_needed INTEGER,
+      recruit_experience INTEGER,
+      recruit_shards INTEGER,
+      FOREIGN KEY (variant_id) REFERENCES pokemon_variants(id)
+    );
+  `);
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS pokemon_variant_main_skills (
+      variant_id INTEGER PRIMARY KEY,
+      main_skill_id INTEGER NOT NULL,
+      FOREIGN KEY (variant_id) REFERENCES pokemon_variants(id),
+      FOREIGN KEY (main_skill_id) REFERENCES main_skills(id)
+    );
+  `);
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS pokemon_sub_skills (
+      species_id INTEGER NOT NULL,
+      sub_skill_id INTEGER NOT NULL,
+      unlock_level INTEGER NOT NULL DEFAULT 1,
+      PRIMARY KEY (species_id, sub_skill_id),
+      FOREIGN KEY (species_id) REFERENCES pokemon_species(id),
+      FOREIGN KEY (sub_skill_id) REFERENCES sub_skills(id)
+    );
+  `);
+
+  const mainSkillLinkColumns = await dbAll(
+    "pragma table_info(pokemon_variant_main_skills)"
+  );
+  const variantIdColumn = mainSkillLinkColumns.find(
+    (column) => column.name === "variant_id"
+  );
+  const isSingleSkill = variantIdColumn?.pk === 1;
+  if (mainSkillLinkColumns.length > 0 && !isSingleSkill) {
+    await dbRun(
+      "alter table pokemon_variant_main_skills rename to pokemon_variant_main_skills_old"
+    );
+    await dbRun(`
+      CREATE TABLE pokemon_variant_main_skills (
+        variant_id INTEGER PRIMARY KEY,
+        main_skill_id INTEGER NOT NULL,
+        FOREIGN KEY (variant_id) REFERENCES pokemon_variants(id),
+        FOREIGN KEY (main_skill_id) REFERENCES main_skills(id)
+      );
+    `);
+    await dbRun(`
+      insert into pokemon_variant_main_skills (variant_id, main_skill_id)
+      select variant_id, min(main_skill_id)
+      from pokemon_variant_main_skills_old
+      group by variant_id
+    `);
+    await dbRun("drop table pokemon_variant_main_skills_old");
+  }
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS research_areas (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL UNIQUE,
+      is_default INTEGER NOT NULL DEFAULT 0
+    );
+  `);
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS research_area_favorite_berries (
+      area_id INTEGER NOT NULL,
+      slot INTEGER NOT NULL,
+      berry_id INTEGER,
+      PRIMARY KEY (area_id, slot),
+      FOREIGN KEY (area_id) REFERENCES research_areas(id),
+      FOREIGN KEY (berry_id) REFERENCES berries(id)
+    );
+  `);
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS main_skills (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL UNIQUE,
+      effect_type TEXT NOT NULL,
+      target TEXT NOT NULL,
+      notes TEXT
+    );
+  `);
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS sub_skills (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL UNIQUE,
+      description TEXT,
+      rarity TEXT,
+      upgradable_to TEXT
+    );
+  `);
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS main_skill_levels (
+      skill_id INTEGER NOT NULL,
+      level INTEGER NOT NULL,
+      value_min INTEGER,
+      value_max INTEGER,
+      notes TEXT,
+      PRIMARY KEY (skill_id, level),
+      FOREIGN KEY (skill_id) REFERENCES main_skills(id)
+    );
+  `);
+
+  const mainSkillColumns = await dbAll("pragma table_info(main_skills)");
+  const hasEffectType = mainSkillColumns.some(
+    (column) => column.name === "effect_type"
+  );
+  if (!hasEffectType) {
+    await dbRun("alter table main_skills rename to main_skills_old");
+    await dbRun(`
+      CREATE TABLE main_skills (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL UNIQUE,
+        effect_type TEXT NOT NULL,
+        target TEXT NOT NULL,
+        notes TEXT
+      );
+    `);
+    await dbRun(`
+      insert into main_skills (name, effect_type, target, notes)
+      select name, 'unknown', 'unknown', description from main_skills_old
+    `);
+    await dbRun("drop table main_skills_old");
+  }
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS natures (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL UNIQUE,
+      boost_stat TEXT NOT NULL,
+      boost_pct INTEGER NOT NULL,
+      reduction_stat TEXT NOT NULL,
+      reduction_pct INTEGER NOT NULL
+    );
+  `);
+
+  const natureColumns = await dbAll("pragma table_info(natures)");
+  const hasBoostStat = natureColumns.some(
+    (column) => column.name === "boost_stat"
+  );
+  if (!hasBoostStat) {
+    await dbRun("alter table natures rename to natures_old");
+    await dbRun(`
+      CREATE TABLE natures (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL UNIQUE,
+        boost_stat TEXT NOT NULL,
+        boost_pct INTEGER NOT NULL,
+        reduction_stat TEXT NOT NULL,
+        reduction_pct INTEGER NOT NULL
+      );
+    `);
+    await dbRun(`
+      insert into natures (name, boost_stat, boost_pct, reduction_stat, reduction_pct)
+      select name, 'none', 0, 'none', 0 from natures_old
+    `);
+    await dbRun("drop table natures_old");
+  }
 
   await dbRun(`
     CREATE TABLE IF NOT EXISTS bag_ingredients (
@@ -923,6 +2228,268 @@ const initDb = async () => {
     }
   }
 
+  for (const [dishName, levels] of Object.entries(dishLevelData)) {
+    const dishRow = await dbGet("select id from dishes where name = ?", [
+      dishName
+    ]);
+    if (!dishRow) {
+      continue;
+    }
+    for (const entry of levels) {
+      await dbRun(
+        `insert or ignore into dish_levels
+         (dish_id, level, experience, value)
+         values (?, ?, ?, ?)`,
+        [dishRow.id, entry.level, entry.experience, entry.value]
+      );
+    }
+  }
+
+  for (const pokemon of pokemonSeed.species || []) {
+    await dbRun(
+      `insert or ignore into pokemon_species
+       (dex_no, name, primary_type, specialty)
+       values (?, ?, ?, ?)`,
+      [pokemon.dexNo, pokemon.name, pokemon.primaryType, pokemon.specialty]
+    );
+    const speciesRow = await dbGet(
+      "select id from pokemon_species where name = ?",
+      [pokemon.name]
+    );
+    for (const variant of pokemon.variants) {
+      await dbRun(
+        `insert or ignore into pokemon_variants
+         (species_id, variant_key, variant_name, is_default, is_event, notes)
+         values (?, ?, ?, ?, ?, ?)`,
+        [
+          speciesRow.id,
+          variant.key,
+          variant.name,
+          variant.isDefault,
+          variant.isEvent,
+          variant.notes
+        ]
+      );
+    }
+  }
+
+  for (const area of researchAreas) {
+    await dbRun(
+      "insert or ignore into research_areas (name, is_default) values (?, ?)",
+      [area.name, area.isDefault]
+    );
+  }
+
+  for (const typeName of pokemonTypes) {
+    await dbRun(
+      "insert or ignore into pokemon_types (name) values (?)",
+      [typeName]
+    );
+  }
+
+  await dbRun(`
+    delete from pokemon_types
+    where name not in (${pokemonTypes.map(() => "?").join(", ")})
+  `, pokemonTypes);
+
+  await dbRun(`
+    delete from research_areas
+    where name not in (${researchAreas.map(() => "?").join(", ")})
+  `, researchAreas.map((area) => area.name));
+
+  const defaultArea = await dbGet(
+    "select id from research_areas where is_default = 1 limit 1"
+  );
+  if (!defaultArea) {
+    const firstArea = await dbGet(
+      "select id from research_areas order by id limit 1"
+    );
+    if (firstArea) {
+      await dbRun("update research_areas set is_default = 1 where id = ?", [
+        firstArea.id
+      ]);
+    }
+  }
+
+  for (const berry of berryCatalog) {
+    await dbRun(
+      "insert or ignore into berries (name) values (?)",
+      [berry.name]
+    );
+  }
+
+  await dbRun(`
+    delete from berries
+    where name not in (${berryCatalog.map(() => "?").join(", ")})
+  `, berryCatalog.map((berry) => berry.name));
+
+  for (const skill of mainSkillCatalog) {
+    await dbRun(
+      `insert into main_skills (name, effect_type, target, notes)
+       values (?, ?, ?, ?)
+       on conflict(name) do update set
+         effect_type = excluded.effect_type,
+         target = excluded.target,
+         notes = excluded.notes`,
+      [skill.name, skill.effectType, skill.target, skill.notes]
+    );
+  }
+
+  await dbRun(`
+    delete from main_skills
+    where name not in (${mainSkillCatalog.map(() => "?").join(", ")})
+  `, mainSkillCatalog.map((skill) => skill.name));
+
+  const berryByName = new Map(
+    (await dbAll("select id, name from berries")).map((row) => [row.name, row])
+  );
+  const ingredientByName = new Map(
+    (await dbAll("select id, name from ingredients")).map((row) => [
+      row.name,
+      row
+    ])
+  );
+  const skillByName = new Map(
+    (await dbAll("select id, name from main_skills")).map((row) => [
+      row.name,
+      row
+    ])
+  );
+
+  for (const pokemon of pokemonSeed.species || []) {
+    const speciesRow = await dbGet(
+      "select id from pokemon_species where name = ?",
+      [pokemon.name]
+    );
+    if (!speciesRow) {
+      continue;
+    }
+    for (const variant of pokemon.variants || []) {
+      const variantRow = await dbGet(
+        `select id from pokemon_variants
+         where species_id = ? and variant_key = ?`,
+        [speciesRow.id, variant.key]
+      );
+      if (!variantRow) {
+        continue;
+      }
+      if (variant.stats) {
+        await dbRun(
+          `insert or replace into pokemon_variant_stats
+           (variant_id, base_frequency, carry_limit, friendship_points_needed, recruit_experience, recruit_shards)
+           values (?, ?, ?, ?, ?, ?)`,
+          [
+            variantRow.id,
+            variant.stats.baseFrequency,
+            variant.stats.carryLimit,
+            variant.stats.friendshipPointsNeeded,
+            variant.stats.recruitExperience,
+            variant.stats.recruitShards
+          ]
+        );
+      }
+      for (const berry of variant.berries || []) {
+        const berryRow = berryByName.get(berry.name);
+        if (!berryRow) {
+          continue;
+        }
+        await dbRun(
+          `insert or replace into pokemon_variant_berries
+           (variant_id, berry_id, quantity)
+           values (?, ?, ?)`,
+          [variantRow.id, berryRow.id, berry.quantity || 1]
+        );
+      }
+      for (const ingredient of variant.ingredients || []) {
+        const ingredientRow = ingredientByName.get(ingredient.name);
+        if (!ingredientRow) {
+          continue;
+        }
+        await dbRun(
+          `insert or replace into pokemon_variant_ingredients
+           (variant_id, ingredient_id, unlock_level)
+           values (?, ?, ?)`,
+          [
+            variantRow.id,
+            ingredientRow.id,
+            ingredient.unlockLevel || 1
+          ]
+        );
+      }
+      if (variant.mainSkill) {
+        const skillRow = skillByName.get(variant.mainSkill);
+        if (skillRow) {
+          await dbRun(
+            `insert or replace into pokemon_variant_main_skills
+             (variant_id, main_skill_id)
+             values (?, ?)`,
+            [variantRow.id, skillRow.id]
+          );
+        }
+      }
+    }
+  }
+
+  for (const skill of subSkillCatalog) {
+    await dbRun(
+      "insert or ignore into sub_skills (name, description, rarity, upgradable_to) values (?, ?, ?, ?)",
+      [skill.name, skill.description, skill.rarity, skill.upgradableTo]
+    );
+  }
+
+  await dbRun(`
+    delete from sub_skills
+    where name not in (${subSkillCatalog.map(() => "?").join(", ")})
+  `, subSkillCatalog.map((skill) => skill.name));
+
+  const subSkillByName = new Map(
+    (await dbAll("select id, name from sub_skills")).map((row) => [
+      row.name,
+      row
+    ])
+  );
+  for (const pokemon of pokemonSeed.species || []) {
+    const speciesRow = await dbGet(
+      "select id from pokemon_species where name = ?",
+      [pokemon.name]
+    );
+    if (!speciesRow) {
+      continue;
+    }
+    for (const subSkill of pokemon.subSkills || []) {
+      const subSkillRow = subSkillByName.get(subSkill.name);
+      if (!subSkillRow) {
+        continue;
+      }
+      await dbRun(
+        `insert or replace into pokemon_sub_skills
+         (species_id, sub_skill_id, unlock_level)
+         values (?, ?, ?)`,
+        [speciesRow.id, subSkillRow.id, subSkill.unlockLevel || 1]
+      );
+    }
+  }
+
+  for (const nature of natureCatalog) {
+    await dbRun(
+      `insert into natures
+       (name, boost_stat, boost_pct, reduction_stat, reduction_pct)
+       values (?, ?, ?, ?, ?)
+       on conflict(name) do update set
+         boost_stat = excluded.boost_stat,
+         boost_pct = excluded.boost_pct,
+         reduction_stat = excluded.reduction_stat,
+         reduction_pct = excluded.reduction_pct`,
+      [
+        nature.name,
+        nature.boostStat,
+        nature.boostPct,
+        nature.reductionStat,
+        nature.reductionPct
+      ]
+    );
+  }
+
   const bagColumns = await dbAll("pragma table_info(bag_ingredients)");
   const hasIngredientId = bagColumns.some(
     (column) => column.name === "ingredient_id"
@@ -954,7 +2521,10 @@ const initDb = async () => {
     "insert or ignore into settings (key, value) values (?, ?)",
     ["item_limit", "100"]
   );
-
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["pokemon_box_limit", "80"]
+  );
 };
 
 export { dbAll, dbGet, dbRun, initDb };
