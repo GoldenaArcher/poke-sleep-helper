@@ -58,18 +58,6 @@ const PokedexView = () => {
                       {species.specialty || "—"}
                     </span>
                   </div>
-                  <div className="variant-list">
-                    {species.variants.map((variant) => (
-                      <span
-                        key={variant.id}
-                        className={`variant-chip ${
-                          variant.is_event ? "event" : ""
-                        }`}
-                      >
-                        {variant.variant_name}
-                      </span>
-                    ))}
-                  </div>
                 </div>
               </div>
             </Link>
@@ -128,13 +116,22 @@ const getIngredientImage = (name) =>
 const VariantCard = ({ variant }) => (
   <div className="variant-card">
     <div className="variant-top">
-      {variant.image_path && (
-        <img
-          className="variant-preview"
-          src={variant.image_path}
-          alt={variant.variant_name}
-        />
-      )}
+      <div className="variant-preview-stack">
+        {variant.image_path && (
+          <img
+            className="variant-preview"
+            src={variant.image_path}
+            alt={variant.variant_name}
+          />
+        )}
+        {variant.shiny_image_path && (
+          <img
+            className="variant-preview shiny"
+            src={variant.shiny_image_path}
+            alt={`${variant.variant_name} shiny`}
+          />
+        )}
+      </div>
       <div className="variant-body">
         <div className="variant-header">
           <h4>{variant.variant_name}</h4>

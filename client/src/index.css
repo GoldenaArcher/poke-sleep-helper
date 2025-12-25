@@ -275,6 +275,12 @@ button {
   margin-top: 8px;
 }
 
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .ingredient-preview-row {
   display: flex;
   align-items: center;
@@ -647,24 +653,6 @@ button {
   object-fit: contain;
 }
 
-.variant-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.variant-chip {
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: #e2e8f0;
-  color: #334155;
-}
-
-.variant-chip.event {
-  background: #fde68a;
-  color: #92400e;
-}
 
 .box-form {
   display: grid;
@@ -920,6 +908,17 @@ button {
   border: 1px solid #e2e8f0;
   background: #f8fafc;
   object-fit: contain;
+}
+
+.variant-preview-stack {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.variant-preview.shiny {
+  border-color: #fde68a;
+  box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.25);
 }
 
 .variant-card.active {

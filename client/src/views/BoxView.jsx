@@ -4,6 +4,7 @@ import {
   IoInformationCircleOutline,
   IoTrashOutline
 } from "react-icons/io5";
+import SearchSelect from "../components/SearchSelect.jsx";
 import useBagStore from "../stores/useBagStore.js";
 import useNaturesStore from "../stores/useNaturesStore.js";
 import usePokedexStore from "../stores/usePokedexStore.js";
@@ -30,8 +31,10 @@ const BoxView = () => {
     natureId: "",
     nickname: "",
     level: "1",
-    mainSkillLevel: "1"
+    mainSkillLevel: "1",
+    isShiny: false
   });
+  const [speciesSearch, setSpeciesSearch] = useState("");
   const [boxDetailDraft, setBoxDetailDraft] = useState(null);
   const ingredientSlotLevels = [1, 30, 60];
   const subSkillSlotLevels = [10, 25, 50, 75, 100];
@@ -61,6 +64,7 @@ const BoxView = () => {
         typeof boxDetail.entry.main_skill_value === "number"
           ? boxDetail.entry.main_skill_value
           : "",
+      isShiny: Boolean(boxDetail.entry.is_shiny),
       ingredientSlots: ingredientSlotLevels.map((slotLevel, i) => {
         const slot = ingredientSlotMap.get(slotLevel);
         return {
@@ -84,6 +88,35 @@ const BoxView = () => {
     (species) => String(species.id) === String(newBoxEntry.speciesId)
   );
   const availableVariants = selectedSpecies?.variants || [];
+  const speciesOptions = pokedex.map((species) => ({
+    id: species.id,
+    label: `#${String(species.dex_no).padStart(3, "0")} ${species.name}`,
+    variants: species.variants || []
+  }));
+
+  const handleSpeciesChange = (event) => {
+    const nextValue = event.target.value;
+    setSpeciesSearch(nextValue);
+    const matched = speciesOptions.find(
+      (option) => option.label === nextValue
+    );
+    if (!matched) {
+      setNewBoxEntry((prev) => ({
+        ...prev,
+        speciesId: "",
+        variantId: ""
+      }));
+      return;
+    }
+    const defaultVariant = matched.variants.find(
+      (variant) => variant.is_default
+    );
+    setNewBoxEntry((prev) => ({
+      ...prev,
+      speciesId: String(matched.id),
+      variantId: defaultVariant?.id || ""
+    }));
+  };
 
   const handleRemove = async (entryId) => {
     const confirmed = window.confirm(
@@ -105,7 +138,8 @@ const BoxView = () => {
       natureId: newBoxEntry.natureId ? Number(newBoxEntry.natureId) : null,
       nickname: newBoxEntry.nickname || null,
       level: Number(newBoxEntry.level) || 1,
-      mainSkillLevel: Number(newBoxEntry.mainSkillLevel) || 1
+      mainSkillLevel: Number(newBoxEntry.mainSkillLevel) || 1,
+      isShiny: newBoxEntry.isShiny
     });
     setNewBoxEntry({
       speciesId: "",
@@ -113,8 +147,10 @@ const BoxView = () => {
       natureId: "",
       nickname: "",
       level: "1",
-      mainSkillLevel: "1"
+      mainSkillLevel: "1",
+      isShiny: false
     });
+    setSpeciesSearch("");
   };
 
   const saveBoxDetail = async () => {
@@ -132,6 +168,7 @@ const BoxView = () => {
         boxDetailDraft.mainSkillValue === ""
           ? null
           : Number(boxDetailDraft.mainSkillValue),
+      isShiny: boxDetailDraft.isShiny,
       ingredients: boxDetailDraft.ingredientSlots.map((slot) => ({
         slotLevel: slot.slotLevel,
         ingredientId: slot.ingredientId ? Number(slot.ingredientId) : null,
@@ -157,32 +194,14 @@ const BoxView = () => {
       <section className="card">
         <div className="box-form">
           <label>
-            Species
-            <select
-              value={newBoxEntry.speciesId}
-              onChange={(event) =>
-                setNewBoxEntry((prev) => ({
-                  ...prev,
-                  speciesId: event.target.value,
-                  variantId:
-                    pokedex
-                      .find(
-                        (species) =>
-                          String(species.id) ===
-                          String(event.target.value)
-                      )
-                      ?.variants?.find((variant) => variant.is_default)
-                      ?.id || ""
-                }))
-              }
-            >
-              <option value="">Select species</option>
-              {pokedex.map((species) => (
-                <option key={species.id} value={species.id}>
-                  #{String(species.dex_no).padStart(3, "0")} {species.name}
-                </option>
-              ))}
-            </select>
+            <SearchSelect
+              label="Species"
+              value={speciesSearch}
+              onChange={handleSpeciesChange}
+              options={speciesOptions.map((option) => option.label)}
+              placeholder="Select species"
+              listId="box-species-options"
+            />
           </label>
           <label>
             Variant
@@ -265,6 +284,19 @@ const BoxView = () => {
               }
             />
           </label>
+          <label className="checkbox-field">
+            Shiny
+            <input
+              type="checkbox"
+              checked={newBoxEntry.isShiny}
+              onChange={(event) =>
+                setNewBoxEntry((prev) => ({
+                  ...prev,
+                  isShiny: event.target.checked
+                }))
+              }
+            />
+          </label>
           <button className="button" onClick={handleAddToBox}>
             Add to box
           </button>
@@ -287,7 +319,15 @@ const BoxView = () => {
                 {entry.variant_image_path ? (
                   <img
                     className="box-preview-img"
-                    src={entry.variant_image_path}
+                    src={
+                      entry.is_shiny
+                        ? entry.variant_shiny_image_path ||
+                          entry.variant_image_path.replace(
+                            /\.png$/i,
+                            "-shiny.png"
+                          )
+                        : entry.variant_image_path
+                    }
                     alt={entry.variant_name || entry.species_name}
                   />
                 ) : null}
@@ -459,6 +499,19 @@ const BoxView = () => {
                       setBoxDetailDraft((prev) => ({
                         ...prev,
                         mainSkillLevel: event.target.value
+                      }))
+                    }
+                  />
+                </label>
+                <label className="checkbox-field">
+                  Shiny
+                  <input
+                    type="checkbox"
+                    checked={boxDetailDraft.isShiny}
+                    onChange={(event) =>
+                      setBoxDetailDraft((prev) => ({
+                        ...prev,
+                        isShiny: event.target.checked
                       }))
                     }
                   />

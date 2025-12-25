@@ -214,6 +214,14 @@ const initDb = async () => {
   if (!hasVariantImage) {
     await dbRun("alter table pokemon_variants add column image_path text");
   }
+  const hasVariantShinyImage = variantColumns.some(
+    (column) => column.name === "shiny_image_path"
+  );
+  if (!hasVariantShinyImage) {
+    await dbRun(
+      "alter table pokemon_variants add column shiny_image_path text"
+    );
+  }
 
   await dbRun(`
     CREATE TABLE IF NOT EXISTS pokemon_box (
@@ -276,6 +284,12 @@ const initDb = async () => {
   );
   if (!hasMainSkillValue) {
     await dbRun("alter table pokemon_box add column main_skill_value integer");
+  }
+  const hasShiny = boxColumns.some((column) => column.name === "is_shiny");
+  if (!hasShiny) {
+    await dbRun(
+      "alter table pokemon_box add column is_shiny integer default 0"
+    );
   }
 
   await dbRun(`
@@ -664,10 +678,13 @@ const initDb = async () => {
         : `/uploads/pokemons/${pokemon.dexNo}${
             variant.key === "default" ? "" : `-${variant.key}`
           }.png`;
+      const shinyImage = variant.shinyImage
+        ? `/uploads/pokemons/${variant.shinyImage}`
+        : null;
       await dbRun(
         `insert or ignore into pokemon_variants
-         (species_id, variant_key, variant_name, is_default, is_event, notes, image_path)
-         values (?, ?, ?, ?, ?, ?, ?)`,
+         (species_id, variant_key, variant_name, is_default, is_event, notes, image_path, shiny_image_path)
+         values (?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           speciesRow.id,
           variant.key,
@@ -675,7 +692,8 @@ const initDb = async () => {
           variant.isDefault,
           variant.isEvent,
           variant.notes,
-          detailImage
+          detailImage,
+          shinyImage
         ]
       );
       await dbRun(
@@ -684,7 +702,8 @@ const initDb = async () => {
              is_default = ?,
              is_event = ?,
              notes = ?,
-             image_path = ?
+             image_path = ?,
+             shiny_image_path = ?
          where species_id = ? and variant_key = ?`,
         [
           variant.name,
@@ -692,6 +711,7 @@ const initDb = async () => {
           variant.isEvent,
           variant.notes,
           detailImage,
+          shinyImage,
           speciesRow.id,
           variant.key
         ]
@@ -1076,6 +1096,9 @@ const initDb = async () => {
         : `/uploads/pokemons/${pokemon.dexNo}${
             variant.key === "default" ? "" : `-${variant.key}`
           }.png`;
+      const shinyImage = variant.shinyImage
+        ? `/uploads/pokemons/${variant.shinyImage}`
+        : null;
       await dbRun(
         `update pokemon_variants
          set image_path = ?
@@ -1084,6 +1107,16 @@ const initDb = async () => {
          ) and (image_path is null or image_path = "")`,
         [detailImage, variant.key, pokemon.name]
       );
+      if (shinyImage) {
+        await dbRun(
+          `update pokemon_variants
+           set shiny_image_path = ?
+           where variant_key = ? and species_id = (
+             select id from pokemon_species where name = ?
+           ) and (shiny_image_path is null or shiny_image_path = "")`,
+          [shinyImage, variant.key, pokemon.name]
+        );
+      }
     }
   }
 
@@ -1225,10 +1258,13 @@ const seedPokemonData = async () => {
         : `/uploads/pokemons/${pokemon.dexNo}${
             variant.key === "default" ? "" : `-${variant.key}`
           }.png`;
+      const shinyImage = variant.shinyImage
+        ? `/uploads/pokemons/${variant.shinyImage}`
+        : null;
       await dbRun(
         `insert or ignore into pokemon_variants
-         (species_id, variant_key, variant_name, is_default, is_event, notes, image_path)
-         values (?, ?, ?, ?, ?, ?, ?)`,
+         (species_id, variant_key, variant_name, is_default, is_event, notes, image_path, shiny_image_path)
+         values (?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           speciesRow.id,
           variant.key,
@@ -1236,7 +1272,8 @@ const seedPokemonData = async () => {
           variant.isDefault,
           variant.isEvent,
           variant.notes,
-          detailImage
+          detailImage,
+          shinyImage
         ]
       );
       await dbRun(
@@ -1245,7 +1282,8 @@ const seedPokemonData = async () => {
              is_default = ?,
              is_event = ?,
              notes = ?,
-             image_path = ?
+             image_path = ?,
+             shiny_image_path = ?
          where species_id = ? and variant_key = ?`,
         [
           variant.name,
@@ -1253,6 +1291,7 @@ const seedPokemonData = async () => {
           variant.isEvent,
           variant.notes,
           detailImage,
+          shinyImage,
           speciesRow.id,
           variant.key
         ]

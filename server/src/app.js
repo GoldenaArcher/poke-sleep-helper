@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import db, { dbAll, dbGet, dbRun, initDb } from "./db.js";
+import db, { dbAll, dbGet, dbRun } from "./db.js";
 
 dotenv.config();
 
@@ -14,14 +14,6 @@ app.use(express.json());
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const uploadsPath = path.resolve(__dirname, "..", "uploads");
 app.use("/uploads", express.static(uploadsPath));
-
-initDb()
-  .then(() => {
-    console.log("SQLite initialized");
-  })
-  .catch((error) => {
-    console.error("SQLite initialization error", error);
-  });
 
 app.get("/api/health", async (req, res) => {
   try {
@@ -420,7 +412,7 @@ app.get("/api/pokedex", async (req, res) => {
        order by pokemon_species.dex_no`
     );
     const variantRows = await dbAll(
-      `select id, species_id, variant_key, variant_name, is_default, is_event, notes, image_path
+      `select id, species_id, variant_key, variant_name, is_default, is_event, notes, image_path, shiny_image_path
        from pokemon_variants
        order by variant_name`
     );
@@ -470,7 +462,7 @@ app.get("/api/pokedex/:id", async (req, res) => {
       return;
     }
     const variants = await dbAll(
-      `select id, variant_key, variant_name, is_default, is_event, notes, image_path
+      `select id, variant_key, variant_name, is_default, is_event, notes, image_path, shiny_image_path
        from pokemon_variants
        where species_id = ?
        order by variant_name`,
@@ -585,6 +577,7 @@ app.get("/api/pokemon-box", async (req, res) => {
               pokemon_box.level,
               pokemon_box.main_skill_level,
               pokemon_box.main_skill_value,
+              pokemon_box.is_shiny,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
               pokemon_species.primary_type as primary_type,
@@ -594,6 +587,7 @@ app.get("/api/pokemon-box", async (req, res) => {
               secondary_types.image_path as secondary_type_image,
               pokemon_variants.variant_name as variant_name,
               pokemon_variants.image_path as variant_image_path,
+              pokemon_variants.shiny_image_path as variant_shiny_image_path,
               natures.name as nature_name
        from pokemon_box
        join pokemon_species on pokemon_species.id = pokemon_box.species_id
@@ -612,7 +606,15 @@ app.get("/api/pokemon-box", async (req, res) => {
 });
 
 app.post("/api/pokemon-box", async (req, res) => {
-  const { speciesId, variantId, natureId, nickname, level, mainSkillLevel } =
+  const {
+    speciesId,
+    variantId,
+    natureId,
+    nickname,
+    level,
+    mainSkillLevel,
+    isShiny
+  } =
     req.body || {};
   if (!speciesId || !variantId) {
     res.status(400).json({ error: "speciesId and variantId are required" });
@@ -631,8 +633,8 @@ app.post("/api/pokemon-box", async (req, res) => {
     }
     await dbRun(
       `insert into pokemon_box
-       (species_id, variant_id, nature_id, nickname, level, main_skill_level, main_skill_value)
-       values (?, ?, ?, ?, ?, ?, ?)`,
+       (species_id, variant_id, nature_id, nickname, level, main_skill_level, main_skill_value, is_shiny)
+       values (?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         speciesId,
         variantId,
@@ -640,7 +642,8 @@ app.post("/api/pokemon-box", async (req, res) => {
         nickname || null,
         Math.max(1, Number(level) || 1),
         Math.max(1, Number(mainSkillLevel) || 1),
-        null
+        null,
+        isShiny ? 1 : 0
       ]
     );
     const createdEntry = await dbGet(
@@ -685,6 +688,7 @@ app.post("/api/pokemon-box", async (req, res) => {
               pokemon_box.level,
               pokemon_box.main_skill_level,
               pokemon_box.main_skill_value,
+              pokemon_box.is_shiny,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
               pokemon_species.primary_type as primary_type,
@@ -694,6 +698,7 @@ app.post("/api/pokemon-box", async (req, res) => {
               secondary_types.image_path as secondary_type_image,
               pokemon_variants.variant_name as variant_name,
               pokemon_variants.image_path as variant_image_path,
+              pokemon_variants.shiny_image_path as variant_shiny_image_path,
               natures.name as nature_name
        from pokemon_box
        join pokemon_species on pokemon_species.id = pokemon_box.species_id
@@ -720,6 +725,7 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
     level,
     mainSkillLevel,
     mainSkillValue,
+    isShiny,
     ingredients,
     subSkills
   } = req.body || {};
@@ -737,7 +743,8 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
            nickname = ?,
            level = ?,
            main_skill_level = ?,
-           main_skill_value = ?
+           main_skill_value = ?,
+           is_shiny = ?
        where id = ?`,
       [
         natureId || null,
@@ -745,6 +752,7 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
         Math.max(1, Number(level) || 1),
         Math.max(1, Number(mainSkillLevel) || 1),
         parsedMainSkillValue,
+        isShiny ? 1 : 0,
         entryId
       ]
     );
@@ -793,6 +801,7 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
               pokemon_box.level,
               pokemon_box.main_skill_level,
               pokemon_box.main_skill_value,
+              pokemon_box.is_shiny,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
               pokemon_species.primary_type as primary_type,
@@ -802,6 +811,7 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
               secondary_types.image_path as secondary_type_image,
               pokemon_variants.variant_name as variant_name,
               pokemon_variants.image_path as variant_image_path,
+              pokemon_variants.shiny_image_path as variant_shiny_image_path,
               natures.name as nature_name
        from pokemon_box
        join pokemon_species on pokemon_species.id = pokemon_box.species_id
@@ -836,6 +846,7 @@ app.get("/api/pokemon-box/:id/details", async (req, res) => {
               pokemon_box.level,
               pokemon_box.main_skill_level,
               pokemon_box.main_skill_value,
+              pokemon_box.is_shiny,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
               pokemon_species.primary_type as primary_type,
@@ -845,6 +856,7 @@ app.get("/api/pokemon-box/:id/details", async (req, res) => {
               secondary_types.image_path as secondary_type_image,
               pokemon_variants.variant_name as variant_name,
               pokemon_variants.image_path as variant_image_path,
+              pokemon_variants.shiny_image_path as variant_shiny_image_path,
               natures.name as nature_name
        from pokemon_box
        join pokemon_species on pokemon_species.id = pokemon_box.species_id

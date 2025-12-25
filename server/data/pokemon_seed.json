@@ -29,7 +29,8 @@
             { "name": "Bean Sausage", "unlockLevel": 60 }
           ],
           "mainSkill": "Ingredient Magnet S",
-          "detailImage": "133-default.png"
+          "detailImage": "133-default.png",
+          "shinyImage": "133-default-shiny.png"
         },
         {
           "key": "holiday",
@@ -52,7 +53,8 @@
             { "name": "Soothing Cacao", "unlockLevel": 30 }
           ],
           "mainSkill": "Dream Shard Magnet S",
-          "detailImage": "133-holiday.png"
+          "detailImage": "133-holiday.png",
+          "shinyImage": "133-holiday-shiny.png"
         }
       ],
       "subSkills": []
@@ -86,7 +88,8 @@
             { "name": "Warming Ginger", "unlockLevel": 60 }
           ],
           "mainSkill": "Charge Strength S",
-          "detailImage": "25-default.png"
+          "detailImage": "25-default.png",
+          "shinyImage": "25-default-shiny.png"
         },
         {
           "key": "holiday",
@@ -110,7 +113,8 @@
             { "name": "Warming Ginger", "unlockLevel": 60 }
           ],
           "mainSkill": "Dream Shard Magnet S",
-          "detailImage": "25-holiday.png"
+          "detailImage": "25-holiday.png",
+          "shinyImage": "25-holiday-shiny.png"
         }
       ],
       "subSkills": []
@@ -144,7 +148,8 @@
             { "name": "Bean Sausage", "unlockLevel": 60 }
           ],
           "mainSkill": "Ingredient Magnet S",
-          "detailImage": "7-default.png"
+          "detailImage": "7-default.png",
+          "shinyImage": "7-default-shiny.png"
         }
       ],
       "subSkills": []
@@ -178,7 +183,8 @@
             { "name": "Honey", "unlockLevel": 60 }
           ],
           "mainSkill": "Charge Strength S",
-          "detailImage": "56-default.png"
+          "detailImage": "56-default.png",
+          "shinyImage": "56-default-shiny.png"
         }
       ],
       "subSkills": []
@@ -210,7 +216,382 @@
             { "name": "Pure Oil", "unlockLevel": 30 },
             { "name": "Soothing Cacao", "unlockLevel": 60 }
           ],
-          "mainSkill": "Energy for Everyone S"
+          "mainSkill": "Energy for Everyone S",
+          "detailImage": "39-default.png",
+          "shinyImage": "39-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 447,
+      "name": "Riolu",
+      "primaryType": "Fighting",
+      "specialty": "Skills",
+      "profileImage": "447.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Riolu",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:10:00",
+            "carryLimit": 9,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 8,
+            "recruitShards": 17
+          },
+          "berries": [
+            { "name": "Cheri Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Pure Oil", "unlockLevel": 1 },
+            { "name": "Soft Potato", "unlockLevel": 30 },
+            { "name": "Fancy Egg", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Dream Shard Magnet S",
+          "detailImage": "447-default.png",
+          "shinyImage": "447-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 84,
+      "name": "Doduo",
+      "primaryType": "Flying",
+      "specialty": "Berries",
+      "profileImage": "84.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Doduo",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:03:20",
+            "carryLimit": 13,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 7,
+            "recruitShards": 20
+          },
+          "berries": [
+            { "name": "Pamtre Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 },
+            { "name": "Soothing Cacao", "unlockLevel": 30 },
+            { "name": "Bean Sausage", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "84-default.png",
+          "shinyImage": "84-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 175,
+      "name": "Togepi",
+      "primaryType": "Fairy",
+      "specialty": "Skills",
+      "profileImage": "175.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Togepi",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:20:00",
+            "carryLimit": 8,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 18,
+            "recruitShards": 39
+          },
+          "berries": [
+            { "name": "Pecha Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Fancy Egg", "unlockLevel": 1 },
+            { "name": "Warming Ginger", "unlockLevel": 30 },
+            { "name": "Soothing Cacao", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Metronome",
+          "detailImage": "175-default.png",
+          "shinyImage": "175-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 228,
+      "name": "Houndour",
+      "primaryType": "Dark",
+      "specialty": "Berries",
+      "profileImage": "228.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Houndour",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:21:40",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 8,
+            "recruitShards": 17
+          },
+          "berries": [
+            { "name": "Wiki Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Fiery Herb", "unlockLevel": 1 },
+            { "name": "Warming Ginger", "unlockLevel": 30 },
+            { "name": "Large Leek", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Charge Strength M",
+          "detailImage": "228-default.png",
+          "shinyImage": "228-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 363,
+      "name": "Spheal",
+      "primaryType": "Ice",
+      "specialty": "Berries",
+      "profileImage": "363.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Spheal",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:33:20",
+            "carryLimit": 9,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 11,
+            "recruitShards": 12
+          },
+          "berries": [
+            { "name": "Rawst Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Pure Oil", "unlockLevel": 1 },
+            { "name": "Warming Ginger", "unlockLevel": 30 },
+            { "name": "Bean Sausage", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Ingredient Magnet S",
+          "detailImage": "363-default.png",
+          "shinyImage": "363-default-shiny.png"
+        },
+        {
+          "key": "holiday",
+          "name": "Spheal (Holiday)",
+          "isDefault": 0,
+          "isEvent": 1,
+          "notes": "Holiday event variant",
+          "stats": {
+            "baseFrequency": "00:55:00",
+            "carryLimit": 20,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 27,
+            "recruitShards": 75
+          },
+          "berries": [
+            { "name": "Rawst Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Pure Oil", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 30 },
+            { "name": "Warming Ginger", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Tasty Chance S",
+          "detailImage": "363-holiday.png",
+          "shinyImage": "363-holiday-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 438,
+      "name": "Bonsly",
+      "primaryType": "Rock",
+      "specialty": "Skills",
+      "profileImage": "438.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Bonsly",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:45:00",
+            "carryLimit": 8,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 9,
+            "recruitShards": 16
+          },
+          "berries": [
+            { "name": "Sitrus Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Snoozy Tomato", "unlockLevel": 1 },
+            { "name": "Tasty Mushroom", "unlockLevel": 30 },
+            { "name": "Greengrass Soybeans", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Charge Strength M",
+          "detailImage": "438-default.png",
+          "shinyImage": "438-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 179,
+      "name": "Mareep",
+      "primaryType": "Electric",
+      "specialty": "Skills",
+      "profileImage": "179.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Mareep",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:16:40",
+            "carryLimit": 9,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 11,
+            "recruitShards": 13
+          },
+          "berries": [
+            { "name": "Grepa Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Fiery Herb", "unlockLevel": 1 },
+            { "name": "Fancy Egg", "unlockLevel": 30 }
+          ],
+          "mainSkill": "Charge Strength M",
+          "detailImage": "179-default.png",
+          "shinyImage": "179-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 19,
+      "name": "Rattata",
+      "primaryType": "Normal",
+      "specialty": "Berries",
+      "profileImage": "19.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Rattata",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:21:40",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 7,
+            "recruitShards": 20
+          },
+          "berries": [
+            { "name": "Persim Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Fancy Apple", "unlockLevel": 1 },
+            { "name": "Greengrass Soybeans", "unlockLevel": 30 },
+            { "name": "Bean Sausage", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "19-default.png",
+          "shinyImage": "19-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 152,
+      "name": "Chikorita",
+      "primaryType": "Grass",
+      "specialty": "Berries",
+      "profileImage": "152.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Chikorita",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:13:20",
+            "carryLimit": 12,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 18,
+            "recruitShards": 39
+          },
+          "berries": [
+            { "name": "Durin Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Soothing Cacao", "unlockLevel": 1 },
+            { "name": "Honey", "unlockLevel": 30 },
+            { "name": "Large Leek", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "152-default.png",
+          "shinyImage": "152-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 52,
+      "name": "Meowth",
+      "primaryType": "Normal",
+      "specialty": "Skills",
+      "profileImage": "52.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Meowth",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:13:20",
+            "carryLimit": 9,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 8,
+            "recruitShards": 17
+          },
+          "berries": [
+            { "name": "Persim Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Moomoo Milk", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 30 }
+          ],
+          "mainSkill": "Dream Shard Magnet S",
+          "detailImage": "52-default.png",
+          "shinyImage": "52-default-shiny.png"
         }
       ],
       "subSkills": []
