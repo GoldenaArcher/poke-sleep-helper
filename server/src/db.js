@@ -85,9 +85,17 @@ const initDb = async () => {
   await dbRun(`
     CREATE TABLE IF NOT EXISTS ingredients (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL UNIQUE
+      name TEXT NOT NULL UNIQUE,
+      image_path TEXT
     );
   `);
+  const ingredientColumns = await dbAll("pragma table_info(ingredients)");
+  const hasIngredientImage = ingredientColumns.some(
+    (column) => column.name === "image_path"
+  );
+  if (!hasIngredientImage) {
+    await dbRun("alter table ingredients add column image_path text");
+  }
 
   await dbRun(`
     CREATE TABLE IF NOT EXISTS dishes (
@@ -496,11 +504,11 @@ const initDb = async () => {
   `);
 
   if (shouldSeedStatic) {
-    for (const dish of dishCatalog) {
-      await dbRun(
-        "insert or ignore into dishes (name, type, description, base_strength, dish_level) values (?, ?, ?, 0, 1)",
-        [dish.name, dish.type, dish.description]
-      );
+  for (const dish of dishCatalog) {
+    await dbRun(
+      "insert or ignore into dishes (name, type, description, base_strength, dish_level) values (?, ?, ?, 0, 1)",
+      [dish.name, dish.type, dish.description]
+    );
       const dishRow = await dbGet("select id from dishes where name = ?", [
         dish.name
       ]);
@@ -512,14 +520,26 @@ const initDb = async () => {
           "select id from ingredients where name = ?",
           [ingredient.name]
         );
-        await dbRun(
-          `insert or replace into dish_ingredients
-           (dish_id, ingredient_id, quantity)
-           values (?, ?, ?)`,
-          [dishRow.id, ingredientRow.id, ingredient.quantity]
-        );
-      }
+      await dbRun(
+        `insert or replace into dish_ingredients
+         (dish_id, ingredient_id, quantity)
+         values (?, ?, ?)`,
+        [dishRow.id, ingredientRow.id, ingredient.quantity]
+      );
     }
+  }
+  const ingredientRows = await dbAll("select id, name from ingredients");
+  for (const ingredient of ingredientRows) {
+    const imagePath = `/uploads/ingredients/${ingredient.name
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "")}.png`;
+    await dbRun(
+      `update ingredients
+       set image_path = ?
+       where id = ?`,
+      [imagePath, ingredient.id]
+    );
+  }
 
     for (const [dishName, levels] of Object.entries(dishLevelData)) {
       const dishRow = await dbGet("select id from dishes where name = ?", [

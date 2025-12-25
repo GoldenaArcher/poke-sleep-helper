@@ -5,16 +5,19 @@ const useBagStore = create((set) => ({
   ingredients: [],
   items: [],
   ingredientCatalog: [],
+  ingredientDetails: [],
   loadBag: async () => {
-    const [ingredientData, itemData, catalog] = await Promise.all([
+    const [ingredientData, itemData, catalog, details] = await Promise.all([
       apiFetch("/api/bag/ingredients"),
       apiFetch("/api/bag/items"),
-      apiFetch("/api/ingredients/catalog")
+      apiFetch("/api/ingredients/catalog"),
+      apiFetch("/api/ingredients")
     ]);
     set({
       ingredients: ingredientData,
       items: itemData,
-      ingredientCatalog: catalog
+      ingredientCatalog: catalog,
+      ingredientDetails: details
     });
   },
   addIngredient: async (payload) => {

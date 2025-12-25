@@ -20,6 +20,7 @@ const BagModal = ({
   updateIngredient,
   deleteIngredient,
   ingredientCatalog,
+  ingredientDetails,
   ingredientTotal,
   itemTotal,
   onClose
@@ -188,50 +189,74 @@ const BagModal = ({
           {ingredients.length === 0 && (
             <li className="empty">No ingredients yet.</li>
           )}
-          {[...ingredients]
-            .sort((a, b) => {
-              const diff =
-                (Number(b.quantity) || 0) - (Number(a.quantity) || 0);
-              if (diff !== 0) {
-                return diff;
-              }
-              return a.name.localeCompare(b.name);
-            })
-            .map((item) => (
-            <li key={item.id} className="row">
-              <input
-                type="text"
-                value={item.name}
-                onChange={(event) =>
-                  setIngredientLocal(item.id, { name: event.target.value })
+          {(() => {
+            const imageMap = new Map(
+              ingredientDetails.map((item) => [item.name.toLowerCase(), item])
+            );
+            return [...ingredients]
+              .sort((a, b) => {
+                const diff =
+                  (Number(b.quantity) || 0) - (Number(a.quantity) || 0);
+                if (diff !== 0) {
+                  return diff;
                 }
-                onBlur={(event) =>
-                  updateIngredient(item.id, { name: event.target.value })
-                }
-              />
-              <input
-                type="number"
-                min="0"
-                value={item.quantity}
-                onChange={(event) =>
-                  setIngredientLocal(item.id, {
-                    quantity: event.target.value
-                  })
-                }
-                onBlur={(event) =>
-                  updateIngredient(item.id, {
-                    quantity: Number(event.target.value) || 0
-                  })
-                }
-              />
-              <button
-                className="button ghost"
-                onClick={() => deleteIngredient(item.id)}
-              >
-                Remove
-              </button>
-            </li>
-          ))}
+                return a.name.localeCompare(b.name);
+              })
+              .map((item) => {
+                const details = imageMap.get(item.name.toLowerCase());
+                const imagePath =
+                  details?.image_path ||
+                  `/uploads/ingredients/${item.name
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]/g, "")}.png`;
+                return (
+                  <li key={item.id} className="row bag-ingredient-row">
+                    <div className="ingredient-entry">
+                      <img
+                        className="ingredient-preview"
+                        src={imagePath}
+                        alt={item.name}
+                      />
+                      <input
+                        type="text"
+                        value={item.name}
+                        onChange={(event) =>
+                          setIngredientLocal(item.id, {
+                            name: event.target.value
+                          })
+                        }
+                        onBlur={(event) =>
+                          updateIngredient(item.id, {
+                            name: event.target.value
+                          })
+                        }
+                      />
+                    </div>
+                    <input
+                      type="number"
+                      min="0"
+                      value={item.quantity}
+                      onChange={(event) =>
+                        setIngredientLocal(item.id, {
+                          quantity: event.target.value
+                        })
+                      }
+                      onBlur={(event) =>
+                        updateIngredient(item.id, {
+                          quantity: Number(event.target.value) || 0
+                        })
+                      }
+                    />
+                    <button
+                      className="button ghost"
+                      onClick={() => deleteIngredient(item.id)}
+                    >
+                      Remove
+                    </button>
+                  </li>
+                );
+              });
+          })()}
         </ul>
         <div className="divider" />
         <p className="meta total-line">

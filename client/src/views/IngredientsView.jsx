@@ -39,7 +39,15 @@ const useIngredientIndex = ({ ingredientCatalog, ingredients, dishes }) => {
 const IngredientsListView = () => {
   const ingredientCatalog = useBagStore((state) => state.ingredientCatalog);
   const ingredients = useBagStore((state) => state.ingredients);
+  const ingredientDetails = useBagStore((state) => state.ingredientDetails);
   const dishes = useDishesStore((state) => state.dishes);
+  const ingredientImageMap = useMemo(
+    () =>
+      new Map(
+        ingredientDetails.map((item) => [item.name.toLowerCase(), item])
+      ),
+    [ingredientDetails]
+  );
   const { ingredientNames, ingredientUsage, bagIngredientMap } =
     useIngredientIndex({ ingredientCatalog, ingredients, dishes });
 
@@ -64,7 +72,17 @@ const IngredientsListView = () => {
             const usageCount = usage ? usage.dishes.length : 0;
             return (
               <div key={name} className="ingredient-row">
-                <div>
+                <div className="ingredient-name">
+                  <img
+                    className="ingredient-preview"
+                    src={
+                      ingredientImageMap.get(key)?.image_path ||
+                      `/uploads/ingredients/${name
+                        .toLowerCase()
+                        .replace(/[^a-z0-9]/g, "")}.png`
+                    }
+                    alt={name}
+                  />
                   <Link
                     className="ingredient-link"
                     to={`/ingredients/${encodeURIComponent(name)}`}
@@ -86,12 +104,20 @@ const IngredientsListView = () => {
 const IngredientDetailView = () => {
   const ingredientCatalog = useBagStore((state) => state.ingredientCatalog);
   const ingredients = useBagStore((state) => state.ingredients);
+  const ingredientDetails = useBagStore((state) => state.ingredientDetails);
   const dishes = useDishesStore((state) => state.dishes);
   const { ingredientUsage, bagIngredientMap } = useIngredientIndex({
     ingredientCatalog,
     ingredients,
     dishes
   });
+  const ingredientImageMap = useMemo(
+    () =>
+      new Map(
+        ingredientDetails.map((item) => [item.name.toLowerCase(), item])
+      ),
+    [ingredientDetails]
+  );
   const { ingredientName } = useParams();
   const navigate = useNavigate();
   const decodedName = decodeURIComponent(ingredientName || "");
@@ -107,7 +133,19 @@ const IngredientDetailView = () => {
         <button className="back-button" onClick={() => navigate(-1)}>
           ← Back
         </button>
-        <h2>{decodedName || "Unknown"}</h2>
+        <div className="ingredient-heading">
+          <img
+            className="ingredient-hero"
+            src={
+              ingredientImageMap.get(key)?.image_path ||
+              `/uploads/ingredients/${decodedName
+                .toLowerCase()
+                .replace(/[^a-z0-9]/g, "")}.png`
+            }
+            alt={decodedName}
+          />
+          <h2>{decodedName || "Unknown"}</h2>
+        </div>
         <p className="subhead">
           In bag: {bagItem ? Number(bagItem.quantity) || 0 : 0} • Used in{" "}
           {relatedDishes.length} dishes

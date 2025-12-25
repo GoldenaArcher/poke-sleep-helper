@@ -12,6 +12,7 @@ const BagModalContainer = ({ onClose, setStatus }) => {
   const ingredients = useBagStore((state) => state.ingredients);
   const items = useBagStore((state) => state.items);
   const ingredientCatalog = useBagStore((state) => state.ingredientCatalog);
+  const ingredientDetails = useBagStore((state) => state.ingredientDetails);
   const addIngredientToBag = useBagStore((state) => state.addIngredient);
   const updateIngredientInBag = useBagStore((state) => state.updateIngredient);
   const deleteIngredientFromBag = useBagStore(
@@ -156,6 +157,7 @@ const BagModalContainer = ({ onClose, setStatus }) => {
       updateIngredient={updateIngredient}
       deleteIngredient={deleteIngredient}
       ingredientCatalog={ingredientCatalog}
+      ingredientDetails={ingredientDetails}
       ingredientTotal={ingredientTotal}
       itemTotal={itemTotal}
       onClose={onClose}

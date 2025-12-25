@@ -243,6 +243,7 @@ app.get("/api/dishes", async (req, res) => {
       `select dish_ingredients.dish_id,
               ingredients.id as ingredient_id,
               ingredients.name,
+              ingredients.image_path,
               dish_ingredients.quantity
        from dish_ingredients
        join ingredients on ingredients.id = dish_ingredients.ingredient_id
@@ -296,6 +297,17 @@ app.get("/api/ingredients/catalog", async (req, res) => {
     res.json(rows.map((row) => row.name));
   } catch (error) {
     res.status(500).json({ error: "Failed to load ingredient catalog" });
+  }
+});
+
+app.get("/api/ingredients", async (req, res) => {
+  try {
+    const rows = await dbAll(
+      "select id, name, image_path from ingredients order by name"
+    );
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load ingredients" });
   }
 });
 

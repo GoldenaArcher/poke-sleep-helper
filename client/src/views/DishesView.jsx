@@ -94,7 +94,17 @@ const DishesView = () => {
                 )}
                 <div className="ingredient-list">
                   {dish.ingredients.map((ingredient) => (
-                    <div key={ingredient.id}>
+                    <div key={ingredient.id} className="ingredient-entry">
+                      <img
+                        className="ingredient-preview"
+                        src={
+                          ingredient.image_path ||
+                          `/uploads/ingredients/${ingredient.name
+                            .toLowerCase()
+                            .replace(/[^a-z0-9]/g, "")}.png`
+                        }
+                        alt={ingredient.name}
+                      />
                       <Link
                         className="ingredient-link"
                         to={`/ingredients/${encodeURIComponent(
