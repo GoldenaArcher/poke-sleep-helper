@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   IoCloseOutline,
   IoInformationCircleOutline,
+  IoAddOutline,
+  IoSwapVerticalOutline,
   IoTrashOutline
 } from "react-icons/io5";
 import SearchSelect from "../components/SearchSelect.jsx";
@@ -35,6 +37,10 @@ const BoxView = () => {
     isShiny: false
   });
   const [speciesSearch, setSpeciesSearch] = useState("");
+  const [sortMode, setSortMode] = useState("dex");
+  const [isAddOpen, setIsAddOpen] = useState(false);
+  const [isSortOpen, setIsSortOpen] = useState(false);
+  const sortMenuRef = useRef(null);
   const [boxDetailDraft, setBoxDetailDraft] = useState(null);
   const ingredientSlotLevels = [1, 30, 60];
   const subSkillSlotLevels = [10, 25, 50, 75, 100];
@@ -93,6 +99,41 @@ const BoxView = () => {
     label: `#${String(species.dex_no).padStart(3, "0")} ${species.name}`,
     variants: species.variants || []
   }));
+  const sortedPokemonBox = useMemo(() => {
+    const entries = [...pokemonBox];
+    const getDisplayName = (entry) =>
+      (entry.nickname || entry.species_name || "").trim().toLowerCase();
+    if (sortMode === "name") {
+      entries.sort((a, b) => {
+        const nameA = getDisplayName(a);
+        const nameB = getDisplayName(b);
+        if (nameA !== nameB) {
+          return nameA.localeCompare(nameB);
+        }
+        if (a.dex_no !== b.dex_no) {
+          return (a.dex_no || 0) - (b.dex_no || 0);
+        }
+        return a.id - b.id;
+      });
+      return entries;
+    }
+    if (sortMode === "level") {
+      entries.sort((a, b) => {
+        if (a.level !== b.level) {
+          return (b.level || 0) - (a.level || 0);
+        }
+        return (a.dex_no || 0) - (b.dex_no || 0);
+      });
+      return entries;
+    }
+    entries.sort((a, b) => {
+      if (a.dex_no !== b.dex_no) {
+        return (a.dex_no || 0) - (b.dex_no || 0);
+      }
+      return a.id - b.id;
+    });
+    return entries;
+  }, [pokemonBox, sortMode]);
 
   const handleSpeciesChange = (event) => {
     const nextValue = event.target.value;
@@ -117,6 +158,28 @@ const BoxView = () => {
       variantId: defaultVariant?.id || ""
     }));
   };
+
+  const sortLabels = {
+    dex: "Dex no",
+    name: "Name",
+    level: "Level"
+  };
+  const sortOrder = ["dex", "name", "level"];
+  useEffect(() => {
+    if (!isSortOpen) {
+      return;
+    }
+    const handleClick = (event) => {
+      if (
+        sortMenuRef.current &&
+        !sortMenuRef.current.contains(event.target)
+      ) {
+        setIsSortOpen(false);
+      }
+    };
+    window.addEventListener("mousedown", handleClick);
+    return () => window.removeEventListener("mousedown", handleClick);
+  }, [isSortOpen]);
 
   const handleRemove = async (entryId) => {
     const confirmed = window.confirm(
@@ -151,6 +214,7 @@ const BoxView = () => {
       isShiny: false
     });
     setSpeciesSearch("");
+    setIsAddOpen(false);
   };
 
   const saveBoxDetail = async () => {
@@ -192,119 +256,43 @@ const BoxView = () => {
         </p>
       </header>
       <section className="card">
-        <div className="box-form">
-          <label>
-            <SearchSelect
-              label="Species"
-              value={speciesSearch}
-              onChange={handleSpeciesChange}
-              options={speciesOptions.map((option) => option.label)}
-              placeholder="Select species"
-              listId="box-species-options"
-            />
-          </label>
-          <label>
-            Variant
-            <select
-              value={newBoxEntry.variantId}
-              onChange={(event) =>
-                setNewBoxEntry((prev) => ({
-                  ...prev,
-                  variantId: event.target.value
-                }))
-              }
-              disabled={!selectedSpecies}
-            >
-              <option value="">Select variant</option>
-              {availableVariants.map((variant) => (
-                <option key={variant.id} value={variant.id}>
-                  {variant.variant_name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Nature
-            <select
-              value={newBoxEntry.natureId}
-              onChange={(event) =>
-                setNewBoxEntry((prev) => ({
-                  ...prev,
-                  natureId: event.target.value
-                }))
-              }
-            >
-              <option value="">None</option>
-              {natures.map((nature) => (
-                <option key={nature.id} value={nature.id}>
-                  {nature.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Nickname
-            <input
-              type="text"
-              value={newBoxEntry.nickname}
-              onChange={(event) =>
-                setNewBoxEntry((prev) => ({
-                  ...prev,
-                  nickname: event.target.value
-                }))
-              }
-              placeholder="Optional"
-            />
-          </label>
-          <label>
-            Level
-            <input
-              type="number"
-              min="1"
-              value={newBoxEntry.level}
-              onChange={(event) =>
-                setNewBoxEntry((prev) => ({
-                  ...prev,
-                  level: event.target.value
-                }))
-              }
-            />
-          </label>
-          <label>
-            Main Skill Level
-            <input
-              type="number"
-              min="1"
-              value={newBoxEntry.mainSkillLevel}
-              onChange={(event) =>
-                setNewBoxEntry((prev) => ({
-                  ...prev,
-                  mainSkillLevel: event.target.value
-                }))
-              }
-            />
-          </label>
-          <label className="checkbox-field">
-            Shiny
-            <input
-              type="checkbox"
-              checked={newBoxEntry.isShiny}
-              onChange={(event) =>
-                setNewBoxEntry((prev) => ({
-                  ...prev,
-                  isShiny: event.target.checked
-                }))
-              }
-            />
-          </label>
-          <button className="button" onClick={handleAddToBox}>
-            Add to box
-          </button>
-        </div>
-      </section>
-
-      <section className="card">
         <div className="box-table">
+          <div className="box-table-controls">
+            <button
+              className="button box-add-button"
+              onClick={() => setIsAddOpen(true)}
+            >
+              <IoAddOutline />
+              Add Pokemon
+            </button>
+            <div className="box-sort" ref={sortMenuRef}>
+              <button
+                className="button ghost box-sort-button"
+                onClick={() => setIsSortOpen((prev) => !prev)}
+                aria-expanded={isSortOpen}
+              >
+                <IoSwapVerticalOutline />
+                {sortLabels[sortMode]}
+              </button>
+              {isSortOpen && (
+                <div className="box-sort-menu">
+                  {sortOrder.map((mode) => (
+                    <button
+                      key={mode}
+                      className="box-sort-option"
+                      onClick={() => {
+                        setSortMode(mode);
+                        setIsSortOpen(false);
+                      }}
+                      type="button"
+                    >
+                      {sortLabels[mode]}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
           <div className="box-row header">
             <div>Pokemon</div>
             <div>Nickname</div>
@@ -313,7 +301,7 @@ const BoxView = () => {
           {pokemonBox.length === 0 && (
             <p className="empty">No Pokemon in the box yet.</p>
           )}
-          {pokemonBox.map((entry) => (
+          {sortedPokemonBox.map((entry) => (
             <div key={entry.id} className="box-row">
               <div className="box-preview">
                 {entry.variant_image_path ? (
@@ -391,6 +379,136 @@ const BoxView = () => {
           ))}
         </div>
       </section>
+      {isAddOpen && (
+        <div className="bag-modal">
+          <section className="card">
+            <header className="section-header bag-header">
+              <div>
+                <h2>Add Pokemon</h2>
+                <p className="meta">
+                  Choose a species and set its starting details.
+                </p>
+              </div>
+              <button
+                className="icon-button"
+                onClick={() => setIsAddOpen(false)}
+                aria-label="Close add modal"
+              >
+                <IoCloseOutline size={20} />
+              </button>
+            </header>
+            <div className="box-form">
+              <label>
+                <SearchSelect
+                  label="Species"
+                  value={speciesSearch}
+                  onChange={handleSpeciesChange}
+                  options={speciesOptions.map((option) => option.label)}
+                  placeholder="Select species"
+                  listId="box-species-options"
+                />
+              </label>
+              <label>
+                Variant
+                <select
+                  value={newBoxEntry.variantId}
+                  onChange={(event) =>
+                    setNewBoxEntry((prev) => ({
+                      ...prev,
+                      variantId: event.target.value
+                    }))
+                  }
+                  disabled={!selectedSpecies}
+                >
+                  <option value="">Select variant</option>
+                  {availableVariants.map((variant) => (
+                    <option key={variant.id} value={variant.id}>
+                      {variant.variant_name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Nature
+                <select
+                  value={newBoxEntry.natureId}
+                  onChange={(event) =>
+                    setNewBoxEntry((prev) => ({
+                      ...prev,
+                      natureId: event.target.value
+                    }))
+                  }
+                >
+                  <option value="">None</option>
+                  {natures.map((nature) => (
+                    <option key={nature.id} value={nature.id}>
+                      {nature.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Nickname
+                <input
+                  type="text"
+                  value={newBoxEntry.nickname}
+                  onChange={(event) =>
+                    setNewBoxEntry((prev) => ({
+                      ...prev,
+                      nickname: event.target.value
+                    }))
+                  }
+                  placeholder="Optional"
+                />
+              </label>
+              <label>
+                Level
+                <input
+                  type="number"
+                  min="1"
+                  value={newBoxEntry.level}
+                  onChange={(event) =>
+                    setNewBoxEntry((prev) => ({
+                      ...prev,
+                      level: event.target.value
+                    }))
+                  }
+                />
+              </label>
+              <label>
+                Main Skill Level
+                <input
+                  type="number"
+                  min="1"
+                  value={newBoxEntry.mainSkillLevel}
+                  onChange={(event) =>
+                    setNewBoxEntry((prev) => ({
+                      ...prev,
+                      mainSkillLevel: event.target.value
+                    }))
+                  }
+                />
+              </label>
+              <label className="checkbox-field">
+                Shiny
+                <input
+                  type="checkbox"
+                  checked={newBoxEntry.isShiny}
+                  onChange={(event) =>
+                    setNewBoxEntry((prev) => ({
+                      ...prev,
+                      isShiny: event.target.checked
+                    }))
+                  }
+                />
+              </label>
+              <button className="button" onClick={handleAddToBox}>
+                Add to box
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
       {boxDetail && (
         <div className="bag-modal">
           <section className="card">
