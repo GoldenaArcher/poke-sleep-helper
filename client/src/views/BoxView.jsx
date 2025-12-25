@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
-import { IoCloseOutline } from "react-icons/io5";
+import {
+  IoCloseOutline,
+  IoInformationCircleOutline,
+  IoTrashOutline
+} from "react-icons/io5";
+import useBagStore from "../stores/useBagStore.js";
 import useNaturesStore from "../stores/useNaturesStore.js";
 import usePokedexStore from "../stores/usePokedexStore.js";
 import usePokemonBoxStore from "../stores/usePokemonBoxStore.js";
 import useSettingsStore from "../stores/useSettingsStore.js";
 
 const BoxView = () => {
+  const ingredientCatalog = useBagStore((state) => state.ingredientDetails);
   const { natures } = useNaturesStore();
   const { pokedex } = usePokedexStore();
   const { settings } = useSettingsStore();
@@ -27,18 +33,46 @@ const BoxView = () => {
     mainSkillLevel: "1"
   });
   const [boxDetailDraft, setBoxDetailDraft] = useState(null);
+  const ingredientSlotLevels = [1, 30, 60];
+  const subSkillSlotLevels = [10, 25, 50, 75, 100];
+  const detailLevel = Number(boxDetailDraft?.level || 1);
 
   useEffect(() => {
     if (!boxDetail) {
       setBoxDetailDraft(null);
       return;
     }
+    const ingredientSlotMap = new Map(
+      (boxDetail.ingredients || []).map((slot) => [
+        slot.slot_level,
+        slot
+      ])
+    );
+    const subSkillSlotMap = new Map(
+      (boxDetail.subSkills || []).map((slot) => [slot.slot_level, slot])
+    );
     setBoxDetailDraft({
       id: boxDetail.entry.id,
       natureId: boxDetail.entry.nature_id || "",
       nickname: boxDetail.entry.nickname || "",
       level: boxDetail.entry.level,
-      mainSkillLevel: boxDetail.entry.main_skill_level
+      mainSkillLevel: boxDetail.entry.main_skill_level,
+      ingredientSlots: ingredientSlotLevels.map((slotLevel, i) => {
+        const slot = ingredientSlotMap.get(slotLevel);
+        return {
+          slotLevel,
+          ingredientId: slot?.ingredient_id || i,
+          quantity:
+            typeof slot?.quantity === "number" ? slot.quantity : 0
+        };
+      }),
+      subSkillSlots: subSkillSlotLevels.map((slotLevel) => {
+        const slot = subSkillSlotMap.get(slotLevel);
+        return {
+          slotLevel,
+          subSkillId: slot?.sub_skill_id || ""
+        };
+      })
     });
   }, [boxDetail]);
 
@@ -46,6 +80,16 @@ const BoxView = () => {
     (species) => String(species.id) === String(newBoxEntry.speciesId)
   );
   const availableVariants = selectedSpecies?.variants || [];
+
+  const handleRemove = async (entryId) => {
+    const confirmed = window.confirm(
+      "Remove this Pokemon from your box?"
+    );
+    if (!confirmed) {
+      return;
+    }
+    await removeFromBox(entryId);
+  };
 
   const handleAddToBox = async () => {
     if (!newBoxEntry.speciesId || !newBoxEntry.variantId) {
@@ -79,8 +123,18 @@ const BoxView = () => {
         : null,
       nickname: boxDetailDraft.nickname || null,
       level: Number(boxDetailDraft.level) || 1,
-      mainSkillLevel: Number(boxDetailDraft.mainSkillLevel) || 1
+      mainSkillLevel: Number(boxDetailDraft.mainSkillLevel) || 1,
+      ingredients: boxDetailDraft.ingredientSlots.map((slot) => ({
+        slotLevel: slot.slotLevel,
+        ingredientId: slot.ingredientId ? Number(slot.ingredientId) : null,
+        quantity: Number(slot.quantity) || 0
+      })),
+      subSkills: boxDetailDraft.subSkillSlots.map((slot) => ({
+        slotLevel: slot.slotLevel,
+        subSkillId: slot.subSkillId ? Number(slot.subSkillId) : null
+      }))
     });
+    await openBoxDetail(boxDetail.entry.id);
   };
 
   return (
@@ -213,20 +267,68 @@ const BoxView = () => {
           )}
           {pokemonBox.map((entry) => (
             <div key={entry.id} className="box-row">
-              <div>{entry.variant_name || entry.species_name}</div>
+              <div className="box-preview">
+                {entry.variant_image_path ? (
+                  <img
+                    className="box-preview-img"
+                    src={entry.variant_image_path}
+                    alt={entry.variant_name || entry.species_name}
+                  />
+                ) : null}
+                <div>
+                  <div className="box-title">
+                    <strong>
+                      {entry.variant_name || entry.species_name}
+                    </strong>
+                    <span className="level-badge">Lv {entry.level}</span>
+                  </div>
+                  <p className="meta">{entry.species_name}</p>
+                  <div className="type-row">
+                    {entry.primary_type ? (
+                      <span className="type-chip">
+                        {entry.primary_type_image ? (
+                          <img
+                            src={entry.primary_type_image}
+                            alt={entry.primary_type}
+                          />
+                        ) : null}
+                        <span>{entry.primary_type}</span>
+                      </span>
+                    ) : null}
+                    {entry.secondary_type ? (
+                      <span className="type-chip">
+                        {entry.secondary_type_image ? (
+                          <img
+                            src={entry.secondary_type_image}
+                            alt={entry.secondary_type}
+                          />
+                        ) : null}
+                        <span>{entry.secondary_type}</span>
+                      </span>
+                    ) : null}
+                    <span className="type-specialty">
+                      {entry.specialty || "—"}
+                    </span>
+                  </div>
+                </div>
+              </div>
               <div>{entry.nickname || "—"}</div>
-              <div>
+              <div className="box-actions">
                 <button
-                  className="button ghost"
+                  className="box-icon-button"
                   onClick={() => openBoxDetail(entry.id)}
+                  aria-label="View details"
+                  title="Details"
                 >
-                  Details
+                  <IoInformationCircleOutline size={18} />
                 </button>
                 <button
-                  className="button ghost"
-                  onClick={() => removeFromBox(entry.id)}
+                  className="box-icon-button"
+                  onClick={() => handleRemove(entry.id)}
+                  aria-label="Remove Pokemon"
+                  title="Remove"
                 >
-                  Remove
+                  <IoTrashOutline size={18} />
                 </button>
               </div>
             </div>
@@ -246,6 +348,33 @@ const BoxView = () => {
                   {boxDetail.entry.variant_name} • Level{" "}
                   {boxDetail.entry.level}
                 </p>
+                <div className="type-row">
+                  {boxDetail.entry.primary_type ? (
+                    <span className="type-chip">
+                      {boxDetail.entry.primary_type_image ? (
+                        <img
+                          src={boxDetail.entry.primary_type_image}
+                          alt={boxDetail.entry.primary_type}
+                        />
+                      ) : null}
+                      <span>{boxDetail.entry.primary_type}</span>
+                    </span>
+                  ) : null}
+                  {boxDetail.entry.secondary_type ? (
+                    <span className="type-chip">
+                      {boxDetail.entry.secondary_type_image ? (
+                        <img
+                          src={boxDetail.entry.secondary_type_image}
+                          alt={boxDetail.entry.secondary_type}
+                        />
+                      ) : null}
+                      <span>{boxDetail.entry.secondary_type}</span>
+                    </span>
+                  ) : null}
+                  <span className="type-specialty">
+                    {boxDetail.entry.specialty || "—"}
+                  </span>
+                </div>
               </div>
               <button
                 className="icon-button"
@@ -318,6 +447,108 @@ const BoxView = () => {
                     }
                   />
                 </label>
+                <div className="box-detail-grid">
+                  <div>
+                    <h4>Ingredient Unlocks</h4>
+                    <div className="slot-list">
+                      {boxDetailDraft.ingredientSlots.map((slot) => (
+                        <div key={slot.slotLevel} className="slot-row">
+                          <span className="meta">
+                            Lv {slot.slotLevel}
+                          </span>
+                          <select
+                            value={slot.ingredientId}
+                            disabled={slot.slotLevel > detailLevel}
+                            onChange={(event) =>
+                              setBoxDetailDraft((prev) => ({
+                                ...prev,
+                                ingredientSlots: prev.ingredientSlots.map(
+                                  (entry) =>
+                                    entry.slotLevel === slot.slotLevel
+                                      ? {
+                                          ...entry,
+                                          ingredientId: event.target.value
+                                        }
+                                      : entry
+                                )
+                              }))
+                            }
+                          >
+                            <option value="">Select ingredient</option>
+                            {ingredientCatalog.map((ingredient) => (
+                              <option
+                                key={ingredient.id}
+                                value={ingredient.id}
+                              >
+                                {ingredient.name}
+                              </option>
+                            ))}
+                          </select>
+                          <input
+                            type="number"
+                            min="0"
+                            value={slot.quantity}
+                            disabled={slot.slotLevel > detailLevel}
+                            onChange={(event) =>
+                              setBoxDetailDraft((prev) => ({
+                                ...prev,
+                                ingredientSlots: prev.ingredientSlots.map(
+                                  (entry) =>
+                                    entry.slotLevel === slot.slotLevel
+                                      ? {
+                                          ...entry,
+                                          quantity: event.target.value
+                                        }
+                                      : entry
+                                )
+                              }))
+                            }
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <h4>Sub Skills</h4>
+                    <div className="slot-list">
+                      {boxDetailDraft.subSkillSlots.map((slot) => (
+                        <div
+                          key={slot.slotLevel}
+                          className="slot-row two-col"
+                        >
+                          <span className="meta">
+                            Lv {slot.slotLevel}
+                          </span>
+                          <select
+                            value={slot.subSkillId}
+                            disabled={slot.slotLevel > detailLevel}
+                            onChange={(event) =>
+                              setBoxDetailDraft((prev) => ({
+                                ...prev,
+                                subSkillSlots: prev.subSkillSlots.map(
+                                  (entry) =>
+                                    entry.slotLevel === slot.slotLevel
+                                      ? {
+                                          ...entry,
+                                          subSkillId: event.target.value
+                                        }
+                                      : entry
+                                )
+                              }))
+                            }
+                          >
+                            <option value="">Select sub skill</option>
+                            {boxDetail.subSkillCatalog?.map((skill) => (
+                              <option key={skill.id} value={skill.id}>
+                                {skill.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
                 <div className="box-detail-actions">
                   <button className="button" onClick={saveBoxDetail}>
                     Save changes
@@ -346,11 +577,21 @@ const BoxView = () => {
                   boxDetail.ingredients
                     .filter(
                       (ingredient) =>
-                        ingredient.unlock_level <= boxDetail.entry.level
+                        ingredient.name &&
+                        ingredient.slot_level <= boxDetail.entry.level
                     )
                     .map((ingredient) => (
-                      <div key={ingredient.name}>
-                        {ingredient.name} (Lv {ingredient.unlock_level})
+                      <div
+                        key={`${ingredient.name}-${ingredient.slot_level}`}
+                        className="ingredient-preview-row"
+                      >
+                        {ingredient.image_path ? (
+                          <img
+                            src={ingredient.image_path}
+                            alt={ingredient.name}
+                          />
+                        ) : null}
+                        <span>{ingredient.name}</span>
                       </div>
                     ))
                 ) : (
@@ -362,14 +603,14 @@ const BoxView = () => {
                 {boxDetail.subSkills.length ? (
                   boxDetail.subSkills
                     .filter(
-                      (skill) => skill.unlock_level <= boxDetail.entry.level
+                      (skill) =>
+                        skill.name &&
+                        skill.slot_level <= boxDetail.entry.level
                     )
                     .map((skill) => (
-                      <div key={skill.name}>
+                      <div key={`${skill.name}-${skill.slot_level}`}>
                         <strong>{skill.name}</strong>
-                        <p className="meta">
-                          Lv {skill.unlock_level} • {skill.rarity || "—"}
-                        </p>
+                        <p className="meta">{skill.rarity || "—"}</p>
                       </div>
                     ))
                 ) : (

@@ -5,6 +5,7 @@
       "name": "Eevee",
       "primaryType": "Normal",
       "specialty": "Skills",
+      "profileImage": "133.png",
       "variants": [
         {
           "key": "default",
@@ -27,7 +28,8 @@
             { "name": "Soothing Cacao", "unlockLevel": 30 },
             { "name": "Bean Sausage", "unlockLevel": 60 }
           ],
-          "mainSkill": "Ingredient Magnet S"
+          "mainSkill": "Ingredient Magnet S",
+          "detailImage": "133-default.png"
         },
         {
           "key": "holiday",
@@ -49,7 +51,40 @@
             { "name": "Moomoo Milk", "unlockLevel": 1 },
             { "name": "Soothing Cacao", "unlockLevel": 30 }
           ],
-          "mainSkill": "Dream Shard Magnet S"
+          "mainSkill": "Dream Shard Magnet S",
+          "detailImage": "133-holiday.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 25,
+      "name": "Pikachu",
+      "primaryType": "Electric",
+      "specialty": "Berries",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Pikachu",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:45:00",
+            "carryLimit": 17,
+            "friendshipPointsNeeded": 7,
+            "recruitExperience": 7,
+            "recruitShards": 20
+          },
+          "berries": [
+            { "name": "Grepa Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Fancy Apple", "unlockLevel": 1 },
+            { "name": "Fancy Egg", "unlockLevel": 30 },
+            { "name": "Warming Ginger", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Charge Strength S"
         }
       ],
       "subSkills": []

@@ -3,6 +3,13 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { apiFetch } from "../utils/api.js";
 import usePokedexStore from "../stores/usePokedexStore.js";
 
+const TypeChip = ({ name, image }) => (
+  <span className="type-chip">
+    {image ? <img src={image} alt={name} /> : null}
+    <span>{name}</span>
+  </span>
+);
+
 const PokedexView = () => {
   const pokedex = usePokedexStore((state) => state.pokedex);
 
@@ -21,27 +28,49 @@ const PokedexView = () => {
               to={`/pokedex/${species.id}`}
               className="pokedex-card"
             >
-              <div className="pokedex-header">
-                <strong>
-                  #{String(species.dex_no).padStart(3, "0")} {species.name}
-                </strong>
-                <span className="meta">
-                  {species.primary_type}
-                  {species.secondary_type ? ` • ${species.secondary_type}` : ""} •{" "}
-                  {species.specialty || "—"}
-                </span>
-              </div>
-              <div className="variant-list">
-                {species.variants.map((variant) => (
-                  <span
-                    key={variant.id}
-                    className={`variant-chip ${
-                      variant.is_event ? "event" : ""
-                    }`}
-                  >
-                    {variant.variant_name}
-                  </span>
-                ))}
+              <div className="pokedex-card-body">
+                <img
+                  className="pokedex-preview"
+                  src={
+                    species.image_path ||
+                    `/uploads/pokemons/${species.dex_no}.png`
+                  }
+                  alt={species.name}
+                />
+                <div className="pokedex-info">
+                  <strong>
+                    #{String(species.dex_no).padStart(3, "0")} {species.name}
+                  </strong>
+                  <div className="type-row">
+                    {species.primary_type && (
+                      <TypeChip
+                        name={species.primary_type}
+                        image={species.primary_type_image}
+                      />
+                    )}
+                    {species.secondary_type && (
+                      <TypeChip
+                        name={species.secondary_type}
+                        image={species.secondary_type_image}
+                      />
+                    )}
+                    <span className="type-specialty">
+                      {species.specialty || "—"}
+                    </span>
+                  </div>
+                  <div className="variant-list">
+                    {species.variants.map((variant) => (
+                      <span
+                        key={variant.id}
+                        className={`variant-chip ${
+                          variant.is_event ? "event" : ""
+                        }`}
+                      >
+                        {variant.variant_name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </Link>
           ))}
@@ -88,23 +117,56 @@ const VariantSection = ({ title, children, emptyLabel }) => (
   </div>
 );
 
+const getBerryImage = (name) =>
+  `/uploads/berries/${name.toLowerCase().replace(/[^a-z0-9]/g, "")}.png`;
+
+const getIngredientImage = (name) =>
+  `/uploads/ingredients/${name
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "")}.png`;
+
 const VariantCard = ({ variant }) => (
   <div className="variant-card">
-    <h4>{variant.variant_name}</h4>
-    {variant.notes && <p className="meta">{variant.notes}</p>}
-    <VariantStats stats={variant.stats} />
+    <div className="variant-top">
+      {variant.image_path && (
+        <img
+          className="variant-preview"
+          src={variant.image_path}
+          alt={variant.variant_name}
+        />
+      )}
+      <div className="variant-body">
+        <div className="variant-header">
+          <h4>{variant.variant_name}</h4>
+          {variant.notes && <p className="meta">{variant.notes}</p>}
+        </div>
+        <VariantStats stats={variant.stats} />
+      </div>
+    </div>
     <div className="detail-grid">
       <VariantSection title="Berries" emptyLabel="No berries set.">
         {variant.berries.map((berry) => (
-          <div key={berry.name}>
-            {berry.name} × {berry.quantity}
+          <div key={berry.name} className="preview-row">
+            <img
+              src={berry.image_path || getBerryImage(berry.name)}
+              alt={berry.name}
+            />
+            <span>
+              {berry.name} × {berry.quantity}
+            </span>
           </div>
         ))}
       </VariantSection>
       <VariantSection title="Ingredients" emptyLabel="No ingredients set.">
         {variant.ingredients.map((ingredient) => (
-          <div key={ingredient.name}>
-            {ingredient.name} (Lv {ingredient.unlockLevel})
+          <div key={ingredient.name} className="preview-row">
+            <img
+              src={
+                ingredient.image_path || getIngredientImage(ingredient.name)
+              }
+              alt={ingredient.name}
+            />
+            <span>{ingredient.name}</span>
           </div>
         ))}
       </VariantSection>
@@ -175,13 +237,37 @@ const PokedexDetailView = () => {
         <button className="back-button" onClick={() => navigate(-1)}>
           ← Back
         </button>
-        <h2>
-          #{String(species.dex_no).padStart(3, "0")} {species.name}
-        </h2>
+        <div className="pokedex-title">
+          <img
+            className="pokedex-preview"
+            src={
+              species.image_path ||
+              `/uploads/pokemons/${species.dex_no}.png`
+            }
+            alt={species.name}
+          />
+          <h2>
+            #{String(species.dex_no).padStart(3, "0")} {species.name}
+          </h2>
+        </div>
         <p className="subhead">
-          {species.primary_type}
-          {species.secondary_type ? ` • ${species.secondary_type}` : ""} •{" "}
-          {species.specialty || "—"}
+          <span className="type-row">
+            {species.primary_type && (
+              <TypeChip
+                name={species.primary_type}
+                image={species.primary_type_image}
+              />
+            )}
+            {species.secondary_type && (
+              <TypeChip
+                name={species.secondary_type}
+                image={species.secondary_type_image}
+              />
+            )}
+            <span className="type-specialty">
+              {species.specialty || "—"}
+            </span>
+          </span>
         </p>
       </header>
 

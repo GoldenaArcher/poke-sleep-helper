@@ -375,10 +375,24 @@ app.get("/api/dishes/:id/levels", async (req, res) => {
 app.get("/api/pokedex", async (req, res) => {
   try {
     const speciesRows = await dbAll(
-      "select id, dex_no, name, primary_type, secondary_type, specialty from pokemon_species order by dex_no"
+      `select pokemon_species.id,
+              pokemon_species.dex_no,
+              pokemon_species.name,
+              pokemon_species.primary_type,
+              pokemon_species.secondary_type,
+              pokemon_species.specialty,
+              pokemon_species.image_path,
+              primary_types.image_path as primary_type_image,
+              secondary_types.image_path as secondary_type_image
+       from pokemon_species
+       left join pokemon_types as primary_types
+         on primary_types.name = pokemon_species.primary_type
+       left join pokemon_types as secondary_types
+         on secondary_types.name = pokemon_species.secondary_type
+       order by pokemon_species.dex_no`
     );
     const variantRows = await dbAll(
-      `select id, species_id, variant_key, variant_name, is_default, is_event, notes
+      `select id, species_id, variant_key, variant_name, is_default, is_event, notes, image_path
        from pokemon_variants
        order by variant_name`
     );
@@ -406,8 +420,21 @@ app.get("/api/pokedex/:id", async (req, res) => {
   }
   try {
     const species = await dbGet(
-      `select id, dex_no, name, primary_type, secondary_type, specialty
-       from pokemon_species where id = ?`,
+      `select pokemon_species.id,
+              pokemon_species.dex_no,
+              pokemon_species.name,
+              pokemon_species.primary_type,
+              pokemon_species.secondary_type,
+              pokemon_species.specialty,
+              pokemon_species.image_path,
+              primary_types.image_path as primary_type_image,
+              secondary_types.image_path as secondary_type_image
+       from pokemon_species
+       left join pokemon_types as primary_types
+         on primary_types.name = pokemon_species.primary_type
+       left join pokemon_types as secondary_types
+         on secondary_types.name = pokemon_species.secondary_type
+       where pokemon_species.id = ?`,
       [speciesId]
     );
     if (!species) {
@@ -415,7 +442,7 @@ app.get("/api/pokedex/:id", async (req, res) => {
       return;
     }
     const variants = await dbAll(
-      `select id, variant_key, variant_name, is_default, is_event, notes
+      `select id, variant_key, variant_name, is_default, is_event, notes, image_path
        from pokemon_variants
        where species_id = ?
        order by variant_name`,
@@ -429,13 +456,15 @@ app.get("/api/pokedex/:id", async (req, res) => {
     const berryRows = await dbAll(
       `select pokemon_variant_berries.variant_id,
               pokemon_variant_berries.quantity,
-              berries.name
+              berries.name,
+              berries.image_path
        from pokemon_variant_berries
        join berries on berries.id = pokemon_variant_berries.berry_id`
     );
     const ingredientRows = await dbAll(
       `select pokemon_variant_ingredients.variant_id,
               ingredients.name,
+              ingredients.image_path,
               pokemon_variant_ingredients.unlock_level
        from pokemon_variant_ingredients
        join ingredients on ingredients.id = pokemon_variant_ingredients.ingredient_id`
@@ -529,10 +558,20 @@ app.get("/api/pokemon-box", async (req, res) => {
               pokemon_box.main_skill_level,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
+              pokemon_species.primary_type as primary_type,
+              pokemon_species.secondary_type as secondary_type,
+              pokemon_species.specialty as specialty,
+              primary_types.image_path as primary_type_image,
+              secondary_types.image_path as secondary_type_image,
               pokemon_variants.variant_name as variant_name,
+              pokemon_variants.image_path as variant_image_path,
               natures.name as nature_name
        from pokemon_box
        join pokemon_species on pokemon_species.id = pokemon_box.species_id
+       left join pokemon_types as primary_types
+         on primary_types.name = pokemon_species.primary_type
+       left join pokemon_types as secondary_types
+         on secondary_types.name = pokemon_species.secondary_type
        join pokemon_variants on pokemon_variants.id = pokemon_box.variant_id
        left join natures on natures.id = pokemon_box.nature_id
        order by pokemon_box.created_at desc`
@@ -574,6 +613,39 @@ app.post("/api/pokemon-box", async (req, res) => {
         Math.max(1, Number(mainSkillLevel) || 1)
       ]
     );
+    const createdEntry = await dbGet(
+      "select last_insert_rowid() as id"
+    );
+    if (createdEntry) {
+      const ingredientSlotLevels = [1, 30, 60];
+      for (const slotLevel of ingredientSlotLevels) {
+        const ingredientRow = await dbGet(
+          `select ingredient_id from pokemon_variant_ingredients
+           where variant_id = ? and unlock_level = ?`,
+          [variantId, slotLevel]
+        );
+        await dbRun(
+          `insert or ignore into pokemon_box_ingredients
+           (box_id, slot_level, ingredient_id, quantity)
+           values (?, ?, ?, ?)`,
+          [
+            createdEntry.id,
+            slotLevel,
+            ingredientRow?.ingredient_id || null,
+            ingredientRow ? 1 : 0
+          ]
+        );
+      }
+      const subSkillSlotLevels = [10, 25, 50, 75, 100];
+      for (const slotLevel of subSkillSlotLevels) {
+        await dbRun(
+          `insert or ignore into pokemon_box_sub_skills
+           (box_id, slot_level, sub_skill_id)
+           values (?, ?, ?)`,
+          [createdEntry.id, slotLevel, null]
+        );
+      }
+    }
     const row = await dbGet(
       `select pokemon_box.id,
               pokemon_box.species_id,
@@ -584,13 +656,24 @@ app.post("/api/pokemon-box", async (req, res) => {
               pokemon_box.main_skill_level,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
+              pokemon_species.primary_type as primary_type,
+              pokemon_species.secondary_type as secondary_type,
+              pokemon_species.specialty as specialty,
+              primary_types.image_path as primary_type_image,
+              secondary_types.image_path as secondary_type_image,
               pokemon_variants.variant_name as variant_name,
+              pokemon_variants.image_path as variant_image_path,
               natures.name as nature_name
        from pokemon_box
        join pokemon_species on pokemon_species.id = pokemon_box.species_id
+       left join pokemon_types as primary_types
+         on primary_types.name = pokemon_species.primary_type
+       left join pokemon_types as secondary_types
+         on secondary_types.name = pokemon_species.secondary_type
        join pokemon_variants on pokemon_variants.id = pokemon_box.variant_id
        left join natures on natures.id = pokemon_box.nature_id
-       where pokemon_box.id = last_insert_rowid()`
+       where pokemon_box.id = ?`,
+      [createdEntry?.id || null]
     );
     res.json(row);
   } catch (error) {
@@ -600,7 +683,8 @@ app.post("/api/pokemon-box", async (req, res) => {
 
 app.put("/api/pokemon-box/:id", async (req, res) => {
   const entryId = Number(req.params.id);
-  const { natureId, nickname, level, mainSkillLevel } = req.body || {};
+  const { natureId, nickname, level, mainSkillLevel, ingredients, subSkills } =
+    req.body || {};
   if (!entryId) {
     res.status(400).json({ error: "invalid id" });
     return;
@@ -621,6 +705,42 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
         entryId
       ]
     );
+    if (Array.isArray(ingredients)) {
+      for (const slot of ingredients) {
+        if (!slot?.slotLevel) {
+          continue;
+        }
+        await dbRun(
+          `insert into pokemon_box_ingredients
+           (box_id, slot_level, ingredient_id, quantity)
+           values (?, ?, ?, ?)
+           on conflict(box_id, slot_level) do update set
+             ingredient_id = excluded.ingredient_id,
+             quantity = excluded.quantity`,
+          [
+            entryId,
+            slot.slotLevel,
+            slot.ingredientId || null,
+            Number(slot.quantity) || 0
+          ]
+        );
+      }
+    }
+    if (Array.isArray(subSkills)) {
+      for (const slot of subSkills) {
+        if (!slot?.slotLevel) {
+          continue;
+        }
+        await dbRun(
+          `insert into pokemon_box_sub_skills
+           (box_id, slot_level, sub_skill_id)
+           values (?, ?, ?)
+           on conflict(box_id, slot_level) do update set
+             sub_skill_id = excluded.sub_skill_id`,
+          [entryId, slot.slotLevel, slot.subSkillId || null]
+        );
+      }
+    }
     const row = await dbGet(
       `select pokemon_box.id,
               pokemon_box.species_id,
@@ -631,10 +751,20 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
               pokemon_box.main_skill_level,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
+              pokemon_species.primary_type as primary_type,
+              pokemon_species.secondary_type as secondary_type,
+              pokemon_species.specialty as specialty,
+              primary_types.image_path as primary_type_image,
+              secondary_types.image_path as secondary_type_image,
               pokemon_variants.variant_name as variant_name,
+              pokemon_variants.image_path as variant_image_path,
               natures.name as nature_name
        from pokemon_box
        join pokemon_species on pokemon_species.id = pokemon_box.species_id
+       left join pokemon_types as primary_types
+         on primary_types.name = pokemon_species.primary_type
+       left join pokemon_types as secondary_types
+         on secondary_types.name = pokemon_species.secondary_type
        join pokemon_variants on pokemon_variants.id = pokemon_box.variant_id
        left join natures on natures.id = pokemon_box.nature_id
        where pokemon_box.id = ?`,
@@ -663,10 +793,20 @@ app.get("/api/pokemon-box/:id/details", async (req, res) => {
               pokemon_box.main_skill_level,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
+              pokemon_species.primary_type as primary_type,
+              pokemon_species.secondary_type as secondary_type,
+              pokemon_species.specialty as specialty,
+              primary_types.image_path as primary_type_image,
+              secondary_types.image_path as secondary_type_image,
               pokemon_variants.variant_name as variant_name,
+              pokemon_variants.image_path as variant_image_path,
               natures.name as nature_name
        from pokemon_box
        join pokemon_species on pokemon_species.id = pokemon_box.species_id
+       left join pokemon_types as primary_types
+         on primary_types.name = pokemon_species.primary_type
+       left join pokemon_types as secondary_types
+         on secondary_types.name = pokemon_species.secondary_type
        join pokemon_variants on pokemon_variants.id = pokemon_box.variant_id
        left join natures on natures.id = pokemon_box.nature_id
        where pokemon_box.id = ?`,
@@ -677,24 +817,29 @@ app.get("/api/pokemon-box/:id/details", async (req, res) => {
       return;
     }
     const ingredients = await dbAll(
-      `select ingredients.name, pokemon_variant_ingredients.unlock_level
-       from pokemon_variant_ingredients
-       join ingredients on ingredients.id = pokemon_variant_ingredients.ingredient_id
-       where pokemon_variant_ingredients.variant_id = ?
-       order by pokemon_variant_ingredients.unlock_level`,
-      [entry.variant_id]
+      `select pokemon_box_ingredients.slot_level,
+              pokemon_box_ingredients.quantity,
+              ingredients.id as ingredient_id,
+              ingredients.name,
+              ingredients.image_path
+       from pokemon_box_ingredients
+       left join ingredients on ingredients.id = pokemon_box_ingredients.ingredient_id
+       where pokemon_box_ingredients.box_id = ?
+       order by pokemon_box_ingredients.slot_level`,
+      [entry.id]
     );
     const subSkills = await dbAll(
-      `select sub_skills.name,
+      `select pokemon_box_sub_skills.slot_level,
+              sub_skills.id as sub_skill_id,
+              sub_skills.name,
               sub_skills.description,
               sub_skills.rarity,
-              sub_skills.upgradable_to,
-              pokemon_sub_skills.unlock_level
-       from pokemon_sub_skills
-       join sub_skills on sub_skills.id = pokemon_sub_skills.sub_skill_id
-       where pokemon_sub_skills.species_id = ?
-       order by pokemon_sub_skills.unlock_level`,
-      [entry.species_id]
+              sub_skills.upgradable_to
+       from pokemon_box_sub_skills
+       left join sub_skills on sub_skills.id = pokemon_box_sub_skills.sub_skill_id
+       where pokemon_box_sub_skills.box_id = ?
+       order by pokemon_box_sub_skills.slot_level`,
+      [entry.id]
     );
     const mainSkill = await dbGet(
       `select main_skills.name, main_skills.notes, main_skills.effect_type, main_skills.target
@@ -703,11 +848,15 @@ app.get("/api/pokemon-box/:id/details", async (req, res) => {
        where pokemon_variant_main_skills.variant_id = ?`,
       [entry.variant_id]
     );
+    const subSkillCatalog = await dbAll(
+      "select id, name, description, rarity from sub_skills order by name"
+    );
     res.json({
       entry,
       ingredients,
       subSkills,
-      mainSkill
+      mainSkill,
+      subSkillCatalog
     });
   } catch (error) {
     res.status(500).json({ error: "Failed to load pokemon details" });
@@ -721,6 +870,12 @@ app.delete("/api/pokemon-box/:id", async (req, res) => {
     return;
   }
   try {
+    await dbRun("delete from pokemon_box_ingredients where box_id = ?", [
+      entryId
+    ]);
+    await dbRun("delete from pokemon_box_sub_skills where box_id = ?", [
+      entryId
+    ]);
     await dbRun("delete from pokemon_box where id = ?", [entryId]);
     res.json({ ok: true });
   } catch (error) {

@@ -153,16 +153,25 @@ const initDb = async () => {
       name TEXT NOT NULL UNIQUE,
       primary_type TEXT,
       secondary_type TEXT,
-      specialty TEXT
+      specialty TEXT,
+      image_path TEXT
     );
   `);
 
   await dbRun(`
     CREATE TABLE IF NOT EXISTS pokemon_types (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL UNIQUE
+      name TEXT NOT NULL UNIQUE,
+      image_path TEXT
     );
   `);
+  const typeColumns = await dbAll("pragma table_info(pokemon_types)");
+  const hasTypeImage = typeColumns.some(
+    (column) => column.name === "image_path"
+  );
+  if (!hasTypeImage) {
+    await dbRun("alter table pokemon_types add column image_path text");
+  }
 
   const speciesColumns = await dbAll("pragma table_info(pokemon_species)");
   const hasSpecialty = speciesColumns.some(
@@ -170,6 +179,12 @@ const initDb = async () => {
   );
   if (!hasSpecialty) {
     await dbRun("alter table pokemon_species add column specialty text");
+  }
+  const hasSpeciesImage = speciesColumns.some(
+    (column) => column.name === "image_path"
+  );
+  if (!hasSpeciesImage) {
+    await dbRun("alter table pokemon_species add column image_path text");
   }
 
   await dbRun(`
@@ -181,10 +196,19 @@ const initDb = async () => {
       is_default INTEGER NOT NULL DEFAULT 0,
       is_event INTEGER NOT NULL DEFAULT 0,
       notes TEXT,
+      image_path TEXT,
       UNIQUE (species_id, variant_key),
       FOREIGN KEY (species_id) REFERENCES pokemon_species(id)
     );
   `);
+
+  const variantColumns = await dbAll("pragma table_info(pokemon_variants)");
+  const hasVariantImage = variantColumns.some(
+    (column) => column.name === "image_path"
+  );
+  if (!hasVariantImage) {
+    await dbRun("alter table pokemon_variants add column image_path text");
+  }
 
   await dbRun(`
     CREATE TABLE IF NOT EXISTS pokemon_box (
@@ -199,6 +223,29 @@ const initDb = async () => {
       FOREIGN KEY (species_id) REFERENCES pokemon_species(id),
       FOREIGN KEY (variant_id) REFERENCES pokemon_variants(id),
       FOREIGN KEY (nature_id) REFERENCES natures(id)
+    );
+  `);
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS pokemon_box_ingredients (
+      box_id INTEGER NOT NULL,
+      slot_level INTEGER NOT NULL,
+      ingredient_id INTEGER,
+      quantity INTEGER NOT NULL DEFAULT 0,
+      PRIMARY KEY (box_id, slot_level),
+      FOREIGN KEY (box_id) REFERENCES pokemon_box(id),
+      FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
+    );
+  `);
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS pokemon_box_sub_skills (
+      box_id INTEGER NOT NULL,
+      slot_level INTEGER NOT NULL,
+      sub_skill_id INTEGER,
+      PRIMARY KEY (box_id, slot_level),
+      FOREIGN KEY (box_id) REFERENCES pokemon_box(id),
+      FOREIGN KEY (sub_skill_id) REFERENCES sub_skills(id)
     );
   `);
 
@@ -565,33 +612,81 @@ const initDb = async () => {
       }
     }
 
-    for (const pokemon of pokemonSeed.species || []) {
+  for (const pokemon of pokemonSeed.species || []) {
+    const profileImage = pokemon.profileImage
+      ? `/uploads/pokemons/${pokemon.profileImage}`
+      : `/uploads/pokemons/${pokemon.dexNo}.png`;
+    await dbRun(
+      `insert or ignore into pokemon_species
+       (dex_no, name, primary_type, specialty, image_path)
+       values (?, ?, ?, ?, ?)`,
+      [
+        pokemon.dexNo,
+        pokemon.name,
+        pokemon.primaryType,
+        pokemon.specialty,
+        profileImage
+      ]
+    );
+    const speciesRow = await dbGet(
+      "select id from pokemon_species where name = ?",
+      [pokemon.name]
+    );
+    if (speciesRow) {
       await dbRun(
-        `insert or ignore into pokemon_species
-         (dex_no, name, primary_type, specialty)
-         values (?, ?, ?, ?)`,
-        [pokemon.dexNo, pokemon.name, pokemon.primaryType, pokemon.specialty]
+        `update pokemon_species
+         set primary_type = ?,
+             specialty = ?,
+             image_path = ?
+         where id = ?`,
+        [
+          pokemon.primaryType,
+          pokemon.specialty,
+          profileImage,
+          speciesRow.id
+        ]
       );
-      const speciesRow = await dbGet(
-        "select id from pokemon_species where name = ?",
-        [pokemon.name]
-      );
-      for (const variant of pokemon.variants) {
-        await dbRun(
-          `insert or ignore into pokemon_variants
-           (species_id, variant_key, variant_name, is_default, is_event, notes)
-           values (?, ?, ?, ?, ?, ?)`,
-          [
-            speciesRow.id,
-            variant.key,
-            variant.name,
-            variant.isDefault,
-            variant.isEvent,
-            variant.notes
-          ]
-        );
-      }
     }
+    for (const variant of pokemon.variants) {
+      const detailImage = variant.detailImage
+        ? `/uploads/pokemons/${variant.detailImage}`
+        : `/uploads/pokemons/${pokemon.dexNo}${
+            variant.key === "default" ? "" : `-${variant.key}`
+          }.png`;
+      await dbRun(
+        `insert or ignore into pokemon_variants
+         (species_id, variant_key, variant_name, is_default, is_event, notes, image_path)
+         values (?, ?, ?, ?, ?, ?, ?)`,
+        [
+          speciesRow.id,
+          variant.key,
+          variant.name,
+          variant.isDefault,
+          variant.isEvent,
+          variant.notes,
+          detailImage
+        ]
+      );
+      await dbRun(
+        `update pokemon_variants
+         set variant_name = ?,
+             is_default = ?,
+             is_event = ?,
+             notes = ?,
+             image_path = ?
+         where species_id = ? and variant_key = ?`,
+        [
+          variant.name,
+          variant.isDefault,
+          variant.isEvent,
+          variant.notes,
+          detailImage,
+          speciesRow.id,
+          variant.key
+        ]
+      );
+    }
+  }
 
     for (const area of researchAreas) {
       await dbRun(
@@ -602,8 +697,14 @@ const initDb = async () => {
 
     for (const typeName of pokemonTypes) {
       await dbRun(
-        "insert or ignore into pokemon_types (name) values (?)",
-        [typeName]
+        "insert or ignore into pokemon_types (name, image_path) values (?, ?)",
+        [typeName, `/uploads/pokemonTypes/${typeName.toLowerCase()}.png`]
+      );
+      await dbRun(
+        `update pokemon_types
+         set image_path = ?
+         where name = ? and (image_path is null or image_path = "")`,
+        [`/uploads/pokemonTypes/${typeName.toLowerCase()}.png`, typeName]
       );
     }
 
@@ -854,6 +955,127 @@ const initDb = async () => {
     );
   }
 
+  for (const typeName of pokemonTypes) {
+    await dbRun(
+      `update pokemon_types
+       set image_path = ?
+       where name = ? and (image_path is null or image_path = "")`,
+      [`/uploads/pokemonTypes/${typeName.toLowerCase()}.png`, typeName]
+    );
+  }
+
+  const berryRows = await dbAll("select id, name, image_path from berries");
+  for (const berry of berryRows) {
+    if (berry.image_path) {
+      continue;
+    }
+    const imagePath = `/uploads/berries/${berry.name
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "")}.png`;
+    await dbRun(
+      `update berries
+       set image_path = ?
+       where id = ?`,
+      [imagePath, berry.id]
+    );
+  }
+
+  const ingredientRows = await dbAll(
+    "select id, name, image_path from ingredients"
+  );
+  for (const ingredient of ingredientRows) {
+    if (ingredient.image_path) {
+      continue;
+    }
+    const imagePath = `/uploads/ingredients/${ingredient.name
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "")}.png`;
+    await dbRun(
+      `update ingredients
+       set image_path = ?
+       where id = ?`,
+      [imagePath, ingredient.id]
+    );
+  }
+
+  const ingredientSlotLevels = [1, 30, 60];
+  const subSkillSlotLevels = [10, 25, 50, 75, 100];
+  const boxEntries = await dbAll(
+    "select id, variant_id, species_id from pokemon_box"
+  );
+  for (const entry of boxEntries) {
+    for (const level of ingredientSlotLevels) {
+      const existing = await dbGet(
+        `select 1 from pokemon_box_ingredients
+         where box_id = ? and slot_level = ?`,
+        [entry.id, level]
+      );
+      if (existing) {
+        continue;
+      }
+      const ingredientRow = await dbGet(
+        `select ingredient_id from pokemon_variant_ingredients
+         where variant_id = ? and unlock_level = ?`,
+        [entry.variant_id, level]
+      );
+      await dbRun(
+        `insert into pokemon_box_ingredients
+         (box_id, slot_level, ingredient_id, quantity)
+         values (?, ?, ?, ?)`,
+        [
+          entry.id,
+          level,
+          ingredientRow?.ingredient_id || null,
+          ingredientRow ? 1 : 0
+        ]
+      );
+    }
+    for (const level of subSkillSlotLevels) {
+      const existing = await dbGet(
+        `select 1 from pokemon_box_sub_skills
+         where box_id = ? and slot_level = ?`,
+        [entry.id, level]
+      );
+      if (existing) {
+        continue;
+      }
+      await dbRun(
+        `insert into pokemon_box_sub_skills
+         (box_id, slot_level, sub_skill_id)
+         values (?, ?, ?)`,
+        [entry.id, level, null]
+      );
+    }
+  }
+
+  // Backfill Pokemon images from seed data even when full seeding is skipped.
+  for (const pokemon of pokemonSeed.species || []) {
+    const profileImage = pokemon.profileImage
+      ? `/uploads/pokemons/${pokemon.profileImage}`
+      : `/uploads/pokemons/${pokemon.dexNo}.png`;
+    await dbRun(
+      `update pokemon_species
+       set image_path = ?
+       where name = ? and (image_path is null or image_path = "")`,
+      [profileImage, pokemon.name]
+    );
+    for (const variant of pokemon.variants || []) {
+      const detailImage = variant.detailImage
+        ? `/uploads/pokemons/${variant.detailImage}`
+        : `/uploads/pokemons/${pokemon.dexNo}${
+            variant.key === "default" ? "" : `-${variant.key}`
+          }.png`;
+      await dbRun(
+        `update pokemon_variants
+         set image_path = ?
+         where variant_key = ? and species_id = (
+           select id from pokemon_species where name = ?
+         ) and (image_path is null or image_path = "")`,
+        [detailImage, variant.key, pokemon.name]
+      );
+    }
+  }
+
   for (const berry of berryCatalog) {
     const imagePath = `/uploads/berries/${berry.name
       .toLowerCase()
@@ -904,5 +1126,240 @@ const initDb = async () => {
   );
 };
 
-export { dbAll, dbGet, dbRun, initDb };
+const seedPokemonData = async () => {
+  for (const typeName of pokemonTypes) {
+    await dbRun(
+      "insert or ignore into pokemon_types (name, image_path) values (?, ?)",
+      [typeName, `/uploads/pokemonTypes/${typeName.toLowerCase()}.png`]
+    );
+    await dbRun(
+      `update pokemon_types
+       set image_path = ?
+       where name = ? and (image_path is null or image_path = "")`,
+      [`/uploads/pokemonTypes/${typeName.toLowerCase()}.png`, typeName]
+    );
+  }
+
+  for (const skill of mainSkillCatalog) {
+    await dbRun(
+      `insert into main_skills (name, effect_type, target, notes)
+       values (?, ?, ?, ?)
+       on conflict(name) do update set
+         effect_type = excluded.effect_type,
+         target = excluded.target,
+         notes = excluded.notes`,
+      [skill.name, skill.effectType, skill.target, skill.notes]
+    );
+  }
+
+  for (const skill of subSkillCatalog) {
+    await dbRun(
+      "insert or ignore into sub_skills (name, description, rarity, upgradable_to) values (?, ?, ?, ?)",
+      [skill.name, skill.description, skill.rarity, skill.upgradableTo]
+    );
+  }
+
+  for (const berry of berryCatalog) {
+    await dbRun("insert or ignore into berries (name) values (?)", [
+      berry.name
+    ]);
+  }
+
+  const ingredientNames = new Set();
+  for (const pokemon of pokemonSeed.species || []) {
+    for (const variant of pokemon.variants || []) {
+      for (const ingredient of variant.ingredients || []) {
+        ingredientNames.add(ingredient.name);
+      }
+    }
+  }
+  for (const name of ingredientNames) {
+    await dbRun("insert or ignore into ingredients (name) values (?)", [name]);
+  }
+
+  for (const pokemon of pokemonSeed.species || []) {
+    const profileImage = pokemon.profileImage
+      ? `/uploads/pokemons/${pokemon.profileImage}`
+      : `/uploads/pokemons/${pokemon.dexNo}.png`;
+    await dbRun(
+      `insert or ignore into pokemon_species
+       (dex_no, name, primary_type, specialty, image_path)
+       values (?, ?, ?, ?, ?)`,
+      [
+        pokemon.dexNo,
+        pokemon.name,
+        pokemon.primaryType,
+        pokemon.specialty,
+        profileImage
+      ]
+    );
+    await dbRun(
+      `update pokemon_species
+       set primary_type = ?,
+           specialty = ?,
+           image_path = ?
+       where name = ?`,
+      [pokemon.primaryType, pokemon.specialty, profileImage, pokemon.name]
+    );
+    const speciesRow = await dbGet(
+      "select id from pokemon_species where name = ?",
+      [pokemon.name]
+    );
+    if (!speciesRow) {
+      continue;
+    }
+    for (const variant of pokemon.variants || []) {
+      const detailImage = variant.detailImage
+        ? `/uploads/pokemons/${variant.detailImage}`
+        : `/uploads/pokemons/${pokemon.dexNo}${
+            variant.key === "default" ? "" : `-${variant.key}`
+          }.png`;
+      await dbRun(
+        `insert or ignore into pokemon_variants
+         (species_id, variant_key, variant_name, is_default, is_event, notes, image_path)
+         values (?, ?, ?, ?, ?, ?, ?)`,
+        [
+          speciesRow.id,
+          variant.key,
+          variant.name,
+          variant.isDefault,
+          variant.isEvent,
+          variant.notes,
+          detailImage
+        ]
+      );
+      await dbRun(
+        `update pokemon_variants
+         set variant_name = ?,
+             is_default = ?,
+             is_event = ?,
+             notes = ?,
+             image_path = ?
+         where species_id = ? and variant_key = ?`,
+        [
+          variant.name,
+          variant.isDefault,
+          variant.isEvent,
+          variant.notes,
+          detailImage,
+          speciesRow.id,
+          variant.key
+        ]
+      );
+    }
+  }
+
+  const berryByName = new Map(
+    (await dbAll("select id, name from berries")).map((row) => [
+      row.name,
+      row
+    ])
+  );
+  const ingredientByName = new Map(
+    (await dbAll("select id, name from ingredients")).map((row) => [
+      row.name,
+      row
+    ])
+  );
+  const skillByName = new Map(
+    (await dbAll("select id, name from main_skills")).map((row) => [
+      row.name,
+      row
+    ])
+  );
+  const subSkillByName = new Map(
+    (await dbAll("select id, name from sub_skills")).map((row) => [
+      row.name,
+      row
+    ])
+  );
+
+  for (const pokemon of pokemonSeed.species || []) {
+    const speciesRow = await dbGet(
+      "select id from pokemon_species where name = ?",
+      [pokemon.name]
+    );
+    if (!speciesRow) {
+      continue;
+    }
+    for (const variant of pokemon.variants || []) {
+      const variantRow = await dbGet(
+        `select id from pokemon_variants
+         where species_id = ? and variant_key = ?`,
+        [speciesRow.id, variant.key]
+      );
+      if (!variantRow) {
+        continue;
+      }
+      if (variant.stats) {
+        await dbRun(
+          `insert or replace into pokemon_variant_stats
+           (variant_id, base_frequency, carry_limit, friendship_points_needed, recruit_experience, recruit_shards)
+           values (?, ?, ?, ?, ?, ?)`,
+          [
+            variantRow.id,
+            variant.stats.baseFrequency,
+            variant.stats.carryLimit,
+            variant.stats.friendshipPointsNeeded,
+            variant.stats.recruitExperience,
+            variant.stats.recruitShards
+          ]
+        );
+      }
+      for (const berry of variant.berries || []) {
+        const berryRow = berryByName.get(berry.name);
+        if (!berryRow) {
+          continue;
+        }
+        await dbRun(
+          `insert or replace into pokemon_variant_berries
+           (variant_id, berry_id, quantity)
+           values (?, ?, ?)`,
+          [variantRow.id, berryRow.id, berry.quantity || 1]
+        );
+      }
+      for (const ingredient of variant.ingredients || []) {
+        const ingredientRow = ingredientByName.get(ingredient.name);
+        if (!ingredientRow) {
+          continue;
+        }
+        await dbRun(
+          `insert or replace into pokemon_variant_ingredients
+           (variant_id, ingredient_id, unlock_level)
+           values (?, ?, ?)`,
+          [
+            variantRow.id,
+            ingredientRow.id,
+            ingredient.unlockLevel || 1
+          ]
+        );
+      }
+      if (variant.mainSkill) {
+        const skillRow = skillByName.get(variant.mainSkill);
+        if (skillRow) {
+          await dbRun(
+            `insert or replace into pokemon_variant_main_skills
+             (variant_id, main_skill_id)
+             values (?, ?)`,
+            [variantRow.id, skillRow.id]
+          );
+        }
+      }
+    }
+    for (const subSkill of pokemon.subSkills || []) {
+      const subSkillRow = subSkillByName.get(subSkill.name);
+      if (!subSkillRow) {
+        continue;
+      }
+      await dbRun(
+        `insert or replace into pokemon_sub_skills
+         (species_id, sub_skill_id, unlock_level)
+         values (?, ?, ?)`,
+        [speciesRow.id, subSkillRow.id, subSkill.unlockLevel || 1]
+      );
+    }
+  }
+};
+
+export { dbAll, dbGet, dbRun, initDb, seedPokemonData };
 export default db;
