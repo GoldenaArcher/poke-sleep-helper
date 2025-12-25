@@ -231,6 +231,7 @@ app.get("/api/dishes", async (req, res) => {
               dishes.description,
               dishes.base_strength,
               dishes.dish_level,
+              dishes.image_path,
               dish_levels.experience as level_experience,
               dish_levels.value as level_value
        from dishes
@@ -259,6 +260,7 @@ app.get("/api/dishes", async (req, res) => {
       list.push({
         id: row.ingredient_id,
         name: row.name,
+        image_path: row.image_path,
         quantity: row.quantity
       });
       ingredientMap.set(row.dish_id, list);

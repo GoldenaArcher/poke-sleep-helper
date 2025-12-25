@@ -73,12 +73,20 @@ const DishesView = () => {
             >
               <div className="dish-name">
                 <div className="name-line">
+                  <img
+                    className="dish-preview"
+                    src={
+                      dish.image_path ||
+                      `/uploads/dishes/${dish.name
+                        .toLowerCase()
+                        .replace(/\s+/g, "")
+                        .replace(/[^a-z0-9'-]/g, "")}.png`
+                    }
+                    alt={dish.name}
+                  />
                   <Link className="dish-link" to={`/dishes/${dish.id}`}>
                     {dish.name}
                   </Link>
-                  <span className="pill">
-                    {dish.canCook ? "Cookable" : "Missing"}
-                  </span>
                 </div>
                 <div className="inline-fields compact">
                   <span className="meta">

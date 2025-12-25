@@ -444,6 +444,15 @@ button {
   gap: 4px;
 }
 
+.dish-preview {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  object-fit: contain;
+}
+
 .pokedex-grid {
   display: grid;
   gap: 16px;

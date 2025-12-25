@@ -104,7 +104,8 @@ const initDb = async () => {
       type TEXT NOT NULL,
       description TEXT,
       base_strength INTEGER NOT NULL DEFAULT 0,
-      dish_level INTEGER NOT NULL DEFAULT 1
+      dish_level INTEGER NOT NULL DEFAULT 1,
+      image_path TEXT
     );
   `);
 
@@ -114,6 +115,12 @@ const initDb = async () => {
   );
   if (!hasDishLevel) {
     await dbRun("alter table dishes add column dish_level integer default 1");
+  }
+  const hasDishImage = dishColumns.some(
+    (column) => column.name === "image_path"
+  );
+  if (!hasDishImage) {
+    await dbRun("alter table dishes add column image_path text");
   }
   await dbRun("update dishes set dish_level = 1 where dish_level is null");
 
@@ -641,6 +648,19 @@ const initDb = async () => {
        set image_path = ?
        where name = ?`,
       [imagePath, berry.name]
+    );
+  }
+
+  for (const dish of dishCatalog) {
+    const imagePath = `/uploads/dishes/${dish.name
+      .toLowerCase()
+      .replace(/\s+/g, "")
+      .replace(/[^a-z0-9'-]/g, "")}.png`;
+    await dbRun(
+      `update dishes
+       set image_path = ?
+       where name = ?`,
+      [imagePath, dish.name]
     );
   }
 
