@@ -62,6 +62,7 @@
       "name": "Pikachu",
       "primaryType": "Electric",
       "specialty": "Berries",
+      "profileImage": "25.png",
       "variants": [
         {
           "key": "default",
@@ -84,7 +85,132 @@
             { "name": "Fancy Egg", "unlockLevel": 30 },
             { "name": "Warming Ginger", "unlockLevel": 60 }
           ],
-          "mainSkill": "Charge Strength S"
+          "mainSkill": "Charge Strength S",
+          "detailImage": "25-default.png"
+        },
+        {
+          "key": "holiday",
+          "name": "Pikachu (Holiday)",
+          "isDefault": 0,
+          "isEvent": 1,
+          "notes": "Holiday event variant",
+          "stats": {
+            "baseFrequency": "00:41:40",
+            "carryLimit": 16,
+            "friendshipPointsNeeded": 7,
+            "recruitExperience": 7,
+            "recruitShards": 20
+          },
+          "berries": [
+            { "name": "Grepa Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Fancy Apple", "unlockLevel": 1 },
+            { "name": "Fancy Egg", "unlockLevel": 30 },
+            { "name": "Warming Ginger", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Dream Shard Magnet S",
+          "detailImage": "25-holiday.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 7,
+      "name": "Squirtle",
+      "primaryType": "Water",
+      "specialty": "Ingredients",
+      "profileImage": "7.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Squirtle",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:15:00",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 18,
+            "recruitShards": 39
+          },
+          "berries": [
+            { "name": "Oran Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Moomoo Milk", "unlockLevel": 1 },
+            { "name": "Soothing Cacao", "unlockLevel": 30 },
+            { "name": "Bean Sausage", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Ingredient Magnet S",
+          "detailImage": "7-default.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 56,
+      "name": "Mankey",
+      "primaryType": "Fighting",
+      "specialty": "Berries",
+      "profileImage": "56.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Mankey",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:10:00",
+            "carryLimit": 12,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 7,
+            "recruitShards": 19
+          },
+          "berries": [
+            { "name": "Cheri Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Bean Sausage", "unlockLevel": 1 },
+            { "name": "Tasty Mushroom", "unlockLevel": 30 },
+            { "name": "Honey", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "56-default.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 39,
+      "name": "Jigglypuff",
+      "primaryType": "Fairy",
+      "specialty": "Skills",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Jigglypuff",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:05:00",
+            "carryLimit": 9,
+            "friendshipPointsNeeded": 7,
+            "recruitExperience": 23,
+            "recruitShards": 24
+          },
+          "berries": [
+            { "name": "Pecha Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Honey", "unlockLevel": 1 },
+            { "name": "Pure Oil", "unlockLevel": 30 },
+            { "name": "Soothing Cacao", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Energy for Everyone S"
         }
       ],
       "subSkills": []

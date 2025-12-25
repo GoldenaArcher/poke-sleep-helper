@@ -57,6 +57,10 @@ const BoxView = () => {
       nickname: boxDetail.entry.nickname || "",
       level: boxDetail.entry.level,
       mainSkillLevel: boxDetail.entry.main_skill_level,
+      mainSkillValue:
+        typeof boxDetail.entry.main_skill_value === "number"
+          ? boxDetail.entry.main_skill_value
+          : "",
       ingredientSlots: ingredientSlotLevels.map((slotLevel, i) => {
         const slot = ingredientSlotMap.get(slotLevel);
         return {
@@ -124,6 +128,10 @@ const BoxView = () => {
       nickname: boxDetailDraft.nickname || null,
       level: Number(boxDetailDraft.level) || 1,
       mainSkillLevel: Number(boxDetailDraft.mainSkillLevel) || 1,
+      mainSkillValue:
+        boxDetailDraft.mainSkillValue === ""
+          ? null
+          : Number(boxDetailDraft.mainSkillValue),
       ingredients: boxDetailDraft.ingredientSlots.map((slot) => ({
         slotLevel: slot.slotLevel,
         ingredientId: slot.ingredientId ? Number(slot.ingredientId) : null,
@@ -156,7 +164,15 @@ const BoxView = () => {
                 setNewBoxEntry((prev) => ({
                   ...prev,
                   speciesId: event.target.value,
-                  variantId: ""
+                  variantId:
+                    pokedex
+                      .find(
+                        (species) =>
+                          String(species.id) ===
+                          String(event.target.value)
+                      )
+                      ?.variants?.find((variant) => variant.is_default)
+                      ?.id || ""
                 }))
               }
             >
@@ -566,6 +582,34 @@ const BoxView = () => {
                     <p className="meta">
                       Skill Lv {boxDetail.entry.main_skill_level}
                     </p>
+                    <label className="inline-field">
+                      <span className="meta">Value</span>
+                      <input
+                        type="number"
+                        min="0"
+                        value={boxDetailDraft?.mainSkillValue ?? ""}
+                        onChange={(event) =>
+                          setBoxDetailDraft((prev) => ({
+                            ...prev,
+                            mainSkillValue: event.target.value
+                          }))
+                        }
+                        placeholder="Optional"
+                      />
+                    </label>
+                    {typeof boxDetailDraft?.mainSkillValue !== "undefined" &&
+                      boxDetailDraft.mainSkillValue !== "" && (
+                        <p className="meta">
+                          Value: {boxDetailDraft.mainSkillValue}
+                        </p>
+                      )}
+                    {typeof boxDetailDraft?.mainSkillValue === "undefined" &&
+                      typeof boxDetail.entry.main_skill_value ===
+                        "number" && (
+                        <p className="meta">
+                          Value: {boxDetail.entry.main_skill_value}
+                        </p>
+                      )}
                   </div>
                 ) : (
                   <p className="meta">No main skill set.</p>

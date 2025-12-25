@@ -1,5 +1,5 @@
 import path from "node:path";
-import { initDb, seedPokemonData } from "../src/db.js";
+import { initDb, seedDishLevels } from "../src/db.js";
 
 process.env.SEED_MODE = "none";
 process.env.SQLITE_PATH =
@@ -8,10 +8,10 @@ process.env.SQLITE_PATH =
 
 try {
   await initDb();
-  await seedPokemonData();
-  console.log("Pokemon seed completed.");
+  await seedDishLevels();
+  console.log("Dish levels seed completed.");
   process.exit(0);
 } catch (error) {
-  console.error("Pokemon seed failed.", error);
+  console.error("Dish levels seed failed.", error);
   process.exit(1);
 }

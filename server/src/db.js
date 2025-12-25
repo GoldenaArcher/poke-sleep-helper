@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import sqlite3 from "sqlite3";
 import {
   berryCatalog,
@@ -12,7 +13,11 @@ import {
   subSkillCatalog
 } from "../data/catalogs.js";
 
-const dbPath = process.env.SQLITE_PATH || "data/poke-sleep.sqlite";
+const defaultDbPath = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../data/poke-sleep.sqlite"
+);
+const dbPath = process.env.SQLITE_PATH || defaultDbPath;
 const resolvedPath = path.resolve(dbPath);
 
 fs.mkdirSync(path.dirname(resolvedPath), { recursive: true });
@@ -265,6 +270,12 @@ const initDb = async () => {
     await dbRun(
       "alter table pokemon_box add column main_skill_level integer default 1"
     );
+  }
+  const hasMainSkillValue = boxColumns.some(
+    (column) => column.name === "main_skill_value"
+  );
+  if (!hasMainSkillValue) {
+    await dbRun("alter table pokemon_box add column main_skill_value integer");
   }
 
   await dbRun(`
@@ -1361,5 +1372,40 @@ const seedPokemonData = async () => {
   }
 };
 
-export { dbAll, dbGet, dbRun, initDb, seedPokemonData };
+const seedDishLevels = async () => {
+  const dishByName = new Map(dishCatalog.map((dish) => [dish.name, dish]));
+  for (const [dishName, levels] of Object.entries(dishLevelData)) {
+    let dishRow = await dbGet("select id from dishes where name = ?", [
+      dishName
+    ]);
+    if (!dishRow) {
+      const dish = dishByName.get(dishName);
+      if (dish) {
+        await dbRun(
+          "insert or ignore into dishes (name, type, description, base_strength, dish_level) values (?, ?, ?, 0, 1)",
+          [dish.name, dish.type, dish.description]
+        );
+        dishRow = await dbGet("select id from dishes where name = ?", [
+          dishName
+        ]);
+      }
+    }
+    if (!dishRow) {
+      continue;
+    }
+    for (const entry of levels) {
+      await dbRun(
+        `insert into dish_levels
+         (dish_id, level, experience, value)
+         values (?, ?, ?, ?)
+         on conflict(dish_id, level) do update set
+           experience = excluded.experience,
+           value = excluded.value`,
+        [dishRow.id, entry.level, entry.experience, entry.value]
+      );
+    }
+  }
+};
+
+export { dbAll, dbGet, dbRun, initDb, seedPokemonData, seedDishLevels };
 export default db;

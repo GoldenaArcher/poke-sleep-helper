@@ -1,7 +1,8 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useBagStore from "../stores/useBagStore.js";
 import useDishesStore from "../stores/useDishesStore.js";
+import { apiFetch } from "../utils/api.js";
 
 const useIngredientIndex = ({ ingredientCatalog, ingredients, dishes }) => {
   const ingredientNames = useMemo(() => {
@@ -106,6 +107,9 @@ const IngredientDetailView = () => {
   const ingredients = useBagStore((state) => state.ingredients);
   const ingredientDetails = useBagStore((state) => state.ingredientDetails);
   const dishes = useDishesStore((state) => state.dishes);
+  const [pokemonSources, setPokemonSources] = useState([]);
+  const [dishesOpen, setDishesOpen] = useState(true);
+  const [pokemonOpen, setPokemonOpen] = useState(true);
   const { ingredientUsage, bagIngredientMap } = useIngredientIndex({
     ingredientCatalog,
     ingredients,
@@ -125,6 +129,29 @@ const IngredientDetailView = () => {
   const bagItem = bagIngredientMap.get(key);
   const usage = ingredientUsage.get(key);
   const relatedDishes = usage ? usage.dishes : [];
+  useEffect(() => {
+    let active = true;
+    if (!decodedName) {
+      setPokemonSources([]);
+      return () => {
+        active = false;
+      };
+    }
+    apiFetch(`/api/ingredients/${encodeURIComponent(decodedName)}/pokemon`)
+      .then((data) => {
+        if (active) {
+          setPokemonSources(data);
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setPokemonSources([]);
+        }
+      });
+    return () => {
+      active = false;
+    };
+  }, [decodedName]);
 
   return (
     <>
@@ -152,24 +179,77 @@ const IngredientDetailView = () => {
         </p>
       </header>
 
-      <section className="card">
-        <h3>List of all Dishes Made with {decodedName}</h3>
-        <div className="ingredient-dishes grid-cards">
-          {relatedDishes.length === 0 && (
-            <p className="empty">No dishes found.</p>
-          )}
-          {relatedDishes.map((dish) => (
-            <div key={dish.id} className="ingredient-dish-card">
-              <h4>{dish.name}</h4>
-              <p className="meta">Type: {dish.type}</p>
-            </div>
-          ))}
+      <section className="card ingredient-section">
+        <div className="section-header">
+          <h3>List of all Dishes Made with {decodedName}</h3>
+          <button
+            className="button ghost"
+            onClick={() => setDishesOpen((prev) => !prev)}
+          >
+            {dishesOpen ? "Collapse" : "Expand"}
+          </button>
         </div>
+        {dishesOpen && (
+          <div className="ingredient-dishes grid-cards">
+            {relatedDishes.length === 0 && (
+              <p className="empty">No dishes found.</p>
+            )}
+            {relatedDishes.map((dish) => (
+              <div key={dish.id} className="ingredient-dish-card">
+                <div className="preview-row">
+                  {dish.image_path ? (
+                    <img src={dish.image_path} alt={dish.name} />
+                  ) : null}
+                  <div>
+                    <h4>{dish.name}</h4>
+                    <p className="meta">Type: {dish.type}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </section>
 
-      <section className="card">
-        <h3>List of all Pokémon that may gather {decodedName}</h3>
-        <p className="meta">Coming soon.</p>
+      <section className="card ingredient-section">
+        <div className="section-header">
+          <h3>List of all Pokémon that may gather {decodedName}</h3>
+          <button
+            className="button ghost"
+            onClick={() => setPokemonOpen((prev) => !prev)}
+          >
+            {pokemonOpen ? "Collapse" : "Expand"}
+          </button>
+        </div>
+        {pokemonOpen && (
+          <div className="ingredient-pokemon grid-cards">
+            {pokemonSources.length === 0 && (
+              <p className="empty">No Pokémon found.</p>
+            )}
+            {pokemonSources.map((entry) => (
+              <div
+                key={`${entry.species_id}-${entry.variant_name}`}
+                className="ingredient-pokemon-card"
+              >
+                <div className="preview-row">
+                  {entry.variant_image_path ? (
+                    <img
+                      src={entry.variant_image_path}
+                      alt={entry.variant_name}
+                    />
+                  ) : null}
+                  <div>
+                    <h4>{entry.variant_name}</h4>
+                    <p className="meta">
+                      #{String(entry.dex_no).padStart(3, "0")}{" "}
+                      {entry.species_name}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </section>
     </>
   );

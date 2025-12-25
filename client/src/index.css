@@ -71,7 +71,7 @@ body {
 }
 
 .page {
-  max-width: 980px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 72px 32px 72px;
   width: 100%;
@@ -257,6 +257,22 @@ button {
   border: 1px solid #e2e8f0;
   background: #f8fafc;
   object-fit: contain;
+}
+
+.ingredient-dish-card .preview-row img {
+  width: 40px;
+  height: 40px;
+}
+
+.ingredient-pokemon-card .preview-row img {
+  width: 60px;
+  height: 60px;
+}
+
+.inline-field {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
 }
 
 .ingredient-preview-row {
@@ -519,6 +535,34 @@ button {
   gap: 4px;
 }
 
+.ingredient-dish-card,
+.ingredient-pokemon-card {
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.ingredient-section {
+  margin-top: 20px;
+}
+
+.ingredient-pokemon.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.ingredient-dishes.grid-cards,
+.ingredient-pokemon.grid-cards {
+  align-items: start;
+}
+
+.ingredient-pokemon-card {
+  margin-bottom: 8px;
+}
+
 .dish-preview {
   width: 42px;
   height: 42px;
@@ -531,7 +575,7 @@ button {
 .pokedex-grid {
   display: grid;
   gap: 16px;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
 .pokedex-card {
@@ -543,6 +587,8 @@ button {
   gap: 10px;
   text-decoration: none;
   color: #1f2937;
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .pokedex-card:visited {
@@ -555,6 +601,18 @@ button {
 
 .pokedex-card:visited strong {
   color: #1f2937;
+}
+
+.pokedex-card:hover {
+  border-color: #cbd5f5;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+  transform: translateY(-2px);
+}
+
+.pokedex-card:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 12px rgba(15, 23, 42, 0.08);
+  border-color: #94a3b8;
 }
 
 .pokedex-header {

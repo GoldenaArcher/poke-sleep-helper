@@ -313,6 +313,34 @@ app.get("/api/ingredients", async (req, res) => {
   }
 });
 
+app.get("/api/ingredients/:name/pokemon", async (req, res) => {
+  const ingredientName = decodeURIComponent(req.params.name || "");
+  if (!ingredientName) {
+    res.status(400).json({ error: "invalid ingredient" });
+    return;
+  }
+  try {
+    const rows = await dbAll(
+      `select pokemon_species.id as species_id,
+              pokemon_species.dex_no,
+              pokemon_species.name as species_name,
+              pokemon_variants.variant_name,
+              pokemon_variants.image_path as variant_image_path,
+              pokemon_variant_ingredients.unlock_level
+       from pokemon_variant_ingredients
+       join ingredients on ingredients.id = pokemon_variant_ingredients.ingredient_id
+       join pokemon_variants on pokemon_variants.id = pokemon_variant_ingredients.variant_id
+       join pokemon_species on pokemon_species.id = pokemon_variants.species_id
+       where ingredients.name = ?
+       order by pokemon_species.dex_no, pokemon_variants.variant_name`,
+      [ingredientName]
+    );
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load ingredient pokemon" });
+  }
+});
+
 app.put("/api/dishes/:id", async (req, res) => {
   const dishId = Number(req.params.id);
   const { baseStrength, dishLevel } = req.body || {};
@@ -556,6 +584,7 @@ app.get("/api/pokemon-box", async (req, res) => {
               pokemon_box.nickname,
               pokemon_box.level,
               pokemon_box.main_skill_level,
+              pokemon_box.main_skill_value,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
               pokemon_species.primary_type as primary_type,
@@ -602,15 +631,16 @@ app.post("/api/pokemon-box", async (req, res) => {
     }
     await dbRun(
       `insert into pokemon_box
-       (species_id, variant_id, nature_id, nickname, level, main_skill_level)
-       values (?, ?, ?, ?, ?, ?)`,
+       (species_id, variant_id, nature_id, nickname, level, main_skill_level, main_skill_value)
+       values (?, ?, ?, ?, ?, ?, ?)`,
       [
         speciesId,
         variantId,
         natureId || null,
         nickname || null,
         Math.max(1, Number(level) || 1),
-        Math.max(1, Number(mainSkillLevel) || 1)
+        Math.max(1, Number(mainSkillLevel) || 1),
+        null
       ]
     );
     const createdEntry = await dbGet(
@@ -654,6 +684,7 @@ app.post("/api/pokemon-box", async (req, res) => {
               pokemon_box.nickname,
               pokemon_box.level,
               pokemon_box.main_skill_level,
+              pokemon_box.main_skill_value,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
               pokemon_species.primary_type as primary_type,
@@ -683,8 +714,18 @@ app.post("/api/pokemon-box", async (req, res) => {
 
 app.put("/api/pokemon-box/:id", async (req, res) => {
   const entryId = Number(req.params.id);
-  const { natureId, nickname, level, mainSkillLevel, ingredients, subSkills } =
-    req.body || {};
+  const {
+    natureId,
+    nickname,
+    level,
+    mainSkillLevel,
+    mainSkillValue,
+    ingredients,
+    subSkills
+  } = req.body || {};
+  const parsedMainSkillValue = Number.isFinite(Number(mainSkillValue))
+    ? Number(mainSkillValue)
+    : null;
   if (!entryId) {
     res.status(400).json({ error: "invalid id" });
     return;
@@ -695,13 +736,15 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
        set nature_id = ?,
            nickname = ?,
            level = ?,
-           main_skill_level = ?
+           main_skill_level = ?,
+           main_skill_value = ?
        where id = ?`,
       [
         natureId || null,
         nickname || null,
         Math.max(1, Number(level) || 1),
         Math.max(1, Number(mainSkillLevel) || 1),
+        parsedMainSkillValue,
         entryId
       ]
     );
@@ -749,6 +792,7 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
               pokemon_box.nickname,
               pokemon_box.level,
               pokemon_box.main_skill_level,
+              pokemon_box.main_skill_value,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
               pokemon_species.primary_type as primary_type,
@@ -791,6 +835,7 @@ app.get("/api/pokemon-box/:id/details", async (req, res) => {
               pokemon_box.nickname,
               pokemon_box.level,
               pokemon_box.main_skill_level,
+              pokemon_box.main_skill_value,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
               pokemon_species.primary_type as primary_type,
