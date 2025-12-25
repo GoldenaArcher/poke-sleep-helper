@@ -230,6 +230,13 @@ const initDb = async () => {
     `);
     await dbRun("drop table berries_old");
   }
+  const berryColumnsAfter = await dbAll("pragma table_info(berries)");
+  const hasImagePath = berryColumnsAfter.some(
+    (column) => column.name === "image_path"
+  );
+  if (!hasImagePath) {
+    await dbRun("alter table berries add column image_path text");
+  }
 
   await dbRun(`
     CREATE TABLE IF NOT EXISTS pokemon_variant_berries (
@@ -600,19 +607,30 @@ const initDb = async () => {
       }
     }
 
-    for (const berry of berryCatalog) {
-      await dbRun("insert or ignore into berries (name) values (?)", [
-        berry.name
-      ]);
-    }
+  for (const berry of berryCatalog) {
+    await dbRun("insert or ignore into berries (name) values (?)", [
+      berry.name
+    ]);
+  }
+  for (const berry of berryCatalog) {
+    const imagePath = `/uploads/berries/${berry.name
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "")}.png`;
+    await dbRun(
+      `update berries
+       set image_path = ?
+       where name = ?`,
+      [imagePath, berry.name]
+    );
+  }
 
-    if (allowPrune) {
-      await dbRun(
-        `delete from berries
-         where name not in (${berryCatalog.map(() => "?").join(", ")})`,
-        berryCatalog.map((berry) => berry.name)
-      );
-    }
+  if (allowPrune) {
+    await dbRun(
+      `delete from berries
+       where name not in (${berryCatalog.map(() => "?").join(", ")})`,
+      berryCatalog.map((berry) => berry.name)
+    );
+  }
 
     for (const skill of mainSkillCatalog) {
       await dbRun(
@@ -793,6 +811,19 @@ const initDb = async () => {
     await dbRun(
       "insert or replace into settings (key, value) values (?, ?)",
       ["seed_version", String(seedVersion)]
+    );
+  }
+
+  for (const berry of berryCatalog) {
+    const imagePath = `/uploads/berries/${berry.name
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "")}.png`;
+    await dbRun(
+      `update berries
+       set image_path = ?
+       where name = ?
+         and (image_path is null or image_path = "")`,
+      [imagePath, berry.name]
     );
   }
 

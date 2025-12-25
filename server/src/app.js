@@ -1,6 +1,8 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import db, { dbAll, dbGet, dbRun, initDb } from "./db.js";
 
 dotenv.config();
@@ -9,6 +11,9 @@ const app = express();
 
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || "*" }));
 app.use(express.json());
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const uploadsPath = path.resolve(__dirname, "..", "uploads");
+app.use("/uploads", express.static(uploadsPath));
 
 initDb()
   .then(() => {
@@ -820,7 +825,9 @@ app.put("/api/research-areas/:id/favorites", async (req, res) => {
 
 app.get("/api/berries", async (req, res) => {
   try {
-    const rows = await dbAll("select id, name from berries order by name");
+    const rows = await dbAll(
+      "select id, name, image_path from berries order by name"
+    );
     res.json(rows);
   } catch (error) {
     res.status(500).json({ error: "Failed to load berries" });

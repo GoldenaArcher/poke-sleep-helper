@@ -63,30 +63,43 @@ const ResearchAreasModal = ({
             const favorite =
               currentArea?.favorites?.find((entry) => entry.slot === slot)
                 ?.berry_id || null;
-            const favoriteName =
-              berries.find((berry) => berry.id === favorite)?.name || "";
+            const favoriteBerry =
+              berries.find((berry) => berry.id === favorite) || null;
+            const favoriteName = favoriteBerry?.name || "";
             return (
               <label key={slot}>
                 Fav {slot}
-                <SearchSelect
-                  defaultValue={favoriteName}
-                  placeholder="Select berry"
-                  options={berries.map((berry) => berry.name)}
-                  listId={`berry-options-${slot}`}
-                  onBlur={(event) => {
-                    if (!currentArea) {
-                      return;
-                    }
-                    const match = findByName(berries, event.target.value);
-                    const current =
-                      currentArea.favorites?.map(
-                        (entry) => entry.berry_id || null
-                      ) || [null, null, null];
-                    const next = [...current];
-                    next[slot - 1] = match ? match.id : null;
-                    updateAreaFavorites(currentArea.id, next);
-                  }}
-                />
+                <div className="berry-picker">
+                  <div className="berry-preview">
+                    {favoriteBerry?.image_path ? (
+                      <img
+                        src={favoriteBerry.image_path}
+                        alt={favoriteBerry.name}
+                      />
+                    ) : (
+                      <span className="meta">No image</span>
+                    )}
+                  </div>
+                  <SearchSelect
+                    defaultValue={favoriteName}
+                    placeholder="Select berry"
+                    options={berries.map((berry) => berry.name)}
+                    listId={`berry-options-${slot}`}
+                    onBlur={(event) => {
+                      if (!currentArea) {
+                        return;
+                      }
+                      const match = findByName(berries, event.target.value);
+                      const current =
+                        currentArea.favorites?.map(
+                          (entry) => entry.berry_id || null
+                        ) || [null, null, null];
+                      const next = [...current];
+                      next[slot - 1] = match ? match.id : null;
+                      updateAreaFavorites(currentArea.id, next);
+                    }}
+                  />
+                </div>
               </label>
             );
           })}
