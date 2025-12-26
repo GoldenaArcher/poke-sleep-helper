@@ -7,6 +7,7 @@ import {
   dishCatalog,
   dishLevelData,
   mainSkillCatalog,
+  mainSkillLevelCatalog,
   natureCatalog,
   pokemonTypes,
   researchAreas,
@@ -232,6 +233,7 @@ const initDb = async () => {
       nickname TEXT,
       level INTEGER NOT NULL DEFAULT 1,
       main_skill_level INTEGER NOT NULL DEFAULT 1,
+      main_skill_trigger_rate REAL DEFAULT 0.1,
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
       FOREIGN KEY (species_id) REFERENCES pokemon_species(id),
       FOREIGN KEY (variant_id) REFERENCES pokemon_variants(id),
@@ -285,6 +287,17 @@ const initDb = async () => {
   if (!hasMainSkillValue) {
     await dbRun("alter table pokemon_box add column main_skill_value integer");
   }
+  const hasMainSkillTriggerRate = boxColumns.some(
+    (column) => column.name === "main_skill_trigger_rate"
+  );
+  if (!hasMainSkillTriggerRate) {
+    await dbRun(
+      "alter table pokemon_box add column main_skill_trigger_rate real default 0.1"
+    );
+  }
+  await dbRun(
+    "update pokemon_box set main_skill_trigger_rate = 0.1 where main_skill_trigger_rate is null"
+  );
   const hasShiny = boxColumns.some((column) => column.name === "is_shiny");
   if (!hasShiny) {
     await dbRun(
@@ -816,6 +829,36 @@ const initDb = async () => {
       );
     }
 
+    const skillRows = await dbAll("select id, name from main_skills");
+    const skillIdByName = new Map(
+      skillRows.map((row) => [row.name, row.id])
+    );
+    for (const [skillName, levels] of Object.entries(
+      mainSkillLevelCatalog
+    )) {
+      const skillId = skillIdByName.get(skillName);
+      if (!skillId) {
+        continue;
+      }
+      for (const levelEntry of levels) {
+        await dbRun(
+          `insert into main_skill_levels (skill_id, level, value_min, value_max, notes)
+           values (?, ?, ?, ?, ?)
+           on conflict(skill_id, level) do update set
+             value_min = excluded.value_min,
+             value_max = excluded.value_max,
+             notes = excluded.notes`,
+          [
+            skillId,
+            levelEntry.level,
+            levelEntry.value,
+            levelEntry.value,
+            levelEntry.notes || null
+          ]
+        );
+      }
+    }
+
     if (allowPrune) {
       await dbRun(
         `delete from main_skills
@@ -1194,6 +1237,36 @@ const seedPokemonData = async () => {
          notes = excluded.notes`,
       [skill.name, skill.effectType, skill.target, skill.notes]
     );
+  }
+
+  const skillRows = await dbAll("select id, name from main_skills");
+  const skillIdByName = new Map(
+    skillRows.map((row) => [row.name, row.id])
+  );
+  for (const [skillName, levels] of Object.entries(
+    mainSkillLevelCatalog
+  )) {
+    const skillId = skillIdByName.get(skillName);
+    if (!skillId) {
+      continue;
+    }
+    for (const levelEntry of levels) {
+      await dbRun(
+        `insert into main_skill_levels (skill_id, level, value_min, value_max, notes)
+         values (?, ?, ?, ?, ?)
+         on conflict(skill_id, level) do update set
+           value_min = excluded.value_min,
+           value_max = excluded.value_max,
+           notes = excluded.notes`,
+        [
+          skillId,
+          levelEntry.level,
+          levelEntry.value,
+          levelEntry.value,
+          levelEntry.notes || null
+        ]
+      );
+    }
   }
 
   for (const skill of subSkillCatalog) {

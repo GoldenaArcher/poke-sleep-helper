@@ -66,6 +66,10 @@ const BoxView = () => {
       nickname: boxDetail.entry.nickname || "",
       level: boxDetail.entry.level,
       mainSkillLevel: boxDetail.entry.main_skill_level,
+      mainSkillTriggerRate:
+        typeof boxDetail.entry.main_skill_trigger_rate === "number"
+          ? boxDetail.entry.main_skill_trigger_rate
+          : 0.1,
       mainSkillValue:
         typeof boxDetail.entry.main_skill_value === "number"
           ? boxDetail.entry.main_skill_value
@@ -228,6 +232,10 @@ const BoxView = () => {
       nickname: boxDetailDraft.nickname || null,
       level: Number(boxDetailDraft.level) || 1,
       mainSkillLevel: Number(boxDetailDraft.mainSkillLevel) || 1,
+      mainSkillTriggerRate:
+        boxDetailDraft.mainSkillTriggerRate === ""
+          ? null
+          : Number(boxDetailDraft.mainSkillTriggerRate),
       mainSkillValue:
         boxDetailDraft.mainSkillValue === ""
           ? null
@@ -754,6 +762,22 @@ const BoxView = () => {
                       Skill Lv {boxDetail.entry.main_skill_level}
                     </p>
                     <label className="inline-field">
+                      <span className="meta">Trigger rate</span>
+                      <input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value={boxDetailDraft?.mainSkillTriggerRate ?? ""}
+                        onChange={(event) =>
+                          setBoxDetailDraft((prev) => ({
+                            ...prev,
+                            mainSkillTriggerRate: event.target.value
+                          }))
+                        }
+                        placeholder="0.1"
+                      />
+                    </label>
+                    <label className="inline-field">
                       <span className="meta">Value</span>
                       <input
                         type="number"
@@ -765,9 +789,21 @@ const BoxView = () => {
                             mainSkillValue: event.target.value
                           }))
                         }
-                        placeholder="Optional"
+                        placeholder={
+                          typeof boxDetail.entry.main_skill_value_default ===
+                          "number"
+                            ? `Default: ${boxDetail.entry.main_skill_value_default}`
+                            : "Optional"
+                        }
                       />
                     </label>
+                    {typeof boxDetail.entry.main_skill_value_default ===
+                    "number" ? (
+                      <p className="meta">
+                        Default value:{" "}
+                        {boxDetail.entry.main_skill_value_default}
+                      </p>
+                    ) : null}
                     {typeof boxDetailDraft?.mainSkillValue !== "undefined" &&
                       boxDetailDraft.mainSkillValue !== "" && (
                         <p className="meta">

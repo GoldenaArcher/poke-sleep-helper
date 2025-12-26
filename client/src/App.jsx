@@ -8,7 +8,6 @@ import {
 import { FiBriefcase } from "react-icons/fi";
 import { FaMagnifyingGlassLocation } from "react-icons/fa6";
 import BagModalContainer from "./components/BagModalContainer.jsx";
-import PlaceholderView from "./components/PlaceholderView.jsx";
 import ResearchAreasModalContainer from "./components/ResearchAreasModalContainer.jsx";
 import BoxView from "./views/BoxView.jsx";
 import DishesView, { DishDetailView } from "./views/DishesView.jsx";
@@ -17,6 +16,7 @@ import {
   IngredientsListView
 } from "./views/IngredientsView.jsx";
 import PokedexView, { PokedexDetailView } from "./views/PokedexView.jsx";
+import TeamsView from "./views/TeamsView.jsx";
 import useBagStore from "./stores/useBagStore.js";
 import useDishesStore from "./stores/useDishesStore.js";
 import useNaturesStore from "./stores/useNaturesStore.js";
@@ -89,10 +89,10 @@ export default function App() {
           <button
             className={`bag-button ${areasOpen ? "active" : ""}`}
             onClick={() => setAreasOpen((open) => !open)}
-            aria-label="Toggle research areas"
+            aria-label="Toggle research setup"
           >
             <FaMagnifyingGlassLocation />
-            Areas
+            Research
           </button>
         </aside>
 
@@ -115,12 +115,7 @@ export default function App() {
             <Route path="/box" element={<BoxView />} />
             <Route
               path="/teams"
-              element={
-                <PlaceholderView
-                  title="Teams"
-                  description="Placeholder for party setup and role planning."
-                />
-              }
+              element={<TeamsView />}
             />
           </Routes>
           {status && <p className="status">{status}</p>}

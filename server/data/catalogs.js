@@ -1497,6 +1497,17 @@ export const mainSkillCatalog = [
   }
 ];
 
+export const mainSkillLevelCatalog = {
+  "Tasty Chance S": [
+    { level: 1, value: 4 },
+    { level: 2, value: 5 },
+    { level: 3, value: 6 },
+    { level: 4, value: 7 },
+    { level: 5, value: 8 },
+    { level: 6, value: 10 }
+  ]
+};
+
 export const subSkillCatalog = [
   {
     name: "Berry Finding S",

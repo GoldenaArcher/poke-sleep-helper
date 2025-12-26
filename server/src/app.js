@@ -31,10 +31,64 @@ app.get("/api/settings", async (req, res) => {
       acc[row.key] = row.value;
       return acc;
     }, {});
+    const defaultEventBuffs = {
+      ingredientBonus: true,
+      skillTriggerBonus: true,
+      skillStrengthBonus: true,
+      dreamShardMagnetBonus: true
+    };
+    let selectedDishIds = [];
+    let eventTypes = [];
+    let eventBuffs = {};
+    let eventSubSkillIds = [];
+    let eventSubSkillMultiplier = 2;
+    if (settings.selected_dish_ids) {
+      try {
+        selectedDishIds = JSON.parse(settings.selected_dish_ids);
+      } catch {
+        selectedDishIds = [];
+      }
+    }
+    if (settings.event_types) {
+      try {
+        eventTypes = JSON.parse(settings.event_types);
+      } catch {
+        eventTypes = [];
+      }
+    } else if (settings.event_active === "1") {
+      eventTypes = ["Ice", "Steel"];
+    }
+    if (settings.event_buffs) {
+      try {
+        eventBuffs = JSON.parse(settings.event_buffs);
+      } catch {
+        eventBuffs = {};
+      }
+    } else if (settings.event_active === "1") {
+      eventBuffs = defaultEventBuffs;
+    }
+    if (settings.event_sub_skill_ids) {
+      try {
+        eventSubSkillIds = JSON.parse(settings.event_sub_skill_ids);
+      } catch {
+        eventSubSkillIds = [];
+      }
+    }
+    if (settings.event_sub_skill_multiplier) {
+      const parsed = Number(settings.event_sub_skill_multiplier);
+      if (Number.isFinite(parsed) && parsed > 0) {
+        eventSubSkillMultiplier = parsed;
+      }
+    }
     res.json({
       ingredientLimit: Number(settings.ingredient_limit || 0),
       itemLimit: Number(settings.item_limit || 0),
-      pokemonBoxLimit: Number(settings.pokemon_box_limit || 0)
+      pokemonBoxLimit: Number(settings.pokemon_box_limit || 0),
+      eventTypes,
+      eventBuffs,
+      eventSubSkillIds,
+      eventSubSkillMultiplier,
+      selectedDishIds
     });
   } catch (error) {
     res.status(500).json({ error: "Failed to load settings" });
@@ -42,7 +96,15 @@ app.get("/api/settings", async (req, res) => {
 });
 
 app.put("/api/settings", async (req, res) => {
-  const { ingredientLimit, itemLimit } = req.body || {};
+  const {
+    ingredientLimit,
+    itemLimit,
+    eventTypes,
+    eventBuffs,
+    eventSubSkillIds,
+    eventSubSkillMultiplier,
+    selectedDishIds
+  } = req.body || {};
   try {
     if (typeof ingredientLimit === "number") {
       await dbRun(
@@ -54,6 +116,36 @@ app.put("/api/settings", async (req, res) => {
       await dbRun(
         "insert or replace into settings (key, value) values (?, ?)",
         ["item_limit", String(itemLimit)]
+      );
+    }
+    if (Array.isArray(eventTypes)) {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["event_types", JSON.stringify(eventTypes)]
+      );
+    }
+    if (eventBuffs && typeof eventBuffs === "object") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["event_buffs", JSON.stringify(eventBuffs)]
+      );
+    }
+    if (Array.isArray(eventSubSkillIds)) {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["event_sub_skill_ids", JSON.stringify(eventSubSkillIds)]
+      );
+    }
+    if (typeof eventSubSkillMultiplier === "number") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["event_sub_skill_multiplier", String(eventSubSkillMultiplier)]
+      );
+    }
+    if (Array.isArray(selectedDishIds)) {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["selected_dish_ids", JSON.stringify(selectedDishIds)]
       );
     }
     res.json({ ok: true });
@@ -576,7 +668,9 @@ app.get("/api/pokemon-box", async (req, res) => {
               pokemon_box.nickname,
               pokemon_box.level,
               pokemon_box.main_skill_level,
+              pokemon_box.main_skill_trigger_rate,
               pokemon_box.main_skill_value,
+              main_skill_levels.value_min as main_skill_value_default,
               pokemon_box.is_shiny,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
@@ -596,6 +690,11 @@ app.get("/api/pokemon-box", async (req, res) => {
        left join pokemon_types as secondary_types
          on secondary_types.name = pokemon_species.secondary_type
        join pokemon_variants on pokemon_variants.id = pokemon_box.variant_id
+       left join pokemon_variant_main_skills as variant_main_skills
+         on variant_main_skills.variant_id = pokemon_box.variant_id
+       left join main_skill_levels
+         on main_skill_levels.skill_id = variant_main_skills.main_skill_id
+        and main_skill_levels.level = pokemon_box.main_skill_level
        left join natures on natures.id = pokemon_box.nature_id
        order by pokemon_box.created_at desc`
     );
@@ -613,6 +712,8 @@ app.post("/api/pokemon-box", async (req, res) => {
     nickname,
     level,
     mainSkillLevel,
+    mainSkillValue,
+    mainSkillTriggerRate,
     isShiny
   } =
     req.body || {};
@@ -631,10 +732,24 @@ app.post("/api/pokemon-box", async (req, res) => {
       res.status(400).json({ error: "Pokemon box is full" });
       return;
     }
+    const parsedMainSkillValue =
+      mainSkillValue === null ||
+      mainSkillValue === undefined ||
+      mainSkillValue === "" ||
+      !Number.isFinite(Number(mainSkillValue))
+        ? null
+        : Number(mainSkillValue);
+    const parsedMainSkillTriggerRate =
+      mainSkillTriggerRate === null ||
+      mainSkillTriggerRate === undefined ||
+      mainSkillTriggerRate === "" ||
+      !Number.isFinite(Number(mainSkillTriggerRate))
+        ? 0.1
+        : Number(mainSkillTriggerRate);
     await dbRun(
       `insert into pokemon_box
-       (species_id, variant_id, nature_id, nickname, level, main_skill_level, main_skill_value, is_shiny)
-       values (?, ?, ?, ?, ?, ?, ?, ?)`,
+       (species_id, variant_id, nature_id, nickname, level, main_skill_level, main_skill_value, main_skill_trigger_rate, is_shiny)
+       values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         speciesId,
         variantId,
@@ -642,7 +757,8 @@ app.post("/api/pokemon-box", async (req, res) => {
         nickname || null,
         Math.max(1, Number(level) || 1),
         Math.max(1, Number(mainSkillLevel) || 1),
-        null,
+        parsedMainSkillValue,
+        parsedMainSkillTriggerRate,
         isShiny ? 1 : 0
       ]
     );
@@ -687,7 +803,9 @@ app.post("/api/pokemon-box", async (req, res) => {
               pokemon_box.nickname,
               pokemon_box.level,
               pokemon_box.main_skill_level,
+              pokemon_box.main_skill_trigger_rate,
               pokemon_box.main_skill_value,
+              main_skill_levels.value_min as main_skill_value_default,
               pokemon_box.is_shiny,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
@@ -707,6 +825,11 @@ app.post("/api/pokemon-box", async (req, res) => {
        left join pokemon_types as secondary_types
          on secondary_types.name = pokemon_species.secondary_type
        join pokemon_variants on pokemon_variants.id = pokemon_box.variant_id
+       left join pokemon_variant_main_skills as variant_main_skills
+         on variant_main_skills.variant_id = pokemon_box.variant_id
+       left join main_skill_levels
+         on main_skill_levels.skill_id = variant_main_skills.main_skill_id
+        and main_skill_levels.level = pokemon_box.main_skill_level
        left join natures on natures.id = pokemon_box.nature_id
        where pokemon_box.id = ?`,
       [createdEntry?.id || null]
@@ -725,13 +848,25 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
     level,
     mainSkillLevel,
     mainSkillValue,
+    mainSkillTriggerRate,
     isShiny,
     ingredients,
     subSkills
   } = req.body || {};
-  const parsedMainSkillValue = Number.isFinite(Number(mainSkillValue))
-    ? Number(mainSkillValue)
-    : null;
+  const parsedMainSkillValue =
+    mainSkillValue === null ||
+    mainSkillValue === undefined ||
+    mainSkillValue === "" ||
+    !Number.isFinite(Number(mainSkillValue))
+      ? null
+      : Number(mainSkillValue);
+  const parsedMainSkillTriggerRate =
+    mainSkillTriggerRate === null ||
+    mainSkillTriggerRate === undefined ||
+    mainSkillTriggerRate === "" ||
+    !Number.isFinite(Number(mainSkillTriggerRate))
+      ? 0.1
+      : Number(mainSkillTriggerRate);
   if (!entryId) {
     res.status(400).json({ error: "invalid id" });
     return;
@@ -744,6 +879,7 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
            level = ?,
            main_skill_level = ?,
            main_skill_value = ?,
+           main_skill_trigger_rate = ?,
            is_shiny = ?
        where id = ?`,
       [
@@ -752,6 +888,7 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
         Math.max(1, Number(level) || 1),
         Math.max(1, Number(mainSkillLevel) || 1),
         parsedMainSkillValue,
+        parsedMainSkillTriggerRate,
         isShiny ? 1 : 0,
         entryId
       ]
@@ -800,7 +937,9 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
               pokemon_box.nickname,
               pokemon_box.level,
               pokemon_box.main_skill_level,
+              pokemon_box.main_skill_trigger_rate,
               pokemon_box.main_skill_value,
+              main_skill_levels.value_min as main_skill_value_default,
               pokemon_box.is_shiny,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
@@ -820,6 +959,11 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
        left join pokemon_types as secondary_types
          on secondary_types.name = pokemon_species.secondary_type
        join pokemon_variants on pokemon_variants.id = pokemon_box.variant_id
+       left join pokemon_variant_main_skills as variant_main_skills
+         on variant_main_skills.variant_id = pokemon_box.variant_id
+       left join main_skill_levels
+         on main_skill_levels.skill_id = variant_main_skills.main_skill_id
+        and main_skill_levels.level = pokemon_box.main_skill_level
        left join natures on natures.id = pokemon_box.nature_id
        where pokemon_box.id = ?`,
       [entryId]
@@ -845,7 +989,9 @@ app.get("/api/pokemon-box/:id/details", async (req, res) => {
               pokemon_box.nickname,
               pokemon_box.level,
               pokemon_box.main_skill_level,
+              pokemon_box.main_skill_trigger_rate,
               pokemon_box.main_skill_value,
+              main_skill_levels.value_min as main_skill_value_default,
               pokemon_box.is_shiny,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
@@ -865,6 +1011,11 @@ app.get("/api/pokemon-box/:id/details", async (req, res) => {
        left join pokemon_types as secondary_types
          on secondary_types.name = pokemon_species.secondary_type
        join pokemon_variants on pokemon_variants.id = pokemon_box.variant_id
+       left join pokemon_variant_main_skills as variant_main_skills
+         on variant_main_skills.variant_id = pokemon_box.variant_id
+       left join main_skill_levels
+         on main_skill_levels.skill_id = variant_main_skills.main_skill_id
+        and main_skill_levels.level = pokemon_box.main_skill_level
        left join natures on natures.id = pokemon_box.nature_id
        where pokemon_box.id = ?`,
       [entryId]
@@ -1057,6 +1208,28 @@ app.get("/api/berries", async (req, res) => {
     res.json(rows);
   } catch (error) {
     res.status(500).json({ error: "Failed to load berries" });
+  }
+});
+
+app.get("/api/sub-skills", async (req, res) => {
+  try {
+    const rows = await dbAll(
+      "select id, name, description, rarity from sub_skills order by name"
+    );
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load sub skills" });
+  }
+});
+
+app.get("/api/pokemon-types", async (req, res) => {
+  try {
+    const rows = await dbAll(
+      "select id, name, image_path from pokemon_types order by name"
+    );
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load pokemon types" });
   }
 });
 

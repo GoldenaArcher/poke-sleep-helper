@@ -4,12 +4,21 @@ import { apiFetch } from "../utils/api.js";
 const useResearchStore = create((set) => ({
   researchAreas: [],
   berries: [],
+  pokemonTypes: [],
+  subSkills: [],
   loadResearch: async () => {
-    const [areasData, berriesData] = await Promise.all([
+    const [areasData, berriesData, typesData, subSkillsData] = await Promise.all([
       apiFetch("/api/research-areas"),
-      apiFetch("/api/berries")
+      apiFetch("/api/berries"),
+      apiFetch("/api/pokemon-types"),
+      apiFetch("/api/sub-skills")
     ]);
-    set({ researchAreas: areasData, berries: berriesData });
+    set({
+      researchAreas: areasData,
+      berries: berriesData,
+      pokemonTypes: typesData,
+      subSkills: subSkillsData
+    });
   },
   setDefaultArea: async (areaId) => {
     const updated = await apiFetch(`/api/research-areas/${areaId}/default`, {

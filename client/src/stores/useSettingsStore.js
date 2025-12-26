@@ -5,14 +5,45 @@ const useSettingsStore = create((set) => ({
   settings: {
     ingredientLimit: 100,
     itemLimit: 100,
-    pokemonBoxLimit: 80
+    pokemonBoxLimit: 80,
+    eventTypes: [],
+    eventBuffs: {
+      ingredientBonus: true,
+      skillTriggerBonus: true,
+      skillStrengthBonus: true,
+      dreamShardMagnetBonus: true
+    },
+    eventSubSkillIds: [],
+    eventSubSkillMultiplier: 2,
+    selectedDishIds: []
   },
   loadSettings: async () => {
     const settingsData = await apiFetch("/api/settings");
     set({
       settings: {
         ...settingsData,
-        pokemonBoxLimit: Number(settingsData.pokemonBoxLimit || 80)
+        pokemonBoxLimit: Number(settingsData.pokemonBoxLimit || 80),
+        eventTypes: Array.isArray(settingsData.eventTypes)
+          ? settingsData.eventTypes
+          : [],
+        eventBuffs:
+          settingsData.eventBuffs && typeof settingsData.eventBuffs === "object"
+            ? settingsData.eventBuffs
+            : {
+                ingredientBonus: true,
+                skillTriggerBonus: true,
+                skillStrengthBonus: true,
+                dreamShardMagnetBonus: true
+              },
+        eventSubSkillIds: Array.isArray(settingsData.eventSubSkillIds)
+          ? settingsData.eventSubSkillIds
+          : [],
+        eventSubSkillMultiplier: Number(
+          settingsData.eventSubSkillMultiplier || 2
+        ),
+        selectedDishIds: Array.isArray(settingsData.selectedDishIds)
+          ? settingsData.selectedDishIds
+          : []
       }
     });
   },
