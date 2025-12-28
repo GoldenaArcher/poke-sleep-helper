@@ -595,6 +595,111 @@
         }
       ],
       "subSkills": []
+    },
+    {
+      "dexNo": 79,
+      "name": "Slowpoke",
+      "primaryType": "Water",
+      "specialty": "Skills",
+      "profileImage": "79.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Slowpoke",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:25:00",
+            "carryLimit": 9,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 11,
+            "recruitShards": 12
+          },
+          "berries": [
+            { "name": "Oran Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Soothing Cacao", "unlockLevel": 1 },
+            { "name": "Slowpoke Tail", "unlockLevel": 30 },
+            { "name": "Snoozy Tomato", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Energizing Cheer S",
+          "detailImage": "79-default.png",
+          "shinyImage": "79-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 202,
+      "name": "Wobbuffet",
+      "primaryType": "Psychic",
+      "specialty": "Skills",
+      "profileImage": "202.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Wobbuffet",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:58:20",
+            "carryLimit": 16,
+            "friendshipPointsNeeded": 7,
+            "recruitExperience": 29,
+            "recruitShards": 31
+          },
+          "berries": [
+            { "name": "Mago Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Fancy Apple", "unlockLevel": 1 },
+            { "name": "Pure Oil", "unlockLevel": 30 },
+            { "name": "Tasty Mushroom", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Energizing Cheer S",
+          "detailImage": "202-default.png",
+          "shinyImage": "202-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 974,
+      "name": "Cetoddle",
+      "primaryType": "Ice",
+      "specialty": "Ingredients",
+      "profileImage": "974.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Cetoddle",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:25:00",
+            "carryLimit": 12,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 121,
+            "recruitShards": 99
+          },
+          "berries": [
+            { "name": "Rawst Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Soft Potato", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 30 },
+            { "name": "Plump Pumpkin", "unlockLevel": 60 }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "974-default.png",
+          "shinyImage": "974-default-shiny.png"
+        }
+      ],
+      "subSkills": []
     }
   ]
 }

@@ -4,6 +4,8 @@ import express from "express";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import db, { dbAll, dbGet, dbRun } from "./db.js";
+import { normalizeScores, scoreAll, pickTeam } from "./teamScoring.js";
+import { ingredientCatalog } from "../data/catalogs.js";
 
 dotenv.config();
 
@@ -14,6 +16,227 @@ app.use(express.json());
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const uploadsPath = path.resolve(__dirname, "..", "uploads");
 app.use("/uploads", express.static(uploadsPath));
+
+const MEALS_PER_DAY = 3;
+const ingredientStrengthByName = new Map(
+  ingredientCatalog.map((ingredient) => [
+    ingredient.name.toLowerCase(),
+    ingredient.baseStrength || 0
+  ])
+);
+
+const normalizeName = (value) =>
+  typeof value === "string" ? value.trim().toLowerCase() : "";
+
+const buildBagPerMeal = (rows) => {
+  const bagPerMeal = new Map();
+  rows.forEach((row) => {
+    const key = normalizeName(row.name);
+    const quantity = Number(row.quantity) || 0;
+    bagPerMeal.set(key, Math.floor(quantity / MEALS_PER_DAY));
+  });
+  return bagPerMeal;
+};
+
+const pickBestDishBaseStrength = async ({
+  weekDishType,
+  potSize,
+  areaBonus,
+  dayOfWeek,
+  dishFocusIds,
+  bagPerMeal
+}) => {
+  const dishRows = await dbAll(
+    `select dishes.id,
+            dishes.name,
+            dishes.type,
+            coalesce(dishes.dish_level, 1) as dish_level_used,
+            coalesce(
+              (select value from dish_levels
+               where dish_levels.dish_id = dishes.id
+                 and dish_levels.level = dishes.dish_level),
+              (select value from dish_levels
+               where dish_levels.dish_id = dishes.id
+               order by level desc
+               limit 1),
+              0
+            ) as level_value,
+            coalesce(
+              (select level from dish_levels
+               where dish_levels.dish_id = dishes.id
+                 and dish_levels.level = dishes.dish_level),
+              (select level from dish_levels
+               where dish_levels.dish_id = dishes.id
+               order by level desc
+               limit 1),
+              null
+            ) as level_value_level
+     from dishes
+     where dishes.type = ?`,
+    [weekDishType]
+  );
+
+  const filteredDishes =
+    Array.isArray(dishFocusIds) && dishFocusIds.length > 0
+      ? dishRows.filter((dish) => dishFocusIds.includes(dish.id))
+      : dishRows;
+
+  if (filteredDishes.length === 0) {
+    return {
+      baseDishStrengthUsed: 0,
+      bestDishId: null,
+      bestDishName: null,
+      fallbackUsed: true,
+      dishLevelUsed: null,
+      dishLevelValueUsed: 0,
+      recipeRequiredCount: 0,
+      extraSlotsUsed: 0,
+      extraBaseStrengthSum: 0,
+      rawStrength: 0,
+      afterArea: 0,
+      expectedMealStrength: 0,
+      tastyMultiplierUsed: dayOfWeek === "sun" ? 3 : 2
+    };
+  }
+
+  const dishIds = filteredDishes.map((dish) => dish.id);
+  const placeholders = dishIds.map(() => "?").join(",");
+  const ingredientRows =
+    dishIds.length > 0
+      ? await dbAll(
+          `select dish_ingredients.dish_id,
+                  ingredients.name as ingredient_name,
+                  dish_ingredients.quantity
+           from dish_ingredients
+           join ingredients on ingredients.id = dish_ingredients.ingredient_id
+           where dish_ingredients.dish_id in (${placeholders})`,
+          dishIds
+        )
+      : [];
+
+  const ingredientByDish = new Map();
+  ingredientRows.forEach((row) => {
+    const list = ingredientByDish.get(row.dish_id) || [];
+    list.push({
+      name: row.ingredient_name,
+      quantity: row.quantity
+    });
+    ingredientByDish.set(row.dish_id, list);
+  });
+
+  const computeDishStats = (dish) => {
+    const requirements = ingredientByDish.get(dish.id) || [];
+    const totalQuantity = requirements.reduce(
+      (sum, item) => sum + (Number(item.quantity) || 0),
+      0
+    );
+    if (totalQuantity > potSize) {
+      return null;
+    }
+    for (const item of requirements) {
+      const available = bagPerMeal.get(normalizeName(item.name)) || 0;
+      if (available < (Number(item.quantity) || 0)) {
+        return null;
+      }
+    }
+    const remaining = new Map(bagPerMeal);
+    for (const item of requirements) {
+      const key = normalizeName(item.name);
+      remaining.set(
+        key,
+        (remaining.get(key) || 0) - (Number(item.quantity) || 0)
+      );
+    }
+    const extraSlots = Math.max(0, potSize - totalQuantity);
+    const candidates = Array.from(remaining.entries())
+      .filter(([, qty]) => qty > 0)
+      .map(([name, qty]) => ({
+        name,
+        qty,
+        strength: ingredientStrengthByName.get(name) || 0
+      }))
+      .sort((a, b) => b.strength - a.strength);
+    let extraSlotsUsed = 0;
+    let extraBaseStrengthSum = 0;
+    let slotsLeft = extraSlots;
+    for (const candidate of candidates) {
+      if (slotsLeft <= 0) {
+        break;
+      }
+      const useQty = Math.min(slotsLeft, candidate.qty);
+      if (useQty <= 0) {
+        continue;
+      }
+      extraSlotsUsed += useQty;
+      extraBaseStrengthSum += candidate.strength * useQty;
+      slotsLeft -= useQty;
+    }
+    const recipeStrengthCurrent = dish.level_value || 0;
+    const rawStrength = recipeStrengthCurrent + extraBaseStrengthSum;
+    const afterArea = Math.floor(rawStrength * areaBonus);
+    return {
+      recipeRequiredCount: totalQuantity,
+      recipeStrengthCurrent,
+      extraSlotsUsed,
+      extraBaseStrengthSum,
+      rawStrength,
+      afterArea
+    };
+  };
+
+  let bestDish = null;
+  let bestStats = null;
+  filteredDishes.forEach((dish) => {
+    const stats = computeDishStats(dish);
+    if (!stats) {
+      return;
+    }
+    if (!bestDish || stats.afterArea > bestStats.afterArea) {
+      bestDish = dish;
+      bestStats = stats;
+    }
+  });
+
+  if (bestDish && bestStats) {
+    return {
+      baseDishStrengthUsed: bestStats.recipeStrengthCurrent,
+      bestDishId: bestDish.id,
+      bestDishName: bestDish.name,
+      fallbackUsed: false,
+      dishLevelUsed: bestDish.dish_level_used,
+      dishLevelValueUsed: bestDish.level_value,
+      recipeRequiredCount: bestStats.recipeRequiredCount,
+      extraSlotsUsed: bestStats.extraSlotsUsed,
+      extraBaseStrengthSum: bestStats.extraBaseStrengthSum,
+      rawStrength: bestStats.rawStrength,
+      afterArea: bestStats.afterArea,
+      expectedMealStrength: bestStats.afterArea,
+      tastyMultiplierUsed: dayOfWeek === "sun" ? 3 : 2
+    };
+  }
+
+  const minPositive = filteredDishes
+    .filter((dish) => dish.level_value > 0)
+    .sort((a, b) => a.level_value - b.level_value)[0];
+
+  const fallbackStrength = minPositive?.level_value || 0;
+  const fallbackAfterArea = Math.floor(fallbackStrength * areaBonus);
+  return {
+    baseDishStrengthUsed: fallbackStrength,
+    bestDishId: minPositive?.id || null,
+    bestDishName: minPositive?.name || null,
+    fallbackUsed: true,
+    dishLevelUsed: minPositive?.dish_level_used || null,
+    dishLevelValueUsed: minPositive?.level_value || 0,
+    recipeRequiredCount: 0,
+    extraSlotsUsed: 0,
+    extraBaseStrengthSum: 0,
+    rawStrength: fallbackStrength,
+    afterArea: fallbackAfterArea,
+    expectedMealStrength: fallbackAfterArea,
+    tastyMultiplierUsed: dayOfWeek === "sun" ? 3 : 2
+  };
+};
 
 app.get("/api/health", async (req, res) => {
   try {
@@ -42,6 +265,14 @@ app.get("/api/settings", async (req, res) => {
     let eventBuffs = {};
     let eventSubSkillIds = [];
     let eventSubSkillMultiplier = 2;
+    let teamWeights = null;
+    let preference = null;
+    let skillValueMode = "max";
+    let skillBranchMode = "auto";
+    let areaBonus = 1;
+    let dayOfWeek = "mon";
+    let scoreNormalizationMode = "sigmoid_z";
+    let excludeLowEnergyBelowPct = 0;
     if (settings.selected_dish_ids) {
       try {
         selectedDishIds = JSON.parse(settings.selected_dish_ids);
@@ -80,6 +311,43 @@ app.get("/api/settings", async (req, res) => {
         eventSubSkillMultiplier = parsed;
       }
     }
+    if (settings.team_weights) {
+      try {
+        teamWeights = JSON.parse(settings.team_weights);
+      } catch {
+        teamWeights = null;
+      }
+    }
+    if (settings.preference) {
+      preference = settings.preference;
+    }
+    if (settings.skill_value_mode) {
+      skillValueMode = String(settings.skill_value_mode).toLowerCase();
+    }
+    if (settings.skill_branch_mode) {
+      skillBranchMode = String(settings.skill_branch_mode).toLowerCase();
+    }
+    if (settings.area_bonus) {
+      const parsedBonus = Number(settings.area_bonus);
+      if (Number.isFinite(parsedBonus) && parsedBonus > 0) {
+        areaBonus = parsedBonus;
+      }
+    }
+    if (settings.day_of_week) {
+      dayOfWeek = String(settings.day_of_week).toLowerCase();
+    }
+    if (settings.score_normalization_mode) {
+      scoreNormalizationMode = String(
+        settings.score_normalization_mode
+      ).toLowerCase();
+    }
+    if (settings.exclude_low_energy_below_pct) {
+      const parsed = Number(settings.exclude_low_energy_below_pct);
+      if (Number.isFinite(parsed) && parsed >= 0) {
+        excludeLowEnergyBelowPct = parsed;
+      }
+    }
+    const version = settings.version ? Number(settings.version) : 1;
     res.json({
       ingredientLimit: Number(settings.ingredient_limit || 0),
       itemLimit: Number(settings.item_limit || 0),
@@ -88,7 +356,18 @@ app.get("/api/settings", async (req, res) => {
       eventBuffs,
       eventSubSkillIds,
       eventSubSkillMultiplier,
-      selectedDishIds
+      selectedDishIds,
+      weights: teamWeights,
+      preference,
+      potSize: Number(settings.pot_size || 0),
+      weekDishType: settings.week_dish_type || "salad",
+      skillValueMode,
+      skillBranchMode,
+      areaBonus,
+      dayOfWeek,
+      scoreNormalizationMode,
+      excludeLowEnergyBelowPct,
+      version
     });
   } catch (error) {
     res.status(500).json({ error: "Failed to load settings" });
@@ -103,7 +382,17 @@ app.put("/api/settings", async (req, res) => {
     eventBuffs,
     eventSubSkillIds,
     eventSubSkillMultiplier,
-    selectedDishIds
+    selectedDishIds,
+    weights,
+    preference,
+    potSize,
+    weekDishType,
+    skillValueMode,
+    skillBranchMode,
+    areaBonus,
+    dayOfWeek,
+    scoreNormalizationMode,
+    excludeLowEnergyBelowPct
   } = req.body || {};
   try {
     if (typeof ingredientLimit === "number") {
@@ -148,6 +437,75 @@ app.put("/api/settings", async (req, res) => {
         ["selected_dish_ids", JSON.stringify(selectedDishIds)]
       );
     }
+    if (weights && typeof weights === "object") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["team_weights", JSON.stringify(weights)]
+      );
+    }
+    if (typeof preference === "string") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["preference", preference]
+      );
+    }
+    if (typeof potSize === "number") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["pot_size", String(potSize)]
+      );
+    }
+    if (typeof weekDishType === "string") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["week_dish_type", weekDishType]
+      );
+    }
+    if (typeof skillValueMode === "string") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["skill_value_mode", skillValueMode]
+      );
+    }
+    if (typeof skillBranchMode === "string") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["skill_branch_mode", skillBranchMode]
+      );
+    }
+    if (typeof areaBonus === "number") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["area_bonus", String(areaBonus)]
+      );
+    }
+    if (typeof dayOfWeek === "string") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["day_of_week", dayOfWeek]
+      );
+    }
+    if (typeof scoreNormalizationMode === "string") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["score_normalization_mode", scoreNormalizationMode]
+      );
+    }
+    if (typeof excludeLowEnergyBelowPct === "number") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["exclude_low_energy_below_pct", String(excludeLowEnergyBelowPct)]
+      );
+    }
+    
+    // Increment version for cache invalidation
+    const versionRow = await dbGet("select value from settings where key = 'version'");
+    const currentVersion = versionRow ? Number(versionRow.value) || 0 : 0;
+    await dbRun(
+      "insert or replace into settings (key, value) values (?, ?)",
+      ["version", String(currentVersion + 1)]
+    );
+    
     res.json({ ok: true });
   } catch (error) {
     res.status(500).json({ error: "Failed to update settings" });
@@ -389,7 +747,7 @@ app.get("/api/ingredients/catalog", async (req, res) => {
 app.get("/api/ingredients", async (req, res) => {
   try {
     const rows = await dbAll(
-      "select id, name, image_path from ingredients order by name"
+      "select id, name, image_path, base_strength from ingredients order by name"
     );
     res.json(rows);
   } catch (error) {
@@ -1050,11 +1408,21 @@ app.get("/api/pokemon-box/:id/details", async (req, res) => {
       [entry.id]
     );
     const mainSkill = await dbGet(
-      `select main_skills.name, main_skills.notes, main_skills.effect_type, main_skills.target
+      `select main_skills.name,
+              main_skills.notes,
+              main_skills.effect_type,
+              main_skills.target,
+              main_skills.value_unit,
+              main_skills.value_semantics,
+              main_skill_levels.value_min,
+              main_skill_levels.value_max
        from pokemon_variant_main_skills
        join main_skills on main_skills.id = pokemon_variant_main_skills.main_skill_id
+       left join main_skill_levels
+         on main_skill_levels.skill_id = main_skills.id
+        and main_skill_levels.level = ?
        where pokemon_variant_main_skills.variant_id = ?`,
-      [entry.variant_id]
+      [entry.main_skill_level, entry.variant_id]
     );
     const subSkillCatalog = await dbAll(
       "select id, name, description, rarity from sub_skills order by name"
@@ -1230,6 +1598,488 @@ app.get("/api/pokemon-types", async (req, res) => {
     res.json(rows);
   } catch (error) {
     res.status(500).json({ error: "Failed to load pokemon types" });
+  }
+});
+
+app.post("/api/teams/recommendation", async (req, res) => {
+  try {
+    const debug = req.query.debug === "1";
+    
+    // Load settings from DB
+    const settingsRows = await dbAll("select key, value from settings");
+    const settingsData = settingsRows.reduce((acc, row) => {
+      acc[row.key] = row.value;
+      return acc;
+    }, {});
+
+    const defaultEventBuffs = {
+      ingredientBonus: true,
+      skillTriggerBonus: true,
+      skillStrengthBonus: true,
+      dreamShardMagnetBonus: true
+    };
+
+    let selectedDishIds = [];
+    let eventTypes = [];
+    let eventBuffs = {};
+    let teamWeights = null;
+    let preference = null;
+    let potSize = 21;
+    let weekDishType = "salad";
+    let skillValueMode = "max";
+    let skillBranchMode = "auto";
+    let areaBonus = 1;
+    let dayOfWeek = "mon";
+    let scoreNormalizationMode = "sigmoid_z";
+    let excludeLowEnergyBelowPct = 0;
+
+    if (settingsData.selected_dish_ids) {
+      try {
+        selectedDishIds = JSON.parse(settingsData.selected_dish_ids);
+      } catch {
+        selectedDishIds = [];
+      }
+    }
+    if (settingsData.event_types) {
+      try {
+        eventTypes = JSON.parse(settingsData.event_types);
+      } catch {
+        eventTypes = [];
+      }
+    } else if (settingsData.event_active === "1") {
+      eventTypes = ["Ice", "Steel"];
+    }
+    if (settingsData.event_buffs) {
+      try {
+        eventBuffs = JSON.parse(settingsData.event_buffs);
+      } catch {
+        eventBuffs = {};
+      }
+    } else if (settingsData.event_active === "1") {
+      eventBuffs = defaultEventBuffs;
+    }
+    if (settingsData.team_weights) {
+      try {
+        teamWeights = JSON.parse(settingsData.team_weights);
+      } catch {
+        teamWeights = null;
+      }
+    }
+    if (settingsData.preference) {
+      preference = settingsData.preference;
+    }
+    if (settingsData.pot_size) {
+      const parsedPot = Number(settingsData.pot_size);
+      if (Number.isFinite(parsedPot) && parsedPot > 0) {
+        potSize = parsedPot;
+      }
+    }
+    if (settingsData.week_dish_type) {
+      weekDishType = String(settingsData.week_dish_type).toLowerCase();
+    }
+    if (settingsData.skill_value_mode) {
+      skillValueMode = String(settingsData.skill_value_mode).toLowerCase();
+    }
+    if (settingsData.skill_branch_mode) {
+      skillBranchMode = String(settingsData.skill_branch_mode).toLowerCase();
+    }
+    if (settingsData.area_bonus) {
+      const parsedBonus = Number(settingsData.area_bonus);
+      if (Number.isFinite(parsedBonus) && parsedBonus > 0) {
+        areaBonus = parsedBonus;
+      }
+    }
+    if (settingsData.day_of_week) {
+      dayOfWeek = String(settingsData.day_of_week).toLowerCase();
+    }
+    if (settingsData.score_normalization_mode) {
+      scoreNormalizationMode = String(
+        settingsData.score_normalization_mode
+      ).toLowerCase();
+    }
+    if (settingsData.exclude_low_energy_below_pct) {
+      const parsed = Number(settingsData.exclude_low_energy_below_pct);
+      if (Number.isFinite(parsed) && parsed >= 0) {
+        excludeLowEnergyBelowPct = parsed;
+      }
+    }
+
+    const resolveWeights = (pref) => {
+      const key = String(pref || "").toLowerCase();
+      if (key === "growth") {
+        return { berry: 0.55, ingredient: 0.2, cooking: 0.1, dreamShard: 0.15 };
+      }
+      if (key === "ingredient") {
+        return { berry: 0.25, ingredient: 0.55, cooking: 0.15, dreamShard: 0.05 };
+      }
+      if (key === "cooking") {
+        return { berry: 0.35, ingredient: 0.25, cooking: 0.35, dreamShard: 0.05 };
+      }
+      return { berry: 0.45, ingredient: 0.35, cooking: 0.15, dreamShard: 0.05 };
+    };
+    const effectiveWeights = teamWeights || resolveWeights(preference);
+
+    // Load favorite berries from default research area
+    const researchAreas = await dbAll(
+      `select id, name, is_default from research_areas order by name`
+    );
+    const defaultArea = researchAreas.find((area) => area.is_default === 1);
+    let favoriteBerries = [];
+    if (defaultArea) {
+      const favoriteRows = await dbAll(
+        `select berries.name
+         from research_area_favorite_berries
+         join berries on berries.id = research_area_favorite_berries.berry_id
+         where research_area_favorite_berries.area_id = ?`,
+        [defaultArea.id]
+      );
+      favoriteBerries = favoriteRows.map((row) => row.name);
+    }
+
+    // Load pokemonBox
+    const pokemonBox = await dbAll(
+      `select pokemon_box.id, pokemon_box.species_id, pokemon_box.variant_id,
+              pokemon_box.nickname, pokemon_box.level,
+              pokemon_box.main_skill_level, pokemon_box.main_skill_value,
+              main_skill_levels.value_min as main_skill_value_default,
+              pokemon_box.main_skill_trigger_rate,
+              pokemon_box.energy,
+              pokemon_box.is_shiny,
+              pokemon_species.name as species_name,
+              pokemon_species.image_path as species_image_path,
+              pokemon_variants.variant_name,
+              pokemon_variants.image_path as variant_image_path,
+              pokemon_variants.shiny_image_path as variant_shiny_image_path,
+              pokemon_variants.is_event as variant_is_event,
+              pokemon_variant_stats.carry_limit as carry_limit,
+              pokemon_variant_main_skills.main_skill_id as main_skill_id,
+              main_skills.name as main_skill_name,
+              main_skills.effect_type as main_skill_effect_type,
+              natures.name as nature_name
+       from pokemon_box
+       left join pokemon_species on pokemon_species.id = pokemon_box.species_id
+       left join pokemon_variants on pokemon_variants.id = pokemon_box.variant_id
+       left join pokemon_variant_stats on pokemon_variant_stats.variant_id = pokemon_box.variant_id
+       left join pokemon_variant_main_skills
+         on pokemon_variant_main_skills.variant_id = pokemon_box.variant_id
+       left join main_skills on main_skills.id = pokemon_variant_main_skills.main_skill_id
+       left join main_skill_levels
+         on main_skill_levels.skill_id = pokemon_variant_main_skills.main_skill_id
+        and main_skill_levels.level = pokemon_box.main_skill_level
+       left join natures on natures.id = pokemon_box.nature_id`
+    );
+
+    // Load variant data with berries, ingredients, and main skills
+    const variantRows = await dbAll(
+      `select pokemon_variants.id as variant_id,
+              pokemon_variants.species_id,
+              pokemon_variant_stats.base_frequency
+       from pokemon_variants
+       left join pokemon_variant_stats on pokemon_variant_stats.variant_id = pokemon_variants.id`
+    );
+
+    const berryRows = await dbAll(
+      `select pokemon_variant_berries.variant_id,
+              berries.name,
+              pokemon_variant_berries.quantity
+       from pokemon_variant_berries
+       join berries on berries.id = pokemon_variant_berries.berry_id`
+    );
+
+    const ingredientRows = await dbAll(
+      `select pokemon_variant_ingredients.variant_id,
+              ingredients.name,
+              pokemon_variant_ingredients.unlock_level
+       from pokemon_variant_ingredients
+       join ingredients on ingredients.id = pokemon_variant_ingredients.ingredient_id`
+    );
+
+    const mainSkillRows = await dbAll(
+      `select pokemon_variant_main_skills.variant_id,
+              main_skills.name as skill_name,
+              main_skills.effect_type
+       from pokemon_variant_main_skills
+       join main_skills on main_skills.id = pokemon_variant_main_skills.main_skill_id`
+    );
+
+    // Build variantById map
+    const variantById = new Map();
+    variantRows.forEach((variant) => {
+      const berries = berryRows
+        .filter((b) => b.variant_id === variant.variant_id)
+        .map((b) => ({ name: b.name, quantity: b.quantity }));
+      const ingredients = ingredientRows
+        .filter((i) => i.variant_id === variant.variant_id)
+        .map((i) => ({ name: i.name, unlock_level: i.unlock_level }));
+      const mainSkills = mainSkillRows.filter(
+        (s) => s.variant_id === variant.variant_id
+      );
+      const mainSkill = mainSkills[0];
+
+      variantById.set(variant.variant_id, {
+        id: variant.variant_id,
+        berries,
+        ingredients,
+        mainSkillName: mainSkill?.skill_name || "",
+        mainSkillEffectType: mainSkill?.effect_type || "",
+        stats: {
+          base_frequency: variant.base_frequency,
+          baseFrequency: variant.base_frequency
+        }
+      });
+    });
+
+    // Load berry base strengths
+    const berryStrengthRows = await dbAll(
+      `select name, 1 as base_strength from berries`
+    );
+    const berryMap = new Map(
+      berryStrengthRows.map((berry) => [
+        berry.name.toLowerCase(),
+        { baseStrength: berry.base_strength }
+      ])
+    );
+
+    const ingredientMap = new Map(
+      ingredientCatalog.map((ingredient) => [
+        ingredient.name.toLowerCase(),
+        { baseStrength: ingredient.baseStrength || 100 }
+      ])
+    );
+
+    // Build ingredient demand map
+    const dishRows = await dbAll(
+      `select id from dishes`
+    );
+    const dishIngredientRows = await dbAll(
+      `select dish_ingredients.dish_id,
+              ingredients.name,
+              dish_ingredients.quantity
+       from dish_ingredients
+       join ingredients on ingredients.id = dish_ingredients.ingredient_id`
+    );
+    const ingredientDemand = new Map();
+    dishRows
+      .filter((dish) => selectedDishIds.includes(dish.id))
+      .forEach((dish) => {
+        dishIngredientRows
+          .filter((di) => di.dish_id === dish.id)
+          .forEach((di) => {
+            const key = di.name.toLowerCase();
+            ingredientDemand.set(key, (ingredientDemand.get(key) || 0) + di.quantity);
+          });
+      });
+
+    const bagRows = await dbAll(
+      "select name, quantity from bag_ingredients"
+    );
+    const bagPerMeal = buildBagPerMeal(bagRows);
+    const dishBase = await pickBestDishBaseStrength({
+      weekDishType,
+      potSize,
+      areaBonus,
+      dayOfWeek,
+      dishFocusIds: selectedDishIds,
+      bagPerMeal
+    });
+    const baseCookPerDay =
+      (dishBase.expectedMealStrength || 0) * MEALS_PER_DAY;
+    const cookingContext = {
+      baseDishStrengthUsed: dishBase.baseDishStrengthUsed,
+      bestDishId: dishBase.bestDishId,
+      bestDishName: dishBase.bestDishName,
+      fallbackUsed: dishBase.fallbackUsed,
+      dishLevelUsed: dishBase.dishLevelUsed,
+      dishLevelValueUsed: dishBase.dishLevelValueUsed,
+      recipeRequiredCount: dishBase.recipeRequiredCount,
+      extraSlotsUsed: dishBase.extraSlotsUsed,
+      extraBaseStrengthSum: dishBase.extraBaseStrengthSum,
+      rawStrength: dishBase.rawStrength,
+      afterArea: dishBase.afterArea,
+      expectedMealStrength: dishBase.expectedMealStrength,
+      tastyMultiplierUsed: dishBase.tastyMultiplierUsed,
+      baseCookPerDay,
+      mealsPerDay: MEALS_PER_DAY,
+      weekDishType,
+      potSize,
+      areaBonus,
+      dayOfWeek
+    };
+
+    // Ensure pokemonBox entries have types from species/variants
+    const speciesIds = Array.from(
+      new Set(pokemonBox.map((entry) => entry.species_id))
+    );
+    let speciesMap = new Map();
+    if (speciesIds.length > 0) {
+      const placeholders = speciesIds.map(() => "?").join(",");
+      const speciesRows = await dbAll(
+        `select id, primary_type, secondary_type from pokemon_species where id in (${placeholders})`,
+        speciesIds
+      );
+      speciesMap = new Map(
+        speciesRows.map((species) => [
+          species.id,
+          {
+            primary_type: species.primary_type,
+            secondary_type: species.secondary_type
+          }
+        ])
+      );
+    }
+
+    const entriesWithTypes = pokemonBox.map((entry) => {
+      const species = speciesMap.get(entry.species_id);
+      const variantInfo = variantById.get(entry.variant_id);
+      const unlockedIngredients = (variantInfo?.ingredients || []).filter(
+        (ingredient) =>
+          (ingredient.unlock_level ?? ingredient.unlockLevel ?? 1) <= entry.level
+      );
+      return {
+        ...entry,
+        primary_type: entry.primary_type || species?.primary_type,
+        secondary_type: entry.secondary_type || species?.secondary_type,
+        variant_image_path: entry.variant_image_path || null,
+        variant_shiny_image_path: entry.variant_shiny_image_path || null,
+        species_image_path: entry.species_image_path || null,
+        main_skill_name:
+          entry.main_skill_name || variantInfo?.mainSkillName || "",
+        main_skill_effect_type:
+          entry.main_skill_effect_type || variantInfo?.mainSkillEffectType || "",
+        carry_limit: entry.carry_limit || null,
+        berries: variantInfo?.berries || [],
+        unlocked_ingredients: unlockedIngredients,
+        is_event_variant: entry.variant_is_event === 1,
+        nature_name: entry.nature_name || null,
+        energy: Number.isFinite(Number(entry.energy)) ? Number(entry.energy) : 100
+      };
+    });
+
+    const uniqueEntries = Array.from(
+      new Map(entriesWithTypes.map((entry) => [entry.id, entry])).values()
+    );
+
+    // Build settings object
+    const settings = {
+      favoriteBerries,
+      eventTypes,
+      eventBuffs,
+      selectedDishIds,
+      weights: effectiveWeights,
+      preference,
+      skillValueMode,
+      skillBranchMode,
+      potSize,
+      weekDishType,
+      areaBonus,
+      dayOfWeek,
+      scoreNormalizationMode,
+      excludeLowEnergyBelowPct
+    };
+
+    const skillLevelRows = await dbAll(
+      "select skill_id, level, value_min, value_max from main_skill_levels"
+    );
+    const skillLevelsBySkillId = new Map();
+    for (const row of skillLevelRows) {
+      const existing = skillLevelsBySkillId.get(row.skill_id) || {
+        maxLevel: 0,
+        byLevel: new Map()
+      };
+      existing.byLevel.set(row.level, {
+        value_min: row.value_min,
+        value_max: row.value_max
+      });
+      if (row.level > existing.maxLevel) {
+        existing.maxLevel = row.level;
+      }
+      skillLevelsBySkillId.set(row.skill_id, existing);
+    }
+
+    // Score all entries
+    const scores = scoreAll(
+      uniqueEntries,
+      variantById,
+      settings,
+      berryMap,
+      ingredientDemand,
+      ingredientMap,
+      cookingContext,
+      skillLevelsBySkillId
+    );
+    const normalizedScores = normalizeScores(
+      scores,
+      effectiveWeights,
+      scoreNormalizationMode
+    );
+
+    // Pick recommended team
+    const recommendedTeam = Array.from(
+      new Map(pickTeam(normalizedScores).map((row) => [row.entry.id, row]))
+        .values()
+    );
+
+    const limitRaw = Number(req.query.limit);
+    const offsetRaw = Number(req.query.offset);
+    const limit = Number.isFinite(limitRaw) && limitRaw > 0 ? limitRaw : 5;
+    const offset = Number.isFinite(offsetRaw) && offsetRaw >= 0 ? offsetRaw : 0;
+    const sortedScores = [...normalizedScores].sort(
+      (a, b) =>
+        (b.breakdown.totalScoreNormalized ?? b.breakdown.totalScore) -
+        (a.breakdown.totalScoreNormalized ?? a.breakdown.totalScore)
+    );
+    const items = sortedScores.slice(offset, offset + limit);
+
+    // Build response
+    const response = {
+      recommendedTeam,
+      allScores: normalizedScores,
+      items,
+      totalCount: normalizedScores.length,
+      limit,
+      offset,
+      hasMore: offset + limit < normalizedScores.length
+    };
+
+    if (debug) {
+      response.debug = {
+        algorithm_version: "teamScoring_v0.1_backend",
+        effectiveSettings: {
+          preference,
+          weights: effectiveWeights,
+          eventTypes,
+          eventBuffs,
+          selectedDishIds,
+          favoriteBerries,
+          potSize,
+          weekDishType,
+          skillValueMode,
+          skillBranchMode,
+          areaBonus,
+          dayOfWeek,
+          dishBase
+        },
+        pokemonCount: pokemonBox.length,
+        top5Results: normalizedScores
+          .sort(
+            (a, b) =>
+              (b.breakdown.totalScoreNormalized ?? b.breakdown.totalScore) -
+              (a.breakdown.totalScoreNormalized ?? a.breakdown.totalScore)
+          )
+          .slice(0, 5)
+          .map((row) => ({
+            id: row.entry.id,
+            species_name: row.entry.species_name,
+            variant_name: row.entry.variant_name,
+            totalScore: row.breakdown.totalScore
+          }))
+      };
+    }
+
+    res.json(response);
+  } catch (error) {
+    console.error("Recommendation error:", error);
+    res.status(500).json({ error: "Failed to compute recommendations" });
   }
 });
 

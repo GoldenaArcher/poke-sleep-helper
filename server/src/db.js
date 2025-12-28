@@ -6,6 +6,7 @@ import {
   berryCatalog,
   dishCatalog,
   dishLevelData,
+  ingredientCatalog,
   mainSkillCatalog,
   mainSkillLevelCatalog,
   natureCatalog,
@@ -101,6 +102,12 @@ const initDb = async () => {
   );
   if (!hasIngredientImage) {
     await dbRun("alter table ingredients add column image_path text");
+  }
+  const hasIngredientStrength = ingredientColumns.some(
+    (column) => column.name === "base_strength"
+  );
+  if (!hasIngredientStrength) {
+    await dbRun("alter table ingredients add column base_strength integer default 100");
   }
 
   await dbRun(`
@@ -298,6 +305,10 @@ const initDb = async () => {
   await dbRun(
     "update pokemon_box set main_skill_trigger_rate = 0.1 where main_skill_trigger_rate is null"
   );
+  const hasEnergy = boxColumns.some((column) => column.name === "energy");
+  if (!hasEnergy) {
+    await dbRun("alter table pokemon_box add column energy integer default 100");
+  }
   const hasShiny = boxColumns.some((column) => column.name === "is_shiny");
   if (!hasShiny) {
     await dbRun(
@@ -497,7 +508,9 @@ const initDb = async () => {
       name TEXT NOT NULL UNIQUE,
       effect_type TEXT NOT NULL,
       target TEXT NOT NULL,
-      notes TEXT
+      notes TEXT,
+      value_unit TEXT,
+      value_semantics TEXT
     );
   `);
 
@@ -535,14 +548,28 @@ const initDb = async () => {
         name TEXT NOT NULL UNIQUE,
         effect_type TEXT NOT NULL,
         target TEXT NOT NULL,
-        notes TEXT
+        notes TEXT,
+        value_unit TEXT,
+        value_semantics TEXT
       );
     `);
     await dbRun(`
-      insert into main_skills (name, effect_type, target, notes)
-      select name, 'unknown', 'unknown', description from main_skills_old
+      insert into main_skills (name, effect_type, target, notes, value_unit, value_semantics)
+      select name, 'unknown', 'unknown', description, null, null from main_skills_old
     `);
     await dbRun("drop table main_skills_old");
+  }
+  const hasValueUnit = mainSkillColumns.some(
+    (column) => column.name === "value_unit"
+  );
+  if (!hasValueUnit) {
+    await dbRun("alter table main_skills add column value_unit text");
+  }
+  const hasValueSemantics = mainSkillColumns.some(
+    (column) => column.name === "value_semantics"
+  );
+  if (!hasValueSemantics) {
+    await dbRun("alter table main_skills add column value_semantics text");
   }
 
   await dbRun(`
@@ -596,6 +623,19 @@ const initDb = async () => {
   `);
 
   if (shouldSeedStatic) {
+  // Seed ingredients from catalog with strength values
+  for (const ingredient of ingredientCatalog) {
+    await dbRun(
+      "insert or ignore into ingredients (name, base_strength) values (?, ?)",
+      [ingredient.name, ingredient.baseStrength]
+    );
+    // Update existing ingredients with strength value
+    await dbRun(
+      "update ingredients set base_strength = ? where name = ?",
+      [ingredient.baseStrength, ingredient.name]
+    );
+  }
+  
   for (const dish of dishCatalog) {
     await dbRun(
       "insert or ignore into dishes (name, type, description, base_strength, dish_level) values (?, ?, ?, 0, 1)",
@@ -1210,6 +1250,38 @@ const initDb = async () => {
   await dbRun(
     "insert or ignore into settings (key, value) values (?, ?)",
     ["pokemon_box_limit", "80"]
+  );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["pot_size", "21"]
+  );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["week_dish_type", "salad"]
+  );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["skill_value_mode", "max"]
+  );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["skill_branch_mode", "auto"]
+  );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["area_bonus", "1.0"]
+  );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["day_of_week", "mon"]
+  );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["score_normalization_mode", "sigmoid_z"]
+  );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["exclude_low_energy_below_pct", "0"]
   );
 };
 

@@ -1,0 +1,17 @@
+{
+  "skills": [
+    {
+      "name": "Tasty Chance S",
+      "value_unit": "percent",
+      "value_semantics": "extra_tasty_rate_add",
+      "levels": [
+        { "level": 1, "value_min": 4, "value_max": 4 },
+        { "level": 2, "value_min": 5, "value_max": 5 },
+        { "level": 3, "value_min": 6, "value_max": 6 },
+        { "level": 4, "value_min": 7, "value_max": 7 },
+        { "level": 5, "value_min": 8, "value_max": 8 },
+        { "level": 6, "value_min": 10, "value_max": 10 }
+      ]
+    }
+  ]
+}

@@ -25,6 +25,7 @@ export type VariantData = {
   berries: Array<{ name: string; quantity: number }>;
   ingredients: Array<{ name: string; unlock_level?: number; unlockLevel?: number }>;
   mainSkillName?: string;
+  mainSkillEffectType?: string;
   stats?: {
     base_frequency?: string | number;
     baseFrequency?: string | number;
@@ -45,7 +46,8 @@ export type ResearchSettings = {
     berry: number;
     ingredient: number;
     cooking: number;
-    skill: number;
+    dreamShard?: number;
+    skill?: number;
   };
 };
 
@@ -57,10 +59,18 @@ export type ScoreBreakdown = {
   totalScore: number;
   details: {
     expectedHelps: number;
+    expectedTriggers: number;
     berryEV: number;
     ingredientEV: number;
     skillEV: number;
     cookingEV: number;
+    skillValueUsed: number;
+    deltaP: number;
+    triggerRateUsed: number;
+    triggerMultiplierUsed: number;
+    typesUsed: string[];
+    isBuffedType: boolean;
+    triggerMultiplierApplied: number;
   };
   reasons: string[];
 };
@@ -99,21 +109,58 @@ const getBerryStrength = (
   berryName: string
 ) => berryMap.get(berryName.toLowerCase())?.baseStrength || 1;
 
-const classifySkill = (skillName = "") => {
-  const name = skillName.toLowerCase();
-  if (name.includes("energy")) {
+const classifySkill = (effectType = "", skillName = "") => {
+  if (effectType === "extra_tasty") {
+    return "cooking";
+  }
+  if (effectType === "energy_restore") {
     return "energy";
   }
+  if (effectType === "pot_expand") {
+    return "cooking";
+  }
+  if (effectType === "ingredient_magnet" || effectType === "ingredient_draw") {
+    return "ingredient";
+  }
+  if (effectType === "dream_shard") {
+    return "shard";
+  }
+  if (effectType === "snorlax_strength" || effectType === "berry_burst") {
+    return "strength";
+  }
+  const name = skillName.toLowerCase();
   if (name.includes("cooking") || name.includes("tasty")) {
     return "cooking";
   }
   if (name.includes("charge strength") || name.includes("berry burst")) {
     return "strength";
   }
-  if (name.includes("dream shard")) {
-    return "shard";
-  }
   return "strength";
+};
+
+const normalizeWeights = (weights?: ResearchSettings["weights"]) => {
+  if (!weights) {
+    return DEFAULT_WEIGHTS;
+  }
+  const dreamShard =
+    typeof weights.dreamShard === "number"
+      ? weights.dreamShard
+      : typeof weights.skill === "number"
+        ? weights.skill
+        : DEFAULT_WEIGHTS.dreamShard;
+  return {
+    berry:
+      typeof weights.berry === "number" ? weights.berry : DEFAULT_WEIGHTS.berry,
+    ingredient:
+      typeof weights.ingredient === "number"
+        ? weights.ingredient
+        : DEFAULT_WEIGHTS.ingredient,
+    cooking:
+      typeof weights.cooking === "number"
+        ? weights.cooking
+        : DEFAULT_WEIGHTS.cooking,
+    dreamShard
+  };
 };
 
 export const scorePokemon = (
@@ -123,7 +170,7 @@ export const scorePokemon = (
   berryMap: Map<string, { baseStrength?: number }>,
   ingredientDemand: Map<string, number>
 ): ScoredEntry => {
-  const weights = settings.weights || DEFAULT_WEIGHTS;
+  const weights = normalizeWeights(settings.weights);
   const baseFrequencySeconds = parseFrequencySeconds(
     variant?.stats?.base_frequency ?? variant?.stats?.baseFrequency
   );
@@ -176,6 +223,7 @@ export const scorePokemon = (
   const ingredientEV = ingredientQuantity;
 
   const mainSkillName = variant?.mainSkillName || "";
+  const mainSkillEffectType = variant?.mainSkillEffectType || "";
   const mainSkillValueRaw =
     entry.main_skill_value ?? entry.main_skill_value_default ?? 0;
   const mainSkillValue = Number.isFinite(Number(mainSkillValueRaw))
@@ -184,48 +232,77 @@ export const scorePokemon = (
   const triggerRate = Number.isFinite(Number(entry.main_skill_trigger_rate))
     ? Number(entry.main_skill_trigger_rate)
     : DEFAULT_TRIGGER_RATE;
-  const skillCategory = classifySkill(mainSkillName);
+  const skillCategory = classifySkill(mainSkillEffectType, mainSkillName);
 
   let energyMultiplier = 1;
-  let skillEV = 0;
+  let skillGrowthEV = 0;
+  let skillIngredientEV = 0;
+  let skillCookingEV = 0;
+  let skillShardEV = 0;
+  let deltaP = 0;
+  let triggerMultiplierUsed = skillTriggerMultiplier;
+  let triggerRateUsed = triggerRate;
+  const expectedTriggers = helps * triggerRate * triggerMultiplierUsed;
+  const typesUsed = [
+    entry.primary_type,
+    entry.secondary_type
+  ].filter(Boolean);
 
-  if (skillCategory === "energy") {
+  if (skillCategory === "ingredient") {
+    skillIngredientEV = mainSkillValue * expectedTriggers * ingredientMultiplier;
+    reasons.push("Ingredient skill support");
+  } else if (skillCategory === "energy") {
     const energyBoost = Math.min(0.25, mainSkillValue / 100);
     energyMultiplier = 1 + energyBoost;
     reasons.push("Energy skill boosts help speed");
   } else if (skillCategory === "cooking") {
-    skillEV = mainSkillValue * triggerRate * skillTriggerMultiplier * 0.5;
-    reasons.push("Cooking-related skill");
+    triggerMultiplierUsed = skillTriggerMultiplier;
+    triggerRateUsed = triggerRate;
+    if (mainSkillEffectType === "extra_tasty" || mainSkillName.toLowerCase().includes("tasty chance")) {
+      deltaP = (mainSkillValue / 100) * triggerRate * triggerMultiplierUsed;
+      reasons.push(
+        `Tasty Chance expected +${(deltaP * 100).toFixed(1)}% (event-adjusted)`
+      );
+    } else {
+      skillCookingEV = mainSkillValue * triggerRate * triggerMultiplierUsed * 0.5;
+      reasons.push("Cooking-related skill");
+    }
   } else if (skillCategory === "strength") {
-    skillEV =
+    skillGrowthEV =
       mainSkillValue *
-      triggerRate *
-      skillTriggerMultiplier *
+      expectedTriggers *
       skillStrengthMultiplier;
     reasons.push("Direct strength skill");
   } else if (skillCategory === "shard") {
-    skillEV = mainSkillValue * triggerRate * dreamShardMultiplier;
+    skillShardEV =
+      mainSkillValue *
+      expectedTriggers *
+      dreamShardMultiplier;
   }
 
-  const berryScore = berryEV * energyMultiplier;
-  const ingredientScore = ingredientQuantity * energyMultiplier + coverage;
+  const berryScore = berryEV * energyMultiplier + skillGrowthEV;
+  const ingredientScore =
+    ingredientQuantity * energyMultiplier + coverage + skillIngredientEV;
 
   const cookingRatio = Math.min(
     1,
     (ingredientQuantity * energyMultiplier) / COOKING_DAILY_NEED
   );
-  const cookingEV = cookingRatio * 100;
+  const potFillScore = Math.sqrt(cookingRatio) * 100;
+  const cookingBonusEV = deltaP > 0 ? potFillScore * deltaP : 0;
+  const cookingEV = potFillScore + cookingBonusEV + skillCookingEV;
   if (cookingRatio >= 0.6) {
     reasons.push("Likely to fill pot daily");
   }
 
   const cookingScore = cookingEV;
-  const skillScore = skillEV;
+  const skillScore =
+    skillGrowthEV + skillIngredientEV + skillCookingEV + skillShardEV;
   const totalScore =
     weights.berry * berryScore +
     weights.ingredient * ingredientScore +
     weights.cooking * cookingScore +
-    weights.skill * skillScore;
+    weights.dreamShard * skillShardEV;
 
   const dominant = (() => {
     const buckets: Array<[ScoredEntry["dominant"], number]> = [
@@ -247,10 +324,18 @@ export const scorePokemon = (
       totalScore,
       details: {
         expectedHelps: helps,
+        expectedTriggers,
         berryEV,
         ingredientEV,
-        skillEV,
-        cookingEV
+        skillEV: skillScore,
+        cookingEV,
+        skillValueUsed: mainSkillValue,
+        deltaP,
+        triggerRateUsed,
+        triggerMultiplierUsed,
+        typesUsed,
+        isBuffedType: eventTypeActive,
+        triggerMultiplierApplied: triggerMultiplierUsed
       },
       reasons: reasons.slice(0, 3)
     }

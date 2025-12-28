@@ -13,6 +13,20 @@ import usePokedexStore from "../stores/usePokedexStore.js";
 import usePokemonBoxStore from "../stores/usePokemonBoxStore.js";
 import useSettingsStore from "../stores/useSettingsStore.js";
 
+const formatMainSkillNotes = (mainSkill) => {
+  if (!mainSkill?.notes) {
+    return "";
+  }
+  if (typeof mainSkill.value_min !== "number") {
+    return mainSkill.notes;
+  }
+  const valueText =
+    mainSkill.value_unit === "percent"
+      ? `${mainSkill.value_min}%`
+      : `${mainSkill.value_min}`;
+  return mainSkill.notes.replace(/\?\?%|\?\?/g, valueText);
+};
+
 const BoxView = () => {
   const ingredientCatalog = useBagStore((state) => state.ingredientDetails);
   const { natures } = useNaturesStore();
@@ -74,6 +88,8 @@ const BoxView = () => {
         typeof boxDetail.entry.main_skill_value === "number"
           ? boxDetail.entry.main_skill_value
           : "",
+      mainSkillOverride:
+        typeof boxDetail.entry.main_skill_value === "number",
       isShiny: Boolean(boxDetail.entry.is_shiny),
       ingredientSlots: ingredientSlotLevels.map((slotLevel, i) => {
         const slot = ingredientSlotMap.get(slotLevel);
@@ -237,9 +253,10 @@ const BoxView = () => {
           ? null
           : Number(boxDetailDraft.mainSkillTriggerRate),
       mainSkillValue:
-        boxDetailDraft.mainSkillValue === ""
-          ? null
-          : Number(boxDetailDraft.mainSkillValue),
+        boxDetailDraft.mainSkillOverride &&
+        boxDetailDraft.mainSkillValue !== ""
+          ? Number(boxDetailDraft.mainSkillValue)
+          : null,
       isShiny: boxDetailDraft.isShiny,
       ingredients: boxDetailDraft.ingredientSlots.map((slot) => ({
         slotLevel: slot.slotLevel,
@@ -757,7 +774,9 @@ const BoxView = () => {
                 {boxDetail.mainSkill ? (
                   <div>
                     <strong>{boxDetail.mainSkill.name}</strong>
-                    <p className="meta">{boxDetail.mainSkill.notes}</p>
+                    <p className="meta">
+                      {formatMainSkillNotes(boxDetail.mainSkill)}
+                    </p>
                     <p className="meta">
                       Skill Lv {boxDetail.entry.main_skill_level}
                     </p>
@@ -777,37 +796,57 @@ const BoxView = () => {
                         placeholder="0.1"
                       />
                     </label>
-                    <label className="inline-field">
-                      <span className="meta">Value</span>
+                    <label className="checkbox-field">
+                      Override skill value
                       <input
-                        type="number"
-                        min="0"
-                        value={boxDetailDraft?.mainSkillValue ?? ""}
+                        type="checkbox"
+                        checked={Boolean(boxDetailDraft?.mainSkillOverride)}
                         onChange={(event) =>
                           setBoxDetailDraft((prev) => ({
                             ...prev,
-                            mainSkillValue: event.target.value
+                            mainSkillOverride: event.target.checked,
+                            mainSkillValue: event.target.checked
+                              ? prev.mainSkillValue
+                              : ""
                           }))
-                        }
-                        placeholder={
-                          typeof boxDetail.entry.main_skill_value_default ===
-                          "number"
-                            ? `Default: ${boxDetail.entry.main_skill_value_default}`
-                            : "Optional"
                         }
                       />
                     </label>
-                    {typeof boxDetail.entry.main_skill_value_default ===
-                    "number" ? (
+                    {boxDetailDraft?.mainSkillOverride ? (
+                      <label className="inline-field">
+                        <span className="meta">Override value</span>
+                        <input
+                          type="number"
+                          min="0"
+                          value={boxDetailDraft?.mainSkillValue ?? ""}
+                          onChange={(event) =>
+                            setBoxDetailDraft((prev) => ({
+                              ...prev,
+                              mainSkillValue: event.target.value
+                            }))
+                          }
+                          placeholder="Optional"
+                        />
+                      </label>
+                    ) : null}
+                    {typeof boxDetail.mainSkill.value_min === "number" ? (
                       <p className="meta">
-                        Default value:{" "}
-                        {boxDetail.entry.main_skill_value_default}
+                        Base value:{" "}
+                        {boxDetail.mainSkill.value_min}
+                        {typeof boxDetail.mainSkill.value_max === "number" &&
+                        boxDetail.mainSkill.value_max !==
+                          boxDetail.mainSkill.value_min
+                          ? `–${boxDetail.mainSkill.value_max}`
+                          : ""}
+                        {boxDetail.mainSkill.value_unit === "percent"
+                          ? "%"
+                          : ""}
                       </p>
                     ) : null}
                     {typeof boxDetailDraft?.mainSkillValue !== "undefined" &&
                       boxDetailDraft.mainSkillValue !== "" && (
                         <p className="meta">
-                          Value: {boxDetailDraft.mainSkillValue}
+                          Override value: {boxDetailDraft.mainSkillValue}
                         </p>
                       )}
                     {typeof boxDetailDraft?.mainSkillValue === "undefined" &&

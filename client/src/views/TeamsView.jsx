@@ -7,46 +7,24 @@ import useSettingsStore from "../stores/useSettingsStore.js";
 import { apiFetch } from "../utils/api.js";
 import { pickTeam, scoreAll } from "../utils/teamScoring.ts";
 
+// Feature flag: set to true to use backend recommendation endpoint
+const USE_BACKEND_RECOMMENDATION = true;
+const PAGE_SIZE = 5;
+
 const TeamsView = () => {
   const { dishes } = useDishesStore();
   const { pokemonBox } = usePokemonBoxStore();
   const { researchAreas, berries } = useResearchStore();
   const { settings } = useSettingsStore();
-  const [detailMap, setDetailMap] = useState({});
   const [speciesMap, setSpeciesMap] = useState({});
   const [selectedEntryId, setSelectedEntryId] = useState(null);
   const [expandedIds, setExpandedIds] = useState({});
+  const [backendScores, setBackendScores] = useState(null);
+  const [backendDebug, setBackendDebug] = useState(null);
+  const [isLoadingBackend, setIsLoadingBackend] = useState(false);
+  const [pageOffset, setPageOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
 
-  useEffect(() => {
-    let isMounted = true;
-    const fetchDetails = async () => {
-      const missing = pokemonBox.filter((entry) => !detailMap[entry.id]);
-      if (missing.length === 0) {
-        return;
-      }
-      const results = await Promise.all(
-        missing.map((entry) =>
-          apiFetch(`/api/pokemon-box/${entry.id}/details`).catch(
-            () => null
-          )
-        )
-      );
-      if (!isMounted) {
-        return;
-      }
-      const next = { ...detailMap };
-      results.forEach((detail) => {
-        if (detail?.entry?.id) {
-          next[detail.entry.id] = detail;
-        }
-      });
-      setDetailMap(next);
-    };
-    fetchDetails();
-    return () => {
-      isMounted = false;
-    };
-  }, [pokemonBox, detailMap]);
 
   useEffect(() => {
     let isMounted = true;
@@ -79,6 +57,73 @@ const TeamsView = () => {
       isMounted = false;
     };
   }, [pokemonBox, speciesMap]);
+
+  useEffect(() => {
+    if (!USE_BACKEND_RECOMMENDATION) {
+      return;
+    }
+    setPageOffset(0);
+    setBackendScores(null);
+  }, [
+    settings.version,
+    settings.preference,
+    settings.eventTypes,
+    settings.selectedDishIds
+  ]);
+
+  // Fetch recommendations from backend when enabled
+  useEffect(() => {
+    if (!USE_BACKEND_RECOMMENDATION) {
+      return;
+    }
+    let isMounted = true;
+    const fetchRecommendations = async () => {
+      setIsLoadingBackend(true);
+      try {
+        const debug =
+          new URLSearchParams(window.location.search).get("debug") === "1";
+        const query = new URLSearchParams();
+        query.set("limit", String(PAGE_SIZE));
+        query.set("offset", String(pageOffset));
+        if (debug) {
+          query.set("debug", "1");
+        }
+        const response = await apiFetch(
+          `/api/teams/recommendation?${query.toString()}`,
+          { method: "POST" }
+        );
+        if (!isMounted) {
+          return;
+        }
+        const items = response.items || response.allScores || [];
+        setBackendScores((prev) =>
+          pageOffset === 0 ? items : [...(prev || []), ...items]
+        );
+        setHasMore(Boolean(response.hasMore));
+        if (debug && response.debug) {
+          setBackendDebug(response.debug);
+          console.log("Backend recommendation debug:", response.debug);
+        }
+      } catch (error) {
+        console.error("Failed to fetch backend recommendations:", error);
+      } finally {
+        if (isMounted) {
+          setIsLoadingBackend(false);
+        }
+      }
+    };
+    fetchRecommendations();
+    return () => {
+      isMounted = false;
+    };
+  }, [
+    pageOffset,
+    pokemonBox.length,
+    settings.version,
+    settings.preference,
+    settings.eventTypes,
+    settings.selectedDishIds
+  ]);
 
   const highlightBerryNames = useMemo(() => {
     const currentArea = researchAreas.find((area) => area.is_default);
@@ -116,7 +161,8 @@ const TeamsView = () => {
       (species.variants || []).forEach((variant) => {
         map.set(variant.id, {
           ...variant,
-          mainSkillName: variant.mainSkills?.[0]?.name || ""
+          mainSkillName: variant.mainSkills?.[0]?.name || "",
+          mainSkillEffectType: variant.mainSkills?.[0]?.effectType || ""
         });
       });
     });
@@ -129,7 +175,29 @@ const TeamsView = () => {
     );
   }, [berries]);
 
+  const entriesWithTypes = useMemo(
+    () =>
+      pokemonBox.map((entry) => {
+        const species = speciesMap[entry.species_id];
+        if (!species) {
+          return entry;
+        }
+        return {
+          ...entry,
+          primary_type: species.primary_type || entry.primary_type,
+          secondary_type: species.secondary_type || entry.secondary_type
+        };
+      }),
+    [pokemonBox, speciesMap]
+  );
+
   const scores = useMemo(() => {
+    // Use backend scores if available and enabled
+    if (USE_BACKEND_RECOMMENDATION && backendScores) {
+      return backendScores;
+    }
+    
+    // Fallback to frontend scoring
     const scoringSettings = {
       favoriteBerries: highlightBerryNames,
       eventTypes: settings.eventTypes || [],
@@ -143,25 +211,30 @@ const TeamsView = () => {
       weights: settings.weights
     };
     return scoreAll(
-      pokemonBox,
+      entriesWithTypes,
       variantById,
       scoringSettings,
       berryMap,
       ingredientDemand
     );
   }, [
-    pokemonBox,
+    backendScores,
+    entriesWithTypes,
     variantById,
     settings.eventTypes,
     settings.eventBuffs,
     settings.selectedDishIds,
     settings.weights,
+    settings.preference,
     berryMap,
     ingredientDemand,
     highlightBerryNames
   ]);
 
-  const recommendedTeam = useMemo(() => pickTeam(scores), [scores]);
+  const recommendedTeam = useMemo(
+    () => (USE_BACKEND_RECOMMENDATION ? scores : pickTeam(scores)),
+    [scores]
+  );
 
   const selectedRow = scores.find(
     (row) => row.entry.id === selectedEntryId
@@ -175,6 +248,29 @@ const TeamsView = () => {
         <p className="subhead">
           Ranked by growth, ingredient focus, and dream shard impact.
         </p>
+        {backendDebug && (
+          <div style={{ 
+            marginTop: "1rem", 
+            padding: "0.75rem", 
+            background: "#f0f9ff", 
+            border: "1px solid #0ea5e9",
+            borderRadius: "4px",
+            fontSize: "0.875rem"
+          }}>
+            <strong>🔧 Debug Mode:</strong> {backendDebug.algorithm_version}
+            <br />
+            <strong>Settings:</strong> {backendDebug.effectiveSettings.preference || "default"} 
+            {" • "}Event Types: {backendDebug.effectiveSettings.eventTypes.join(", ") || "none"}
+            {" • "}Pokémon: {backendDebug.pokemonCount}
+            <br />
+            <strong>Weights:</strong> {JSON.stringify(backendDebug.effectiveSettings.weights)}
+          </div>
+        )}
+        {USE_BACKEND_RECOMMENDATION && !backendDebug && (
+          <p style={{ fontSize: "0.875rem", marginTop: "0.5rem", color: "#666" }}>
+            ⚙️ Using backend recommendation engine
+          </p>
+        )}
       </header>
       <section className="card">
         {recommendedTeam.length === 0 ? (
@@ -194,20 +290,23 @@ const TeamsView = () => {
               <div key={row.entry.id}>
                 <div className="team-row">
                 <div className="team-preview">
-                  {row.entry.variant_image_path ? (
+                  {row.entry.variant_image_path || row.entry.species_image_path ? (
                     <img
                       src={
                         row.entry.is_shiny
                           ? row.entry.variant_shiny_image_path ||
-                            row.entry.variant_image_path.replace(
-                              /\.png$/i,
-                              "-shiny.png"
-                            )
-                          : row.entry.variant_image_path
+                            row.entry.variant_image_path ||
+                            row.entry.species_image_path ||
+                            ""
+                          : row.entry.variant_image_path ||
+                            row.entry.species_image_path ||
+                            ""
                       }
                       alt={row.entry.variant_name || row.entry.species_name}
                     />
-                  ) : null}
+                  ) : (
+                    <div className="img-placeholder" aria-hidden="true" />
+                  )}
                   <div>
                     <strong>
                       {row.entry.nickname || row.entry.species_name}
@@ -222,7 +321,7 @@ const TeamsView = () => {
                 <div>{row.breakdown.skillScore.toFixed(1)}</div>
                 <div>{row.breakdown.cookingScore.toFixed(1)}</div>
                 <div className="team-total">
-                  {row.breakdown.totalScore.toFixed(1)}
+                  {(row.breakdown.totalScoreNormalized ?? row.breakdown.totalScore).toFixed(3)}
                 </div>
                 <div>
                   <button
@@ -261,11 +360,50 @@ const TeamsView = () => {
                     </div>
                     <div className="meta">
                       Helps/day: {row.breakdown.details.expectedHelps.toFixed(1)}{" "}
+                      • Triggers/day:{" "}
+                      {row.breakdown.details.expectedTriggers.toFixed(1)}{" "}
                       • Berry EV: {row.breakdown.details.berryEV.toFixed(1)} •{" "}
                       Ingredient EV:{" "}
                       {row.breakdown.details.ingredientEV.toFixed(1)} • Skill EV:{" "}
                       {row.breakdown.details.skillEV.toFixed(1)} • Cooking EV:{" "}
-                      {row.breakdown.details.cookingEV.toFixed(1)}
+                      {row.breakdown.details.cookingEV.toFixed(1)} • Skill value:{" "}
+                      {row.breakdown.details.skillValueUsed.toFixed(1)} • Raw total:{" "}
+                      {row.breakdown.totalScore.toFixed(1)} • Normalized:{" "}
+                      {row.breakdown.totalScoreNormalized?.toFixed?.(3) || "0.000"}
+                      {row.breakdown.details.typesUsed.length ? (
+                        <>
+                          {" "}
+                          • Types: {row.breakdown.details.typesUsed.join(" / ")}{" "}
+                          • Buffed:{" "}
+                          {row.breakdown.details.isBuffedType ? "yes" : "no"} •
+                          Trigger mult:{" "}
+                          {row.breakdown.details.triggerMultiplierApplied.toFixed(2)}
+                        </>
+                      ) : null}
+                      {row.breakdown.details.deltaP > 0 ? (
+                        <>
+                          {" "}
+                          • Extra Tasty ΔP:{" "}
+                          {(row.breakdown.details.deltaP * 100).toFixed(1)}% • Trigger
+                          rate: {row.breakdown.details.triggerRateUsed.toFixed(2)} •
+                          Trigger mult:{" "}
+                          {row.breakdown.details.triggerMultiplierUsed.toFixed(2)} •
+                          Base dish:{" "}
+                          {row.breakdown.details.baseDishStrengthUsed.toFixed(1)} •
+                          Extra Tasty EV:{" "}
+                          {row.breakdown.details.extraTastyEVPerDay.toFixed(1)} •
+                          Extra Tasty meals:{" "}
+                          {row.breakdown.details.expectedExtraTastyMealsPerDay?.toFixed?.(
+                            2
+                          ) || "0.00"}
+                          {" • "}pUsed:{" "}
+                          {(row.breakdown.details.pUsed * 100).toFixed(1)}% •
+                          Mult/meal:{" "}
+                          {row.breakdown.details.expectedMultiplierPerMeal?.toFixed?.(
+                            2
+                          ) || "0.00"}
+                        </>
+                      ) : null}
                     </div>
                   </div>
                 ) : null}
@@ -273,6 +411,18 @@ const TeamsView = () => {
             ))}
           </div>
         )}
+        {USE_BACKEND_RECOMMENDATION && hasMore ? (
+          <div style={{ marginTop: "1rem" }}>
+            <button
+              className="button"
+              type="button"
+              disabled={isLoadingBackend}
+              onClick={() => setPageOffset((prev) => prev + PAGE_SIZE)}
+            >
+              {isLoadingBackend ? "Loading..." : "Load next 5"}
+            </button>
+          </div>
+        ) : null}
       </section>
       {selectedRow ? (
         <div className="bag-modal">
@@ -320,6 +470,17 @@ const TeamsView = () => {
                   Ingredient EV:{" "}
                   {selectedRow.breakdown.details.ingredientEV.toFixed(1)}
                 </p>
+                <p className="meta">
+                  Unlocked:{" "}
+                  {selectedRow.entry.unlocked_ingredients?.length
+                    ? selectedRow.entry.unlocked_ingredients
+                        .map(
+                          (item) =>
+                            `${item.name} (Lv ${item.unlock_level || item.unlockLevel || "?"})`
+                        )
+                        .join(", ")
+                    : "—"}
+                </p>
               </div>
               <div>
                 <h4>Skills + Cooking</h4>
@@ -331,11 +492,135 @@ const TeamsView = () => {
                   Cooking score:{" "}
                   {selectedRow.breakdown.cookingScore.toFixed(1)}
                 </p>
+                <p className="meta">
+                  Skill value:{" "}
+                  {selectedRow.breakdown.details.skillValueUsed.toFixed(1)}
+                </p>
+                <p className="meta">
+                  Triggers/day:{" "}
+                  {selectedRow.breakdown.details.expectedTriggers.toFixed(1)}
+                </p>
+                <p className="meta">
+                  Types: {selectedRow.breakdown.details.typesUsed.join(" / ") || "—"} •
+                  Buffed: {selectedRow.breakdown.details.isBuffedType ? "yes" : "no"} •
+                  Trigger mult:{" "}
+                  {selectedRow.breakdown.details.triggerMultiplierApplied.toFixed(2)}
+                </p>
+                {selectedRow.breakdown.details.deltaP > 0 ? (
+                  <p className="meta">
+                    Extra Tasty ΔP:{" "}
+                    {(selectedRow.breakdown.details.deltaP * 100).toFixed(1)}% •
+                    Trigger rate:{" "}
+                    {selectedRow.breakdown.details.triggerRateUsed.toFixed(2)} •
+                    Trigger mult:{" "}
+                    {selectedRow.breakdown.details.triggerMultiplierUsed.toFixed(2)}
+                  </p>
+                ) : null}
+                <p className="meta">
+                  Weekly dish: {selectedRow.breakdown.details.weekDishType || "—"} •
+                  Pot size: {selectedRow.breakdown.details.potSize || "—"} •
+                  Area bonus: {selectedRow.breakdown.details.areaBonus || "—"} •
+                  Day: {selectedRow.breakdown.details.dayOfWeek || "—"}
+                </p>
+                <p className="meta">
+                  Best dish: {selectedRow.breakdown.details.bestDishName || "—"} •
+                  Meals/day: {selectedRow.breakdown.details.mealsPerDay || "—"} •
+                  Base dish:{" "}
+                  {selectedRow.breakdown.details.baseDishStrengthUsed.toFixed(1)} •
+                  Dish level:{" "}
+                  {selectedRow.breakdown.details.dishLevelUsed || "—"} •
+                  Dish value:{" "}
+                  {selectedRow.breakdown.details.dishLevelValueUsed.toFixed(1)} •
+                  Extra Tasty EV:{" "}
+                  {selectedRow.breakdown.details.extraTastyEVPerDay.toFixed(1)}
+                </p>
+                <p className="meta">
+                  Extras: {selectedRow.breakdown.details.extraSlotsUsed || 0} /{" "}
+                  {selectedRow.breakdown.details.recipeRequiredCount || 0} •
+                  Extra base sum:{" "}
+                  {selectedRow.breakdown.details.extraBaseStrengthSum.toFixed(1)} •
+                  After area:{" "}
+                  {selectedRow.breakdown.details.afterArea.toFixed(1)} •
+                  Per-day:{" "}
+                  {selectedRow.breakdown.details.expectedDishStrengthPerDay.toFixed(
+                    1
+                  )}
+                </p>
+                <p className="meta">
+                  Extra Tasty meals:{" "}
+                  {selectedRow.breakdown.details.expectedExtraTastyMealsPerDay?.toFixed?.(
+                    2
+                  ) || "0.00"}{" "}
+                  • Mult/meal:{" "}
+                  {selectedRow.breakdown.details.expectedMultiplierPerMeal?.toFixed?.(
+                    2
+                  ) || "0.00"}{" "}
+                  • Mult/day:{" "}
+                  {selectedRow.breakdown.details.expectedMultiplierSum?.toFixed?.(
+                    2
+                  ) || "0.00"}{" "}
+                  • Tasty mult:{" "}
+                  {selectedRow.breakdown.details.tastyMultiplierUsed || "—"}{" "}
+                  ({selectedRow.breakdown.details.tastyMultiplierSource || "—"})
+                </p>
+                <p className="meta">
+                  ΔP/trigger:{" "}
+                  {(selectedRow.breakdown.details.deltaPPerTrigger * 100).toFixed(1)}% •
+                  ΔP/meal:{" "}
+                  {(selectedRow.breakdown.details.deltaPPerMeal * 100).toFixed(2)}% •
+                  Base chance:{" "}
+                  {(selectedRow.breakdown.details.baseChanceUsed * 100).toFixed(1)}% •
+                  Cap:{" "}
+                  {(selectedRow.breakdown.details.capUsed * 100).toFixed(0)}%
+                </p>
                 {selectedRow.breakdown.reasons.map((reason, index) => (
                   <p key={`detail-reason-${index}`} className="meta">
                     {reason}
                   </p>
                 ))}
+              </div>
+              <div>
+                <h4>Pokemon</h4>
+                <p className="meta">
+                  Level: {selectedRow.entry.level} • Nature:{" "}
+                  {selectedRow.entry.nature_name || "—"}
+                </p>
+                <p className="meta">
+                  Types:{" "}
+                  {selectedRow.breakdown.details.typesUsed.join(" / ") || "—"} •
+                  Event variant:{" "}
+                  {selectedRow.entry.is_event_variant ? "yes" : "no"}
+                </p>
+                <p className="meta">
+                  Carry limit: {selectedRow.entry.carry_limit ?? "—"}
+                </p>
+                <p className="meta">
+                  Main skill: {selectedRow.entry.main_skill_name || "—"}{" "}
+                  {selectedRow.entry.main_skill_effect_type
+                    ? `(${selectedRow.entry.main_skill_effect_type})`
+                    : ""}
+                </p>
+                <p className="meta">
+                  Skill level: {selectedRow.breakdown.details.baseMainSkillLevel} →{" "}
+                  {selectedRow.breakdown.details.effectiveMainSkillLevel} (max{" "}
+                  {selectedRow.breakdown.details.maxMainSkillLevel}) • Mode:{" "}
+                  {selectedRow.breakdown.details.skillValueMode} • Branch:{" "}
+                  {selectedRow.breakdown.details.skillBranchUsed || "default"}
+                </p>
+                <p className="meta">
+                  Trigger rate:{" "}
+                  {Number.isFinite(selectedRow.entry.main_skill_trigger_rate)
+                    ? selectedRow.entry.main_skill_trigger_rate.toFixed(2)
+                    : "—"}
+                </p>
+                <p className="meta">
+                  Berries:{" "}
+                  {selectedRow.entry.berries?.length
+                    ? selectedRow.entry.berries
+                        .map((item) => `${item.name} x ${item.quantity || 1}`)
+                        .join(", ")
+                    : "—"}
+                </p>
               </div>
             </div>
           </section>

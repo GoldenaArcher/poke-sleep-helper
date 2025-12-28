@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import SearchSelect from "./SearchSelect.jsx";
 import { findByName } from "../utils/text.js";
@@ -19,6 +19,9 @@ const ResearchAreasModal = ({
 }) => {
   const [dishSearch, setDishSearch] = useState("");
   const [typeSearch, setTypeSearch] = useState("");
+  const [goalPreset, setGoalPreset] = useState(
+    settings.preference || "custom"
+  );
   const selectedDishIds = settings.selectedDishIds || [];
   const eventTypes = settings.eventTypes || [];
   const eventBuffs = settings.eventBuffs || {};
@@ -72,6 +75,16 @@ const ResearchAreasModal = ({
     setSubSkillSearch("");
   };
 
+  const goalPresets = {
+    balanced: { berry: 0.45, ingredient: 0.35, cooking: 0.15, dreamShard: 0.05 },
+    growth: { berry: 0.65, ingredient: 0.2, cooking: 0.1, dreamShard: 0.05 },
+    cooking: { berry: 0.35, ingredient: 0.25, cooking: 0.35, dreamShard: 0.05 }
+  };
+
+  useEffect(() => {
+    setGoalPreset(settings.preference || "custom");
+  }, [settings.preference]);
+
   return (
     <div className="bag-modal">
       <section className="card">
@@ -91,6 +104,29 @@ const ResearchAreasModal = ({
           </button>
         </header>
         <div className="research-grid">
+          <div className="area-row">
+            <div className="highlight-title">Preference / Goal</div>
+            <label>
+              <select
+                value={goalPreset}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  setGoalPreset(value);
+                  const preset = goalPresets[value];
+                  if (preset) {
+                    updateSettings({ preference: value, weights: preset });
+                  } else {
+                    updateSettings({ preference: "custom" });
+                  }
+                }}
+              >
+                <option value="balanced">Balanced</option>
+                <option value="growth">Growth Focus</option>
+                <option value="cooking">Cooking Focus</option>
+                <option value="custom">Custom</option>
+              </select>
+            </label>
+          </div>
           <div className="area-row">
             <div className="highlight-title">Current research area</div>
             <div className="inline-fields compact">
