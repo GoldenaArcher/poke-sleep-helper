@@ -119,6 +119,35 @@ const normalizeWeights = (weights, preference) => {
 const clamp = (value, min, max) =>
   Math.min(Math.max(value, min), max);
 
+const energyMultiplierForPct = (energyPct, settings) => {
+  const pct = Number.isFinite(Number(energyPct)) ? Number(energyPct) : 100;
+  const overrides = settings?.energyMultiplierTable;
+  if (Array.isArray(overrides)) {
+    const match = overrides.find(
+      (row) => pct >= row.min && pct <= row.max
+    );
+    if (match && Number.isFinite(Number(match.multiplier))) {
+      return Number(match.multiplier);
+    }
+  }
+  if (pct >= 80) {
+    return 1.6;
+  }
+  if (pct >= 60) {
+    return 1.4;
+  }
+  if (pct >= 40) {
+    return 1.2;
+  }
+  if (pct >= 20) {
+    return 1.0;
+  }
+  if (pct >= 10) {
+    return 0.8;
+  }
+  return 0.6;
+};
+
 const expectedExtraTastyModel = ({
   mealsPerDay,
   baseChance,
@@ -259,39 +288,94 @@ const scorePokemon = (
   const baseFrequencySeconds = parseFrequencySeconds(
     variant?.stats?.base_frequency ?? variant?.stats?.baseFrequency
   );
-  const helps = expectedHelpsPerDay(baseFrequencySeconds);
+  const avgEnergyMultiplierUsed = Number.isFinite(
+    Number(settings.avgEnergyMultiplier)
+  )
+    ? Number(settings.avgEnergyMultiplier)
+    : AVG_ENERGY_MULTIPLIER;
+  const helpsBeforeEnergy =
+    (86400 / baseFrequencySeconds) * avgEnergyMultiplierUsed;
+  const energyPctUsed = Number.isFinite(Number(entry.energy))
+    ? Number(entry.energy)
+    : 100;
+  const energyMultiplierUsed = energyMultiplierForPct(energyPctUsed, settings);
+  const helps = helpsBeforeEnergy * energyMultiplierUsed;
   const favoriteSet = new Set(
     settings.favoriteBerries.map((berry) => berry.toLowerCase())
   );
   const eventTypeActive = isEventType(entry, settings);
+  const areaBonusUsed =
+    Number.isFinite(Number(settings.areaBonus)) && Number(settings.areaBonus) > 0
+      ? Number(settings.areaBonus)
+      : 1;
   const ingredientMultiplier =
-    eventTypeActive && settings.eventBuffs.ingredientBonus
-      ? EVENT_MULTIPLIERS.ingredient
-      : 1;
+    eventTypeActive && Number.isFinite(Number(settings.eventIngredientMultiplier))
+      ? Number(settings.eventIngredientMultiplier)
+      : eventTypeActive && settings.eventBuffs.ingredientBonus
+        ? EVENT_MULTIPLIERS.ingredient
+        : 1;
   const skillTriggerMultiplier =
-    eventTypeActive && settings.eventBuffs.skillTriggerBonus
-      ? EVENT_MULTIPLIERS.skillTrigger
-      : 1;
+    eventTypeActive && Number.isFinite(Number(settings.eventSkillTriggerRateMultiplier))
+      ? Number(settings.eventSkillTriggerRateMultiplier)
+      : eventTypeActive && settings.eventBuffs.skillTriggerBonus
+        ? EVENT_MULTIPLIERS.skillTrigger
+        : 1;
   const skillStrengthMultiplier =
-    eventTypeActive && settings.eventBuffs.skillStrengthBonus
-      ? EVENT_MULTIPLIERS.skillStrength
-      : 1;
+    eventTypeActive && Number.isFinite(Number(settings.eventSkillStrengthMultiplier))
+      ? Number(settings.eventSkillStrengthMultiplier)
+      : eventTypeActive && settings.eventBuffs.skillStrengthBonus
+        ? EVENT_MULTIPLIERS.skillStrength
+        : 1;
   const dreamShardMultiplier =
     eventTypeActive && settings.eventBuffs.dreamShardMagnetBonus
       ? EVENT_MULTIPLIERS.dreamShard
       : 1;
 
   let berryEV = 0;
+  let berryPerHelp = 0;
+  const berryStrengthEach = [];
+  let favoriteBerryMatchCount = 0;
   const reasons = [];
   (variant?.berries || []).forEach((drop) => {
     const isFavorite = favoriteSet.has(drop.name.toLowerCase());
     const multiplier = isFavorite ? 2 : 1;
+    const baseStrength = getBerryStrength(berryMap, drop.name);
+    berryPerHelp += drop.quantity || 1;
+    berryStrengthEach.push({
+      name: drop.name,
+      strength: baseStrength
+    });
+    if (isFavorite) {
+      favoriteBerryMatchCount += 1;
+    }
     berryEV +=
-      helps * (drop.quantity || 1) * getBerryStrength(berryMap, drop.name) * multiplier;
+      helps * (drop.quantity || 1) * baseStrength * multiplier;
     if (isFavorite) {
       reasons.push(`Favorite berry match (x2)`);
     }
   });
+  const berryEVBeforeArea = berryEV;
+  berryEV *= areaBonusUsed;
+  const berryEVAfterArea = berryEV;
+  let berryPenaltyApplied = 1;
+  const noMatchPenaltyDefault = Number.isFinite(
+    Number(settings.favoriteBerryPenaltyNoMatch)
+  )
+    ? Number(settings.favoriteBerryPenaltyNoMatch)
+    : 0.6;
+  const noMatchPenaltyCookingDefault = Number.isFinite(
+    Number(settings.favoriteBerryPenaltyNoMatchCooking)
+  )
+    ? Number(settings.favoriteBerryPenaltyNoMatchCooking)
+    : 0.8;
+  if (favoriteBerryMatchCount === 0) {
+    berryPenaltyApplied =
+      settings.preference === "cooking"
+        ? noMatchPenaltyCookingDefault
+        : noMatchPenaltyDefault;
+  }
+  berryEV *= berryPenaltyApplied;
+  const berryScoreAfterPenalty = berryEV;
 
   const unlockedIngredients = (variant?.ingredients || []).filter(
     (ingredient) =>
@@ -323,16 +407,22 @@ const scorePokemon = (
     entry.main_skill_id
   );
   const maxMainSkillLevel = skillLevelInfo.maxLevel || 6;
-  const effectiveMainSkillLevel =
-    mainSkillEffectType === "extra_tasty" &&
-    eventTypeActive &&
-    settings.eventBuffs.skillStrengthBonus
-      ? clamp(
-          Math.round(baseMainSkillLevel * skillStrengthMultiplier),
-          1,
-          maxMainSkillLevel
-        )
-      : clamp(baseMainSkillLevel, 1, maxMainSkillLevel);
+  let skillLevelUsedForValue = baseMainSkillLevel;
+  let eventSkillLevelBoostApplied = false;
+  if (eventTypeActive && skillStrengthMultiplier > 1) {
+    skillLevelUsedForValue = Math.round(
+      skillLevelUsedForValue * skillStrengthMultiplier
+    );
+  }
+  if (eventTypeActive && settings.eventSkillLevelPlusOneOnTrigger) {
+    skillLevelUsedForValue += 1;
+    eventSkillLevelBoostApplied = true;
+  }
+  const effectiveMainSkillLevel = clamp(
+    skillLevelUsedForValue,
+    1,
+    maxMainSkillLevel
+  );
   const fallbackSkillValue = Number.isFinite(
     Number(entry.main_skill_value_default)
   )
@@ -447,6 +537,7 @@ const scorePokemon = (
         (expectedMultiplierSum - (cookingContext?.mealsPerDay || 0))
       : 0;
   const cookingEV = baseCookPerDay + cookingBonusEV + skillCookingEV;
+  const skillCookingContributionEV = cookingBonusEV + skillCookingEV;
   if (baseCookPerDay > 0) {
     reasons.push("Cookable weekly dish");
   }
@@ -454,6 +545,10 @@ const scorePokemon = (
   const cookingScore = cookingEV;
   const skillScore =
     skillGrowthEV + skillIngredientEV + skillCookingEV + skillShardEV;
+  const skillDisplayScore =
+    skillCategory === "cooking" ? skillCookingContributionEV : skillScore;
+  const skillDisplayBucket =
+    skillCategory === "cooking" ? "cooking" : "skill";
   const dreamShardScore = skillShardEV;
   const totalScore =
     weights.berry * berryScore +
@@ -480,12 +575,35 @@ const scorePokemon = (
       skillScore,
       dreamShardScore,
       totalScore,
+      skillDisplayScore,
       details: {
         expectedHelps: helps,
+        helpsBeforeEnergy,
+        helpsAfterEnergy: helps,
+        energyPctUsed,
+        energyMultiplierUsed,
+        avgEnergyMultiplierUsed,
+        baseFrequencySeconds,
         expectedTriggers,
         berryEV,
+        berryEVBeforeArea,
+        berryEVAfterArea,
+        areaBonusUsed,
+        berryPerHelp,
+        berryStrengthEach,
+        favoriteMultiplierApplied: favoriteBerryMatchCount > 0 ? 2 : 1,
+        favoriteBerryMatchCount,
+        berryPenaltyApplied,
+        berryScoreAfterPenalty,
         ingredientEV,
         skillEV: skillScore,
+        skillCategory,
+        skillGrowthEV,
+        skillIngredientEV,
+        skillCookingEV,
+        skillShardEV,
+        skillDisplayScore,
+        skillDisplayBucket,
         cookingEV,
         baseDishStrengthUsed: cookingContext?.baseDishStrengthUsed || 0,
         bestDishId: cookingContext?.bestDishId || null,
@@ -524,6 +642,8 @@ const scorePokemon = (
         baseMainSkillLevel,
         effectiveMainSkillLevel,
         maxMainSkillLevel,
+        eventSkillLevelBoostApplied,
+        skillLevelUsedForValue,
         deltaP,
         pUsed,
         triggerRateUsed,
@@ -531,7 +651,15 @@ const scorePokemon = (
         expectedTriggersPerDay,
         typesUsed,
         isBuffedType: eventTypeActive,
-        triggerMultiplierApplied: triggerMultiplierUsed
+        triggerMultiplierApplied: triggerMultiplierUsed,
+        eventConfigSnapshot: {
+          eventTypeActive,
+          eventSkillLevelPlusOneOnTrigger:
+            Boolean(settings.eventSkillLevelPlusOneOnTrigger),
+          eventSkillTriggerRateMultiplier: skillTriggerMultiplier,
+          eventIngredientMultiplier: ingredientMultiplier,
+          eventSkillStrengthMultiplier: skillStrengthMultiplier
+        }
       },
       reasons: reasons.slice(0, 3)
     }
@@ -548,47 +676,129 @@ const scoreAll = (
   cookingContext,
   skillLevelsBySkillId
 ) =>
-  entries.map((entry) =>
-    scorePokemon(
-      entry,
-      variantById.get(entry.variant_id),
-      settings,
-      berryMap,
-      ingredientDemand,
-      ingredientMap,
-      cookingContext,
-      skillLevelsBySkillId
-    )
-  );
+  entries
+    .filter((entry) => {
+      const threshold = Number(settings.excludeLowEnergyBelowPct || 0);
+      if (!Number.isFinite(threshold) || threshold <= 0) {
+        return true;
+      }
+      const energy = Number.isFinite(Number(entry.energy))
+        ? Number(entry.energy)
+        : 100;
+      return energy >= threshold;
+    })
+    .map((entry) =>
+      scorePokemon(
+        entry,
+        variantById.get(entry.variant_id),
+        settings,
+        berryMap,
+        ingredientDemand,
+        ingredientMap,
+        cookingContext,
+        skillLevelsBySkillId
+      )
+    );
 
-const normalizeScores = (scoredEntries, weights) => {
+const normalizeScores = (scoredEntries, weights, mode = "minmax") => {
   const bucketNames = ["berryScore", "ingredientScore", "cookingScore", "dreamShardScore"];
-  const minMax = bucketNames.reduce((acc, name) => {
-    acc[name] = { min: Infinity, max: -Infinity };
+  const bucketStats = bucketNames.reduce((acc, name) => {
+    acc[name] = {
+      min: Infinity,
+      max: -Infinity,
+      mean: 0,
+      std: 0,
+      values: []
+    };
     return acc;
   }, {});
 
   scoredEntries.forEach((entry) => {
     bucketNames.forEach((name) => {
       const value = entry.breakdown[name] ?? 0;
-      minMax[name].min = Math.min(minMax[name].min, value);
-      minMax[name].max = Math.max(minMax[name].max, value);
+      bucketStats[name].min = Math.min(bucketStats[name].min, value);
+      bucketStats[name].max = Math.max(bucketStats[name].max, value);
+      bucketStats[name].values.push(value);
     });
   });
 
-  const normalize = (value, { min, max }) => {
-    if (!Number.isFinite(value) || max === min) {
+  bucketNames.forEach((name) => {
+    const stats = bucketStats[name];
+    const values = stats.values;
+    if (values.length === 0) {
+      stats.mean = 0;
+      stats.std = 0;
+      return;
+    }
+    const sum = values.reduce((total, value) => total + value, 0);
+    const mean = sum / values.length;
+    const variance =
+      values.reduce((total, value) => total + (value - mean) ** 2, 0) /
+      values.length;
+    stats.mean = mean;
+    stats.std = Math.sqrt(variance);
+    stats.values = values.slice().sort((a, b) => a - b);
+  });
+
+  const minmaxNormalize = (value, stats) => {
+    if (!Number.isFinite(value) || stats.max === stats.min) {
       return 0;
     }
-    return (value - min) / (max - min);
+    return (value - stats.min) / (stats.max - stats.min);
+  };
+
+  const sigmoidZNormalize = (value, stats) => {
+    if (!Number.isFinite(value)) {
+      return 0;
+    }
+    if (!Number.isFinite(stats.std) || stats.std === 0) {
+      return 0.5;
+    }
+    const z = (value - stats.mean) / stats.std;
+    return 1 / (1 + Math.exp(-z));
+  };
+
+  const percentileNormalize = (value, stats) => {
+    const values = stats.values;
+    if (!Number.isFinite(value) || values.length <= 1) {
+      return 0;
+    }
+    let low = 0;
+    let high = values.length - 1;
+    while (low <= high) {
+      const mid = Math.floor((low + high) / 2);
+      if (values[mid] <= value) {
+        low = mid + 1;
+      } else {
+        high = mid - 1;
+      }
+    }
+    const index = Math.max(0, Math.min(values.length - 1, high));
+    return index / (values.length - 1);
+  };
+
+  const normalizeBucket = (value, stats) => {
+    if (mode === "sigmoid_z") {
+      return sigmoidZNormalize(value, stats);
+    }
+    if (mode === "percentile") {
+      return percentileNormalize(value, stats);
+    }
+    return minmaxNormalize(value, stats);
   };
 
   return scoredEntries.map((entry) => {
     const normalizedBucketScores = {
-      berry: normalize(entry.breakdown.berryScore, minMax.berryScore),
-      ingredient: normalize(entry.breakdown.ingredientScore, minMax.ingredientScore),
-      cooking: normalize(entry.breakdown.cookingScore, minMax.cookingScore),
-      dreamShard: normalize(entry.breakdown.dreamShardScore, minMax.dreamShardScore)
+      berry: normalizeBucket(entry.breakdown.berryScore, bucketStats.berryScore),
+      ingredient: normalizeBucket(
+        entry.breakdown.ingredientScore,
+        bucketStats.ingredientScore
+      ),
+      cooking: normalizeBucket(entry.breakdown.cookingScore, bucketStats.cookingScore),
+      dreamShard: normalizeBucket(
+        entry.breakdown.dreamShardScore,
+        bucketStats.dreamShardScore
+      )
     };
     const weightedContributions = {
       berry: weights.berry * normalizedBucketScores.berry,
@@ -616,13 +826,41 @@ const normalizeScores = (scoredEntries, weights) => {
             dreamShard: entry.breakdown.dreamShardScore
           },
           bucketMinMax: {
-            berry: minMax.berryScore,
-            ingredient: minMax.ingredientScore,
-            cooking: minMax.cookingScore,
-            dreamShard: minMax.dreamShardScore
+            berry: { min: bucketStats.berryScore.min, max: bucketStats.berryScore.max },
+            ingredient: {
+              min: bucketStats.ingredientScore.min,
+              max: bucketStats.ingredientScore.max
+            },
+            cooking: {
+              min: bucketStats.cookingScore.min,
+              max: bucketStats.cookingScore.max
+            },
+            dreamShard: {
+              min: bucketStats.dreamShardScore.min,
+              max: bucketStats.dreamShardScore.max
+            }
+          },
+          bucketMeanStd: {
+            berry: {
+              mean: bucketStats.berryScore.mean,
+              std: bucketStats.berryScore.std
+            },
+            ingredient: {
+              mean: bucketStats.ingredientScore.mean,
+              std: bucketStats.ingredientScore.std
+            },
+            cooking: {
+              mean: bucketStats.cookingScore.mean,
+              std: bucketStats.cookingScore.std
+            },
+            dreamShard: {
+              mean: bucketStats.dreamShardScore.mean,
+              std: bucketStats.dreamShardScore.std
+            }
           },
           normalizedBucketScores,
-          weightedContributions
+          weightedContributions,
+          normalizationMode: mode
         }
       }
     };

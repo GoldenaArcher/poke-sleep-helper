@@ -1283,6 +1283,42 @@ const initDb = async () => {
     "insert or ignore into settings (key, value) values (?, ?)",
     ["exclude_low_energy_below_pct", "0"]
   );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["event_use_custom_multipliers", "0"]
+  );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["event_skill_trigger_rate_multiplier", "1"]
+  );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["event_ingredient_multiplier", "1"]
+  );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["event_skill_strength_multiplier", "1"]
+  );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["event_skill_level_plus_one_on_trigger", "0"]
+  );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["avg_energy_multiplier", "1.6"]
+  );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["berry_base_strength_default", "100"]
+  );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["favorite_berry_penalty_no_match", "0.6"]
+  );
+  await dbRun(
+    "insert or ignore into settings (key, value) values (?, ?)",
+    ["favorite_berry_penalty_no_match_cooking", "0.8"]
+  );
 };
 
 const seedPokemonData = async () => {

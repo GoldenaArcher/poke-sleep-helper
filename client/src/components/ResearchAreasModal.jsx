@@ -27,6 +27,15 @@ const ResearchAreasModal = ({
   const eventBuffs = settings.eventBuffs || {};
   const eventSubSkillIds = settings.eventSubSkillIds || [];
   const eventSubSkillMultiplier = settings.eventSubSkillMultiplier || 2;
+  const useCustomEventMultipliers =
+    Boolean(settings.eventUseCustomMultipliers);
+  const eventSkillTriggerRateMultiplier =
+    settings.eventSkillTriggerRateMultiplier ?? 1;
+  const eventIngredientMultiplier = settings.eventIngredientMultiplier ?? 1;
+  const eventSkillStrengthMultiplier = settings.eventSkillStrengthMultiplier ?? 1;
+  const eventSkillLevelPlusOneOnTrigger =
+    Boolean(settings.eventSkillLevelPlusOneOnTrigger);
+  const areaBonus = settings.areaBonus ?? 1;
   const selectedDishes = useMemo(
     () => dishes.filter((dish) => selectedDishIds.includes(dish.id)),
     [dishes, selectedDishIds]
@@ -78,7 +87,18 @@ const ResearchAreasModal = ({
   const goalPresets = {
     balanced: { berry: 0.45, ingredient: 0.35, cooking: 0.15, dreamShard: 0.05 },
     growth: { berry: 0.65, ingredient: 0.2, cooking: 0.1, dreamShard: 0.05 },
+    ingredient: { berry: 0.25, ingredient: 0.55, cooking: 0.15, dreamShard: 0.05 },
     cooking: { berry: 0.35, ingredient: 0.25, cooking: 0.35, dreamShard: 0.05 }
+  };
+  const applyEventDefaults = (nextBuffs) => {
+    if (useCustomEventMultipliers) {
+      return;
+    }
+    updateSettings({
+      eventSkillTriggerRateMultiplier: nextBuffs.skillTriggerBonus ? 1.25 : 1,
+      eventIngredientMultiplier: nextBuffs.ingredientBonus ? 1.1 : 1,
+      eventSkillStrengthMultiplier: nextBuffs.skillStrengthBonus ? 3 : 1
+    });
   };
 
   useEffect(() => {
@@ -122,6 +142,7 @@ const ResearchAreasModal = ({
               >
                 <option value="balanced">Balanced</option>
                 <option value="growth">Growth Focus</option>
+                <option value="ingredient">Ingredient Focus</option>
                 <option value="cooking">Cooking Focus</option>
                 <option value="custom">Custom</option>
               </select>
@@ -150,6 +171,19 @@ const ResearchAreasModal = ({
                   }
                 }}
               />
+              <label className="inline-field">
+                <span className="meta">Area bonus</span>
+                <input
+                  type="number"
+                  step="0.05"
+                  value={areaBonus}
+                  onChange={(event) =>
+                    updateSettings({
+                      areaBonus: Number(event.target.value || 1)
+                    })
+                  }
+                />
+              </label>
             </div>
           </div>
           <div className="area-row">
@@ -254,12 +288,14 @@ const ResearchAreasModal = ({
                   type="checkbox"
                   checked={Boolean(eventBuffs.ingredientBonus)}
                   onChange={(event) =>
-                    updateSettings({
-                      eventBuffs: {
+                    (() => {
+                      const nextBuffs = {
                         ...eventBuffs,
                         ingredientBonus: event.target.checked
-                      }
-                    })
+                      };
+                      updateSettings({ eventBuffs: nextBuffs });
+                      applyEventDefaults(nextBuffs);
+                    })()
                   }
                 />
               </label>
@@ -269,12 +305,14 @@ const ResearchAreasModal = ({
                   type="checkbox"
                   checked={Boolean(eventBuffs.skillTriggerBonus)}
                   onChange={(event) =>
-                    updateSettings({
-                      eventBuffs: {
+                    (() => {
+                      const nextBuffs = {
                         ...eventBuffs,
                         skillTriggerBonus: event.target.checked
-                      }
-                    })
+                      };
+                      updateSettings({ eventBuffs: nextBuffs });
+                      applyEventDefaults(nextBuffs);
+                    })()
                   }
                 />
               </label>
@@ -284,12 +322,14 @@ const ResearchAreasModal = ({
                   type="checkbox"
                   checked={Boolean(eventBuffs.skillStrengthBonus)}
                   onChange={(event) =>
-                    updateSettings({
-                      eventBuffs: {
+                    (() => {
+                      const nextBuffs = {
                         ...eventBuffs,
                         skillStrengthBonus: event.target.checked
-                      }
-                    })
+                      };
+                      updateSettings({ eventBuffs: nextBuffs });
+                      applyEventDefaults(nextBuffs);
+                    })()
                   }
                 />
               </label>
@@ -308,6 +348,87 @@ const ResearchAreasModal = ({
                   }
                 />
               </label>
+              <label className="checkbox-field">
+                Main skill level +1 on trigger
+                <input
+                  type="checkbox"
+                  checked={eventSkillLevelPlusOneOnTrigger}
+                  onChange={(event) =>
+                    updateSettings({
+                      eventSkillLevelPlusOneOnTrigger: event.target.checked
+                    })
+                  }
+                />
+              </label>
+            </div>
+            <div className="event-subskills">
+              <label className="checkbox-field">
+                Use custom event multipliers
+                <input
+                  type="checkbox"
+                  checked={useCustomEventMultipliers}
+                  onChange={(event) =>
+                    (() => {
+                      const nextValue = event.target.checked;
+                      updateSettings({
+                        eventUseCustomMultipliers: nextValue
+                      });
+                      if (!nextValue) {
+                        applyEventDefaults(eventBuffs);
+                      }
+                    })()
+                  }
+                />
+              </label>
+              {useCustomEventMultipliers ? (
+                <div className="inline-fields compact">
+                  <label className="inline-field">
+                    <span className="meta">Skill trigger mult</span>
+                    <input
+                      type="number"
+                      step="0.05"
+                      value={eventSkillTriggerRateMultiplier}
+                      onChange={(event) =>
+                        updateSettings({
+                          eventSkillTriggerRateMultiplier: Number(
+                            event.target.value || 1
+                          )
+                        })
+                      }
+                    />
+                  </label>
+                  <label className="inline-field">
+                    <span className="meta">Ingredient mult</span>
+                    <input
+                      type="number"
+                      step="0.05"
+                      value={eventIngredientMultiplier}
+                      onChange={(event) =>
+                        updateSettings({
+                          eventIngredientMultiplier: Number(
+                            event.target.value || 1
+                          )
+                        })
+                      }
+                    />
+                  </label>
+                  <label className="inline-field">
+                    <span className="meta">Skill strength mult</span>
+                    <input
+                      type="number"
+                      step="0.1"
+                      value={eventSkillStrengthMultiplier}
+                      onChange={(event) =>
+                        updateSettings({
+                          eventSkillStrengthMultiplier: Number(
+                            event.target.value || 1
+                          )
+                        })
+                      }
+                    />
+                  </label>
+                </div>
+              ) : null}
             </div>
             <div className="event-subskills">
               <div className="subskill-controls">

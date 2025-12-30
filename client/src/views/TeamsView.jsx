@@ -11,6 +11,31 @@ import { pickTeam, scoreAll } from "../utils/teamScoring.ts";
 const USE_BACKEND_RECOMMENDATION = true;
 const PAGE_SIZE = 5;
 
+const compareRecommendations = (a, b) => {
+  const scoreA = a.breakdown.totalScoreNormalized ?? a.breakdown.totalScore ?? 0;
+  const scoreB = b.breakdown.totalScoreNormalized ?? b.breakdown.totalScore ?? 0;
+  if (scoreB !== scoreA) {
+    return scoreB - scoreA;
+  }
+  const levelA = Number(a.entry.level) || 0;
+  const levelB = Number(b.entry.level) || 0;
+  if (levelB !== levelA) {
+    return levelB - levelA;
+  }
+  const freqA = Number(a.breakdown.details?.baseFrequencySeconds);
+  const freqB = Number(b.breakdown.details?.baseFrequencySeconds);
+  const safeFreqA = Number.isFinite(freqA) ? freqA : Infinity;
+  const safeFreqB = Number.isFinite(freqB) ? freqB : Infinity;
+  if (safeFreqA !== safeFreqB) {
+    return safeFreqA - safeFreqB;
+  }
+  return (a.entry.id || 0) - (b.entry.id || 0);
+};
+
+// Sort defensively on the client to keep pagination deterministic.
+const sortRecommendations = (rows) =>
+  [...rows].sort(compareRecommendations);
+
 const TeamsView = () => {
   const { dishes } = useDishesStore();
   const { pokemonBox } = usePokemonBoxStore();
@@ -24,6 +49,7 @@ const TeamsView = () => {
   const [isLoadingBackend, setIsLoadingBackend] = useState(false);
   const [pageOffset, setPageOffset] = useState(0);
   const [hasMore, setHasMore] = useState(false);
+  const [showDebug, setShowDebug] = useState(false);
 
 
   useEffect(() => {
@@ -96,9 +122,12 @@ const TeamsView = () => {
           return;
         }
         const items = response.items || response.allScores || [];
-        setBackendScores((prev) =>
-          pageOffset === 0 ? items : [...(prev || []), ...items]
-        );
+        setBackendScores((prev) => {
+          const merged =
+            pageOffset === 0 ? items : [...(prev || []), ...items];
+          // Always sort merged list to keep pagination deterministic.
+          return sortRecommendations(merged);
+        });
         setHasMore(Boolean(response.hasMore));
         if (debug && response.debug) {
           setBackendDebug(response.debug);
@@ -194,7 +223,7 @@ const TeamsView = () => {
   const scores = useMemo(() => {
     // Use backend scores if available and enabled
     if (USE_BACKEND_RECOMMENDATION && backendScores) {
-      return backendScores;
+      return sortRecommendations(backendScores);
     }
     
     // Fallback to frontend scoring
@@ -231,12 +260,21 @@ const TeamsView = () => {
     highlightBerryNames
   ]);
 
-  const recommendedTeam = useMemo(
-    () => (USE_BACKEND_RECOMMENDATION ? scores : pickTeam(scores)),
+  const scoresWithRank = useMemo(
+    () =>
+      scores.map((row, index) => ({
+        ...row,
+        rankIndex: index + 1
+      })),
     [scores]
   );
 
-  const selectedRow = scores.find(
+  const recommendedTeam = useMemo(
+    () => (USE_BACKEND_RECOMMENDATION ? scoresWithRank : pickTeam(scores)),
+    [scoresWithRank, scores]
+  );
+
+  const selectedRow = scoresWithRank.find(
     (row) => row.entry.id === selectedEntryId
   );
 
@@ -271,6 +309,14 @@ const TeamsView = () => {
             ⚙️ Using backend recommendation engine
           </p>
         )}
+        <button
+          className="button ghost"
+          type="button"
+          onClick={() => setShowDebug((prev) => !prev)}
+          style={{ marginTop: "0.75rem" }}
+        >
+          {showDebug ? "Hide Debug" : "Show Debug"}
+        </button>
       </header>
       <section className="card">
         {recommendedTeam.length === 0 ? (
@@ -318,7 +364,9 @@ const TeamsView = () => {
                 </div>
                 <div>{row.breakdown.berryScore.toFixed(1)}</div>
                 <div>{row.breakdown.ingredientScore.toFixed(1)}</div>
-                <div>{row.breakdown.skillScore.toFixed(1)}</div>
+                <div>
+                  {(row.breakdown.skillDisplayScore ?? row.breakdown.skillScore).toFixed(1)}
+                </div>
                 <div>{row.breakdown.cookingScore.toFixed(1)}</div>
                 <div className="team-total">
                   {(row.breakdown.totalScoreNormalized ?? row.breakdown.totalScore).toFixed(3)}
@@ -358,53 +406,66 @@ const TeamsView = () => {
                         ))
                       )}
                     </div>
-                    <div className="meta">
-                      Helps/day: {row.breakdown.details.expectedHelps.toFixed(1)}{" "}
-                      • Triggers/day:{" "}
-                      {row.breakdown.details.expectedTriggers.toFixed(1)}{" "}
-                      • Berry EV: {row.breakdown.details.berryEV.toFixed(1)} •{" "}
-                      Ingredient EV:{" "}
-                      {row.breakdown.details.ingredientEV.toFixed(1)} • Skill EV:{" "}
-                      {row.breakdown.details.skillEV.toFixed(1)} • Cooking EV:{" "}
-                      {row.breakdown.details.cookingEV.toFixed(1)} • Skill value:{" "}
-                      {row.breakdown.details.skillValueUsed.toFixed(1)} • Raw total:{" "}
-                      {row.breakdown.totalScore.toFixed(1)} • Normalized:{" "}
-                      {row.breakdown.totalScoreNormalized?.toFixed?.(3) || "0.000"}
-                      {row.breakdown.details.typesUsed.length ? (
-                        <>
-                          {" "}
-                          • Types: {row.breakdown.details.typesUsed.join(" / ")}{" "}
-                          • Buffed:{" "}
-                          {row.breakdown.details.isBuffedType ? "yes" : "no"} •
-                          Trigger mult:{" "}
-                          {row.breakdown.details.triggerMultiplierApplied.toFixed(2)}
-                        </>
-                      ) : null}
-                      {row.breakdown.details.deltaP > 0 ? (
-                        <>
-                          {" "}
-                          • Extra Tasty ΔP:{" "}
-                          {(row.breakdown.details.deltaP * 100).toFixed(1)}% • Trigger
-                          rate: {row.breakdown.details.triggerRateUsed.toFixed(2)} •
-                          Trigger mult:{" "}
-                          {row.breakdown.details.triggerMultiplierUsed.toFixed(2)} •
-                          Base dish:{" "}
-                          {row.breakdown.details.baseDishStrengthUsed.toFixed(1)} •
-                          Extra Tasty EV:{" "}
-                          {row.breakdown.details.extraTastyEVPerDay.toFixed(1)} •
-                          Extra Tasty meals:{" "}
-                          {row.breakdown.details.expectedExtraTastyMealsPerDay?.toFixed?.(
-                            2
-                          ) || "0.00"}
-                          {" • "}pUsed:{" "}
-                          {(row.breakdown.details.pUsed * 100).toFixed(1)}% •
-                          Mult/meal:{" "}
-                          {row.breakdown.details.expectedMultiplierPerMeal?.toFixed?.(
-                            2
-                          ) || "0.00"}
-                        </>
-                      ) : null}
-                    </div>
+                    {showDebug ? (
+                      <div className="meta">
+                        Helps/day: {row.breakdown.details.expectedHelps.toFixed(1)}{" "}
+                        • Triggers/day:{" "}
+                        {row.breakdown.details.expectedTriggers.toFixed(1)}{" "}
+                        • Berry EV: {row.breakdown.details.berryEV.toFixed(1)} •{" "}
+                        Ingredient EV:{" "}
+                        {row.breakdown.details.ingredientEV.toFixed(1)} • Skill EV:{" "}
+                        {row.breakdown.details.skillEV.toFixed(1)} • Cooking EV:{" "}
+                        {row.breakdown.details.cookingEV.toFixed(1)} • Skill value:{" "}
+                        {row.breakdown.details.skillValueUsed.toFixed(1)} • Raw total:{" "}
+                        {row.breakdown.totalScore.toFixed(1)} • Normalized:{" "}
+                        {row.breakdown.totalScoreNormalized?.toFixed?.(3) || "0.000"}
+                        {row.breakdown.details.typesUsed.length ? (
+                          <>
+                            {" "}
+                            • Types: {row.breakdown.details.typesUsed.join(" / ")}{" "}
+                            • Buffed:{" "}
+                            {row.breakdown.details.isBuffedType ? "yes" : "no"} •
+                            Trigger mult:{" "}
+                            {row.breakdown.details.triggerMultiplierApplied.toFixed(2)}
+                          </>
+                        ) : null}
+                        {row.breakdown.details.deltaP > 0 ? (
+                          <>
+                            {" "}
+                            • ΔP/trigger:{" "}
+                            {(row.breakdown.details.deltaPPerTrigger * 100).toFixed(1)}% •
+                            ΔP/meal:{" "}
+                            {(row.breakdown.details.deltaPPerMeal * 100).toFixed(2)}% •
+                            Extra Tasty meals:{" "}
+                            {row.breakdown.details.expectedExtraTastyMealsPerDay?.toFixed?.(
+                              2
+                            ) || "0.00"} • Mult/meal:{" "}
+                            {row.breakdown.details.expectedMultiplierPerMeal?.toFixed?.(
+                              2
+                            ) || "0.00"}
+                          </>
+                        ) : null}
+                        {" "}
+                        • Energy: {row.breakdown.details.energyPctUsed}% →{" "}
+                        {row.breakdown.details.energyMultiplierUsed.toFixed(2)}x
+                        • Helps before:{" "}
+                        {row.breakdown.details.helpsBeforeEnergy.toFixed(1)}
+                        {" "}
+                        • Helps after:{" "}
+                        {row.breakdown.details.helpsAfterEnergy.toFixed(1)}
+                        {" "}
+                        • Norm: {row.breakdown.details.normalizationMode}
+                        {" "}
+                        • Sort key:{" "}
+                        {(row.breakdown.totalScoreNormalized ??
+                          row.breakdown.totalScore
+                        ).toFixed(3)}
+                        {" "}
+                        • Rank: {row.rankIndex || scoresWithRank.findIndex(
+                          (entry) => entry.entry.id === row.entry.id
+                        ) + 1}
+                      </div>
+                    ) : null}
                   </div>
                 ) : null}
               </div>
@@ -455,10 +516,54 @@ const TeamsView = () => {
                 <p className="meta">
                   Berry EV: {selectedRow.breakdown.details.berryEV.toFixed(1)}
                 </p>
+                {showDebug ? (
+                  <p className="meta">
+                    Area bonus: {selectedRow.breakdown.details.areaBonusUsed.toFixed(2)} •
+                    Before area:{" "}
+                    {selectedRow.breakdown.details.berryEVBeforeArea.toFixed(1)} •
+                    After area:{" "}
+                    {selectedRow.breakdown.details.berryEVAfterArea.toFixed(1)}
+                  </p>
+                ) : null}
+                {showDebug ? (
+                  <p className="meta">
+                    Base freq: {selectedRow.breakdown.details.baseFrequencySeconds}s •
+                    Helps/day:{" "}
+                    {selectedRow.breakdown.details.expectedHelps.toFixed(1)} •
+                    Berry/help: {selectedRow.breakdown.details.berryPerHelp}
+                  </p>
+                ) : null}
+                {showDebug ? (
+                  <p className="meta">
+                    Favorite matches:{" "}
+                    {selectedRow.breakdown.details.favoriteBerryMatchCount} •
+                    Penalty: {selectedRow.breakdown.details.berryPenaltyApplied.toFixed(2)} •
+                    After penalty:{" "}
+                    {selectedRow.breakdown.details.berryScoreAfterPenalty.toFixed(1)}
+                  </p>
+                ) : null}
+                {showDebug && selectedRow.breakdown.details.berryStrengthEach?.length ? (
+                  <p className="meta">
+                    Strengths:{" "}
+                    {selectedRow.breakdown.details.berryStrengthEach
+                      .map((entry) => `${entry.name}(${entry.strength})`)
+                      .join(", ")}
+                  </p>
+                ) : null}
                 <p className="meta">
                   Helps/day:{" "}
                   {selectedRow.breakdown.details.expectedHelps.toFixed(1)}
                 </p>
+                {showDebug ? (
+                  <p className="meta">
+                    Energy: {selectedRow.breakdown.details.energyPctUsed}% •
+                    Mult: {selectedRow.breakdown.details.energyMultiplierUsed.toFixed(2)} •
+                    Helps before:{" "}
+                    {selectedRow.breakdown.details.helpsBeforeEnergy.toFixed(1)} •
+                    Helps after:{" "}
+                    {selectedRow.breakdown.details.helpsAfterEnergy.toFixed(1)}
+                  </p>
+                ) : null}
               </div>
               <div>
                 <h4>Ingredients</h4>
@@ -486,7 +591,9 @@ const TeamsView = () => {
                 <h4>Skills + Cooking</h4>
                 <p className="meta">
                   Skill score:{" "}
-                  {selectedRow.breakdown.skillScore.toFixed(1)}
+                  {(selectedRow.breakdown.skillDisplayScore ??
+                    selectedRow.breakdown.skillScore
+                  ).toFixed(1)}
                 </p>
                 <p className="meta">
                   Cooking score:{" "}
@@ -496,6 +603,15 @@ const TeamsView = () => {
                   Skill value:{" "}
                   {selectedRow.breakdown.details.skillValueUsed.toFixed(1)}
                 </p>
+                {showDebug ? (
+                  <p className="meta">
+                    Skill bucket: {selectedRow.breakdown.details.skillCategory} •
+                    Growth: {selectedRow.breakdown.details.skillGrowthEV.toFixed(1)} •
+                    Ingredient: {selectedRow.breakdown.details.skillIngredientEV.toFixed(1)} •
+                    Cooking: {selectedRow.breakdown.details.skillCookingEV.toFixed(1)} •
+                    Shards: {selectedRow.breakdown.details.skillShardEV.toFixed(1)}
+                  </p>
+                ) : null}
                 <p className="meta">
                   Triggers/day:{" "}
                   {selectedRow.breakdown.details.expectedTriggers.toFixed(1)}
@@ -508,12 +624,18 @@ const TeamsView = () => {
                 </p>
                 {selectedRow.breakdown.details.deltaP > 0 ? (
                   <p className="meta">
-                    Extra Tasty ΔP:{" "}
-                    {(selectedRow.breakdown.details.deltaP * 100).toFixed(1)}% •
+                    ΔP/trigger:{" "}
+                    {(selectedRow.breakdown.details.deltaPPerTrigger * 100).toFixed(1)}% •
+                    ΔP/meal:{" "}
+                    {(selectedRow.breakdown.details.deltaPPerMeal * 100).toFixed(2)}% •
                     Trigger rate:{" "}
                     {selectedRow.breakdown.details.triggerRateUsed.toFixed(2)} •
                     Trigger mult:{" "}
-                    {selectedRow.breakdown.details.triggerMultiplierUsed.toFixed(2)}
+                    {selectedRow.breakdown.details.triggerMultiplierUsed.toFixed(2)} •
+                    Mult/meal:{" "}
+                    {selectedRow.breakdown.details.expectedMultiplierPerMeal?.toFixed?.(
+                      2
+                    ) || "0.00"}
                   </p>
                 ) : null}
                 <p className="meta">
@@ -573,6 +695,12 @@ const TeamsView = () => {
                   Cap:{" "}
                   {(selectedRow.breakdown.details.capUsed * 100).toFixed(0)}%
                 </p>
+                {showDebug ? (
+                  <p className="meta">
+                    Event snapshot:{" "}
+                    {JSON.stringify(selectedRow.breakdown.details.eventConfigSnapshot)}
+                  </p>
+                ) : null}
                 {selectedRow.breakdown.reasons.map((reason, index) => (
                   <p key={`detail-reason-${index}`} className="meta">
                     {reason}
@@ -623,6 +751,42 @@ const TeamsView = () => {
                 </p>
               </div>
             </div>
+            {showDebug ? (
+              <div style={{ marginTop: "1rem" }}>
+                <h4>Debug</h4>
+                <p className="meta">
+                  Total (normalized):{" "}
+                  {selectedRow.breakdown.totalScoreNormalized?.toFixed?.(3) || "0.000"} •
+                  Mode: {selectedRow.breakdown.details.normalizationMode}
+                </p>
+                <p className="meta">
+                  Normalized buckets: berry{" "}
+                  {selectedRow.breakdown.details.normalizedBucketScores?.berry?.toFixed?.(3) || "0.000"}
+                  , ingredient{" "}
+                  {selectedRow.breakdown.details.normalizedBucketScores?.ingredient?.toFixed?.(3) || "0.000"}
+                  , cooking{" "}
+                  {selectedRow.breakdown.details.normalizedBucketScores?.cooking?.toFixed?.(3) || "0.000"}
+                  , dreamShard{" "}
+                  {selectedRow.breakdown.details.normalizedBucketScores?.dreamShard?.toFixed?.(3) || "0.000"}
+                </p>
+                <p className="meta">
+                  Weighted: berry{" "}
+                  {selectedRow.breakdown.details.weightedContributions?.berry?.toFixed?.(3) || "0.000"}
+                  , ingredient{" "}
+                  {selectedRow.breakdown.details.weightedContributions?.ingredient?.toFixed?.(3) || "0.000"}
+                  , cooking{" "}
+                  {selectedRow.breakdown.details.weightedContributions?.cooking?.toFixed?.(3) || "0.000"}
+                  , dreamShard{" "}
+                  {selectedRow.breakdown.details.weightedContributions?.dreamShard?.toFixed?.(3) || "0.000"}
+                </p>
+                <p className="meta">
+                  Skill column uses:{" "}
+                  {selectedRow.breakdown.details.skillDisplayBucket} •
+                  Skill display EV:{" "}
+                  {selectedRow.breakdown.details.skillDisplayScore?.toFixed?.(1) || "0.0"}
+                </p>
+              </div>
+            ) : null}
           </section>
         </div>
       ) : null}

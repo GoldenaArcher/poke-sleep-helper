@@ -273,6 +273,16 @@ app.get("/api/settings", async (req, res) => {
     let dayOfWeek = "mon";
     let scoreNormalizationMode = "sigmoid_z";
     let excludeLowEnergyBelowPct = 0;
+    let eventUseCustomMultipliers = false;
+    let eventSkillTriggerRateMultiplier = 1;
+    let eventIngredientMultiplier = 1;
+    let eventSkillStrengthMultiplier = 1;
+    let eventSkillLevelPlusOneOnTrigger = false;
+    let avgEnergyMultiplier = 1.6;
+    let berryBaseStrengthDefault = 100;
+    let favoriteBerryPenaltyNoMatch = 0.6;
+    let favoriteBerryPenaltyNoMatchCooking = 0.8;
+
     if (settings.selected_dish_ids) {
       try {
         selectedDishIds = JSON.parse(settings.selected_dish_ids);
@@ -347,6 +357,55 @@ app.get("/api/settings", async (req, res) => {
         excludeLowEnergyBelowPct = parsed;
       }
     }
+    if (settings.event_use_custom_multipliers) {
+      eventUseCustomMultipliers = settings.event_use_custom_multipliers === "1";
+    }
+    if (settings.event_skill_trigger_rate_multiplier) {
+      const parsed = Number(settings.event_skill_trigger_rate_multiplier);
+      if (Number.isFinite(parsed) && parsed > 0) {
+        eventSkillTriggerRateMultiplier = parsed;
+      }
+    }
+    if (settings.event_ingredient_multiplier) {
+      const parsed = Number(settings.event_ingredient_multiplier);
+      if (Number.isFinite(parsed) && parsed > 0) {
+        eventIngredientMultiplier = parsed;
+      }
+    }
+    if (settings.event_skill_strength_multiplier) {
+      const parsed = Number(settings.event_skill_strength_multiplier);
+      if (Number.isFinite(parsed) && parsed > 0) {
+        eventSkillStrengthMultiplier = parsed;
+      }
+    }
+    if (settings.event_skill_level_plus_one_on_trigger) {
+      eventSkillLevelPlusOneOnTrigger =
+        settings.event_skill_level_plus_one_on_trigger === "1";
+    }
+    if (settings.avg_energy_multiplier) {
+      const parsed = Number(settings.avg_energy_multiplier);
+      if (Number.isFinite(parsed) && parsed > 0) {
+        avgEnergyMultiplier = parsed;
+      }
+    }
+    if (settings.berry_base_strength_default) {
+      const parsed = Number(settings.berry_base_strength_default);
+      if (Number.isFinite(parsed) && parsed > 0) {
+        berryBaseStrengthDefault = parsed;
+      }
+    }
+    if (settings.favorite_berry_penalty_no_match) {
+      const parsed = Number(settings.favorite_berry_penalty_no_match);
+      if (Number.isFinite(parsed) && parsed > 0) {
+        favoriteBerryPenaltyNoMatch = parsed;
+      }
+    }
+    if (settings.favorite_berry_penalty_no_match_cooking) {
+      const parsed = Number(settings.favorite_berry_penalty_no_match_cooking);
+      if (Number.isFinite(parsed) && parsed > 0) {
+        favoriteBerryPenaltyNoMatchCooking = parsed;
+      }
+    }
     const version = settings.version ? Number(settings.version) : 1;
     res.json({
       ingredientLimit: Number(settings.ingredient_limit || 0),
@@ -367,6 +426,15 @@ app.get("/api/settings", async (req, res) => {
       dayOfWeek,
       scoreNormalizationMode,
       excludeLowEnergyBelowPct,
+      eventUseCustomMultipliers,
+      eventSkillTriggerRateMultiplier,
+      eventIngredientMultiplier,
+      eventSkillStrengthMultiplier,
+      eventSkillLevelPlusOneOnTrigger,
+      avgEnergyMultiplier,
+      berryBaseStrengthDefault,
+      favoriteBerryPenaltyNoMatch,
+      favoriteBerryPenaltyNoMatchCooking,
       version
     });
   } catch (error) {
@@ -392,7 +460,16 @@ app.put("/api/settings", async (req, res) => {
     areaBonus,
     dayOfWeek,
     scoreNormalizationMode,
-    excludeLowEnergyBelowPct
+    excludeLowEnergyBelowPct,
+    eventUseCustomMultipliers,
+    eventSkillTriggerRateMultiplier,
+    eventIngredientMultiplier,
+    eventSkillStrengthMultiplier,
+    eventSkillLevelPlusOneOnTrigger,
+    avgEnergyMultiplier,
+    berryBaseStrengthDefault,
+    favoriteBerryPenaltyNoMatch,
+    favoriteBerryPenaltyNoMatchCooking
   } = req.body || {};
   try {
     if (typeof ingredientLimit === "number") {
@@ -495,6 +572,69 @@ app.put("/api/settings", async (req, res) => {
       await dbRun(
         "insert or replace into settings (key, value) values (?, ?)",
         ["exclude_low_energy_below_pct", String(excludeLowEnergyBelowPct)]
+      );
+    }
+    if (typeof eventUseCustomMultipliers === "boolean") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["event_use_custom_multipliers", eventUseCustomMultipliers ? "1" : "0"]
+      );
+    }
+    if (typeof eventSkillTriggerRateMultiplier === "number") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        [
+          "event_skill_trigger_rate_multiplier",
+          String(eventSkillTriggerRateMultiplier)
+        ]
+      );
+    }
+    if (typeof eventIngredientMultiplier === "number") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["event_ingredient_multiplier", String(eventIngredientMultiplier)]
+      );
+    }
+    if (typeof eventSkillStrengthMultiplier === "number") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["event_skill_strength_multiplier", String(eventSkillStrengthMultiplier)]
+      );
+    }
+    if (typeof eventSkillLevelPlusOneOnTrigger === "boolean") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        [
+          "event_skill_level_plus_one_on_trigger",
+          eventSkillLevelPlusOneOnTrigger ? "1" : "0"
+        ]
+      );
+    }
+    if (typeof avgEnergyMultiplier === "number") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["avg_energy_multiplier", String(avgEnergyMultiplier)]
+      );
+    }
+    if (typeof berryBaseStrengthDefault === "number") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["berry_base_strength_default", String(berryBaseStrengthDefault)]
+      );
+    }
+    if (typeof favoriteBerryPenaltyNoMatch === "number") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["favorite_berry_penalty_no_match", String(favoriteBerryPenaltyNoMatch)]
+      );
+    }
+    if (typeof favoriteBerryPenaltyNoMatchCooking === "number") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        [
+          "favorite_berry_penalty_no_match_cooking",
+          String(favoriteBerryPenaltyNoMatchCooking)
+        ]
       );
     }
     
@@ -1612,6 +1752,32 @@ app.post("/api/teams/recommendation", async (req, res) => {
       return acc;
     }, {});
 
+    const getSettingString = (obj, key) =>
+      Object.prototype.hasOwnProperty.call(obj, key) ? obj[key] : undefined;
+
+    const getSettingNumber = (obj, key, fallback, { min = null } = {}) => {
+      const raw = getSettingString(obj, key);
+      if (raw === undefined || raw === null || raw === "") {
+        return fallback;
+      }
+      const numberValue = Number(raw);
+      if (!Number.isFinite(numberValue)) {
+        return fallback;
+      }
+      if (min !== null && numberValue < min) {
+        return fallback;
+      }
+      return numberValue;
+    };
+
+    const getSettingBool01 = (obj, key, fallback) => {
+      const raw = getSettingString(obj, key);
+      if (raw === undefined) {
+        return fallback;
+      }
+      return raw === "1" || raw === 1 || raw === true;
+    };
+
     const defaultEventBuffs = {
       ingredientBonus: true,
       skillTriggerBonus: true,
@@ -1632,6 +1798,58 @@ app.post("/api/teams/recommendation", async (req, res) => {
     let dayOfWeek = "mon";
     let scoreNormalizationMode = "sigmoid_z";
     let excludeLowEnergyBelowPct = 0;
+    let eventUseCustomMultipliers = getSettingBool01(
+      settingsData,
+      "event_use_custom_multipliers",
+      false
+    );
+    let eventSkillTriggerRateMultiplier = getSettingNumber(
+      settingsData,
+      "event_skill_trigger_rate_multiplier",
+      1,
+      { min: 0.000001 }
+    );
+    let eventIngredientMultiplier = getSettingNumber(
+      settingsData,
+      "event_ingredient_multiplier",
+      1,
+      { min: 0.000001 }
+    );
+    let eventSkillStrengthMultiplier = getSettingNumber(
+      settingsData,
+      "event_skill_strength_multiplier",
+      1,
+      { min: 0.000001 }
+    );
+    let eventSkillLevelPlusOneOnTrigger = getSettingBool01(
+      settingsData,
+      "event_skill_level_plus_one_on_trigger",
+      false
+    );
+    let avgEnergyMultiplier = getSettingNumber(
+      settingsData,
+      "avg_energy_multiplier",
+      1.6,
+      { min: 0.000001 }
+    );
+    let berryBaseStrengthDefault = getSettingNumber(
+      settingsData,
+      "berry_base_strength_default",
+      100,
+      { min: 0.000001 }
+    );
+    let favoriteBerryPenaltyNoMatch = getSettingNumber(
+      settingsData,
+      "favorite_berry_penalty_no_match",
+      0.6,
+      { min: 0.000001 }
+    );
+    let favoriteBerryPenaltyNoMatchCooking = getSettingNumber(
+      settingsData,
+      "favorite_berry_penalty_no_match_cooking",
+      0.8,
+      { min: 0.000001 }
+    );
 
     if (settingsData.selected_dish_ids) {
       try {
@@ -1831,7 +2049,8 @@ app.post("/api/teams/recommendation", async (req, res) => {
 
     // Load berry base strengths
     const berryStrengthRows = await dbAll(
-      `select name, 1 as base_strength from berries`
+      `select name, ? as base_strength from berries`,
+      [berryBaseStrengthDefault]
     );
     const berryMap = new Map(
       berryStrengthRows.map((berry) => [
@@ -1974,7 +2193,16 @@ app.post("/api/teams/recommendation", async (req, res) => {
       areaBonus,
       dayOfWeek,
       scoreNormalizationMode,
-      excludeLowEnergyBelowPct
+      excludeLowEnergyBelowPct,
+      eventUseCustomMultipliers,
+      eventSkillTriggerRateMultiplier,
+      eventIngredientMultiplier,
+      eventSkillStrengthMultiplier,
+      eventSkillLevelPlusOneOnTrigger,
+      avgEnergyMultiplier,
+      berryBaseStrengthDefault,
+      favoriteBerryPenaltyNoMatch,
+      favoriteBerryPenaltyNoMatchCooking
     };
 
     const skillLevelRows = await dbAll(
@@ -2023,11 +2251,29 @@ app.post("/api/teams/recommendation", async (req, res) => {
     const offsetRaw = Number(req.query.offset);
     const limit = Number.isFinite(limitRaw) && limitRaw > 0 ? limitRaw : 5;
     const offset = Number.isFinite(offsetRaw) && offsetRaw >= 0 ? offsetRaw : 0;
-    const sortedScores = [...normalizedScores].sort(
-      (a, b) =>
-        (b.breakdown.totalScoreNormalized ?? b.breakdown.totalScore) -
-        (a.breakdown.totalScoreNormalized ?? a.breakdown.totalScore)
-    );
+    // Sort before pagination to keep rank deterministic across pages.
+    const sortedScores = [...normalizedScores].sort((a, b) => {
+      const scoreA =
+        a.breakdown.totalScoreNormalized ?? a.breakdown.totalScore ?? 0;
+      const scoreB =
+        b.breakdown.totalScoreNormalized ?? b.breakdown.totalScore ?? 0;
+      if (scoreB !== scoreA) {
+        return scoreB - scoreA;
+      }
+      const levelA = Number(a.entry.level) || 0;
+      const levelB = Number(b.entry.level) || 0;
+      if (levelB !== levelA) {
+        return levelB - levelA;
+      }
+      const freqA = Number(a.breakdown.details?.baseFrequencySeconds);
+      const freqB = Number(b.breakdown.details?.baseFrequencySeconds);
+      const safeFreqA = Number.isFinite(freqA) ? freqA : Infinity;
+      const safeFreqB = Number.isFinite(freqB) ? freqB : Infinity;
+      if (safeFreqA !== safeFreqB) {
+        return safeFreqA - safeFreqB;
+      }
+      return (a.entry.id || 0) - (b.entry.id || 0);
+    });
     const items = sortedScores.slice(offset, offset + limit);
 
     // Build response
@@ -2057,6 +2303,17 @@ app.post("/api/teams/recommendation", async (req, res) => {
           skillBranchMode,
           areaBonus,
           dayOfWeek,
+          scoreNormalizationMode,
+          excludeLowEnergyBelowPct,
+          eventUseCustomMultipliers,
+          eventSkillTriggerRateMultiplier,
+          eventIngredientMultiplier,
+          eventSkillStrengthMultiplier,
+          eventSkillLevelPlusOneOnTrigger,
+          avgEnergyMultiplier,
+          berryBaseStrengthDefault,
+          favoriteBerryPenaltyNoMatch,
+          favoriteBerryPenaltyNoMatchCooking,
           dishBase
         },
         pokemonCount: pokemonBox.length,
