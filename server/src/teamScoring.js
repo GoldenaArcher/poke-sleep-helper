@@ -48,7 +48,48 @@ const isEventType = (entry, settings) =>
 const getBerryStrength = (berryMap, berryName) =>
   berryMap.get(berryName.toLowerCase())?.baseStrength || 1;
 
+const getBerryStrengthAtLevel = (berryMap, berryName, level) => {
+  const baseStrength = getBerryStrength(berryMap, berryName);
+  const safeLevel = clamp(Number(level) || 1, 1, 100);
+  if (safeLevel <= 1) {
+    return baseStrength;
+  }
+  if (safeLevel <= 30) {
+    return baseStrength + (safeLevel - 1);
+  }
+  return baseStrength + 29 + (safeLevel - 30) * 2;
+};
+
 const classifySkill = (effectType = "", skillName = "") => {
+  const effect = String(effectType || "").toLowerCase();
+  const name = String(skillName || "").toLowerCase();
+  if (effect.includes("helping_speed") || effect.includes("speed_up")) {
+    return "speed";
+  }
+  if (effect.includes("extra_ingredient") || effect.includes("ingredient_bonus")) {
+    return "ingredient";
+  }
+  if (effect.includes("energy_restore") || effect.includes("energy_for_everyone")) {
+    return "energy";
+  }
+  if (effect.includes("extra_tasty") || effect.includes("tasty_chance")) {
+    return "cooking";
+  }
+  if (effect.includes("pot_expand")) {
+    return "cooking";
+  }
+  if (effect.includes("ingredient_magnet") || effect.includes("ingredient_draw")) {
+    return "ingredient";
+  }
+  if (effect.includes("dream_shard")) {
+    return "shard";
+  }
+  if (effect.includes("snorlax_strength") || effect.includes("charge_strength")) {
+    return "strength";
+  }
+  if (effect.includes("berry_burst")) {
+    return "strength";
+  }
   if (effectType === "extra_tasty") {
     return "cooking";
   }
@@ -67,14 +108,25 @@ const classifySkill = (effectType = "", skillName = "") => {
   if (effectType === "snorlax_strength" || effectType === "berry_burst") {
     return "strength";
   }
-  const name = skillName.toLowerCase();
+  if (name.includes("helping speed") || name.includes("helper boost")) {
+    return "speed";
+  }
+  if (name.includes("ingredient") || name.includes("magnet")) {
+    return "ingredient";
+  }
+  if (name.includes("energy") || name.includes("energizing")) {
+    return "energy";
+  }
   if (name.includes("cooking") || name.includes("tasty")) {
     return "cooking";
   }
   if (name.includes("charge strength") || name.includes("berry burst")) {
     return "strength";
   }
-  return "strength";
+  if (name.includes("dream shard")) {
+    return "shard";
+  }
+  return "utility";
 };
 
 const weightsFromPreference = (preference) => {
@@ -285,6 +337,7 @@ const scorePokemon = (
   skillLevelsBySkillId = null
 ) => {
   const weights = normalizeWeights(settings.weights, settings.preference);
+  const ignoreSkills = Boolean(settings?.ignoreSkills);
   const baseFrequencySeconds = parseFrequencySeconds(
     variant?.stats?.base_frequency ?? variant?.stats?.baseFrequency
   );
@@ -299,7 +352,7 @@ const scorePokemon = (
     ? Number(entry.energy)
     : 100;
   const energyMultiplierUsed = energyMultiplierForPct(energyPctUsed, settings);
-  const helps = helpsBeforeEnergy * energyMultiplierUsed;
+  const helpsAfterEnergy = helpsBeforeEnergy * energyMultiplierUsed;
   const favoriteSet = new Set(
     settings.favoriteBerries.map((berry) => berry.toLowerCase())
   );
@@ -336,66 +389,6 @@ const scorePokemon = (
   const berryStrengthEach = [];
   let favoriteBerryMatchCount = 0;
   const reasons = [];
-  (variant?.berries || []).forEach((drop) => {
-    const isFavorite = favoriteSet.has(drop.name.toLowerCase());
-    const multiplier = isFavorite ? 2 : 1;
-    const baseStrength = getBerryStrength(berryMap, drop.name);
-    berryPerHelp += drop.quantity || 1;
-    berryStrengthEach.push({
-      name: drop.name,
-      strength: baseStrength
-    });
-    if (isFavorite) {
-      favoriteBerryMatchCount += 1;
-    }
-    berryEV +=
-      helps * (drop.quantity || 1) * baseStrength * multiplier;
-    if (isFavorite) {
-      reasons.push(`Favorite berry match (x2)`);
-    }
-  });
-  const berryEVBeforeArea = berryEV;
-  berryEV *= areaBonusUsed;
-  const berryEVAfterArea = berryEV;
-  let berryPenaltyApplied = 1;
-  const noMatchPenaltyDefault = Number.isFinite(
-    Number(settings.favoriteBerryPenaltyNoMatch)
-  )
-    ? Number(settings.favoriteBerryPenaltyNoMatch)
-    : 0.6;
-  const noMatchPenaltyCookingDefault = Number.isFinite(
-    Number(settings.favoriteBerryPenaltyNoMatchCooking)
-  )
-    ? Number(settings.favoriteBerryPenaltyNoMatchCooking)
-    : 0.8;
-  if (favoriteBerryMatchCount === 0) {
-    berryPenaltyApplied =
-      settings.preference === "cooking"
-        ? noMatchPenaltyCookingDefault
-        : noMatchPenaltyDefault;
-  }
-  berryEV *= berryPenaltyApplied;
-  const berryScoreAfterPenalty = berryEV;
-
-  const unlockedIngredients = (variant?.ingredients || []).filter(
-    (ingredient) =>
-      (ingredient.unlock_level ?? ingredient.unlockLevel ?? 1) <= entry.level
-  );
-  
-  let ingredientEV = 0;
-  let coverage = 0;
-  unlockedIngredients.forEach((ingredient) => {
-    const strength = ingredientMap 
-      ? getIngredientStrength(ingredientMap, ingredient.name)
-      : 100;
-    const demandWeight = ingredientDemand.get(ingredient.name.toLowerCase()) || 1;
-    ingredientEV += helps * strength * ingredientMultiplier;
-    coverage += demandWeight;
-  });
-  
-  if (unlockedIngredients.length >= 2) {
-    reasons.push(`Covers ${unlockedIngredients.length} early ingredients`);
-  }
 
   const mainSkillName = variant?.mainSkillName || "";
   const mainSkillEffectType = variant?.mainSkillEffectType || "";
@@ -448,10 +441,13 @@ const scorePokemon = (
   const skillCategory = classifySkill(mainSkillEffectType, mainSkillName);
 
   let energyMultiplier = 1;
+  let speedBonus = 0;
   let skillGrowthEV = 0;
-  let skillIngredientEV = 0;
-  let skillCookingEV = 0;
-  let skillShardEV = 0;
+  let berrySkillEV = 0;
+  let ingredientSkillEV = 0;
+  let cookingSkillEV = 0;
+  let shardSkillEV = 0;
+  let utilitySkillEV = 0;
   let deltaP = 0;
   let pUsed = 0;
   let deltaPPerTrigger = 0;
@@ -467,20 +463,37 @@ const scorePokemon = (
     : "default(2)";
   let triggerMultiplierUsed = skillTriggerMultiplier;
   let triggerRateUsed = triggerRate;
-  const expectedTriggers = helps * triggerRate * triggerMultiplierUsed;
-  const expectedTriggersPerDay = expectedTriggers;
+  const expectedTriggersBase =
+    helpsAfterEnergy * triggerRate * triggerMultiplierUsed;
+  let helpsEffective = helpsAfterEnergy;
+  let expectedTriggersPerDay = expectedTriggersBase;
   const typesUsed = [
     entry.primary_type,
     entry.secondary_type
   ].filter(Boolean);
 
-  if (skillCategory === "ingredient") {
-    skillIngredientEV = mainSkillValue * expectedTriggers * ingredientMultiplier;
-    reasons.push("Ingredient skill support");
-  } else if (skillCategory === "energy") {
-    const energyBoost = Math.min(0.25, mainSkillValue / 100);
+  if (skillCategory === "energy") {
+    const energyBoost = clamp(
+      (mainSkillValue * expectedTriggersBase) / 1000,
+      0,
+      0.25
+    );
     energyMultiplier = 1 + energyBoost;
     reasons.push("Energy skill boosts help speed");
+  } else if (skillCategory === "speed") {
+    // Approximate helping speed boost; keeps bonus bounded.
+    speedBonus = clamp((mainSkillValue * expectedTriggersBase) / 1500, 0, 0.35);
+    reasons.push("Helping speed boost");
+  }
+
+  helpsEffective = helpsAfterEnergy * (1 + speedBonus) * energyMultiplier;
+  expectedTriggersPerDay =
+    helpsEffective * triggerRate * triggerMultiplierUsed;
+
+  if (skillCategory === "ingredient") {
+    ingredientSkillEV =
+      mainSkillValue * expectedTriggersPerDay * ingredientMultiplier;
+    reasons.push("Ingredient skill support");
   } else if (skillCategory === "cooking") {
     triggerMultiplierUsed = skillTriggerMultiplier;
     triggerRateUsed = triggerRate;
@@ -508,25 +521,134 @@ const scorePokemon = (
         `Tasty Chance expected +${(deltaP * 100).toFixed(1)}% (event-adjusted)`
       );
     } else {
-      skillCookingEV = mainSkillValue * triggerRate * triggerMultiplierUsed * 0.5;
+      cookingSkillEV =
+        mainSkillValue * triggerRate * triggerMultiplierUsed * 0.5;
       reasons.push("Cooking-related skill");
     }
   } else if (skillCategory === "strength") {
     skillGrowthEV =
       mainSkillValue *
-      expectedTriggers *
+      expectedTriggersPerDay *
       skillStrengthMultiplier;
     reasons.push("Direct strength skill");
   } else if (skillCategory === "shard") {
-    skillShardEV =
+    shardSkillEV =
       mainSkillValue *
-      expectedTriggers *
+      expectedTriggersPerDay *
       dreamShardMultiplier;
+  } else if (skillCategory === "utility") {
+    utilitySkillEV = mainSkillValue * expectedTriggersPerDay * 0.05;
+    const pref = String(settings.preference || "").toLowerCase();
+    if (pref === "ingredient") {
+      ingredientSkillEV += utilitySkillEV;
+    } else if (pref === "cooking") {
+      cookingSkillEV += utilitySkillEV;
+    } else {
+      berrySkillEV += utilitySkillEV;
+    }
   }
 
-  const berryScore = berryEV * energyMultiplier + skillGrowthEV;
+  if (ignoreSkills) {
+    skillGrowthEV = 0;
+    berrySkillEV = 0;
+    ingredientSkillEV = 0;
+    cookingSkillEV = 0;
+    shardSkillEV = 0;
+    utilitySkillEV = 0;
+    deltaP = 0;
+    pUsed = 0;
+    deltaPPerTrigger = 0;
+    deltaPPerMeal = 0;
+    expectedExtraTastyMealsPerDay = 0;
+    expectedMultiplierSum = cookingContext?.mealsPerDay || 0;
+    speedBonus = 0;
+    energyMultiplier = 1;
+    helpsEffective = helpsAfterEnergy;
+    expectedTriggersPerDay = expectedTriggersBase;
+  }
+
+  const expectedTriggers = expectedTriggersPerDay;
+  const helps = helpsEffective;
+
+  (variant?.berries || []).forEach((drop) => {
+    const isFavorite = favoriteSet.has(drop.name.toLowerCase());
+    const multiplier = isFavorite ? 2 : 1;
+    const baseStrength = getBerryStrength(berryMap, drop.name);
+    const scaledStrength = getBerryStrengthAtLevel(
+      berryMap,
+      drop.name,
+      entry.level
+    );
+    berryPerHelp += drop.quantity || 1;
+    berryStrengthEach.push({
+      name: drop.name,
+      strength: scaledStrength,
+      baseStrength
+    });
+    if (isFavorite) {
+      favoriteBerryMatchCount += 1;
+    }
+    berryEV +=
+      helpsEffective * (drop.quantity || 1) * scaledStrength * multiplier;
+    if (isFavorite) {
+      reasons.push(`Favorite berry match (x2)`);
+    }
+  });
+  const berryEVBeforeArea = berryEV;
+  berryEV *= areaBonusUsed;
+  const berryEVAfterArea = berryEV;
+  let berryPenaltyApplied = 1;
+  const noMatchPenaltyDefault = Number.isFinite(
+    Number(settings.favoriteBerryPenaltyNoMatch)
+  )
+    ? Number(settings.favoriteBerryPenaltyNoMatch)
+    : 0.6;
+  const noMatchPenaltyCookingDefault = Number.isFinite(
+    Number(settings.favoriteBerryPenaltyNoMatchCooking)
+  )
+    ? Number(settings.favoriteBerryPenaltyNoMatchCooking)
+    : 0.8;
+  if (favoriteBerryMatchCount === 0) {
+    berryPenaltyApplied =
+      settings.preference === "cooking"
+        ? noMatchPenaltyCookingDefault
+        : noMatchPenaltyDefault;
+  }
+  berryEV *= berryPenaltyApplied;
+  const berryScoreAfterPenalty = berryEV;
+
+  const unlockedIngredients = (variant?.ingredients || []).filter(
+    (ingredient) =>
+      (ingredient.unlock_level ?? ingredient.unlockLevel ?? 1) <= entry.level
+  );
+  
+  let ingredientEV = 0;
+  let coverageBonus = 0;
+  if (unlockedIngredients.length > 0) {
+    const slotWeight = 1 / unlockedIngredients.length;
+    const expectedStrengthPerHelp = unlockedIngredients.reduce((sum, ingredient) => {
+      const strength = ingredientMap
+        ? getIngredientStrength(ingredientMap, ingredient.name)
+        : 100;
+      const demandWeightRaw =
+        ingredientDemand.get(ingredient.name.toLowerCase()) || 1;
+      const demandWeight = clamp(demandWeightRaw, 0.5, 2);
+      const quantity =
+        Number(ingredient.quantity ?? ingredient.qty ?? 1) || 1;
+      return sum + quantity * strength * slotWeight * demandWeight;
+    }, 0);
+    ingredientEV =
+      helpsEffective * expectedStrengthPerHelp * ingredientMultiplier;
+    coverageBonus = clamp(unlockedIngredients.length / 3, 0, 2);
+  }
+  
+  if (unlockedIngredients.length >= 2) {
+    reasons.push(`Covers ${unlockedIngredients.length} early ingredients`);
+  }
+  const berryScore =
+    berryEV + berrySkillEV + skillGrowthEV;
   const ingredientScore =
-    ingredientEV * energyMultiplier + coverage + skillIngredientEV;
+    ingredientEV + ingredientSkillEV + coverageBonus;
 
   const dishStrengthPerMeal = cookingContext?.expectedMealStrength || 0;
   const baseCookPerDay =
@@ -536,25 +658,35 @@ const scorePokemon = (
       ? dishStrengthPerMeal *
         (expectedMultiplierSum - (cookingContext?.mealsPerDay || 0))
       : 0;
-  const cookingEV = baseCookPerDay + cookingBonusEV + skillCookingEV;
-  const skillCookingContributionEV = cookingBonusEV + skillCookingEV;
+  const cookingEV = baseCookPerDay + cookingBonusEV + cookingSkillEV;
+  const skillCookingContributionEV = cookingBonusEV + cookingSkillEV;
   if (baseCookPerDay > 0) {
     reasons.push("Cookable weekly dish");
   }
 
   const cookingScore = cookingEV;
   const skillScore =
-    skillGrowthEV + skillIngredientEV + skillCookingEV + skillShardEV;
+    skillGrowthEV +
+    berrySkillEV +
+    ingredientSkillEV +
+    cookingSkillEV +
+    shardSkillEV +
+    utilitySkillEV;
   const skillDisplayScore =
     skillCategory === "cooking" ? skillCookingContributionEV : skillScore;
   const skillDisplayBucket =
     skillCategory === "cooking" ? "cooking" : "skill";
-  const dreamShardScore = skillShardEV;
+  const skillForDisplay = Number.isFinite(skillDisplayScore)
+    ? skillDisplayScore
+    : Number.isFinite(skillScore)
+      ? skillScore
+      : 0;
+  const dreamShardScore = shardSkillEV;
   const totalScore =
     weights.berry * berryScore +
     weights.ingredient * ingredientScore +
     weights.cooking * cookingScore +
-    weights.dreamShard * skillShardEV;
+    weights.dreamShard * shardSkillEV;
 
   const dominant = (() => {
     const buckets = [
@@ -576,10 +708,12 @@ const scorePokemon = (
       dreamShardScore,
       totalScore,
       skillDisplayScore,
+      skillForDisplay,
       details: {
         expectedHelps: helps,
         helpsBeforeEnergy,
-        helpsAfterEnergy: helps,
+        helpsAfterEnergy,
+        helpsEffective,
         energyPctUsed,
         energyMultiplierUsed,
         avgEnergyMultiplierUsed,
@@ -599,11 +733,15 @@ const scorePokemon = (
         skillEV: skillScore,
         skillCategory,
         skillGrowthEV,
-        skillIngredientEV,
-        skillCookingEV,
-        skillShardEV,
+        berrySkillEV,
+        ingredientSkillEV,
+        cookingSkillEV,
+        shardSkillEV,
+        utilitySkillEV,
         skillDisplayScore,
+        skillForDisplay,
         skillDisplayBucket,
+        speedBonus,
         cookingEV,
         baseDishStrengthUsed: cookingContext?.baseDishStrengthUsed || 0,
         bestDishId: cookingContext?.bestDishId || null,
@@ -701,7 +839,13 @@ const scoreAll = (
     );
 
 const normalizeScores = (scoredEntries, weights, mode = "minmax") => {
-  const bucketNames = ["berryScore", "ingredientScore", "cookingScore", "dreamShardScore"];
+  const bucketNames = [
+    "berryScore",
+    "ingredientScore",
+    "cookingScore",
+    "dreamShardScore",
+    "skillForDisplay"
+  ];
   const bucketStats = bucketNames.reduce((acc, name) => {
     acc[name] = {
       min: Infinity,
@@ -787,7 +931,7 @@ const normalizeScores = (scoredEntries, weights, mode = "minmax") => {
     return minmaxNormalize(value, stats);
   };
 
-  return scoredEntries.map((entry) => {
+  const normalizedEntries = scoredEntries.map((entry) => {
     const normalizedBucketScores = {
       berry: normalizeBucket(entry.breakdown.berryScore, bucketStats.berryScore),
       ingredient: normalizeBucket(
@@ -798,13 +942,18 @@ const normalizeScores = (scoredEntries, weights, mode = "minmax") => {
       dreamShard: normalizeBucket(
         entry.breakdown.dreamShardScore,
         bucketStats.dreamShardScore
+      ),
+      skill: normalizeBucket(
+        entry.breakdown.skillForDisplay ?? entry.breakdown.skillScore ?? 0,
+        bucketStats.skillForDisplay
       )
     };
     const weightedContributions = {
       berry: weights.berry * normalizedBucketScores.berry,
       ingredient: weights.ingredient * normalizedBucketScores.ingredient,
       cooking: weights.cooking * normalizedBucketScores.cooking,
-      dreamShard: weights.dreamShard * normalizedBucketScores.dreamShard
+      dreamShard: weights.dreamShard * normalizedBucketScores.dreamShard,
+      skill: 0
     };
     const totalScoreNormalized =
       weightedContributions.berry +
@@ -823,7 +972,8 @@ const normalizeScores = (scoredEntries, weights, mode = "minmax") => {
             berry: entry.breakdown.berryScore,
             ingredient: entry.breakdown.ingredientScore,
             cooking: entry.breakdown.cookingScore,
-            dreamShard: entry.breakdown.dreamShardScore
+            dreamShard: entry.breakdown.dreamShardScore,
+            skill: entry.breakdown.skillForDisplay ?? entry.breakdown.skillScore ?? 0
           },
           bucketMinMax: {
             berry: { min: bucketStats.berryScore.min, max: bucketStats.berryScore.max },
@@ -838,6 +988,10 @@ const normalizeScores = (scoredEntries, weights, mode = "minmax") => {
             dreamShard: {
               min: bucketStats.dreamShardScore.min,
               max: bucketStats.dreamShardScore.max
+            },
+            skill: {
+              min: bucketStats.skillForDisplay.min,
+              max: bucketStats.skillForDisplay.max
             }
           },
           bucketMeanStd: {
@@ -856,14 +1010,37 @@ const normalizeScores = (scoredEntries, weights, mode = "minmax") => {
             dreamShard: {
               mean: bucketStats.dreamShardScore.mean,
               std: bucketStats.dreamShardScore.std
+            },
+            skill: {
+              mean: bucketStats.skillForDisplay.mean,
+              std: bucketStats.skillForDisplay.std
             }
           },
           normalizedBucketScores,
           weightedContributions,
-          normalizationMode: mode
+          normalizationMode: mode,
+          hasNaN: [
+            entry.breakdown.skillForDisplay,
+            entry.breakdown.skillScore,
+            entry.breakdown.dreamShardScore,
+            entry.breakdown.totalScore,
+            totalScoreNormalized
+          ].some((value) => Number.isNaN(value))
         }
       }
     };
+  });
+
+  // Ensure deterministic ranking by total score (normalized if available).
+  return normalizedEntries.sort((a, b) => {
+    const scoreA =
+      a.breakdown.totalScoreNormalized ?? a.breakdown.totalScore ?? 0;
+    const scoreB =
+      b.breakdown.totalScoreNormalized ?? b.breakdown.totalScore ?? 0;
+    if (scoreB !== scoreA) {
+      return scoreB - scoreA;
+    }
+    return (a.entry.id || 0) - (b.entry.id || 0);
   });
 };
 

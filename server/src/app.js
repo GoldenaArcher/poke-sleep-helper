@@ -2251,30 +2251,37 @@ app.post("/api/teams/recommendation", async (req, res) => {
     const offsetRaw = Number(req.query.offset);
     const limit = Number.isFinite(limitRaw) && limitRaw > 0 ? limitRaw : 5;
     const offset = Number.isFinite(offsetRaw) && offsetRaw >= 0 ? offsetRaw : 0;
+    const getRankScore = (row) =>
+      row?.breakdown?.totalScoreNormalized ?? row?.breakdown?.totalScore ?? 0;
     // Sort before pagination to keep rank deterministic across pages.
     const sortedScores = [...normalizedScores].sort((a, b) => {
-      const scoreA =
-        a.breakdown.totalScoreNormalized ?? a.breakdown.totalScore ?? 0;
-      const scoreB =
-        b.breakdown.totalScoreNormalized ?? b.breakdown.totalScore ?? 0;
+      const scoreA = getRankScore(a);
+      const scoreB = getRankScore(b);
       if (scoreB !== scoreA) {
         return scoreB - scoreA;
       }
-      const levelA = Number(a.entry.level) || 0;
-      const levelB = Number(b.entry.level) || 0;
-      if (levelB !== levelA) {
-        return levelB - levelA;
+      const ingredientA = Number(a.breakdown.ingredientScore) || 0;
+      const ingredientB = Number(b.breakdown.ingredientScore) || 0;
+      if (ingredientB !== ingredientA) {
+        return ingredientB - ingredientA;
       }
-      const freqA = Number(a.breakdown.details?.baseFrequencySeconds);
-      const freqB = Number(b.breakdown.details?.baseFrequencySeconds);
-      const safeFreqA = Number.isFinite(freqA) ? freqA : Infinity;
-      const safeFreqB = Number.isFinite(freqB) ? freqB : Infinity;
-      if (safeFreqA !== safeFreqB) {
-        return safeFreqA - safeFreqB;
+      const berryA = Number(a.breakdown.berryScore) || 0;
+      const berryB = Number(b.breakdown.berryScore) || 0;
+      if (berryB !== berryA) {
+        return berryB - berryA;
       }
       return (a.entry.id || 0) - (b.entry.id || 0);
     });
-    const items = sortedScores.slice(offset, offset + limit);
+    const items = sortedScores.slice(offset, offset + limit).map((row) => ({
+      ...row,
+      breakdown: {
+        ...row.breakdown,
+        totalScoreForDisplay: getRankScore(row),
+        rankScore: getRankScore(row),
+        skillForDisplay:
+          row.breakdown.skillForDisplay ?? row.breakdown.skillScore ?? 0
+      }
+    }));
 
     // Build response
     const response = {
