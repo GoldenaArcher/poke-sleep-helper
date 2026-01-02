@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import sqlite3 from "sqlite3";
 import {
   berryCatalog,
+  berryStrengthData,
   dishCatalog,
   dishLevelData,
   ingredientCatalog,
@@ -348,6 +349,22 @@ const initDb = async () => {
   if (!hasImagePath) {
     await dbRun("alter table berries add column image_path text");
   }
+  const hasBerryType = berryColumnsAfter.some(
+    (column) => column.name === "type"
+  );
+  if (!hasBerryType) {
+    await dbRun("alter table berries add column type text");
+  }
+
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS berry_strengths (
+      berry_id INTEGER NOT NULL,
+      level INTEGER NOT NULL,
+      strength INTEGER NOT NULL,
+      PRIMARY KEY (berry_id, level),
+      FOREIGN KEY (berry_id) REFERENCES berries(id)
+    );
+  `);
 
   await dbRun(`
     CREATE TABLE IF NOT EXISTS pokemon_variant_berries (
@@ -820,8 +837,9 @@ const initDb = async () => {
     }
 
   for (const berry of berryCatalog) {
-    await dbRun("insert or ignore into berries (name) values (?)", [
-      berry.name
+    await dbRun("insert or ignore into berries (name, type) values (?, ?)", [
+      berry.name,
+      berry.type || null
     ]);
   }
   for (const berry of berryCatalog) {
@@ -830,10 +848,29 @@ const initDb = async () => {
       .replace(/[^a-z0-9]/g, "")}.png`;
     await dbRun(
       `update berries
-       set image_path = ?
+       set image_path = ?,
+           type = ?
        where name = ?`,
-      [imagePath, berry.name]
+      [imagePath, berry.type || null, berry.name]
     );
+  }
+
+  // Seed berry strength data
+  for (const [berryName, strengths] of Object.entries(berryStrengthData)) {
+    const berryRow = await dbGet("select id from berries where name = ?", [
+      berryName
+    ]);
+    if (!berryRow) {
+      continue;
+    }
+    for (const entry of strengths) {
+      await dbRun(
+        `insert or ignore into berry_strengths
+         (berry_id, level, strength)
+         values (?, ?, ?)`,
+        [berryRow.id, entry.level, entry.strength]
+      );
+    }
   }
 
   for (const dish of dishCatalog) {
@@ -979,11 +1016,7 @@ const initDb = async () => {
             `insert or replace into pokemon_variant_ingredients
              (variant_id, ingredient_id, unlock_level)
              values (?, ?, ?)`,
-            [
-              variantRow.id,
-              ingredientRow.id,
-              ingredient.unlockLevel || 1
-            ]
+            [variantRow.id, ingredientRow.id, 1]
           );
         }
         if (variant.mainSkill) {
@@ -1117,7 +1150,26 @@ const initDb = async () => {
   const boxEntries = await dbAll(
     "select id, variant_id, species_id from pokemon_box"
   );
+  await dbRun(
+    "update pokemon_variant_ingredients set unlock_level = 1 where unlock_level != 1"
+  );
   for (const entry of boxEntries) {
+    const variantIngredientRows = await dbAll(
+      `select ingredient_id
+       from pokemon_variant_ingredients
+       where variant_id = ?
+       order by ingredient_id`,
+      [entry.variant_id]
+    );
+    const variantIngredientIds = variantIngredientRows.map(
+      (row) => row.ingredient_id
+    );
+    const fallbackIngredientId = variantIngredientIds[0] || null;
+    const defaultIngredientsBySlot = {
+      1: variantIngredientIds[0] || null,
+      30: variantIngredientIds[1] || fallbackIngredientId,
+      60: variantIngredientIds[2] || fallbackIngredientId
+    };
     for (const level of ingredientSlotLevels) {
       const existing = await dbGet(
         `select 1 from pokemon_box_ingredients
@@ -1127,11 +1179,7 @@ const initDb = async () => {
       if (existing) {
         continue;
       }
-      const ingredientRow = await dbGet(
-        `select ingredient_id from pokemon_variant_ingredients
-         where variant_id = ? and unlock_level = ?`,
-        [entry.variant_id, level]
-      );
+      const ingredientId = defaultIngredientsBySlot[level] || null;
       await dbRun(
         `insert into pokemon_box_ingredients
          (box_id, slot_level, ingredient_id, quantity)
@@ -1139,8 +1187,8 @@ const initDb = async () => {
         [
           entry.id,
           level,
-          ingredientRow?.ingredient_id || null,
-          ingredientRow ? 1 : 0
+          ingredientId,
+          ingredientId ? 1 : 0
         ]
       );
     }
@@ -1558,11 +1606,7 @@ const seedPokemonData = async () => {
           `insert or replace into pokemon_variant_ingredients
            (variant_id, ingredient_id, unlock_level)
            values (?, ?, ?)`,
-          [
-            variantRow.id,
-            ingredientRow.id,
-            ingredient.unlockLevel || 1
-          ]
+          [variantRow.id, ingredientRow.id, 1]
         );
       }
       if (variant.mainSkill) {

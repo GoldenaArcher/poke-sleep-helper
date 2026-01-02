@@ -25,8 +25,8 @@
           ],
           "ingredients": [
             { "name": "Bean Sausage", "unlockLevel": 1 },
-            { "name": "Warming Ginger", "unlockLevel": 30 },
-            { "name": "Fiery Herb", "unlockLevel": 60 }
+            { "name": "Warming Ginger", "unlockLevel": 1 },
+            { "name": "Fiery Herb", "unlockLevel": 1 }
           ],
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "4-default.png",
@@ -60,8 +60,8 @@
           ],
           "ingredients": [
             { "name": "Bean Sausage", "unlockLevel": 1 },
-            { "name": "Fancy Egg", "unlockLevel": 30 },
-            { "name": "Fiery Herb", "unlockLevel": 60 }
+            { "name": "Fancy Egg", "unlockLevel": 1 },
+            { "name": "Fiery Herb", "unlockLevel": 1 }
           ],
           "mainSkill": "Charge Energy S",
           "detailImage": "23-default.png",
@@ -95,8 +95,8 @@
           ],
           "ingredients": [
             { "name": "Moomoo Milk", "unlockLevel": 1 },
-            { "name": "Soothing Cacao", "unlockLevel": 30 },
-            { "name": "Bean Sausage", "unlockLevel": 60 }
+            { "name": "Soothing Cacao", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 1 }
           ],
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "133-default.png",
@@ -120,7 +120,7 @@
           ],
           "ingredients": [
             { "name": "Moomoo Milk", "unlockLevel": 1 },
-            { "name": "Soothing Cacao", "unlockLevel": 30 }
+            { "name": "Soothing Cacao", "unlockLevel": 1 }
           ],
           "mainSkill": "Dream Shard Magnet S",
           "detailImage": "133-holiday.png",
@@ -154,8 +154,8 @@
           ],
           "ingredients": [
             { "name": "Fancy Apple", "unlockLevel": 1 },
-            { "name": "Fancy Egg", "unlockLevel": 30 },
-            { "name": "Warming Ginger", "unlockLevel": 60 }
+            { "name": "Fancy Egg", "unlockLevel": 1 },
+            { "name": "Warming Ginger", "unlockLevel": 1 }
           ],
           "mainSkill": "Charge Strength S",
           "detailImage": "25-default.png",
@@ -179,8 +179,8 @@
           ],
           "ingredients": [
             { "name": "Fancy Apple", "unlockLevel": 1 },
-            { "name": "Fancy Egg", "unlockLevel": 30 },
-            { "name": "Warming Ginger", "unlockLevel": 60 }
+            { "name": "Fancy Egg", "unlockLevel": 1 },
+            { "name": "Warming Ginger", "unlockLevel": 1 }
           ],
           "mainSkill": "Dream Shard Magnet S",
           "detailImage": "25-holiday.png",
@@ -214,8 +214,8 @@
           ],
           "ingredients": [
             { "name": "Moomoo Milk", "unlockLevel": 1 },
-            { "name": "Soothing Cacao", "unlockLevel": 30 },
-            { "name": "Bean Sausage", "unlockLevel": 60 }
+            { "name": "Soothing Cacao", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 1 }
           ],
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "7-default.png",
@@ -249,8 +249,8 @@
           ],
           "ingredients": [
             { "name": "Bean Sausage", "unlockLevel": 1 },
-            { "name": "Tasty Mushroom", "unlockLevel": 30 },
-            { "name": "Honey", "unlockLevel": 60 }
+            { "name": "Tasty Mushroom", "unlockLevel": 1 },
+            { "name": "Honey", "unlockLevel": 1 }
           ],
           "mainSkill": "Charge Strength S",
           "detailImage": "56-default.png",
@@ -283,8 +283,8 @@
           ],
           "ingredients": [
             { "name": "Honey", "unlockLevel": 1 },
-            { "name": "Pure Oil", "unlockLevel": 30 },
-            { "name": "Soothing Cacao", "unlockLevel": 60 }
+            { "name": "Pure Oil", "unlockLevel": 1 },
+            { "name": "Soothing Cacao", "unlockLevel": 1 }
           ],
           "mainSkill": "Energy for Everyone S",
           "detailImage": "39-default.png",
@@ -318,8 +318,8 @@
           ],
           "ingredients": [
             { "name": "Pure Oil", "unlockLevel": 1 },
-            { "name": "Soft Potato", "unlockLevel": 30 },
-            { "name": "Fancy Egg", "unlockLevel": 60 }
+            { "name": "Soft Potato", "unlockLevel": 1 },
+            { "name": "Fancy Egg", "unlockLevel": 1 }
           ],
           "mainSkill": "Dream Shard Magnet S",
           "detailImage": "447-default.png",
@@ -353,8 +353,8 @@
           ],
           "ingredients": [
             { "name": "Greengrass Soybeans", "unlockLevel": 1 },
-            { "name": "Soothing Cacao", "unlockLevel": 30 },
-            { "name": "Bean Sausage", "unlockLevel": 60 }
+            { "name": "Soothing Cacao", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 1 }
           ],
           "mainSkill": "Charge Energy S",
           "detailImage": "84-default.png",
@@ -388,8 +388,8 @@
           ],
           "ingredients": [
             { "name": "Fancy Egg", "unlockLevel": 1 },
-            { "name": "Warming Ginger", "unlockLevel": 30 },
-            { "name": "Soothing Cacao", "unlockLevel": 60 }
+            { "name": "Warming Ginger", "unlockLevel": 1 },
+            { "name": "Soothing Cacao", "unlockLevel": 1 }
           ],
           "mainSkill": "Metronome",
           "detailImage": "175-default.png",
@@ -423,8 +423,8 @@
           ],
           "ingredients": [
             { "name": "Fiery Herb", "unlockLevel": 1 },
-            { "name": "Warming Ginger", "unlockLevel": 30 },
-            { "name": "Large Leek", "unlockLevel": 60 }
+            { "name": "Warming Ginger", "unlockLevel": 1 },
+            { "name": "Large Leek", "unlockLevel": 1 }
           ],
           "mainSkill": "Charge Strength M",
           "detailImage": "228-default.png",
@@ -458,8 +458,8 @@
           ],
           "ingredients": [
             { "name": "Pure Oil", "unlockLevel": 1 },
-            { "name": "Warming Ginger", "unlockLevel": 30 },
-            { "name": "Bean Sausage", "unlockLevel": 60 }
+            { "name": "Warming Ginger", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 1 }
           ],
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "363-default.png",
@@ -483,8 +483,8 @@
           ],
           "ingredients": [
             { "name": "Pure Oil", "unlockLevel": 1 },
-            { "name": "Bean Sausage", "unlockLevel": 30 },
-            { "name": "Warming Ginger", "unlockLevel": 60 }
+            { "name": "Bean Sausage", "unlockLevel": 1 },
+            { "name": "Warming Ginger", "unlockLevel": 1 }
           ],
           "mainSkill": "Tasty Chance S",
           "detailImage": "363-holiday.png",
@@ -518,8 +518,8 @@
           ],
           "ingredients": [
             { "name": "Snoozy Tomato", "unlockLevel": 1 },
-            { "name": "Tasty Mushroom", "unlockLevel": 30 },
-            { "name": "Greengrass Soybeans", "unlockLevel": 60 }
+            { "name": "Tasty Mushroom", "unlockLevel": 1 },
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 }
           ],
           "mainSkill": "Charge Strength M",
           "detailImage": "438-default.png",
@@ -553,7 +553,7 @@
           ],
           "ingredients": [
             { "name": "Fiery Herb", "unlockLevel": 1 },
-            { "name": "Fancy Egg", "unlockLevel": 30 }
+            { "name": "Fancy Egg", "unlockLevel": 1 }
           ],
           "mainSkill": "Charge Strength M",
           "detailImage": "179-default.png",
@@ -587,8 +587,8 @@
           ],
           "ingredients": [
             { "name": "Fancy Apple", "unlockLevel": 1 },
-            { "name": "Greengrass Soybeans", "unlockLevel": 30 },
-            { "name": "Bean Sausage", "unlockLevel": 60 }
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 1 }
           ],
           "mainSkill": "Charge Energy S",
           "detailImage": "19-default.png",
@@ -622,8 +622,8 @@
           ],
           "ingredients": [
             { "name": "Soothing Cacao", "unlockLevel": 1 },
-            { "name": "Honey", "unlockLevel": 30 },
-            { "name": "Large Leek", "unlockLevel": 60 }
+            { "name": "Honey", "unlockLevel": 1 },
+            { "name": "Large Leek", "unlockLevel": 1 }
           ],
           "mainSkill": "Charge Strength S",
           "detailImage": "152-default.png",
@@ -657,7 +657,7 @@
           ],
           "ingredients": [
             { "name": "Moomoo Milk", "unlockLevel": 1 },
-            { "name": "Bean Sausage", "unlockLevel": 30 }
+            { "name": "Bean Sausage", "unlockLevel": 1 }
           ],
           "mainSkill": "Dream Shard Magnet S",
           "detailImage": "52-default.png",
@@ -691,8 +691,8 @@
           ],
           "ingredients": [
             { "name": "Soothing Cacao", "unlockLevel": 1 },
-            { "name": "Slowpoke Tail", "unlockLevel": 30 },
-            { "name": "Snoozy Tomato", "unlockLevel": 60 }
+            { "name": "Slowpoke Tail", "unlockLevel": 1 },
+            { "name": "Snoozy Tomato", "unlockLevel": 1 }
           ],
           "mainSkill": "Energizing Cheer S",
           "detailImage": "79-default.png",
@@ -726,8 +726,8 @@
           ],
           "ingredients": [
             { "name": "Fancy Apple", "unlockLevel": 1 },
-            { "name": "Pure Oil", "unlockLevel": 30 },
-            { "name": "Tasty Mushroom", "unlockLevel": 60 }
+            { "name": "Pure Oil", "unlockLevel": 1 },
+            { "name": "Tasty Mushroom", "unlockLevel": 1 }
           ],
           "mainSkill": "Energizing Cheer S",
           "detailImage": "202-default.png",
@@ -761,8 +761,8 @@
           ],
           "ingredients": [
             { "name": "Fancy Apple", "unlockLevel": 1 },
-            { "name": "Fancy Egg", "unlockLevel": 30 },
-            { "name": "Warming Ginger", "unlockLevel": 60 }
+            { "name": "Fancy Egg", "unlockLevel": 1 },
+            { "name": "Warming Ginger", "unlockLevel": 1 }
           ],
           "mainSkill": "Charge Strength S",
           "detailImage": "172-default.png",
@@ -796,8 +796,8 @@
           ],
           "ingredients": [
             { "name": "Snoozy Tomato", "unlockLevel": 1 },
-            { "name": "Honey", "unlockLevel": 30 },
-            { "name": "Fancy Apple", "unlockLevel": 60 }
+            { "name": "Honey", "unlockLevel": 1 },
+            { "name": "Fancy Apple", "unlockLevel": 1 }
           ],
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "287-default.png",
@@ -831,12 +831,82 @@
           ],
           "ingredients": [
             { "name": "Soft Potato", "unlockLevel": 1 },
-            { "name": "Bean Sausage", "unlockLevel": 30 },
-            { "name": "Plump Pumpkin", "unlockLevel": 60 }
+            { "name": "Bean Sausage", "unlockLevel": 1 },
+            { "name": "Plump Pumpkin", "unlockLevel": 1 }
           ],
           "mainSkill": "Charge Energy S",
           "detailImage": "974-default.png",
           "shinyImage": "974-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 252,
+      "name": "Treecko",
+      "primaryType": "Grass",
+      "specialty": "Skills",
+      "profileImage": "252.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Treecko",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:15:00",
+            "carryLimit": 8,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 51,
+            "recruitShards": 100
+          },
+          "berries": [
+            { "name": "Durin Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Fancy Egg", "unlockLevel": 1 },
+            { "name": "Rousing Coffee", "unlockLevel": 1 },
+            { "name": "Large Leek", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Energy for Everyone",
+          "detailImage": "252-default.png",
+          "shinyImage": "252-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 627,
+      "name": "Rufflet",
+      "primaryType": "Flying",
+      "specialty": "Skills",
+      "profileImage": "627.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Rufflet",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:03:20",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 109,
+            "recruitShards": 120
+          },
+          "berries": [
+            { "name": "Pamtre Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Bean Sausage", "unlockLevel": 1 },
+            { "name": "Greengrass Corn", "unlockLevel": 1 },
+            { "name": "Rousing Coffee", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Berry Burst",
+          "detailImage": "627-default.png",
+          "shinyImage": "627-default-shiny.png"
         }
       ],
       "subSkills": []

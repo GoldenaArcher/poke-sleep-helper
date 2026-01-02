@@ -32,6 +32,26 @@ const usePokemonBoxStore = create((set, get) => ({
     }));
     return updated;
   },
+  updateBoxIngredients: async (entryId, selections, allowLockedEdit = false) => {
+    const updated = await apiFetch(`/api/pokemon-box/${entryId}/ingredients`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        ingredients: selections,
+        allowLockedEdit
+      })
+    });
+    set((state) => ({
+      boxDetail:
+        state.boxDetail?.entry?.id === entryId
+          ? {
+              ...state.boxDetail,
+              ingredientSelections: updated.ingredientSelections,
+              ingredients: updated.ingredientSelections
+            }
+          : state.boxDetail
+    }));
+    return updated;
+  },
   removeFromBox: async (entryId) => {
     await apiFetch(`/api/pokemon-box/${entryId}`, { method: "DELETE" });
     set((state) => ({

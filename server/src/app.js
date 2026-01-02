@@ -907,8 +907,7 @@ app.get("/api/ingredients/:name/pokemon", async (req, res) => {
               pokemon_species.dex_no,
               pokemon_species.name as species_name,
               pokemon_variants.variant_name,
-              pokemon_variants.image_path as variant_image_path,
-              pokemon_variant_ingredients.unlock_level
+              pokemon_variants.image_path as variant_image_path
        from pokemon_variant_ingredients
        join ingredients on ingredients.id = pokemon_variant_ingredients.ingredient_id
        join pokemon_variants on pokemon_variants.id = pokemon_variant_ingredients.variant_id
@@ -920,6 +919,109 @@ app.get("/api/ingredients/:name/pokemon", async (req, res) => {
     res.json(rows);
   } catch (error) {
     res.status(500).json({ error: "Failed to load ingredient pokemon" });
+  }
+});
+
+app.get("/api/ingredients/:name/box", async (req, res) => {
+  const raw = decodeURIComponent(req.params.name || "");
+  if (!raw) {
+    res.status(400).json({ error: "invalid ingredient" });
+    return;
+  }
+  try {
+    const ingredientId = Number(raw);
+    const ingredientRow = Number.isFinite(ingredientId)
+      ? await dbGet("select id from ingredients where id = ?", [ingredientId])
+      : await dbGet("select id from ingredients where name = ?", [raw]);
+    if (!ingredientRow) {
+      res.json({ groups: [] });
+      return;
+    }
+    const rows = await dbAll(
+      `select pokemon_box.id as box_id,
+              pokemon_box.level,
+              pokemon_box.is_shiny,
+              pokemon_box.variant_id,
+              pokemon_box.species_id,
+              pokemon_species.dex_no,
+              pokemon_species.name as species_name,
+              pokemon_variants.variant_name,
+              pokemon_variants.image_path as variant_image_path,
+              pokemon_variants.shiny_image_path as variant_shiny_image_path,
+              pokemon_box_ingredients.slot_level
+       from pokemon_box
+       join pokemon_box_ingredients
+         on pokemon_box_ingredients.box_id = pokemon_box.id
+       join pokemon_species
+         on pokemon_species.id = pokemon_box.species_id
+       join pokemon_variants
+         on pokemon_variants.id = pokemon_box.variant_id
+       where pokemon_box_ingredients.ingredient_id = ?
+       order by pokemon_species.dex_no, pokemon_variants.variant_name, pokemon_box.id`,
+      [ingredientRow.id]
+    );
+    const groupsMap = new Map();
+    rows.forEach((row) => {
+      const groupKey = row.variant_id
+        ? `variant:${row.variant_id}`
+        : `species:${row.species_id}`;
+      const group =
+        groupsMap.get(groupKey) || {
+          key: groupKey,
+          variantId: row.variant_id,
+          speciesId: row.species_id,
+          dexNo: row.dex_no,
+          speciesName: row.species_name,
+          variantName: row.variant_name,
+          sprite: row.variant_image_path,
+          variantImagePath: row.variant_image_path,
+          variantShinyImagePath: row.variant_shiny_image_path,
+          entryById: new Map(),
+          maxLevel: 0
+        };
+      const entry =
+        group.entryById.get(row.box_id) || {
+          box_id: row.box_id,
+          level: row.level,
+          is_shiny: row.is_shiny,
+          matchedSlots: []
+        };
+      entry.matchedSlots.push(row.slot_level);
+      group.entryById.set(row.box_id, entry);
+      group.maxLevel = Math.max(group.maxLevel, Number(row.level) || 0);
+      groupsMap.set(groupKey, group);
+    });
+    const groups = Array.from(groupsMap.values()).map((group) => {
+      const entries = Array.from(group.entryById.values()).map((entry) => ({
+        ...entry,
+        matchedSlots: Array.from(new Set(entry.matchedSlots)).sort(
+          (a, b) => a - b
+        )
+      }));
+      const matchedSlotsByBoxId = entries.reduce((acc, entry) => {
+        acc[String(entry.box_id)] = entry.matchedSlots;
+        return acc;
+      }, {});
+      return {
+        key: group.key,
+        variantId: group.variantId,
+        speciesId: group.speciesId,
+        dexNo: group.dexNo,
+        speciesName: group.speciesName,
+        variantName: group.variantName,
+        sprite: group.sprite,
+        variantImagePath: group.variantImagePath,
+        variantShinyImagePath: group.variantShinyImagePath,
+        boxIds: entries.map((entry) => entry.box_id),
+        matchedSlotsByBoxId,
+        entries,
+        count: entries.length,
+        maxLevel: group.maxLevel
+      };
+    });
+    res.json({ groups });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load box matches" });
   }
 });
 
@@ -1073,9 +1175,9 @@ app.get("/api/pokedex/:id", async (req, res) => {
     );
     const ingredientRows = await dbAll(
       `select pokemon_variant_ingredients.variant_id,
+              ingredients.id as ingredient_id,
               ingredients.name,
-              ingredients.image_path,
-              pokemon_variant_ingredients.unlock_level
+              ingredients.image_path
        from pokemon_variant_ingredients
        join ingredients on ingredients.id = pokemon_variant_ingredients.ingredient_id`
     );
@@ -1111,7 +1213,11 @@ app.get("/api/pokedex/:id", async (req, res) => {
     const ingredientMap = new Map();
     ingredientRows.forEach((row) => {
       const list = ingredientMap.get(row.variant_id) || [];
-      list.push({ name: row.name, unlockLevel: row.unlock_level });
+      list.push({
+        id: row.ingredient_id,
+        name: row.name,
+        image_path: row.image_path
+      });
       ingredientMap.set(row.variant_id, list);
     });
     const skillMap = new Map();
@@ -1212,7 +1318,8 @@ app.post("/api/pokemon-box", async (req, res) => {
     mainSkillLevel,
     mainSkillValue,
     mainSkillTriggerRate,
-    isShiny
+    isShiny,
+    ingredientSlots
   } =
     req.body || {};
   if (!speciesId || !variantId) {
@@ -1265,12 +1372,63 @@ app.post("/api/pokemon-box", async (req, res) => {
     );
     if (createdEntry) {
       const ingredientSlotLevels = [1, 30, 60];
+      const allowedRows = await dbAll(
+        `select ingredient_id
+         from pokemon_variant_ingredients
+         where variant_id = ?
+         order by ingredient_id`,
+        [variantId]
+      );
+      const allowedIds = allowedRows.map((row) => row.ingredient_id);
+      const allowedSet = new Set(allowedIds);
+      const fallbackIngredientId = allowedIds[0] || null;
+      const defaultIngredientsBySlot = {
+        1: allowedIds[0] || null,
+        30: allowedIds[1] || fallbackIngredientId,
+        60: allowedIds[2] || fallbackIngredientId
+      };
+      const normalizedSlots = Array.isArray(ingredientSlots)
+        ? ingredientSlots
+        : [];
       for (const slotLevel of ingredientSlotLevels) {
-        const ingredientRow = await dbGet(
-          `select ingredient_id from pokemon_variant_ingredients
-           where variant_id = ? and unlock_level = ?`,
-          [variantId, slotLevel]
+        const slotSelection = normalizedSlots.find(
+          (slot) =>
+            Number(slot.slot_level ?? slot.unlockLevel) === slotLevel
         );
+        const ingredientIdRaw =
+          slotSelection?.ingredient_id ?? slotSelection?.ingredientId;
+        const ingredientId =
+          ingredientIdRaw === null ||
+          ingredientIdRaw === undefined ||
+          ingredientIdRaw === ""
+            ? null
+            : Number(ingredientIdRaw);
+        if (
+          ingredientId &&
+          !allowedSet.has(ingredientId)
+        ) {
+          res.status(400).json({
+            error: `Ingredient not allowed for Lv ${slotLevel}`
+          });
+          return;
+        }
+        const resolvedIngredientId =
+          ingredientId ?? defaultIngredientsBySlot[slotLevel] ?? null;
+        const quantityRaw = slotSelection?.quantity;
+        let quantity = Number(quantityRaw);
+        if (!Number.isFinite(quantity)) {
+          quantity = resolvedIngredientId ? 1 : 0;
+        }
+        if (
+          resolvedIngredientId &&
+          (!Number.isInteger(quantity) || quantity < 1)
+        ) {
+          res.status(400).json({
+            error: `Quantity must be a positive integer for Lv ${slotLevel}`
+          });
+          return;
+        }
+        quantity = resolvedIngredientId ? Math.min(Math.floor(quantity), 99) : 0;
         await dbRun(
           `insert or ignore into pokemon_box_ingredients
            (box_id, slot_level, ingredient_id, quantity)
@@ -1278,8 +1436,8 @@ app.post("/api/pokemon-box", async (req, res) => {
           [
             createdEntry.id,
             slotLevel,
-            ingredientRow?.ingredient_id || null,
-            ingredientRow ? 1 : 0
+            resolvedIngredientId,
+            resolvedIngredientId ? quantity || 1 : 0
           ]
         );
       }
@@ -1472,6 +1630,147 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
   }
 });
 
+const buildBoxDetailPayload = async (entryId) => {
+  const entry = await dbGet(
+    `select pokemon_box.id,
+            pokemon_box.species_id,
+            pokemon_box.variant_id,
+            pokemon_box.nature_id,
+            pokemon_box.nickname,
+            pokemon_box.level,
+            pokemon_box.main_skill_level,
+            pokemon_box.main_skill_trigger_rate,
+            pokemon_box.main_skill_value,
+            main_skill_levels.value_min as main_skill_value_default,
+            pokemon_box.is_shiny,
+            pokemon_species.name as species_name,
+            pokemon_species.dex_no as dex_no,
+            pokemon_species.primary_type as primary_type,
+            pokemon_species.secondary_type as secondary_type,
+            pokemon_species.specialty as specialty,
+            primary_types.image_path as primary_type_image,
+            secondary_types.image_path as secondary_type_image,
+            pokemon_variants.variant_name as variant_name,
+            pokemon_variants.image_path as variant_image_path,
+            pokemon_variants.shiny_image_path as variant_shiny_image_path,
+            natures.name as nature_name
+     from pokemon_box
+     join pokemon_species on pokemon_species.id = pokemon_box.species_id
+     left join pokemon_types as primary_types
+       on primary_types.name = pokemon_species.primary_type
+     left join pokemon_types as secondary_types
+       on secondary_types.name = pokemon_species.secondary_type
+     join pokemon_variants on pokemon_variants.id = pokemon_box.variant_id
+     left join pokemon_variant_main_skills as variant_main_skills
+       on variant_main_skills.variant_id = pokemon_box.variant_id
+     left join main_skill_levels
+       on main_skill_levels.skill_id = variant_main_skills.main_skill_id
+      and main_skill_levels.level = pokemon_box.main_skill_level
+     left join natures on natures.id = pokemon_box.nature_id
+     where pokemon_box.id = ?`,
+    [entryId]
+  );
+  if (!entry) {
+    return null;
+  }
+  const ingredientSelections = await dbAll(
+    `select pokemon_box_ingredients.slot_level,
+            pokemon_box_ingredients.quantity,
+            ingredients.id as ingredient_id,
+            ingredients.name,
+            ingredients.image_path
+     from pokemon_box_ingredients
+     left join ingredients on ingredients.id = pokemon_box_ingredients.ingredient_id
+     where pokemon_box_ingredients.box_id = ?
+     order by pokemon_box_ingredients.slot_level`,
+    [entry.id]
+  );
+  const ingredientOptionsRows = await dbAll(
+    `select ingredients.id as ingredient_id,
+            ingredients.name,
+            ingredients.image_path
+     from pokemon_variant_ingredients
+     join ingredients on ingredients.id = pokemon_variant_ingredients.ingredient_id
+     where pokemon_variant_ingredients.variant_id = ?
+     order by ingredients.name`,
+    [entry.variant_id]
+  );
+  const ingredientOptions = ingredientOptionsRows.map((row) => ({
+    id: row.ingredient_id,
+    name: row.name,
+    image_path: row.image_path
+  }));
+  const ingredientOptionsBySlot = {
+    1: ingredientOptions,
+    30: ingredientOptions,
+    60: ingredientOptions
+  };
+  const unlockedSlots = [1, 30, 60].filter(
+    (slot) => entry.level >= slot
+  );
+  const subSkills = await dbAll(
+    `select pokemon_box_sub_skills.slot_level,
+            sub_skills.id as sub_skill_id,
+            sub_skills.name,
+            sub_skills.description,
+            sub_skills.rarity,
+            sub_skills.upgradable_to
+     from pokemon_box_sub_skills
+     left join sub_skills on sub_skills.id = pokemon_box_sub_skills.sub_skill_id
+     where pokemon_box_sub_skills.box_id = ?
+     order by pokemon_box_sub_skills.slot_level`,
+    [entry.id]
+  );
+  const mainSkill = await dbGet(
+    `select main_skills.name,
+            main_skills.notes,
+            main_skills.effect_type,
+            main_skills.target,
+            main_skills.value_unit,
+            main_skills.value_semantics,
+            main_skill_levels.value_min,
+            main_skill_levels.value_max
+     from pokemon_variant_main_skills
+     join main_skills on main_skills.id = pokemon_variant_main_skills.main_skill_id
+     left join main_skill_levels
+       on main_skill_levels.skill_id = main_skills.id
+      and main_skill_levels.level = ?
+     where pokemon_variant_main_skills.variant_id = ?`,
+    [entry.main_skill_level, entry.variant_id]
+  );
+  const subSkillCatalog = await dbAll(
+    "select id, name, description, rarity from sub_skills order by name"
+  );
+  return {
+    entry,
+    ingredients: ingredientSelections,
+    ingredientSelections,
+    ingredientOptionsBySlot,
+    unlockedSlots,
+    subSkills,
+    mainSkill,
+    subSkillCatalog
+  };
+};
+
+app.get("/api/pokebox/:id", async (req, res) => {
+  const entryId = Number(req.params.id);
+  if (!entryId) {
+    res.status(400).json({ error: "invalid id" });
+    return;
+  }
+  try {
+    const payload = await buildBoxDetailPayload(entryId);
+    if (!payload) {
+      res.status(404).json({ error: "not found" });
+      return;
+    }
+    res.json(payload);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load pokemon details" });
+  }
+});
+
 app.get("/api/pokemon-box/:id/details", async (req, res) => {
   const entryId = Number(req.params.id);
   if (!entryId) {
@@ -1479,50 +1778,109 @@ app.get("/api/pokemon-box/:id/details", async (req, res) => {
     return;
   }
   try {
+    const payload = await buildBoxDetailPayload(entryId);
+    if (!payload) {
+      res.status(404).json({ error: "not found" });
+      return;
+    }
+    res.json(payload);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load pokemon details" });
+  }
+});
+
+app.patch("/api/pokemon-box/:id/ingredients", async (req, res) => {
+  const entryId = Number(req.params.id);
+  const { slots, selections, ingredients } = req.body || {};
+  const payload = Array.isArray(slots)
+    ? slots
+    : Array.isArray(selections)
+      ? selections
+      : Array.isArray(ingredients)
+        ? ingredients
+        : null;
+  if (!entryId || !Array.isArray(payload)) {
+    res.status(400).json({ error: "invalid request" });
+    return;
+  }
+  try {
     const entry = await dbGet(
-      `select pokemon_box.id,
-              pokemon_box.species_id,
-              pokemon_box.variant_id,
-              pokemon_box.nature_id,
-              pokemon_box.nickname,
-              pokemon_box.level,
-              pokemon_box.main_skill_level,
-              pokemon_box.main_skill_trigger_rate,
-              pokemon_box.main_skill_value,
-              main_skill_levels.value_min as main_skill_value_default,
-              pokemon_box.is_shiny,
-              pokemon_species.name as species_name,
-              pokemon_species.dex_no as dex_no,
-              pokemon_species.primary_type as primary_type,
-              pokemon_species.secondary_type as secondary_type,
-              pokemon_species.specialty as specialty,
-              primary_types.image_path as primary_type_image,
-              secondary_types.image_path as secondary_type_image,
-              pokemon_variants.variant_name as variant_name,
-              pokemon_variants.image_path as variant_image_path,
-              pokemon_variants.shiny_image_path as variant_shiny_image_path,
-              natures.name as nature_name
-       from pokemon_box
-       join pokemon_species on pokemon_species.id = pokemon_box.species_id
-       left join pokemon_types as primary_types
-         on primary_types.name = pokemon_species.primary_type
-       left join pokemon_types as secondary_types
-         on secondary_types.name = pokemon_species.secondary_type
-       join pokemon_variants on pokemon_variants.id = pokemon_box.variant_id
-       left join pokemon_variant_main_skills as variant_main_skills
-         on variant_main_skills.variant_id = pokemon_box.variant_id
-       left join main_skill_levels
-         on main_skill_levels.skill_id = variant_main_skills.main_skill_id
-        and main_skill_levels.level = pokemon_box.main_skill_level
-       left join natures on natures.id = pokemon_box.nature_id
-       where pokemon_box.id = ?`,
+      "select id, variant_id from pokemon_box where id = ?",
       [entryId]
     );
     if (!entry) {
       res.status(404).json({ error: "not found" });
       return;
     }
-    const ingredients = await dbAll(
+    const allowedRows = await dbAll(
+      `select ingredient_id
+       from pokemon_variant_ingredients
+       where variant_id = ?`,
+      [entry.variant_id]
+    );
+    const allowedSet = new Set(
+      allowedRows.map((row) => Number(row.ingredient_id))
+    );
+    const allowedSlots = new Set(["1", "30", "60"]);
+    for (const selection of payload) {
+      const unlockLevel = String(
+        selection.unlockLevel ?? selection.slot_level ?? ""
+      );
+      if (!allowedSlots.has(unlockLevel)) {
+        res.status(400).json({
+          error: `Invalid unlockLevel ${selection.unlockLevel ?? selection.slot_level}`
+        });
+        return;
+      }
+      const ingredientIdRaw =
+        selection.ingredientId ?? selection.ingredient_id;
+      if (
+        ingredientIdRaw !== null &&
+        ingredientIdRaw !== undefined &&
+        ingredientIdRaw !== "" &&
+        !allowedSet.has(Number(ingredientIdRaw))
+      ) {
+        res.status(400).json({
+          error: `Ingredient not allowed for Lv ${unlockLevel}`
+        });
+        return;
+      }
+    }
+    for (const selection of payload) {
+      const unlockLevel = Number(
+        selection.unlockLevel ?? selection.slot_level
+      );
+      const ingredientIdRaw =
+        selection.ingredientId ?? selection.ingredient_id;
+      const ingredientId =
+        ingredientIdRaw === null ||
+        ingredientIdRaw === undefined ||
+        ingredientIdRaw === ""
+          ? null
+          : Number(ingredientIdRaw);
+      const quantityRaw = selection.quantity;
+      let quantity = Number(quantityRaw);
+      if (!Number.isFinite(quantity)) {
+        quantity = ingredientId ? 1 : 0;
+      }
+      if (ingredientId && (!Number.isInteger(quantity) || quantity < 1)) {
+        res.status(400).json({
+          error: `Quantity must be a positive integer for Lv ${unlockLevel}`
+        });
+        return;
+      }
+      quantity = ingredientId ? Math.min(Math.floor(quantity), 99) : 0;
+      await dbRun(
+        `insert into pokemon_box_ingredients
+         (box_id, slot_level, ingredient_id, quantity)
+         values (?, ?, ?, ?)
+         on conflict(box_id, slot_level) do update set
+           ingredient_id = excluded.ingredient_id,
+           quantity = excluded.quantity`,
+        [entryId, unlockLevel, ingredientId, quantity]
+      );
+    }
+    const ingredientSelections = await dbAll(
       `select pokemon_box_ingredients.slot_level,
               pokemon_box_ingredients.quantity,
               ingredients.id as ingredient_id,
@@ -1532,50 +1890,13 @@ app.get("/api/pokemon-box/:id/details", async (req, res) => {
        left join ingredients on ingredients.id = pokemon_box_ingredients.ingredient_id
        where pokemon_box_ingredients.box_id = ?
        order by pokemon_box_ingredients.slot_level`,
-      [entry.id]
-    );
-    const subSkills = await dbAll(
-      `select pokemon_box_sub_skills.slot_level,
-              sub_skills.id as sub_skill_id,
-              sub_skills.name,
-              sub_skills.description,
-              sub_skills.rarity,
-              sub_skills.upgradable_to
-       from pokemon_box_sub_skills
-       left join sub_skills on sub_skills.id = pokemon_box_sub_skills.sub_skill_id
-       where pokemon_box_sub_skills.box_id = ?
-       order by pokemon_box_sub_skills.slot_level`,
-      [entry.id]
-    );
-    const mainSkill = await dbGet(
-      `select main_skills.name,
-              main_skills.notes,
-              main_skills.effect_type,
-              main_skills.target,
-              main_skills.value_unit,
-              main_skills.value_semantics,
-              main_skill_levels.value_min,
-              main_skill_levels.value_max
-       from pokemon_variant_main_skills
-       join main_skills on main_skills.id = pokemon_variant_main_skills.main_skill_id
-       left join main_skill_levels
-         on main_skill_levels.skill_id = main_skills.id
-        and main_skill_levels.level = ?
-       where pokemon_variant_main_skills.variant_id = ?`,
-      [entry.main_skill_level, entry.variant_id]
-    );
-    const subSkillCatalog = await dbAll(
-      "select id, name, description, rarity from sub_skills order by name"
+      [entryId]
     );
     res.json({
-      entry,
-      ingredients,
-      subSkills,
-      mainSkill,
-      subSkillCatalog
+      ingredientSelections
     });
   } catch (error) {
-    res.status(500).json({ error: "Failed to load pokemon details" });
+    res.status(500).json({ error: "Failed to update ingredients" });
   }
 });
 
@@ -2006,10 +2327,18 @@ app.post("/api/teams/recommendation", async (req, res) => {
 
     const ingredientRows = await dbAll(
       `select pokemon_variant_ingredients.variant_id,
-              ingredients.name,
-              pokemon_variant_ingredients.unlock_level
+              ingredients.name
        from pokemon_variant_ingredients
        join ingredients on ingredients.id = pokemon_variant_ingredients.ingredient_id`
+    );
+    const boxIngredientRows = await dbAll(
+      `select pokemon_box_ingredients.box_id,
+              pokemon_box_ingredients.slot_level,
+              pokemon_box_ingredients.quantity,
+              ingredients.id as ingredient_id,
+              ingredients.name
+       from pokemon_box_ingredients
+       left join ingredients on ingredients.id = pokemon_box_ingredients.ingredient_id`
     );
 
     const mainSkillRows = await dbAll(
@@ -2028,7 +2357,7 @@ app.post("/api/teams/recommendation", async (req, res) => {
         .map((b) => ({ name: b.name, quantity: b.quantity }));
       const ingredients = ingredientRows
         .filter((i) => i.variant_id === variant.variant_id)
-        .map((i) => ({ name: i.name, unlock_level: i.unlock_level }));
+        .map((i) => ({ name: i.name }));
       const mainSkills = mainSkillRows.filter(
         (s) => s.variant_id === variant.variant_id
       );
@@ -2147,12 +2476,27 @@ app.post("/api/teams/recommendation", async (req, res) => {
       );
     }
 
+    const boxIngredientsById = new Map();
+    boxIngredientRows.forEach((row) => {
+      const list = boxIngredientsById.get(row.box_id) || [];
+      if (row.name) {
+        list.push({
+          ingredient_id: row.ingredient_id,
+          name: row.name,
+          slot_level: row.slot_level,
+          unlock_level: row.slot_level,
+          quantity: row.quantity
+        });
+      }
+      boxIngredientsById.set(row.box_id, list);
+    });
+
     const entriesWithTypes = pokemonBox.map((entry) => {
       const species = speciesMap.get(entry.species_id);
       const variantInfo = variantById.get(entry.variant_id);
-      const unlockedIngredients = (variantInfo?.ingredients || []).filter(
+      const unlockedIngredients = (boxIngredientsById.get(entry.id) || []).filter(
         (ingredient) =>
-          (ingredient.unlock_level ?? ingredient.unlockLevel ?? 1) <= entry.level
+          Number(ingredient.slot_level || 0) <= Number(entry.level || 0)
       );
       return {
         ...entry,

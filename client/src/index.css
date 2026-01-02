@@ -549,6 +549,15 @@ button {
   background: #f8fafc;
 }
 
+.ingredient-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.clickable-card {
+  cursor: pointer;
+}
+
 .ingredient-section {
   margin-top: 20px;
 }
@@ -567,6 +576,10 @@ button {
 
 .ingredient-pokemon-card {
   margin-bottom: 8px;
+}
+
+.box-selector {
+  margin-top: 6px;
 }
 
 .dish-preview {
@@ -659,6 +672,46 @@ button {
   gap: 12px;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   align-items: end;
+}
+
+.box-ingredient-slots {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.box-ingredient-slot {
+  display: grid;
+  grid-template-columns: 60px minmax(180px, 1fr) 90px;
+  gap: 10px;
+  align-items: center;
+}
+
+.box-ingredient-slot-header {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.box-ingredient-select,
+.box-ingredient-qty {
+  width: 100%;
+}
+
+.box-ingredient-qty {
+  max-width: 110px;
+}
+
+@media (max-width: 720px) {
+  .box-ingredient-slot {
+    grid-template-columns: 1fr;
+  }
+  .box-ingredient-qty {
+    max-width: 100%;
+  }
 }
 
 .box-table {
@@ -817,6 +870,16 @@ button {
   grid-template-columns: auto 1fr 90px;
   gap: 8px;
   align-items: center;
+}
+
+.slot-row.locked {
+  opacity: 0.6;
+}
+
+.slot-row .lock-note {
+  display: block;
+  font-size: 12px;
+  color: #64748b;
 }
 
 .slot-row.two-col {

@@ -617,10 +617,11 @@ const scorePokemon = (
   berryEV *= berryPenaltyApplied;
   const berryScoreAfterPenalty = berryEV;
 
-  const unlockedIngredients = (variant?.ingredients || []).filter(
-    (ingredient) =>
-      (ingredient.unlock_level ?? ingredient.unlockLevel ?? 1) <= entry.level
-  );
+  const unlockedIngredients =
+    Array.isArray(entry?.unlocked_ingredients) &&
+    entry.unlocked_ingredients.length
+      ? entry.unlocked_ingredients
+      : variant?.ingredients || [];
   
   let ingredientEV = 0;
   let coverageBonus = 0;

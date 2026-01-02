@@ -1,7 +1,9 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
+import PokemonDetailsModal from "../components/PokemonDetailsModal.jsx";
 import useBagStore from "../stores/useBagStore.js";
 import useDishesStore from "../stores/useDishesStore.js";
+import usePokemonBoxStore from "../stores/usePokemonBoxStore.js";
 import { apiFetch } from "../utils/api.js";
 
 const useIngredientIndex = ({ ingredientCatalog, ingredients, dishes }) => {
@@ -107,9 +109,13 @@ const IngredientDetailView = () => {
   const ingredients = useBagStore((state) => state.ingredients);
   const ingredientDetails = useBagStore((state) => state.ingredientDetails);
   const dishes = useDishesStore((state) => state.dishes);
+  const { openBoxDetail, boxDetail } = usePokemonBoxStore();
   const [pokemonSources, setPokemonSources] = useState([]);
+  const [boxMatches, setBoxMatches] = useState([]);
+  const [boxSelectionMap, setBoxSelectionMap] = useState({});
   const [dishesOpen, setDishesOpen] = useState(true);
   const [pokemonOpen, setPokemonOpen] = useState(true);
+  const [boxOpen, setBoxOpen] = useState(true);
   const { ingredientUsage, bagIngredientMap } = useIngredientIndex({
     ingredientCatalog,
     ingredients,
@@ -129,6 +135,7 @@ const IngredientDetailView = () => {
   const bagItem = bagIngredientMap.get(key);
   const usage = ingredientUsage.get(key);
   const relatedDishes = usage ? usage.dishes : [];
+  const boxGroups = useMemo(() => boxMatches, [boxMatches]);
   useEffect(() => {
     let active = true;
     if (!decodedName) {
@@ -148,10 +155,27 @@ const IngredientDetailView = () => {
           setPokemonSources([]);
         }
       });
+    const ingredientRecord = ingredientImageMap.get(key);
+    const ingredientId = ingredientRecord?.id;
+    const ingredientParam =
+      Number.isFinite(Number(ingredientId)) && Number(ingredientId) > 0
+        ? String(ingredientId)
+        : encodeURIComponent(decodedName);
+    apiFetch(`/api/ingredients/${ingredientParam}/box`)
+      .then((data) => {
+        if (active) {
+          setBoxMatches(data?.groups || []);
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setBoxMatches([]);
+        }
+      });
     return () => {
       active = false;
     };
-  }, [decodedName]);
+  }, [decodedName, ingredientImageMap, key]);
 
   return (
     <>
@@ -195,18 +219,135 @@ const IngredientDetailView = () => {
               <p className="empty">No dishes found.</p>
             )}
             {relatedDishes.map((dish) => (
-              <div key={dish.id} className="ingredient-dish-card">
-                <div className="preview-row">
-                  {dish.image_path ? (
-                    <img src={dish.image_path} alt={dish.name} />
-                  ) : null}
-                  <div>
-                    <h4>{dish.name}</h4>
-                    <p className="meta">Type: {dish.type}</p>
+              <Link
+                key={dish.id}
+                to={`/dishes/${dish.id}`}
+                className="ingredient-card-link"
+              >
+                <div className="ingredient-dish-card clickable-card">
+                  <div className="preview-row">
+                    {dish.image_path ? (
+                      <img src={dish.image_path} alt={dish.name} />
+                    ) : null}
+                    <div>
+                      <h4>{dish.name}</h4>
+                      <p className="meta">Type: {dish.type}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
+          </div>
+        )}
+      </section>
+
+      <section className="card ingredient-section">
+        <div className="section-header">
+          <h3>In your box</h3>
+          <button
+            className="button ghost"
+            onClick={() => setBoxOpen((prev) => !prev)}
+          >
+            {boxOpen ? "Collapse" : "Expand"}
+          </button>
+        </div>
+        {boxOpen && (
+          <div className="ingredient-pokemon grid-cards">
+            {boxGroups.length === 0 && (
+              <p className="empty">No matching Pokémon in your box.</p>
+            )}
+            {boxGroups.map((group) => {
+              const selectedId =
+                boxSelectionMap[group.key] || group.entries[0]?.box_id;
+              const selectedEntry =
+                group.entries.find((entry) => entry.box_id === selectedId) ||
+                group.entries[0];
+              const matchedSlots =
+                selectedEntry?.matchedSlots ||
+                group.matchedSlotsByBoxId?.[String(selectedEntry?.box_id)] ||
+                [];
+              const handleOpen = () => {
+                if (!selectedEntry?.box_id) {
+                  return;
+                }
+                openBoxDetail(selectedEntry.box_id);
+                // Keep the user on the ingredient route while opening the modal.
+              };
+              return (
+                <div
+                  key={`box-${group.key}`}
+                  className="ingredient-pokemon-card clickable-card"
+                  role="button"
+                  tabIndex={0}
+                  onClick={handleOpen}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      handleOpen();
+                    }
+                  }}
+                >
+                  <div className="preview-row">
+                    {group.variantImagePath ? (
+                      <img
+                        src={
+                          selectedEntry?.is_shiny
+                            ? group.variantShinyImagePath ||
+                              group.variantImagePath
+                            : group.variantImagePath
+                        }
+                        alt={group.variantName}
+                      />
+                    ) : null}
+                    <div>
+                      <h4>{group.variantName}</h4>
+                      <p className="meta">
+                        #{String(group.dexNo).padStart(3, "0")}{" "}
+                        {group.speciesName}
+                      </p>
+                      {group.count > 1 ? (
+                        <p className="meta">
+                          {group.count} in box • Max Lv {group.maxLevel}
+                        </p>
+                      ) : null}
+                      {matchedSlots.length ? (
+                        <p className="meta">
+                          Matched slots: Lv {matchedSlots.join(", ")}
+                        </p>
+                      ) : null}
+                      {group.count > 1 ? (
+                        <select
+                          className="box-selector"
+                          value={selectedId}
+                          onClick={(event) => event.stopPropagation()}
+                          onChange={(event) => {
+                            const nextId = Number(event.target.value);
+                            setBoxSelectionMap((prev) => ({
+                              ...prev,
+                              [group.key]: nextId
+                            }));
+                            if (
+                              boxDetail?.entry?.id &&
+                              Number.isFinite(nextId) &&
+                              nextId !== selectedEntry?.box_id
+                            ) {
+                              openBoxDetail(nextId);
+                            }
+                          }}
+                        >
+                          {group.entries.map((entry) => (
+                            <option key={entry.box_id} value={entry.box_id}>
+                              Lv {entry.level} • #{String(group.dexNo).padStart(3, "0")}{" "}
+                              {group.speciesName}
+                            </option>
+                          ))}
+                        </select>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </section>
@@ -227,30 +368,34 @@ const IngredientDetailView = () => {
               <p className="empty">No Pokémon found.</p>
             )}
             {pokemonSources.map((entry) => (
-              <div
+              <Link
                 key={`${entry.species_id}-${entry.variant_name}`}
-                className="ingredient-pokemon-card"
+                to={`/pokedex/${entry.species_id}`}
+                className="ingredient-card-link"
               >
-                <div className="preview-row">
-                  {entry.variant_image_path ? (
-                    <img
-                      src={entry.variant_image_path}
-                      alt={entry.variant_name}
-                    />
-                  ) : null}
-                  <div>
-                    <h4>{entry.variant_name}</h4>
-                    <p className="meta">
-                      #{String(entry.dex_no).padStart(3, "0")}{" "}
-                      {entry.species_name}
-                    </p>
+                <div className="ingredient-pokemon-card clickable-card">
+                  <div className="preview-row">
+                    {entry.variant_image_path ? (
+                      <img
+                        src={entry.variant_image_path}
+                        alt={entry.variant_name}
+                      />
+                    ) : null}
+                    <div>
+                      <h4>{entry.variant_name}</h4>
+                      <p className="meta">
+                        #{String(entry.dex_no).padStart(3, "0")}{" "}
+                        {entry.species_name}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}
       </section>
+      <PokemonDetailsModal />
     </>
   );
 };

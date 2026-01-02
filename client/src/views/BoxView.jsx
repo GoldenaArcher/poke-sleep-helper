@@ -7,25 +7,13 @@ import {
   IoTrashOutline
 } from "react-icons/io5";
 import SearchSelect from "../components/SearchSelect.jsx";
+import PokemonDetailsModal from "../components/PokemonDetailsModal.jsx";
 import useBagStore from "../stores/useBagStore.js";
 import useNaturesStore from "../stores/useNaturesStore.js";
 import usePokedexStore from "../stores/usePokedexStore.js";
 import usePokemonBoxStore from "../stores/usePokemonBoxStore.js";
 import useSettingsStore from "../stores/useSettingsStore.js";
-
-const formatMainSkillNotes = (mainSkill) => {
-  if (!mainSkill?.notes) {
-    return "";
-  }
-  if (typeof mainSkill.value_min !== "number") {
-    return mainSkill.notes;
-  }
-  const valueText =
-    mainSkill.value_unit === "percent"
-      ? `${mainSkill.value_min}%`
-      : `${mainSkill.value_min}`;
-  return mainSkill.notes.replace(/\?\?%|\?\?/g, valueText);
-};
+import { apiFetch } from "../utils/api.js";
 
 const BoxView = () => {
   const ingredientCatalog = useBagStore((state) => state.ingredientDetails);
@@ -36,10 +24,7 @@ const BoxView = () => {
     pokemonBox,
     addToBox,
     openBoxDetail,
-    removeFromBox,
-    updateBoxEntry,
-    boxDetail,
-    closeBoxDetail
+    removeFromBox
   } = usePokemonBoxStore();
   const [newBoxEntry, setNewBoxEntry] = useState({
     speciesId: "",
@@ -54,61 +39,17 @@ const BoxView = () => {
   const [sortMode, setSortMode] = useState("dex");
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
+  const [speciesDetail, setSpeciesDetail] = useState(null);
+  const [variantIngredientOptions, setVariantIngredientOptions] = useState({});
+  const emptyIngredientSlots = [
+    { slot_level: 1, ingredient_id: "", quantity: "1" },
+    { slot_level: 30, ingredient_id: "", quantity: "1" },
+    { slot_level: 60, ingredient_id: "", quantity: "1" }
+  ];
+  const [ingredientSlots, setIngredientSlots] = useState(
+    emptyIngredientSlots
+  );
   const sortMenuRef = useRef(null);
-  const [boxDetailDraft, setBoxDetailDraft] = useState(null);
-  const ingredientSlotLevels = [1, 30, 60];
-  const subSkillSlotLevels = [10, 25, 50, 75, 100];
-  const detailLevel = Number(boxDetailDraft?.level || 1);
-
-  useEffect(() => {
-    if (!boxDetail) {
-      setBoxDetailDraft(null);
-      return;
-    }
-    const ingredientSlotMap = new Map(
-      (boxDetail.ingredients || []).map((slot) => [
-        slot.slot_level,
-        slot
-      ])
-    );
-    const subSkillSlotMap = new Map(
-      (boxDetail.subSkills || []).map((slot) => [slot.slot_level, slot])
-    );
-    setBoxDetailDraft({
-      id: boxDetail.entry.id,
-      natureId: boxDetail.entry.nature_id || "",
-      nickname: boxDetail.entry.nickname || "",
-      level: boxDetail.entry.level,
-      mainSkillLevel: boxDetail.entry.main_skill_level,
-      mainSkillTriggerRate:
-        typeof boxDetail.entry.main_skill_trigger_rate === "number"
-          ? boxDetail.entry.main_skill_trigger_rate
-          : 0.1,
-      mainSkillValue:
-        typeof boxDetail.entry.main_skill_value === "number"
-          ? boxDetail.entry.main_skill_value
-          : "",
-      mainSkillOverride:
-        typeof boxDetail.entry.main_skill_value === "number",
-      isShiny: Boolean(boxDetail.entry.is_shiny),
-      ingredientSlots: ingredientSlotLevels.map((slotLevel, i) => {
-        const slot = ingredientSlotMap.get(slotLevel);
-        return {
-          slotLevel,
-          ingredientId: slot?.ingredient_id || i,
-          quantity:
-            typeof slot?.quantity === "number" ? slot.quantity : 0
-        };
-      }),
-      subSkillSlots: subSkillSlotLevels.map((slotLevel) => {
-        const slot = subSkillSlotMap.get(slotLevel);
-        return {
-          slotLevel,
-          subSkillId: slot?.sub_skill_id || ""
-        };
-      })
-    });
-  }, [boxDetail]);
 
   const selectedSpecies = pokedex.find(
     (species) => String(species.id) === String(newBoxEntry.speciesId)
@@ -119,6 +60,15 @@ const BoxView = () => {
     label: `#${String(species.dex_no).padStart(3, "0")} ${species.name}`,
     variants: species.variants || []
   }));
+  const ingredientDetailByName = useMemo(() => {
+    return new Map(
+      ingredientCatalog.map((ingredient) => [
+        ingredient.name.toLowerCase(),
+        ingredient
+      ])
+    );
+  }, [ingredientCatalog]);
+  const slotLevels = [1, 30, 60];
   const sortedPokemonBox = useMemo(() => {
     const entries = [...pokemonBox];
     const getDisplayName = (entry) =>
@@ -178,6 +128,80 @@ const BoxView = () => {
       variantId: defaultVariant?.id || ""
     }));
   };
+  useEffect(() => {
+    let ignore = false;
+    const loadSpeciesDetail = async () => {
+      if (!newBoxEntry.speciesId) {
+        setSpeciesDetail(null);
+        setVariantIngredientOptions({});
+        setIngredientSlots(emptyIngredientSlots);
+        return;
+      }
+      const detail = await apiFetch(`/api/pokedex/${newBoxEntry.speciesId}`);
+      if (!ignore) {
+        setSpeciesDetail(detail);
+      }
+    };
+    loadSpeciesDetail();
+    return () => {
+      ignore = true;
+    };
+  }, [newBoxEntry.speciesId]);
+
+  useEffect(() => {
+    if (!speciesDetail || !newBoxEntry.variantId) {
+      setVariantIngredientOptions({});
+      return;
+    }
+    const variant = speciesDetail.variants?.find(
+      (item) => String(item.id) === String(newBoxEntry.variantId)
+    );
+    if (!variant) {
+      setVariantIngredientOptions({});
+      return;
+    }
+    const optionMap = new Map();
+    (variant.ingredients || []).forEach((ingredient) => {
+      const detail = ingredientDetailByName.get(
+        String(ingredient.name || "").toLowerCase()
+      );
+      const ingredientId =
+        ingredient.id || ingredient.ingredient_id || detail?.id || "";
+      if (!ingredientId || optionMap.has(String(ingredientId))) {
+        return;
+      }
+      optionMap.set(String(ingredientId), {
+        id: ingredientId,
+        name: ingredient.name,
+        image_path: detail?.image_path
+      });
+    });
+    const optionsList = Array.from(optionMap.values());
+    const optionsBySlot = {};
+    slotLevels.forEach((level) => {
+      optionsBySlot[level] = optionsList;
+    });
+    setVariantIngredientOptions(optionsBySlot);
+    setIngredientSlots((prev) =>
+      slotLevels.map((level) => {
+        const options = optionsBySlot[level] || [];
+        const existing = prev.find((slot) => slot.slot_level === level);
+        const existingId = existing?.ingredient_id || "";
+        const isValid = options.some(
+          (option) => String(option.id) === String(existingId)
+        );
+        const slotIndex = slotLevels.indexOf(level);
+        const fallbackId =
+          options[slotIndex]?.id || options[0]?.id || "";
+        const nextId = isValid ? existingId : fallbackId;
+        return {
+          slot_level: level,
+          ingredient_id: nextId,
+          quantity: existing?.quantity || "1"
+        };
+      })
+    );
+  }, [speciesDetail, newBoxEntry.variantId, ingredientDetailByName]);
 
   const sortLabels = {
     dex: "Dex no",
@@ -222,7 +246,14 @@ const BoxView = () => {
       nickname: newBoxEntry.nickname || null,
       level: Number(newBoxEntry.level) || 1,
       mainSkillLevel: Number(newBoxEntry.mainSkillLevel) || 1,
-      isShiny: newBoxEntry.isShiny
+      isShiny: newBoxEntry.isShiny,
+      ingredientSlots: ingredientSlots
+        .filter((slot) => slot.ingredient_id)
+        .map((slot) => ({
+          slot_level: slot.slot_level,
+          ingredient_id: Number(slot.ingredient_id),
+          quantity: Math.max(1, Number(slot.quantity) || 1)
+        }))
     });
     setNewBoxEntry({
       speciesId: "",
@@ -234,41 +265,8 @@ const BoxView = () => {
       isShiny: false
     });
     setSpeciesSearch("");
+    setIngredientSlots(emptyIngredientSlots);
     setIsAddOpen(false);
-  };
-
-  const saveBoxDetail = async () => {
-    if (!boxDetail || !boxDetailDraft) {
-      return;
-    }
-    await updateBoxEntry(boxDetail.entry.id, {
-      natureId: boxDetailDraft.natureId
-        ? Number(boxDetailDraft.natureId)
-        : null,
-      nickname: boxDetailDraft.nickname || null,
-      level: Number(boxDetailDraft.level) || 1,
-      mainSkillLevel: Number(boxDetailDraft.mainSkillLevel) || 1,
-      mainSkillTriggerRate:
-        boxDetailDraft.mainSkillTriggerRate === ""
-          ? null
-          : Number(boxDetailDraft.mainSkillTriggerRate),
-      mainSkillValue:
-        boxDetailDraft.mainSkillOverride &&
-        boxDetailDraft.mainSkillValue !== ""
-          ? Number(boxDetailDraft.mainSkillValue)
-          : null,
-      isShiny: boxDetailDraft.isShiny,
-      ingredients: boxDetailDraft.ingredientSlots.map((slot) => ({
-        slotLevel: slot.slotLevel,
-        ingredientId: slot.ingredientId ? Number(slot.ingredientId) : null,
-        quantity: Number(slot.quantity) || 0
-      })),
-      subSkills: boxDetailDraft.subSkillSlots.map((slot) => ({
-        slotLevel: slot.slotLevel,
-        subSkillId: slot.subSkillId ? Number(slot.subSkillId) : null
-      }))
-    });
-    await openBoxDetail(boxDetail.entry.id);
   };
 
   return (
@@ -527,6 +525,64 @@ const BoxView = () => {
                   }
                 />
               </label>
+              <div className="box-ingredient-slots">
+                <p className="meta">Ingredient slots</p>
+                <div className="box-ingredient-slot box-ingredient-slot-header">
+                  <span className="meta">Level</span>
+                  <span className="meta">Ingredient</span>
+                  <span className="meta">Qty</span>
+                </div>
+                {slotLevels.map((level) => {
+                  const slot = ingredientSlots.find(
+                    (entry) => entry.slot_level === level
+                  );
+                  const options = variantIngredientOptions[level] || [];
+                  return (
+                    <div key={level} className="box-ingredient-slot">
+                      <span className="meta">Lv {level}</span>
+                      <select
+                        className="box-ingredient-select"
+                        value={slot?.ingredient_id || ""}
+                        onChange={(event) =>
+                          setIngredientSlots((prev) =>
+                            prev.map((entry) =>
+                              entry.slot_level === level
+                                ? {
+                                    ...entry,
+                                    ingredient_id: event.target.value
+                                  }
+                                : entry
+                            )
+                          )
+                        }
+                        disabled={!newBoxEntry.variantId}
+                      >
+                        <option value="">Select ingredient</option>
+                        {options.map((option) => (
+                          <option key={option.id} value={option.id}>
+                            {option.name}
+                          </option>
+                        ))}
+                      </select>
+                      <input
+                        className="box-ingredient-qty"
+                        type="number"
+                        min="1"
+                        value={slot?.quantity || "1"}
+                        onChange={(event) =>
+                          setIngredientSlots((prev) =>
+                            prev.map((entry) =>
+                              entry.slot_level === level
+                                ? { ...entry, quantity: event.target.value }
+                                : entry
+                            )
+                          )
+                        }
+                      />
+                    </div>
+                  );
+                })}
+              </div>
               <button className="button" onClick={handleAddToBox}>
                 Add to box
               </button>
@@ -534,383 +590,7 @@ const BoxView = () => {
           </section>
         </div>
       )}
-      {boxDetail && (
-        <div className="bag-modal">
-          <section className="card">
-            <header className="section-header bag-header">
-              <div>
-                <h2>
-                  {boxDetail.entry.nickname || boxDetail.entry.species_name}
-                </h2>
-                <p className="meta">
-                  {boxDetail.entry.species_name} •{" "}
-                  {boxDetail.entry.variant_name} • Level{" "}
-                  {boxDetail.entry.level}
-                </p>
-                <div className="type-row">
-                  {boxDetail.entry.primary_type ? (
-                    <span className="type-chip">
-                      {boxDetail.entry.primary_type_image ? (
-                        <img
-                          src={boxDetail.entry.primary_type_image}
-                          alt={boxDetail.entry.primary_type}
-                        />
-                      ) : null}
-                      <span>{boxDetail.entry.primary_type}</span>
-                    </span>
-                  ) : null}
-                  {boxDetail.entry.secondary_type ? (
-                    <span className="type-chip">
-                      {boxDetail.entry.secondary_type_image ? (
-                        <img
-                          src={boxDetail.entry.secondary_type_image}
-                          alt={boxDetail.entry.secondary_type}
-                        />
-                      ) : null}
-                      <span>{boxDetail.entry.secondary_type}</span>
-                    </span>
-                  ) : null}
-                  <span className="type-specialty">
-                    {boxDetail.entry.specialty || "—"}
-                  </span>
-                </div>
-              </div>
-              <button
-                className="icon-button"
-                onClick={closeBoxDetail}
-                aria-label="Close details"
-              >
-                <IoCloseOutline size={20} />
-              </button>
-            </header>
-            {boxDetailDraft && (
-              <div className="box-detail-form">
-                <label>
-                  Nickname
-                  <input
-                    type="text"
-                    value={boxDetailDraft.nickname}
-                    onChange={(event) =>
-                      setBoxDetailDraft((prev) => ({
-                        ...prev,
-                        nickname: event.target.value
-                      }))
-                    }
-                    placeholder="Optional"
-                  />
-                </label>
-                <label>
-                  Nature
-                  <select
-                    value={boxDetailDraft.natureId}
-                    onChange={(event) =>
-                      setBoxDetailDraft((prev) => ({
-                        ...prev,
-                        natureId: event.target.value
-                      }))
-                    }
-                  >
-                    <option value="">None</option>
-                    {natures.map((nature) => (
-                      <option key={nature.id} value={nature.id}>
-                        {nature.name}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <label>
-                  Level
-                  <input
-                    type="number"
-                    min="1"
-                    value={boxDetailDraft.level}
-                    onChange={(event) =>
-                      setBoxDetailDraft((prev) => ({
-                        ...prev,
-                        level: event.target.value
-                      }))
-                    }
-                  />
-                </label>
-                <label>
-                  Main Skill Level
-                  <input
-                    type="number"
-                    min="1"
-                    value={boxDetailDraft.mainSkillLevel}
-                    onChange={(event) =>
-                      setBoxDetailDraft((prev) => ({
-                        ...prev,
-                        mainSkillLevel: event.target.value
-                      }))
-                    }
-                  />
-                </label>
-                <label className="checkbox-field">
-                  Shiny
-                  <input
-                    type="checkbox"
-                    checked={boxDetailDraft.isShiny}
-                    onChange={(event) =>
-                      setBoxDetailDraft((prev) => ({
-                        ...prev,
-                        isShiny: event.target.checked
-                      }))
-                    }
-                  />
-                </label>
-                <div className="box-detail-grid">
-                  <div>
-                    <h4>Ingredient Unlocks</h4>
-                    <div className="slot-list">
-                      {boxDetailDraft.ingredientSlots.map((slot) => (
-                        <div key={slot.slotLevel} className="slot-row">
-                          <span className="meta">
-                            Lv {slot.slotLevel}
-                          </span>
-                          <select
-                            value={slot.ingredientId}
-                            disabled={slot.slotLevel > detailLevel}
-                            onChange={(event) =>
-                              setBoxDetailDraft((prev) => ({
-                                ...prev,
-                                ingredientSlots: prev.ingredientSlots.map(
-                                  (entry) =>
-                                    entry.slotLevel === slot.slotLevel
-                                      ? {
-                                          ...entry,
-                                          ingredientId: event.target.value
-                                        }
-                                      : entry
-                                )
-                              }))
-                            }
-                          >
-                            <option value="">Select ingredient</option>
-                            {ingredientCatalog.map((ingredient) => (
-                              <option
-                                key={ingredient.id}
-                                value={ingredient.id}
-                              >
-                                {ingredient.name}
-                              </option>
-                            ))}
-                          </select>
-                          <input
-                            type="number"
-                            min="0"
-                            value={slot.quantity}
-                            disabled={slot.slotLevel > detailLevel}
-                            onChange={(event) =>
-                              setBoxDetailDraft((prev) => ({
-                                ...prev,
-                                ingredientSlots: prev.ingredientSlots.map(
-                                  (entry) =>
-                                    entry.slotLevel === slot.slotLevel
-                                      ? {
-                                          ...entry,
-                                          quantity: event.target.value
-                                        }
-                                      : entry
-                                )
-                              }))
-                            }
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <h4>Sub Skills</h4>
-                    <div className="slot-list">
-                      {boxDetailDraft.subSkillSlots.map((slot) => (
-                        <div
-                          key={slot.slotLevel}
-                          className="slot-row two-col"
-                        >
-                          <span className="meta">
-                            Lv {slot.slotLevel}
-                          </span>
-                          <select
-                            value={slot.subSkillId}
-                            disabled={slot.slotLevel > detailLevel}
-                            onChange={(event) =>
-                              setBoxDetailDraft((prev) => ({
-                                ...prev,
-                                subSkillSlots: prev.subSkillSlots.map(
-                                  (entry) =>
-                                    entry.slotLevel === slot.slotLevel
-                                      ? {
-                                          ...entry,
-                                          subSkillId: event.target.value
-                                        }
-                                      : entry
-                                )
-                              }))
-                            }
-                          >
-                            <option value="">Select sub skill</option>
-                            {boxDetail.subSkillCatalog?.map((skill) => (
-                              <option key={skill.id} value={skill.id}>
-                                {skill.name}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <div className="box-detail-actions">
-                  <button className="button" onClick={saveBoxDetail}>
-                    Save changes
-                  </button>
-                </div>
-              </div>
-            )}
-            <div className="detail-grid">
-              <div>
-                <h4>Main Skill</h4>
-                {boxDetail.mainSkill ? (
-                  <div>
-                    <strong>{boxDetail.mainSkill.name}</strong>
-                    <p className="meta">
-                      {formatMainSkillNotes(boxDetail.mainSkill)}
-                    </p>
-                    <p className="meta">
-                      Skill Lv {boxDetail.entry.main_skill_level}
-                    </p>
-                    <label className="inline-field">
-                      <span className="meta">Trigger rate</span>
-                      <input
-                        type="number"
-                        min="0"
-                        step="0.01"
-                        value={boxDetailDraft?.mainSkillTriggerRate ?? ""}
-                        onChange={(event) =>
-                          setBoxDetailDraft((prev) => ({
-                            ...prev,
-                            mainSkillTriggerRate: event.target.value
-                          }))
-                        }
-                        placeholder="0.1"
-                      />
-                    </label>
-                    <label className="checkbox-field">
-                      Override skill value
-                      <input
-                        type="checkbox"
-                        checked={Boolean(boxDetailDraft?.mainSkillOverride)}
-                        onChange={(event) =>
-                          setBoxDetailDraft((prev) => ({
-                            ...prev,
-                            mainSkillOverride: event.target.checked,
-                            mainSkillValue: event.target.checked
-                              ? prev.mainSkillValue
-                              : ""
-                          }))
-                        }
-                      />
-                    </label>
-                    {boxDetailDraft?.mainSkillOverride ? (
-                      <label className="inline-field">
-                        <span className="meta">Override value</span>
-                        <input
-                          type="number"
-                          min="0"
-                          value={boxDetailDraft?.mainSkillValue ?? ""}
-                          onChange={(event) =>
-                            setBoxDetailDraft((prev) => ({
-                              ...prev,
-                              mainSkillValue: event.target.value
-                            }))
-                          }
-                          placeholder="Optional"
-                        />
-                      </label>
-                    ) : null}
-                    {typeof boxDetail.mainSkill.value_min === "number" ? (
-                      <p className="meta">
-                        Base value:{" "}
-                        {boxDetail.mainSkill.value_min}
-                        {typeof boxDetail.mainSkill.value_max === "number" &&
-                        boxDetail.mainSkill.value_max !==
-                          boxDetail.mainSkill.value_min
-                          ? `–${boxDetail.mainSkill.value_max}`
-                          : ""}
-                        {boxDetail.mainSkill.value_unit === "percent"
-                          ? "%"
-                          : ""}
-                      </p>
-                    ) : null}
-                    {typeof boxDetailDraft?.mainSkillValue !== "undefined" &&
-                      boxDetailDraft.mainSkillValue !== "" && (
-                        <p className="meta">
-                          Override value: {boxDetailDraft.mainSkillValue}
-                        </p>
-                      )}
-                    {typeof boxDetailDraft?.mainSkillValue === "undefined" &&
-                      typeof boxDetail.entry.main_skill_value ===
-                        "number" && (
-                        <p className="meta">
-                          Value: {boxDetail.entry.main_skill_value}
-                        </p>
-                      )}
-                  </div>
-                ) : (
-                  <p className="meta">No main skill set.</p>
-                )}
-              </div>
-              <div>
-                <h4>Unlocked Ingredients</h4>
-                {boxDetail.ingredients.length ? (
-                  boxDetail.ingredients
-                    .filter(
-                      (ingredient) =>
-                        ingredient.name &&
-                        ingredient.slot_level <= boxDetail.entry.level
-                    )
-                    .map((ingredient) => (
-                      <div
-                        key={`${ingredient.name}-${ingredient.slot_level}`}
-                        className="ingredient-preview-row"
-                      >
-                        {ingredient.image_path ? (
-                          <img
-                            src={ingredient.image_path}
-                            alt={ingredient.name}
-                          />
-                        ) : null}
-                        <span>{ingredient.name}</span>
-                      </div>
-                    ))
-                ) : (
-                  <p className="meta">No ingredients set.</p>
-                )}
-              </div>
-              <div>
-                <h4>Sub Skills</h4>
-                {boxDetail.subSkills.length ? (
-                  boxDetail.subSkills
-                    .filter(
-                      (skill) =>
-                        skill.name &&
-                        skill.slot_level <= boxDetail.entry.level
-                    )
-                    .map((skill) => (
-                      <div key={`${skill.name}-${skill.slot_level}`}>
-                        <strong>{skill.name}</strong>
-                        <p className="meta">{skill.rarity || "—"}</p>
-                      </div>
-                    ))
-                ) : (
-                  <p className="meta">No sub skills set.</p>
-                )}
-              </div>
-            </div>
-          </section>
-        </div>
-      )}
+      <PokemonDetailsModal />
     </>
   );
 };
