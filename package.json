@@ -12,6 +12,8 @@
     "seed:pokemon": "node server/scripts/seed_pokemon.js",
     "seed:main-skills": "node server/scripts/seed_main_skills.js",
     "seed:dishes": "node server/scripts/seed_dishes.js",
+    "backup": "node server/scripts/create_backup.js",
+    "restore": "node server/scripts/restore_backup.js",
     "build:client": "npm run build --workspace client",
     "start:server": "npm run start --workspace server"
   },

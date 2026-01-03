@@ -52,11 +52,11 @@ const BoxView = () => {
   const sortMenuRef = useRef(null);
 
   const selectedSpecies = pokedex.find(
-    (species) => String(species.id) === String(newBoxEntry.speciesId)
+    (species) => String(species.dex_no) === String(newBoxEntry.speciesId)
   );
   const availableVariants = selectedSpecies?.variants || [];
   const speciesOptions = pokedex.map((species) => ({
-    id: species.id,
+    id: species.dex_no,
     label: `#${String(species.dex_no).padStart(3, "0")} ${species.name}`,
     variants: species.variants || []
   }));
@@ -93,6 +93,19 @@ const BoxView = () => {
           return (b.level || 0) - (a.level || 0);
         }
         return (a.dex_no || 0) - (b.dex_no || 0);
+      });
+      return entries;
+    }
+    if (sortMode === "created") {
+      // Sort by created_at descending (newest first)
+      // API already returns in this order, but sort here for consistency
+      entries.sort((a, b) => {
+        const timeA = a.created_at || "";
+        const timeB = b.created_at || "";
+        if (timeA !== timeB) {
+          return timeB.localeCompare(timeA); // descending
+        }
+        return b.id - a.id; // fallback to id descending
       });
       return entries;
     }
@@ -206,9 +219,10 @@ const BoxView = () => {
   const sortLabels = {
     dex: "Dex no",
     name: "Name",
-    level: "Level"
+    level: "Level",
+    created: "Created time"
   };
-  const sortOrder = ["dex", "name", "level"];
+  const sortOrder = ["dex", "name", "level", "created"];
   useEffect(() => {
     if (!isSortOpen) {
       return;
@@ -239,9 +253,11 @@ const BoxView = () => {
     if (!newBoxEntry.speciesId || !newBoxEntry.variantId) {
       return;
     }
+    // Parse composite variantId (format: "dexNo-variantKey")
+    const [dexNo, variantKey] = newBoxEntry.variantId.split('-');
     await addToBox({
-      speciesId: Number(newBoxEntry.speciesId),
-      variantId: Number(newBoxEntry.variantId),
+      speciesId: Number(dexNo),
+      variantKey: variantKey,
       natureId: newBoxEntry.natureId ? Number(newBoxEntry.natureId) : null,
       nickname: newBoxEntry.nickname || null,
       level: Number(newBoxEntry.level) || 1,

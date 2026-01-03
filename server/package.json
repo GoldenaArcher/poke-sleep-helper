@@ -4,7 +4,20 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "seed": "node src/seed.js all",
+    "seed:all": "node src/seed.js all",
+    "seed:berries": "node src/seed.js berries",
+    "seed:dishes": "node src/seed.js dishes",
+    "seed:ingredients": "node src/seed.js ingredients",
+    "seed:pokemon": "node src/seed.js pokemon",
+    "seed:main-skills": "node src/seed.js main-skills",
+    "seed:sub-skills": "node src/seed.js sub-skills",
+    "seed:natures": "node src/seed.js natures",
+    "seed:research-areas": "node src/seed.js research-areas",
+    "seed:pokemon-types": "node src/seed.js pokemon-types",
+    "backup": "node scripts/create_backup.js",
+    "restore": "node scripts/restore_backup.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

@@ -910,6 +910,111 @@
         }
       ],
       "subSkills": []
+    },
+    {
+      "dexNo": 258,
+      "name": "Mudkip",
+      "primaryType": "Water",
+      "specialty": "Berries",
+      "profileImage": "258.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Mudkip",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:18:20",
+            "carryLimit": 11,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 52,
+            "recruitShards": 91
+          },
+          "berries": [
+            { "name": "Oran Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Greengrass Corn", "unlockLevel": 1 },
+            { "name": "Moomoo Milk", "unlockLevel": 1 },
+            { "name": "Tasty Mushroom", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "258-default.png",
+          "shinyImage": "258-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 50,
+      "name": "Diglett",
+      "primaryType": "Ground",
+      "specialty": "Ingredients",
+      "profileImage": "50.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Diglett",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:11:40",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 7,
+            "recruitShards": 20
+          },
+          "berries": [
+            { "name": "Figy Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Snoozy Tomato", "unlockLevel": 1 },
+            { "name": "Large Leek", "unlockLevel": 1 },
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "50-default.png",
+          "shinyImage": "50-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 906,
+      "name": "Sprigatito",
+      "primaryType": "Grass",
+      "specialty": "Ingredients",
+      "profileImage": "906.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Sprigatito",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:16:40",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 39,
+            "recruitShards": 70
+          },
+          "berries": [
+            { "name": "Durin Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Soft Potato", "unlockLevel": 1 },
+            { "name": "Moomoo Milk", "unlockLevel": 1 },
+            { "name": "Warming Ginger", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Cooking Power-up S",
+          "detailImage": "906-default.png",
+          "shinyImage": "906-default-shiny.png"
+        }
+      ],
+      "subSkills": []
     }
   ]
 }

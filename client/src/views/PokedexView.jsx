@@ -24,8 +24,8 @@ const PokedexView = () => {
         <div className="pokedex-grid">
           {pokedex.map((species) => (
             <Link
-              key={species.id}
-              to={`/pokedex/${species.id}`}
+              key={species.dex_no}
+              to={`/pokedex/${species.dex_no}`}
               className="pokedex-card"
             >
               <div className="pokedex-card-body">
