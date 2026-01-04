@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { apiFetch } from "../utils/api.js";
 import useDishesStore from "../stores/useDishesStore.js";
@@ -151,6 +151,7 @@ const DishDetailView = () => {
   const dish = dishes.find((item) => String(item.id) === dishId);
   const [levels, setLevels] = useState([]);
   const [selectedLevel, setSelectedLevel] = useState(dish?.dish_level || 1);
+  const activeRowRef = useRef(null);
 
   useEffect(() => {
     if (!dish) {
@@ -199,6 +200,15 @@ const DishDetailView = () => {
           value: dish.level_value
         }
       : null);
+
+  useEffect(() => {
+    if (activeRowRef.current) {
+      activeRowRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  }, [selectedLevel]);
 
   if (!dish) {
     return (
@@ -254,6 +264,36 @@ const DishDetailView = () => {
           <p className="meta">No level data available for this dish yet.</p>
         )}
       </section>
+
+      {levels.length > 0 && (
+        <section className="card" style={{ marginTop: '24px' }}>
+          <h3>Level progression</h3>
+          <div className="level-progression-table">
+            <div className="level-progression-row header">
+              <div>Level</div>
+              <div>Experience</div>
+              <div>Strength</div>
+            </div>
+            <div className="level-progression-scrollable">
+              {levels.map((entry) => (
+                <div
+                  key={entry.level}
+                  ref={entry.level === selectedLevel ? activeRowRef : null}
+                  className={`level-progression-row ${
+                    entry.level === selectedLevel ? "active" : ""
+                  }`}
+                >
+                  <div className="level-cell">{entry.level}</div>
+                  <div className="experience-cell">
+                    {entry.experience.toLocaleString()}
+                  </div>
+                  <div className="strength-cell">{entry.value}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 };

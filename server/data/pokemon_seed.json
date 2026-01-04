@@ -1015,6 +1015,111 @@
         }
       ],
       "subSkills": []
+    },
+    {
+      "dexNo": 255,
+      "name": "Torchic",
+      "primaryType": "Fire",
+      "specialty": "Berries",
+      "profileImage": "255.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Torchic",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:11:40",
+            "carryLimit": 12,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 57,
+            "recruitShards": 90
+          },
+          "berries": [
+            { "name": "Leppa Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Tasty Mushroom", "unlockLevel": 1 },
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 },
+            { "name": "Pure Oil", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "255-default.png",
+          "shinyImage": "255-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 353,
+      "name": "Shuppet",
+      "primaryType": "Ghost",
+      "specialty": "Berries",
+      "profileImage": "353.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Shuppet",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:05:00",
+            "carryLimit": 11,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 8,
+            "recruitShards": 17
+          },
+          "berries": [
+            { "name": "Bluk Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Pure Oil", "unlockLevel": 1 },
+            { "name": "Warming Ginger", "unlockLevel": 1 },
+            { "name": "Tasty Mushroom", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "353-default.png",
+          "shinyImage": "353-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 440,
+      "name": "Happiny",
+      "primaryType": "Normal",
+      "specialty": "Ingredients",
+      "profileImage": "440.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Happiny",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:30:00",
+            "carryLimit": 7,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 56,
+            "recruitShards": 55
+          },
+          "berries": [
+            { "name": "Persim Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Fancy Egg", "unlockLevel": 1 },
+            { "name": "Soft Potato", "unlockLevel": 1 },
+            { "name": "Honey", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Energy for Everyone S",
+          "detailImage": "440-default.png",
+          "shinyImage": "440-default-shiny.png"
+        }
+      ],
+      "subSkills": []
     }
   ]
 }

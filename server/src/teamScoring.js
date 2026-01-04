@@ -651,21 +651,28 @@ const scorePokemon = (
   const ingredientScore =
     ingredientEV + ingredientSkillEV + coverageBonus;
 
+  // Cooking contribution: only pokemon with cooking skills contribute
+  // Calculate the expected extra strength from tasty chance skill
   const dishStrengthPerMeal = cookingContext?.expectedMealStrength || 0;
-  const baseCookPerDay =
-    dishStrengthPerMeal * (cookingContext?.mealsPerDay || 0);
+  const baseCookPerDay = dishStrengthPerMeal * (cookingContext?.mealsPerDay || 0);
   const cookingBonusEV =
-    pUsed > 0
+    pUsed > 0 && dishStrengthPerMeal > 0
       ? dishStrengthPerMeal *
         (expectedMultiplierSum - (cookingContext?.mealsPerDay || 0))
       : 0;
-  const cookingEV = baseCookPerDay + cookingBonusEV + cookingSkillEV;
-  const skillCookingContributionEV = cookingBonusEV + cookingSkillEV;
-  if (baseCookPerDay > 0) {
-    reasons.push("Cookable weekly dish");
+  
+  // Cooking score should NOT include baseCookPerDay for individual pokemon
+  // Each pokemon contributes to cooking through their cooking skills only
+  // The base dish strength is a team-level constant, not individual contribution
+  const cookingScore = cookingBonusEV + cookingSkillEV;
+  const cookingEV = cookingScore; // For backward compatibility in details
+  
+  if (cookingBonusEV > 0 || cookingSkillEV > 0) {
+    reasons.push(`Cooking contribution: ${(cookingBonusEV + cookingSkillEV).toFixed(1)}`);
   }
-
-  const cookingScore = cookingEV;
+  
+  const skillCookingContributionEV = cookingBonusEV + cookingSkillEV;
+  
   const skillScore =
     skillGrowthEV +
     berrySkillEV +

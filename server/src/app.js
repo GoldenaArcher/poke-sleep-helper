@@ -1642,15 +1642,26 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
       }
     }
     if (Array.isArray(subSkills)) {
+      // Delete existing sub skills for this pokemon first to avoid duplicates
+      await dbRun(
+        `delete from pokemon_box_sub_skills where box_id = ?`,
+        [entryId]
+      );
+      
+      // Insert new sub skills
       for (const slot of subSkills) {
-        if (!slot?.slotLevel || slot.subSkillId === null || slot.subSkillId === undefined) {
+        if (!slot?.slotLevel) {
+          continue;
+        }
+        // Only insert if a sub skill is actually selected
+        if (!slot.subSkillId || slot.subSkillId === null || slot.subSkillId === undefined || slot.subSkillId === "") {
           continue;
         }
         await dbRun(
           `insert into pokemon_box_sub_skills
            (box_id, sub_skill_id, unlock_level, current_level)
            values (?, ?, ?, ?)`,
-          [entryId, slot.subSkillId, slot.slotLevel, 1]
+          [entryId, Number(slot.subSkillId), slot.slotLevel, 1]
         );
       }
     }
@@ -2596,6 +2607,7 @@ app.post("/api/teams/recommendation", async (req, res) => {
       );
       return {
         ...entry,
+        variant_id: variantKey, // Add variant_id for scoreAll to use
         primary_type: entry.primary_type || species?.primary_type,
         secondary_type: entry.secondary_type || species?.secondary_type,
         variant_image_path: entry.variant_image_path || null,

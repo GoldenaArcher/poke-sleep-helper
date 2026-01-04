@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import useDishesStore from "../stores/useDishesStore.js";
 import usePokemonBoxStore from "../stores/usePokemonBoxStore.js";
@@ -42,6 +42,7 @@ const TeamsView = () => {
   const { researchAreas, berries } = useResearchStore();
   const { settings } = useSettingsStore();
   const [speciesMap, setSpeciesMap] = useState({});
+  const speciesMapRef = useRef({});
   const [selectedEntryId, setSelectedEntryId] = useState(null);
   const [expandedIds, setExpandedIds] = useState({});
   const [backendScores, setBackendScores] = useState(null);
@@ -51,14 +52,28 @@ const TeamsView = () => {
   const [hasMore, setHasMore] = useState(false);
   const [showDebug, setShowDebug] = useState(false);
 
+  // Memoize array dependencies to prevent infinite loops
+  const eventTypesKey = useMemo(
+    () => JSON.stringify(settings.eventTypes || []),
+    [settings.eventTypes]
+  );
+  const selectedDishIdsKey = useMemo(
+    () => JSON.stringify(settings.selectedDishIds || []),
+    [settings.selectedDishIds]
+  );
 
   useEffect(() => {
     let isMounted = true;
     const fetchSpecies = async () => {
+      // Use species_dex_no instead of species_id
       const ids = Array.from(
-        new Set(pokemonBox.map((entry) => entry.species_id))
+        new Set(
+          pokemonBox
+            .map((entry) => entry.species_dex_no)
+            .filter((id) => id != null && id !== undefined)
+        )
       );
-      const missing = ids.filter((id) => !speciesMap[id]);
+      const missing = ids.filter((id) => !speciesMapRef.current[id]);
       if (missing.length === 0) {
         return;
       }
@@ -70,19 +85,20 @@ const TeamsView = () => {
       if (!isMounted) {
         return;
       }
-      const next = { ...speciesMap };
+      const next = { ...speciesMapRef.current };
       results.forEach((species) => {
         if (species?.id) {
           next[species.id] = species;
         }
       });
+      speciesMapRef.current = next;
       setSpeciesMap(next);
     };
     fetchSpecies();
     return () => {
       isMounted = false;
     };
-  }, [pokemonBox, speciesMap]);
+  }, [pokemonBox]); // Remove speciesMap from dependencies to prevent infinite loop
 
   useEffect(() => {
     if (!USE_BACKEND_RECOMMENDATION) {
@@ -93,8 +109,8 @@ const TeamsView = () => {
   }, [
     settings.version,
     settings.preference,
-    settings.eventTypes,
-    settings.selectedDishIds
+    eventTypesKey,
+    selectedDishIdsKey
   ]);
 
   // Fetch recommendations from backend when enabled
@@ -150,8 +166,8 @@ const TeamsView = () => {
     pokemonBox.length,
     settings.version,
     settings.preference,
-    settings.eventTypes,
-    settings.selectedDishIds
+    eventTypesKey,
+    selectedDishIdsKey
   ]);
 
   const highlightBerryNames = useMemo(() => {
