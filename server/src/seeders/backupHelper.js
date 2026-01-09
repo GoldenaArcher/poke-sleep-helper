@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const backupDir = path.resolve(__dirname, "../../data/backups");
+const defaultBackupKeepCount = 10;
 
 /**
  * Backup user data tables before seeding
@@ -63,6 +64,8 @@ export async function backupUserData(db, dbAll) {
     console.log(`    - Settings: ${settings.length}`);
     console.log(`    - Bag items: ${bagIngredients.length}`);
     console.log(`    - Dish levels: ${dishLevels.length}`);
+
+    cleanOldBackups(defaultBackupKeepCount);
 
     return backupFile;
   } catch (error) {

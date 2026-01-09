@@ -65,7 +65,22 @@ const usePokemonBoxStore = create((set, get) => ({
     set({ boxDetail: detail });
     return detail;
   },
-  closeBoxDetail: () => set({ boxDetail: null })
+  closeBoxDetail: () => set({ boxDetail: null }),
+  evolvePokemon: async (entryId) => {
+    const updated = await apiFetch(`/api/pokemon-box/${entryId}/evolve`, {
+      method: "POST"
+    });
+    set((state) => ({
+      pokemonBox: state.pokemonBox.map((entry) =>
+        entry.id === entryId ? updated : entry
+      )
+    }));
+    // Close the detail modal and reload to get full updated data
+    get().closeBoxDetail();
+    // Reopen with updated data
+    await get().openBoxDetail(entryId);
+    return updated;
+  }
 }));
 
 export default usePokemonBoxStore;

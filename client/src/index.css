@@ -666,6 +666,132 @@ button {
   object-fit: contain;
 }
 
+.evolution-chain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 14px 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  flex-wrap: wrap;
+}
+
+.evolution-card {
+  margin-bottom: 18px;
+}
+
+.variants-card {
+  margin-top: 0;
+}
+
+.evolution-chain.compact {
+  gap: 14px;
+}
+
+.evolution-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.evolution-column.current .evolution-link {
+  border: 2px solid #3b82f6;
+  background: #eff6ff;
+}
+
+.evolution-branch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.evolution-route {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #64748b;
+  font-size: 11px;
+  min-width: 70px;
+  text-align: center;
+}
+
+.evolution-route .route-text {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #eef2f7;
+  font-weight: 600;
+  color: #475569;
+}
+
+.evolution-route .route-arrow {
+  font-size: 18px;
+  color: #94a3b8;
+}
+
+.evolution-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+  min-width: 96px;
+}
+
+.evolution-link:hover {
+  border-color: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.evolution-link div {
+  text-align: center;
+}
+
+.evolution-link strong {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.evolution-link p {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.evolution-preview {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+@media (max-width: 720px) {
+  .evolution-card {
+    margin-bottom: 14px;
+  }
+
+  .evolution-chain {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .evolution-branch {
+    flex-direction: column;
+  }
+
+  .evolution-route {
+    flex-direction: row;
+  }
+}
+
 
 .box-form {
   display: grid;

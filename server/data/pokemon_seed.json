@@ -135,6 +135,12 @@
       "primaryType": "Electric",
       "specialty": "Berries",
       "profileImage": "25.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 172,
+          "name": "Pichu"
+        }
+      },
       "variants": [
         {
           "key": "default",
@@ -369,6 +375,16 @@
       "primaryType": "Fairy",
       "specialty": "Skills",
       "profileImage": "175.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 176,
+          "name": "Togetic",
+          "levelRequired": 0,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
       "variants": [
         {
           "key": "default",
@@ -394,6 +410,47 @@
           "mainSkill": "Metronome",
           "detailImage": "175-default.png",
           "shinyImage": "175-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 176,
+      "name": "Togetic",
+      "primaryType": "Fairy",
+      "specialty": "Skills",
+      "profileImage": "176.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 175,
+          "name": "Togepi"
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Togetic",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:03:20",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 12,
+            "recruitExperience": 76,
+            "recruitShards": 161
+          },
+          "berries": [
+            { "name": "Pecha Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Fancy Egg", "unlockLevel": 1 },
+            { "name": "Warming Ginger", "unlockLevel": 1 },
+            { "name": "Soothing Cacao", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Metronome",
+          "detailImage": "176-default.png",
+          "shinyImage": "176-default-shiny.png"
         }
       ],
       "subSkills": []
@@ -742,6 +799,16 @@
       "primaryType": "Electric",
       "specialty": "Berries",
       "profileImage": "172.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 25,
+          "name": "Pikachu",
+          "levelRequired": 0,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
       "variants": [
         {
           "key": "default",
@@ -1117,6 +1184,180 @@
           "mainSkill": "Energy for Everyone S",
           "detailImage": "440-default.png",
           "shinyImage": "440-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 11,
+      "name": "Metapod",
+      "primaryType": "Bug",
+      "specialty": "Berries",
+      "profileImage": "11.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Metapod",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:10:00",
+            "carryLimit": 13,
+            "friendshipPointsNeeded": 7,
+            "recruitExperience": 67,
+            "recruitShards": 31
+          },
+          "berries": [
+            { "name": "Lum Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Honey", "unlockLevel": 1 },
+            { "name": "Snoozy Tomato", "unlockLevel": 1 },
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Ingredient Finder S",
+          "detailImage": "11-default.png",
+          "shinyImage": "11-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 69,
+      "name": "Bellsprout",
+      "primaryType": "Grass",
+      "specialty": "Ingredients",
+      "profileImage": "69.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Bellsprout",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:42:00",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 56,
+            "recruitShards": 42
+          },
+          "berries": [
+            { "name": "Durin Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Snoozy Tomato", "unlockLevel": 1 },
+            { "name": "Soft Potato", "unlockLevel": 1 },
+            { "name": "Large Leek", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Ingredient Finder S",
+          "detailImage": "69-default.png",
+          "shinyImage": "69-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 37,
+      "name": "Vulpix",
+      "primaryType": "Fire",
+      "specialty": "Berries",
+      "profileImage": "37.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Vulpix",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:18:20",
+            "carryLimit": 13,
+            "friendshipPointsNeeded": 7,
+            "recruitExperience": 25,
+            "recruitShards": 64
+          },
+          "berries": [
+            { "name": "Leppa Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 },
+            { "name": "Greengrass Corn", "unlockLevel": 1 },
+            { "name": "Soft Potato", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Energizing Cheer S",
+          "detailImage": "37-default.png",
+          "shinyImage": "37-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 74,
+      "name": "Geodude",
+      "primaryType": "Rock",
+      "specialty": "Ingredients",
+      "profileImage": "74.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Geodude",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:35:00",
+            "carryLimit": 9,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 7,
+            "recruitShards": 19
+          },
+          "berries": [
+            { "name": "Sitrus Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 },
+            { "name": "Tasty Mushroom", "unlockLevel": 1 },
+            { "name": "Soft Potato", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "74-default.png",
+          "shinyImage": "74-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 104,
+      "name": "Cubone",
+      "primaryType": "Ground",
+      "specialty": "Berries",
+      "profileImage": "104.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Cubone",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:20:00",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 9,
+            "recruitShards": 16
+          },
+          "berries": [
+            { "name": "Figy Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Warming Ginger", "unlockLevel": 1 },
+            { "name": "Soothing Cacao", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "104-default.png",
+          "shinyImage": "104-default-shiny.png"
         }
       ],
       "subSkills": []

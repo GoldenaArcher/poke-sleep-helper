@@ -27,10 +27,12 @@ const PokemonDetailsModal = ({ mode = "edit" }) => {
     closeBoxDetail,
     openBoxDetail,
     updateBoxEntry,
-    updateBoxIngredients
+    updateBoxIngredients,
+    evolvePokemon
   } = usePokemonBoxStore();
   const [boxDetailDraft, setBoxDetailDraft] = useState(null);
   const [allowLockedEdit, setAllowLockedEdit] = useState(false);
+  const [isEvolving, setIsEvolving] = useState(false);
   const isAddMode = mode === "add";
   const detailLevel = Number(boxDetailDraft?.level || 1);
 
@@ -138,9 +140,46 @@ const PokemonDetailsModal = ({ mode = "edit" }) => {
     await openBoxDetail(boxDetail.entry.id);
   };
 
+  const handleEvolve = async () => {
+    if (!boxDetail || isEvolving) return;
+    
+    const levelRequiredRaw = Number(boxDetail.entry.evolution_level_required);
+    const levelRequired = Number.isFinite(levelRequiredRaw)
+      ? levelRequiredRaw
+      : 0;
+    const currentLevel = boxDetail.entry.level;
+    
+    if (currentLevel < levelRequired) {
+      alert(`This Pokemon must be level ${levelRequired} to evolve`);
+      return;
+    }
+    
+    if (!confirm(`Evolve ${boxDetail.entry.nickname || boxDetail.entry.species_name} to ${boxDetail.entry.evolves_to_name}?`)) {
+      return;
+    }
+    
+    setIsEvolving(true);
+    try {
+      await evolvePokemon(boxDetail.entry.id);
+    } catch (error) {
+      alert(error.message || "Failed to evolve Pokemon");
+    } finally {
+      setIsEvolving(false);
+    }
+  };
+
   if (!boxDetail) {
     return null;
   }
+
+  const canEvolve = boxDetail.entry.can_evolve && boxDetail.entry.evolves_to_dex_no;
+  const evolutionLevelRequiredRaw = Number(
+    boxDetail.entry.evolution_level_required
+  );
+  const evolutionLevelRequired = Number.isFinite(evolutionLevelRequiredRaw)
+    ? evolutionLevelRequiredRaw
+    : 0;
+  const meetsLevelRequirement = boxDetail.entry.level >= evolutionLevelRequired;
 
   return (
     <div className="bag-modal">
@@ -183,13 +222,29 @@ const PokemonDetailsModal = ({ mode = "edit" }) => {
               </span>
             </div>
           </div>
-          <button
-            className="icon-button"
-            onClick={closeBoxDetail}
-            aria-label="Close details"
-          >
-            <IoCloseOutline size={20} />
-          </button>
+          <div style={{ display: "flex", gap: "8px", alignItems: "flex-start" }}>
+            {canEvolve && (
+              <button
+                className="button primary"
+                onClick={handleEvolve}
+                disabled={!meetsLevelRequirement || isEvolving}
+                title={
+                  meetsLevelRequirement
+                    ? `Evolve to ${boxDetail.entry.evolves_to_name}`
+                    : `Requires level ${evolutionLevelRequired}`
+                }
+              >
+                {isEvolving ? "Evolving..." : `→ ${boxDetail.entry.evolves_to_name}`}
+              </button>
+            )}
+            <button
+              className="icon-button"
+              onClick={closeBoxDetail}
+              aria-label="Close details"
+            >
+              <IoCloseOutline size={20} />
+            </button>
+          </div>
         </header>
         {boxDetailDraft && (
           <div className="box-detail-form">

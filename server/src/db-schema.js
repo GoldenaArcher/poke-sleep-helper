@@ -144,7 +144,12 @@ export const initDb = async () => {
       primary_type TEXT NOT NULL,
       secondary_type TEXT,
       specialty TEXT NOT NULL,
-      image_path TEXT
+      image_path TEXT,
+      evolves_from_dex_no INTEGER,
+      evolves_to_dex_no INTEGER,
+      evolution_level_required INTEGER,
+      FOREIGN KEY (evolves_from_dex_no) REFERENCES pokemon_species(dex_no),
+      FOREIGN KEY (evolves_to_dex_no) REFERENCES pokemon_species(dex_no)
     );
   `);
 
@@ -176,6 +181,32 @@ export const initDb = async () => {
       recruit_shards INTEGER NOT NULL,
       PRIMARY KEY (species_dex_no, variant_key),
       FOREIGN KEY (species_dex_no, variant_key) REFERENCES pokemon_variants(species_dex_no, variant_key)
+    );
+  `);
+
+  // Pokemon variant evolution mapping (which variants can evolve to which)
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS pokemon_variant_evolution (
+      from_species_dex_no INTEGER NOT NULL,
+      from_variant_key TEXT NOT NULL,
+      to_species_dex_no INTEGER NOT NULL,
+      to_variant_key TEXT NOT NULL,
+      PRIMARY KEY (from_species_dex_no, from_variant_key),
+      FOREIGN KEY (from_species_dex_no, from_variant_key) REFERENCES pokemon_variants(species_dex_no, variant_key),
+      FOREIGN KEY (to_species_dex_no, to_variant_key) REFERENCES pokemon_variants(species_dex_no, variant_key)
+    );
+  `);
+
+  // Pokemon evolution routes (supports branching + multiple items)
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS pokemon_evolution_routes (
+      from_species_dex_no INTEGER NOT NULL,
+      to_species_dex_no INTEGER NOT NULL,
+      level_required INTEGER,
+      items_json TEXT,
+      PRIMARY KEY (from_species_dex_no, to_species_dex_no),
+      FOREIGN KEY (from_species_dex_no) REFERENCES pokemon_species(dex_no),
+      FOREIGN KEY (to_species_dex_no) REFERENCES pokemon_species(dex_no)
     );
   `);
 

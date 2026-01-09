@@ -15,7 +15,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sqlite3 from "sqlite3";
 import { seedAll, seedSelective } from "./seeders/index.js";
-import { backupUserData, cleanOldBackups } from "./seeders/backupHelper.js";
+import { backupUserData } from "./seeders/backupHelper.js";
 import { initDb } from "./db-schema.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -76,7 +76,6 @@ async function main() {
     // Backup user data before seeding (unless disabled)
     if (process.env.SKIP_BACKUP !== "true") {
       backupFile = await backupUserData(db, dbAll);
-      cleanOldBackups(10); // Keep last 10 backups
       console.log("");
     }
 

@@ -208,7 +208,7 @@ const DishDetailView = () => {
         block: 'center'
       });
     }
-  }, [selectedLevel]);
+  }, [selectedLevel, levels.length]);
 
   if (!dish) {
     return (

@@ -19,6 +19,8 @@ export async function seedPokemon(db, dbRun, dbGet) {
   await dbRun("DELETE FROM pokemon_variant_main_skills");
   await dbRun("DELETE FROM pokemon_variant_ingredients");
   await dbRun("DELETE FROM pokemon_variant_berries");
+  await dbRun("DELETE FROM pokemon_variant_evolution");
+  await dbRun("DELETE FROM pokemon_evolution_routes");
   await dbRun("DELETE FROM pokemon_sub_skills");
   // ❌ DO NOT DELETE: pokemon_box, pokemon_box_sub_skills, pokemon_box_ingredients
   await dbRun("DELETE FROM pokemon_variants");
@@ -29,20 +31,53 @@ export async function seedPokemon(db, dbRun, dbGet) {
   // Load pokemon data
   const pokemonData = JSON.parse(fs.readFileSync(pokemonSeedPath, "utf-8"));
 
+  const evolutionRoutes = [];
+
   // Seed pokemon species (no need to sort, dex_no is the key)
   for (const species of pokemonData.species) {
+    // Process evolution chain data
+    const evolvesFromDexNo = species.evolutionChain?.evolvesFrom?.dexNo || null;
+    const evolvesToEntries = Array.isArray(species.evolutionChain?.evolvesTo)
+      ? species.evolutionChain.evolvesTo
+      : species.evolutionChain?.evolvesTo
+        ? [species.evolutionChain.evolvesTo]
+        : [];
+    const evolvesToDexNo = evolvesToEntries[0]?.dexNo || null;
+    const evolutionLevelRequired =
+      evolvesToEntries[0]?.levelRequired ?? null;
+
     await dbRun(
-      `INSERT INTO pokemon_species (dex_no, name, primary_type, secondary_type, specialty, image_path) 
-       VALUES (?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO pokemon_species (dex_no, name, primary_type, secondary_type, specialty, image_path, evolves_from_dex_no, evolves_to_dex_no, evolution_level_required) 
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         species.dexNo,
         species.name,
         species.primaryType,
         species.secondaryType || null,
         species.specialty,
-        `/uploads/pokemons/${species.profileImage || species.dexNo + '.png'}`
+        `/uploads/pokemons/${species.profileImage || species.dexNo + '.png'}`,
+        evolvesFromDexNo,
+        evolvesToDexNo,
+        evolutionLevelRequired
       ]
     );
+
+    evolvesToEntries.forEach((evolvesTo) => {
+      if (!evolvesTo?.dexNo) {
+        return;
+      }
+      const items =
+        evolvesTo.items ??
+        evolvesTo.evolutionItems ??
+        evolvesTo.itemList ??
+        null;
+      evolutionRoutes.push({
+        fromDexNo: species.dexNo,
+        toDexNo: evolvesTo.dexNo,
+        levelRequired: evolvesTo.levelRequired ?? null,
+        items: Array.isArray(items) ? items : null
+      });
+    });
 
     // Seed pokemon variants
     for (const variant of species.variants) {
@@ -113,6 +148,45 @@ export async function seedPokemon(db, dbRun, dbGet) {
         );
       }
     }
+  }
+
+  // Seed variant evolution mappings (second pass after all variants are created)
+  for (const species of pokemonData.species) {
+    const evolvesToEntries = Array.isArray(species.evolutionChain?.evolvesTo)
+      ? species.evolutionChain.evolvesTo
+      : species.evolutionChain?.evolvesTo
+        ? [species.evolutionChain.evolvesTo]
+        : [];
+
+    for (const evolvesTo of evolvesToEntries) {
+      if (!evolvesTo?.variantMapping) {
+        continue;
+      }
+      const targetDexNo = evolvesTo.dexNo;
+      for (const [fromVariantKey, toVariantKey] of Object.entries(
+        evolvesTo.variantMapping
+      )) {
+        await dbRun(
+          `INSERT INTO pokemon_variant_evolution (from_species_dex_no, from_variant_key, to_species_dex_no, to_variant_key)
+           VALUES (?, ?, ?, ?)`,
+          [species.dexNo, fromVariantKey, targetDexNo, toVariantKey]
+        );
+      }
+    }
+  }
+
+  for (const route of evolutionRoutes) {
+    await dbRun(
+      `INSERT INTO pokemon_evolution_routes
+       (from_species_dex_no, to_species_dex_no, level_required, items_json)
+       VALUES (?, ?, ?, ?)`,
+      [
+        route.fromDexNo,
+        route.toDexNo,
+        route.levelRequired,
+        route.items ? JSON.stringify(route.items) : null
+      ]
+    );
   }
 
   console.log(`  ✓ Seeded ${pokemonData.species.length} pokemon species with variants`);

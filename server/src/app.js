@@ -1139,19 +1139,45 @@ app.get("/api/pokedex", async (req, res) => {
               pokemon_species.secondary_type,
               pokemon_species.specialty,
               pokemon_species.image_path,
+              pokemon_species.evolves_from_dex_no,
+              pokemon_species.evolves_to_dex_no,
+              pokemon_species.evolution_level_required,
               primary_types.image_path as primary_type_image,
-              secondary_types.image_path as secondary_type_image
+              secondary_types.image_path as secondary_type_image,
+              evolves_from_species.name as evolves_from_name,
+              evolves_to_species.name as evolves_to_name
        from pokemon_species
        left join pokemon_types as primary_types
          on primary_types.name = pokemon_species.primary_type
        left join pokemon_types as secondary_types
          on secondary_types.name = pokemon_species.secondary_type
+       left join pokemon_species as evolves_from_species
+         on evolves_from_species.dex_no = pokemon_species.evolves_from_dex_no
+       left join pokemon_species as evolves_to_species
+         on evolves_to_species.dex_no = pokemon_species.evolves_to_dex_no
        order by pokemon_species.dex_no`
     );
     const variantRows = await dbAll(
       `select species_dex_no, variant_key, variant_name, is_default, is_event, notes, image_path, shiny_image_path
        from pokemon_variants
        order by variant_name`
+    );
+    const variantEvolutionRows = await dbAll(
+      `select from_species_dex_no, from_variant_key, to_species_dex_no, to_variant_key
+       from pokemon_variant_evolution`
+    );
+    const evolutionRouteRows = await dbAll(
+      `select routes.from_species_dex_no,
+              routes.to_species_dex_no,
+              routes.level_required,
+              routes.items_json,
+              from_species.name as from_name,
+              to_species.name as to_name
+       from pokemon_evolution_routes as routes
+       left join pokemon_species as from_species
+         on from_species.dex_no = routes.from_species_dex_no
+       left join pokemon_species as to_species
+         on to_species.dex_no = routes.to_species_dex_no`
     );
     const variantsBySpecies = new Map();
     variantRows.forEach((variant) => {
@@ -1163,10 +1189,95 @@ app.get("/api/pokedex", async (req, res) => {
       });
       variantsBySpecies.set(variant.species_dex_no, list);
     });
-    const payload = speciesRows.map((species) => ({
-      ...species,
-      variants: variantsBySpecies.get(species.dex_no) || []
-    }));
+    
+    // Build variant evolution map
+    const variantEvolutionMap = new Map();
+    variantEvolutionRows.forEach((evo) => {
+      const key = `${evo.from_species_dex_no}-${evo.from_variant_key}`;
+      variantEvolutionMap.set(key, {
+        to_species_dex_no: evo.to_species_dex_no,
+        to_variant_key: evo.to_variant_key
+      });
+    });
+
+    const parseItems = (value) => {
+      if (!value) {
+        return [];
+      }
+      try {
+        const parsed = JSON.parse(value);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (error) {
+        return [];
+      }
+    };
+
+    const evolvesFromMap = new Map();
+    const evolvesToMap = new Map();
+    evolutionRouteRows.forEach((route) => {
+      const items = parseItems(route.items_json);
+      const fromEntry = {
+        dex_no: route.from_species_dex_no,
+        name: route.from_name,
+        level_required: route.level_required,
+        items
+      };
+      const toEntry = {
+        dex_no: route.to_species_dex_no,
+        name: route.to_name,
+        level_required: route.level_required,
+        items
+      };
+      const toList = evolvesToMap.get(route.from_species_dex_no) || [];
+      toList.push(toEntry);
+      evolvesToMap.set(route.from_species_dex_no, toList);
+      const fromList = evolvesFromMap.get(route.to_species_dex_no) || [];
+      fromList.push(fromEntry);
+      evolvesFromMap.set(route.to_species_dex_no, fromList);
+    });
+    
+    const payload = speciesRows.map((species) => {
+      let evolvesFrom = evolvesFromMap.get(species.dex_no) || [];
+      let evolvesTo = evolvesToMap.get(species.dex_no) || [];
+      if (evolutionRouteRows.length === 0 || (evolvesFrom.length === 0 && evolvesTo.length === 0)) {
+        evolvesFrom = species.evolves_from_dex_no
+          ? [
+              {
+                dex_no: species.evolves_from_dex_no,
+                name: species.evolves_from_name,
+                level_required: null,
+                items: []
+              }
+            ]
+          : evolvesFrom;
+        evolvesTo = species.evolves_to_dex_no
+          ? [
+              {
+                dex_no: species.evolves_to_dex_no,
+                name: species.evolves_to_name,
+                level_required: species.evolution_level_required,
+                items: []
+              }
+            ]
+          : evolvesTo;
+      }
+      const evolution =
+        evolvesFrom.length > 0 || evolvesTo.length > 0
+          ? {
+              evolves_from: evolvesFrom,
+              evolves_to: evolvesTo
+            }
+          : null;
+      
+      return {
+        ...species,
+        evolution,
+        variants: (variantsBySpecies.get(species.dex_no) || []).map(v => ({
+          ...v,
+          can_evolve_to: variantEvolutionMap.get(`${v.species_dex_no}-${v.variant_key}`) || null
+        }))
+      };
+    });
     res.json(payload);
   } catch (error) {
     console.error(error);
@@ -1189,13 +1300,22 @@ app.get("/api/pokedex/:id", async (req, res) => {
               pokemon_species.secondary_type,
               pokemon_species.specialty,
               pokemon_species.image_path,
+              pokemon_species.evolves_from_dex_no,
+              pokemon_species.evolves_to_dex_no,
+              pokemon_species.evolution_level_required,
               primary_types.image_path as primary_type_image,
-              secondary_types.image_path as secondary_type_image
+              secondary_types.image_path as secondary_type_image,
+              evolves_from_species.name as evolves_from_name,
+              evolves_to_species.name as evolves_to_name
        from pokemon_species
        left join pokemon_types as primary_types
          on primary_types.name = pokemon_species.primary_type
        left join pokemon_types as secondary_types
          on secondary_types.name = pokemon_species.secondary_type
+       left join pokemon_species as evolves_from_species
+         on evolves_from_species.dex_no = pokemon_species.evolves_from_dex_no
+       left join pokemon_species as evolves_to_species
+         on evolves_to_species.dex_no = pokemon_species.evolves_to_dex_no
        where pokemon_species.dex_no = ?`,
       [speciesId]
     );
@@ -1291,8 +1411,86 @@ app.get("/api/pokedex/:id", async (req, res) => {
       skillMap.set(key, list);
     });
 
+    const evolutionRouteRows = await dbAll(
+      `select routes.from_species_dex_no,
+              routes.to_species_dex_no,
+              routes.level_required,
+              routes.items_json,
+              from_species.name as from_name,
+              to_species.name as to_name
+       from pokemon_evolution_routes as routes
+       left join pokemon_species as from_species
+         on from_species.dex_no = routes.from_species_dex_no
+       left join pokemon_species as to_species
+         on to_species.dex_no = routes.to_species_dex_no
+       where routes.from_species_dex_no = ? or routes.to_species_dex_no = ?`,
+      [speciesId, speciesId]
+    );
+
+    const parseItems = (value) => {
+      if (!value) {
+        return [];
+      }
+      try {
+        const parsed = JSON.parse(value);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (error) {
+        return [];
+      }
+    };
+
+    const evolvesFrom = [];
+    const evolvesTo = [];
+    evolutionRouteRows.forEach((route) => {
+      const items = parseItems(route.items_json);
+      if (route.to_species_dex_no === speciesId) {
+        evolvesFrom.push({
+          dex_no: route.from_species_dex_no,
+          name: route.from_name,
+          level_required: route.level_required,
+          items
+        });
+      }
+      if (route.from_species_dex_no === speciesId) {
+        evolvesTo.push({
+          dex_no: route.to_species_dex_no,
+          name: route.to_name,
+          level_required: route.level_required,
+          items
+        });
+      }
+    });
+
+    if (evolutionRouteRows.length === 0) {
+      if (species.evolves_from_dex_no) {
+        evolvesFrom.push({
+          dex_no: species.evolves_from_dex_no,
+          name: species.evolves_from_name,
+          level_required: null,
+          items: []
+        });
+      }
+      if (species.evolves_to_dex_no) {
+        evolvesTo.push({
+          dex_no: species.evolves_to_dex_no,
+          name: species.evolves_to_name,
+          level_required: species.evolution_level_required,
+          items: []
+        });
+      }
+    }
+
+    const evolution =
+      evolvesFrom.length > 0 || evolvesTo.length > 0
+        ? {
+            evolves_from: evolvesFrom,
+            evolves_to: evolvesTo
+          }
+        : null;
+
     const payload = {
       ...species,
+      evolution,
       subSkills,
       variants: variants.map((variant) => {
         const key = makeKey(variant);
@@ -1730,6 +1928,9 @@ const buildBoxDetailPayload = async (entryId) => {
             pokemon_species.primary_type as primary_type,
             pokemon_species.secondary_type as secondary_type,
             pokemon_species.specialty as specialty,
+            pokemon_species.evolves_to_dex_no,
+            pokemon_species.evolution_level_required,
+            evolves_to_species.name as evolves_to_name,
             primary_types.image_path as primary_type_image,
             secondary_types.image_path as secondary_type_image,
             pokemon_variants.variant_name as variant_name,
@@ -1738,6 +1939,8 @@ const buildBoxDetailPayload = async (entryId) => {
             natures.name as nature_name
      from pokemon_box
      join pokemon_species on pokemon_species.dex_no = pokemon_box.species_dex_no
+     left join pokemon_species as evolves_to_species
+       on evolves_to_species.dex_no = pokemon_species.evolves_to_dex_no
      left join pokemon_types as primary_types
        on primary_types.name = pokemon_species.primary_type
      left join pokemon_types as secondary_types
@@ -1756,6 +1959,20 @@ const buildBoxDetailPayload = async (entryId) => {
   if (!entry) {
     return null;
   }
+  
+  // Check if this variant can evolve
+  let canEvolve = false;
+  if (entry.evolves_to_dex_no) {
+    const variantEvolution = await dbGet(
+      `SELECT to_species_dex_no, to_variant_key
+       FROM pokemon_variant_evolution
+       WHERE from_species_dex_no = ? AND from_variant_key = ?`,
+      [entry.species_dex_no, entry.variant_key]
+    );
+    canEvolve = !!variantEvolution;
+  }
+  
+  entry.can_evolve = canEvolve;
   const ingredientSelections = await dbAll(
     `select pokemon_box_ingredients.slot_level,
             pokemon_box_ingredients.quantity,
@@ -2006,6 +2223,87 @@ app.delete("/api/pokemon-box/:id", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to remove pokemon" });
+  }
+});
+
+// Evolve a Pokemon
+app.post("/api/pokemon-box/:id/evolve", async (req, res) => {
+  const boxId = Number(req.params.id);
+  if (!boxId) {
+    res.status(400).json({ error: "Invalid box ID" });
+    return;
+  }
+
+  try {
+    // Get current Pokemon data
+    const pokemon = await dbGet(
+      `SELECT pb.*, ps.evolves_to_dex_no, ps.evolution_level_required
+       FROM pokemon_box pb
+       LEFT JOIN pokemon_species ps ON ps.dex_no = pb.species_dex_no
+       WHERE pb.id = ?`,
+      [boxId]
+    );
+
+    if (!pokemon) {
+      res.status(404).json({ error: "Pokemon not found" });
+      return;
+    }
+
+    if (!pokemon.evolves_to_dex_no) {
+      res.status(400).json({ error: "This Pokemon cannot evolve" });
+      return;
+    }
+
+    if (pokemon.level < pokemon.evolution_level_required) {
+      res.status(400).json({
+        error: `Pokemon must be level ${pokemon.evolution_level_required} to evolve`
+      });
+      return;
+    }
+
+    // Get target variant (check if current variant can evolve)
+    const variantEvolution = await dbGet(
+      `SELECT to_species_dex_no, to_variant_key
+       FROM pokemon_variant_evolution
+       WHERE from_species_dex_no = ? AND from_variant_key = ?`,
+      [pokemon.species_dex_no, pokemon.variant_key]
+    );
+
+    if (!variantEvolution) {
+      res.status(400).json({
+        error: "This variant cannot evolve (e.g., Holiday variants)"
+      });
+      return;
+    }
+
+    // Update the Pokemon to evolved form
+    await dbRun(
+      `UPDATE pokemon_box
+       SET species_dex_no = ?, variant_key = ?
+       WHERE id = ?`,
+      [variantEvolution.to_species_dex_no, variantEvolution.to_variant_key, boxId]
+    );
+
+    // Return updated Pokemon data
+    const updatedPokemon = await dbGet(
+      `SELECT pb.*,
+              ps.name as species_name,
+              ps.dex_no,
+              pv.variant_name,
+              pv.image_path,
+              pv.shiny_image_path
+       FROM pokemon_box pb
+       LEFT JOIN pokemon_species ps ON ps.dex_no = pb.species_dex_no
+       LEFT JOIN pokemon_variants pv ON pv.species_dex_no = pb.species_dex_no
+         AND pv.variant_key = pb.variant_key
+       WHERE pb.id = ?`,
+      [boxId]
+    );
+
+    res.json(updatedPokemon);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to evolve Pokemon" });
   }
 });
 

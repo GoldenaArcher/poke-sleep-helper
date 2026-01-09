@@ -113,6 +113,48 @@ const getIngredientImage = (name) =>
     .toLowerCase()
     .replace(/[^a-z0-9]/g, "")}.png`;
 
+const normalizeEvolutionList = (value) => {
+  if (!value) {
+    return [];
+  }
+  return Array.isArray(value) ? value : [value];
+};
+
+const formatEvolutionItems = (items) => {
+  if (!Array.isArray(items) || items.length === 0) {
+    return "";
+  }
+  return items
+    .map((item) => {
+      if (typeof item === "string") {
+        return item;
+      }
+      if (item && typeof item === "object") {
+        const name = item.name || item.item || "";
+        const quantity = item.quantity ? ` x${item.quantity}` : "";
+        return `${name}${quantity}`.trim();
+      }
+      return "";
+    })
+    .filter(Boolean)
+    .join(" + ");
+};
+
+const formatEvolutionRoute = (route) => {
+  if (!route) {
+    return "Special";
+  }
+  const parts = [];
+  if (Number.isFinite(route.level_required) && route.level_required > 0) {
+    parts.push(`Lv ${route.level_required}`);
+  }
+  const itemsText = formatEvolutionItems(route.items);
+  if (itemsText) {
+    parts.push(itemsText);
+  }
+  return parts.length > 0 ? parts.join(" / ") : "";
+};
+
 const VariantCard = ({ variant }) => (
   <div className="variant-card">
     <div className="variant-top">
@@ -227,6 +269,13 @@ const PokedexDetailView = () => {
     );
   }
 
+  const evolvesFrom = normalizeEvolutionList(
+    species.evolution?.evolves_from
+  );
+  const evolvesTo = normalizeEvolutionList(
+    species.evolution?.evolves_to
+  );
+
   return (
     <>
       <header className="hero">
@@ -268,7 +317,102 @@ const PokedexDetailView = () => {
         </p>
       </header>
 
-      <section className="card">
+      {(evolvesFrom.length > 0 || evolvesTo.length > 0) && (
+        <section className="card evolution-card">
+          <div className="section-header">
+            <div>
+              <h3>Evolution Chain</h3>
+              <p className="meta">Evolution routes and branches.</p>
+            </div>
+          </div>
+          <div className="evolution-chain compact">
+            {evolvesFrom.length > 0 && (
+              <div className="evolution-column">
+                {evolvesFrom.map((stage) => {
+                  const routeLabel = formatEvolutionRoute(stage);
+                  return (
+                    <div className="evolution-branch" key={stage.dex_no}>
+                      <Link
+                        to={`/pokedex/${stage.dex_no}`}
+                        className="evolution-link"
+                      >
+                        <img
+                          src={`/uploads/pokemons/${stage.dex_no}.png`}
+                          alt={stage.name}
+                          className="evolution-preview"
+                        />
+                        <div>
+                          <strong>
+                            #{String(stage.dex_no).padStart(3, "0")}
+                          </strong>
+                          <p>{stage.name}</p>
+                        </div>
+                      </Link>
+                      <div className="evolution-route">
+                        {routeLabel && (
+                          <span className="route-text">{routeLabel}</span>
+                        )}
+                        <span className="route-arrow">→</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            <div className="evolution-column current">
+              <div className="evolution-link">
+                <img
+                  src={species.image_path || `/uploads/pokemons/${species.dex_no}.png`}
+                  alt={species.name}
+                  className="evolution-preview"
+                />
+                <div>
+                  <strong>#{String(species.dex_no).padStart(3, "0")}</strong>
+                  <p>{species.name}</p>
+                  <span className="meta">Current</span>
+                </div>
+              </div>
+            </div>
+
+            {evolvesTo.length > 0 && (
+              <div className="evolution-column">
+                {evolvesTo.map((stage) => {
+                  const routeLabel = formatEvolutionRoute(stage);
+                  return (
+                    <div className="evolution-branch" key={stage.dex_no}>
+                      <div className="evolution-route">
+                        {routeLabel && (
+                          <span className="route-text">{routeLabel}</span>
+                        )}
+                        <span className="route-arrow">→</span>
+                      </div>
+                      <Link
+                        to={`/pokedex/${stage.dex_no}`}
+                        className="evolution-link"
+                      >
+                        <img
+                          src={`/uploads/pokemons/${stage.dex_no}.png`}
+                          alt={stage.name}
+                          className="evolution-preview"
+                        />
+                        <div>
+                          <strong>
+                            #{String(stage.dex_no).padStart(3, "0")}
+                          </strong>
+                          <p>{stage.name}</p>
+                        </div>
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      <section className="card variants-card">
         <div className="section-header">
           <div>
             <h3>Variants</h3>
