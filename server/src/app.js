@@ -1158,7 +1158,7 @@ app.get("/api/pokedex", async (req, res) => {
        order by pokemon_species.dex_no`
     );
     const variantRows = await dbAll(
-      `select species_dex_no, variant_key, variant_name, is_default, is_event, notes, image_path, shiny_image_path
+      `select species_dex_no, variant_key, variant_name, specialty, is_default, is_event, notes, image_path, shiny_image_path
        from pokemon_variants
        order by variant_name`
     );
@@ -1324,7 +1324,7 @@ app.get("/api/pokedex/:id", async (req, res) => {
       return;
     }
     const variants = await dbAll(
-      `select species_dex_no, variant_key, variant_name, is_default, is_event, notes, image_path, shiny_image_path
+      `select species_dex_no, variant_key, variant_name, specialty, is_default, is_event, notes, image_path, shiny_image_path
        from pokemon_variants
        where species_dex_no = ?
        order by variant_name`,
@@ -1544,7 +1544,7 @@ app.get("/api/pokemon-box", async (req, res) => {
               pokemon_species.dex_no as dex_no,
               pokemon_species.primary_type as primary_type,
               pokemon_species.secondary_type as secondary_type,
-              pokemon_species.specialty as specialty,
+              coalesce(pokemon_variants.specialty, pokemon_species.specialty) as specialty,
               primary_types.image_path as primary_type_image,
               secondary_types.image_path as secondary_type_image,
               pokemon_variants.variant_name as variant_name,
@@ -1734,7 +1734,7 @@ app.post("/api/pokemon-box", async (req, res) => {
               pokemon_species.dex_no as dex_no,
               pokemon_species.primary_type as primary_type,
               pokemon_species.secondary_type as secondary_type,
-              pokemon_species.specialty as specialty,
+              coalesce(pokemon_variants.specialty, pokemon_species.specialty) as specialty,
               primary_types.image_path as primary_type_image,
               secondary_types.image_path as secondary_type_image,
               pokemon_variants.variant_name as variant_name,
@@ -1879,7 +1879,7 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
               pokemon_species.dex_no as dex_no,
               pokemon_species.primary_type as primary_type,
               pokemon_species.secondary_type as secondary_type,
-              pokemon_species.specialty as specialty,
+              coalesce(pokemon_variants.specialty, pokemon_species.specialty) as specialty,
               primary_types.image_path as primary_type_image,
               secondary_types.image_path as secondary_type_image,
               pokemon_variants.variant_name as variant_name,
@@ -1927,7 +1927,7 @@ const buildBoxDetailPayload = async (entryId) => {
             pokemon_species.dex_no as dex_no,
             pokemon_species.primary_type as primary_type,
             pokemon_species.secondary_type as secondary_type,
-            pokemon_species.specialty as specialty,
+            coalesce(pokemon_variants.specialty, pokemon_species.specialty) as specialty,
             pokemon_species.evolves_to_dex_no,
             pokemon_species.evolution_level_required,
             evolves_to_species.name as evolves_to_name,

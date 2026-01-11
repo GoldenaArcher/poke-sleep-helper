@@ -82,12 +82,13 @@ export async function seedPokemon(db, dbRun, dbGet) {
     // Seed pokemon variants
     for (const variant of species.variants) {
       await dbRun(
-        `INSERT INTO pokemon_variants (species_dex_no, variant_key, variant_name, is_default, is_event, notes, image_path, shiny_image_path)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO pokemon_variants (species_dex_no, variant_key, variant_name, specialty, is_default, is_event, notes, image_path, shiny_image_path)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           species.dexNo,
           variant.key,
           variant.name,
+          variant.specialty || species.specialty || null,
           variant.isDefault,
           variant.isEvent,
           variant.notes,

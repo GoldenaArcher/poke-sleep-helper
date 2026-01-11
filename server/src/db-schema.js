@@ -51,6 +51,16 @@ export const dbAll = (sql, params = []) =>
     });
   });
 
+const ensureColumn = async (table, column, definition) => {
+  const columns = await dbAll(`PRAGMA table_info(${table})`);
+  const hasColumn = columns.some((entry) => entry.name === column);
+  if (!hasColumn) {
+    await dbRun(
+      `ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`
+    );
+  }
+};
+
 /**
  * Initialize database schema
  * Creates all tables and applies migrations
@@ -159,6 +169,7 @@ export const initDb = async () => {
       species_dex_no INTEGER NOT NULL,
       variant_key TEXT NOT NULL,
       variant_name TEXT NOT NULL,
+      specialty TEXT,
       is_default INTEGER NOT NULL DEFAULT 1,
       is_event INTEGER NOT NULL DEFAULT 0,
       notes TEXT,
@@ -168,6 +179,7 @@ export const initDb = async () => {
       FOREIGN KEY (species_dex_no) REFERENCES pokemon_species(dex_no)
     );
   `);
+  await ensureColumn("pokemon_variants", "specialty", "TEXT");
 
   // Pokemon variant stats table
   await dbRun(`

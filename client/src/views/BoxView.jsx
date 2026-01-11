@@ -4,7 +4,10 @@ import {
   IoInformationCircleOutline,
   IoAddOutline,
   IoSwapVerticalOutline,
-  IoTrashOutline
+  IoTrashOutline,
+  IoFilterOutline,
+  IoArrowUpOutline,
+  IoArrowDownOutline
 } from "react-icons/io5";
 import SearchSelect from "../components/SearchSelect.jsx";
 import PokemonDetailsModal from "../components/PokemonDetailsModal.jsx";
@@ -37,8 +40,13 @@ const BoxView = () => {
   });
   const [speciesSearch, setSpeciesSearch] = useState("");
   const [sortMode, setSortMode] = useState("dex");
+  const [sortDirection, setSortDirection] = useState("asc");
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
+  const [isTypeOpen, setIsTypeOpen] = useState(false);
+  const [selectedTypes, setSelectedTypes] = useState([]);
+  const [selectedSpecialties, setSelectedSpecialties] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [speciesDetail, setSpeciesDetail] = useState(null);
   const [variantIngredientOptions, setVariantIngredientOptions] = useState({});
   const emptyIngredientSlots = [
@@ -50,6 +58,7 @@ const BoxView = () => {
     emptyIngredientSlots
   );
   const sortMenuRef = useRef(null);
+  const typeMenuRef = useRef(null);
 
   const selectedSpecies = pokedex.find(
     (species) => String(species.dex_no) === String(newBoxEntry.speciesId)
@@ -68,13 +77,126 @@ const BoxView = () => {
       ])
     );
   }, [ingredientCatalog]);
+  const speciesByDex = useMemo(() => {
+    return new Map(
+      pokedex.map((species) => [String(species.dex_no), species])
+    );
+  }, [pokedex]);
+  const typeOptions = useMemo(() => {
+    const typeSet = new Set();
+    const typeImageMap = new Map();
+    pokedex.forEach((species) => {
+      if (species.primary_type) {
+        typeSet.add(species.primary_type);
+        if (
+          species.primary_type_image &&
+          !typeImageMap.has(species.primary_type)
+        ) {
+          typeImageMap.set(
+            species.primary_type,
+            species.primary_type_image
+          );
+        }
+      }
+      if (species.secondary_type) {
+        typeSet.add(species.secondary_type);
+        if (
+          species.secondary_type_image &&
+          !typeImageMap.has(species.secondary_type)
+        ) {
+          typeImageMap.set(
+            species.secondary_type,
+            species.secondary_type_image
+          );
+        }
+      }
+    });
+    return Array.from(typeSet.values())
+      .sort((a, b) => a.localeCompare(b))
+      .map((type) => ({
+        name: type,
+        image: typeImageMap.get(type) || ""
+      }));
+  }, [pokedex]);
+  const specialtyOptions = useMemo(() => {
+    const specialtySet = new Set();
+    pokedex.forEach((species) => {
+      if (species.specialty) {
+        specialtySet.add(species.specialty);
+      }
+    });
+    return Array.from(specialtySet.values()).sort((a, b) =>
+      a.localeCompare(b)
+    );
+  }, [pokedex]);
   const slotLevels = [1, 30, 60];
+  const filteredPokemonBox = useMemo(() => {
+    const orGroups = searchQuery
+      .split(/\s*\|\s*|\s+or\s+/i)
+      .map((group) =>
+        group
+          .split(/\s*&\s*|\s+and\s+/i)
+          .map((token) => token.trim())
+          .filter(Boolean)
+      )
+      .filter((group) => group.length > 0);
+    const selectedTypeSet = new Set(
+      selectedTypes.map((type) => type.toLowerCase())
+    );
+    const selectedSpecialtySet = new Set(
+      selectedSpecialties.map((specialty) =>
+        specialty.toLowerCase()
+      )
+    );
+    return pokemonBox.filter((entry) => {
+      const speciesInfo = speciesByDex.get(String(entry.dex_no));
+      const primaryType =
+        entry.primary_type || speciesInfo?.primary_type || "";
+      const secondaryType =
+        entry.secondary_type || speciesInfo?.secondary_type || "";
+      const specialty =
+        entry.specialty || speciesInfo?.specialty || "";
+      const hasTypeMatch =
+        selectedTypeSet.size === 0 ||
+        [primaryType, secondaryType].some(
+          (type) =>
+            type && selectedTypeSet.has(type.toLowerCase())
+        );
+      if (!hasTypeMatch) {
+        return false;
+      }
+      const hasSpecialtyMatch =
+        selectedSpecialtySet.size === 0 ||
+        (specialty &&
+          selectedSpecialtySet.has(specialty.toLowerCase()));
+      if (!hasSpecialtyMatch) {
+        return false;
+      }
+      if (orGroups.length === 0) {
+        return true;
+      }
+      const rawText = `${entry.nickname || ""} ${entry.species_name || ""} ${
+        entry.variant_name || ""
+      }`;
+      const lowerText = rawText.toLowerCase();
+      const matchesToken = (token) => {
+        try {
+          const regex = new RegExp(token, "i");
+          return regex.test(rawText);
+        } catch (error) {
+          return lowerText.includes(token.toLowerCase());
+        }
+      };
+      return orGroups.some((group) => group.every(matchesToken));
+    });
+  }, [pokemonBox, searchQuery, selectedTypes, selectedSpecialties, speciesByDex]);
   const sortedPokemonBox = useMemo(() => {
-    const entries = [...pokemonBox];
+    const entries = [...filteredPokemonBox];
+    const direction = sortDirection === "asc" ? 1 : -1;
     const getDisplayName = (entry) =>
       (entry.nickname || entry.species_name || "").trim().toLowerCase();
-    if (sortMode === "name") {
-      entries.sort((a, b) => {
+    const compare = (a, b) => {
+      if (sortMode === "name") {
         const nameA = getDisplayName(a);
         const nameB = getDisplayName(b);
         if (nameA !== nameB) {
@@ -84,39 +206,29 @@ const BoxView = () => {
           return (a.dex_no || 0) - (b.dex_no || 0);
         }
         return a.id - b.id;
-      });
-      return entries;
-    }
-    if (sortMode === "level") {
-      entries.sort((a, b) => {
+      }
+      if (sortMode === "level") {
         if (a.level !== b.level) {
-          return (b.level || 0) - (a.level || 0);
+          return (a.level || 0) - (b.level || 0);
         }
         return (a.dex_no || 0) - (b.dex_no || 0);
-      });
-      return entries;
-    }
-    if (sortMode === "created") {
-      // Sort by created_at descending (newest first)
-      // API already returns in this order, but sort here for consistency
-      entries.sort((a, b) => {
+      }
+      if (sortMode === "created") {
         const timeA = a.created_at || "";
         const timeB = b.created_at || "";
         if (timeA !== timeB) {
-          return timeB.localeCompare(timeA); // descending
+          return timeA.localeCompare(timeB);
         }
-        return b.id - a.id; // fallback to id descending
-      });
-      return entries;
-    }
-    entries.sort((a, b) => {
+        return a.id - b.id;
+      }
       if (a.dex_no !== b.dex_no) {
         return (a.dex_no || 0) - (b.dex_no || 0);
       }
       return a.id - b.id;
-    });
+    };
+    entries.sort((a, b) => compare(a, b) * direction);
     return entries;
-  }, [pokemonBox, sortMode]);
+  }, [filteredPokemonBox, sortMode, sortDirection]);
 
   const handleSpeciesChange = (event) => {
     const nextValue = event.target.value;
@@ -224,20 +336,28 @@ const BoxView = () => {
   };
   const sortOrder = ["dex", "name", "level", "created"];
   useEffect(() => {
-    if (!isSortOpen) {
+    if (!isSortOpen && !isTypeOpen) {
       return;
     }
     const handleClick = (event) => {
-      if (
+      const clickedOutsideSort =
+        isSortOpen &&
         sortMenuRef.current &&
-        !sortMenuRef.current.contains(event.target)
-      ) {
+        !sortMenuRef.current.contains(event.target);
+      const clickedOutsideType =
+        isTypeOpen &&
+        typeMenuRef.current &&
+        !typeMenuRef.current.contains(event.target);
+      if (clickedOutsideSort) {
         setIsSortOpen(false);
+      }
+      if (clickedOutsideType) {
+        setIsTypeOpen(false);
       }
     };
     window.addEventListener("mousedown", handleClick);
     return () => window.removeEventListener("mousedown", handleClick);
-  }, [isSortOpen]);
+  }, [isSortOpen, isTypeOpen]);
 
   const handleRemove = async (entryId) => {
     const confirmed = window.confirm(
@@ -304,32 +424,156 @@ const BoxView = () => {
               <IoAddOutline />
               Add Pokemon
             </button>
-            <div className="box-sort" ref={sortMenuRef}>
-              <button
-                className="button ghost box-sort-button"
-                onClick={() => setIsSortOpen((prev) => !prev)}
-                aria-expanded={isSortOpen}
-              >
-                <IoSwapVerticalOutline />
-                {sortLabels[sortMode]}
-              </button>
-              {isSortOpen && (
-                <div className="box-sort-menu">
-                  {sortOrder.map((mode) => (
+            <div className="box-controls-right">
+              <div className="box-search">
+                <input
+                  className="box-search-input"
+                  type="text"
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  placeholder="Search name/species (A & B | C)"
+                />
+              </div>
+              <div className="box-filter" ref={typeMenuRef}>
+                <button
+                  className="button ghost box-filter-button"
+                  onClick={() => setIsTypeOpen((prev) => !prev)}
+                  aria-expanded={isTypeOpen}
+                >
+                  <IoFilterOutline />
+                  Filter
+                  {selectedTypes.length + selectedSpecialties.length >
+                  0
+                    ? ` (${
+                        selectedTypes.length +
+                        selectedSpecialties.length
+                      })`
+                    : ""}
+                </button>
+                {isTypeOpen && (
+                  <div className="box-sort-menu box-filter-menu">
                     <button
-                      key={mode}
-                      className="box-sort-option"
-                      onClick={() => {
-                        setSortMode(mode);
-                        setIsSortOpen(false);
-                      }}
+                      className="box-filter-option"
                       type="button"
+                      onClick={() => {
+                        setSelectedTypes([]);
+                        setSelectedSpecialties([]);
+                      }}
                     >
-                      {sortLabels[mode]}
+                      Clear filter
                     </button>
-                  ))}
-                </div>
-              )}
+                    {specialtyOptions.length > 0 && (
+                      <div className="box-filter-group">
+                        <p className="meta">Specialty</p>
+                        {specialtyOptions.map((specialty) => (
+                          <label
+                            key={specialty}
+                            className="box-filter-option checkbox-option"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={selectedSpecialties.includes(
+                                specialty
+                              )}
+                              onChange={(event) => {
+                                const checked = event.target.checked;
+                                setSelectedSpecialties((prev) => {
+                                  if (checked) {
+                                    return [...prev, specialty];
+                                  }
+                                  return prev.filter(
+                                    (item) =>
+                                      item !== specialty
+                                  );
+                                });
+                              }}
+                            />
+                            <span>{specialty}</span>
+                          </label>
+                        ))}
+                      </div>
+                    )}
+                    {typeOptions.length > 0 && (
+                      <div className="box-filter-group">
+                        <p className="meta">Type</p>
+                    {typeOptions.map((type) => (
+                      <label
+                        key={type.name}
+                        className="box-filter-option checkbox-option"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selectedTypes.includes(type.name)}
+                          onChange={(event) => {
+                            const checked = event.target.checked;
+                            setSelectedTypes((prev) => {
+                              if (checked) {
+                                return [...prev, type.name];
+                              }
+                              return prev.filter(
+                                (item) => item !== type.name
+                              );
+                            });
+                          }}
+                        />
+                        {type.image ? (
+                          <img
+                            className="box-filter-type-icon"
+                            src={type.image}
+                            alt={type.name}
+                          />
+                        ) : null}
+                        <span>{type.name}</span>
+                      </label>
+                    ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+              <div className="box-sort" ref={sortMenuRef}>
+                <button
+                  className="button ghost box-sort-button"
+                  onClick={() => setIsSortOpen((prev) => !prev)}
+                  aria-expanded={isSortOpen}
+                >
+                  <IoSwapVerticalOutline />
+                  {sortLabels[sortMode]}
+                </button>
+                {isSortOpen && (
+                  <div className="box-sort-menu">
+                    {sortOrder.map((mode) => (
+                      <button
+                        key={mode}
+                        className="box-sort-option"
+                        onClick={() => {
+                          setSortMode(mode);
+                          setIsSortOpen(false);
+                        }}
+                        type="button"
+                      >
+                        {sortLabels[mode]}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <button
+                className="button ghost box-sort-direction"
+                onClick={() =>
+                  setSortDirection((prev) =>
+                    prev === "asc" ? "desc" : "asc"
+                  )
+                }
+                title={`Sort ${sortDirection === "asc" ? "ascending" : "descending"}`}
+                aria-label="Toggle sort direction"
+              >
+                {sortDirection === "asc" ? (
+                  <IoArrowUpOutline />
+                ) : (
+                  <IoArrowDownOutline />
+                )}
+              </button>
             </div>
           </div>
           <div className="box-row header">
@@ -337,7 +581,7 @@ const BoxView = () => {
             <div>Nickname</div>
             <div>Actions</div>
           </div>
-          {pokemonBox.length === 0 && (
+          {sortedPokemonBox.length === 0 && (
             <p className="empty">No Pokemon in the box yet.</p>
           )}
           {sortedPokemonBox.map((entry) => (

@@ -82,6 +82,7 @@
           "name": "Eevee",
           "isDefault": 1,
           "isEvent": 0,
+          "specialty": "Skills",
           "notes": "Standard variant",
           "stats": {
             "baseFrequency": "01:01:40",
@@ -107,6 +108,7 @@
           "name": "Eevee (Holiday)",
           "isDefault": 0,
           "isEvent": 1,
+          "specialty": "Berries",
           "notes": "Holiday event variant",
           "stats": {
             "baseFrequency": "00:51:40",
@@ -1358,6 +1360,42 @@
           "mainSkill": "Charge Energy S",
           "detailImage": "104-default.png",
           "shinyImage": "104-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 316,
+      "name": "Gulpin",
+      "primaryType": "Poison",
+      "specialty": "Skills",
+      "profileImage": "316.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Gulpin",
+          "specialty": "Skills",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:38:20",
+            "carryLimit": 8,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 11,
+            "recruitShards": 12
+          },
+          "berries": [
+            { "name": "Chesto Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 },
+            { "name": "Tasty Mushroom", "unlockLevel": 1 },
+            { "name": "Honey", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Dream Shard Magnet S",
+          "detailImage": "316-default.png",
+          "shinyImage": "316-default-shiny.png"
         }
       ],
       "subSkills": []

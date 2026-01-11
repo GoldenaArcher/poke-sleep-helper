@@ -850,6 +850,14 @@ button {
   justify-content: space-between;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
+}
+
+.box-controls-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
 }
 
 .box-add-button {
@@ -866,6 +874,81 @@ button {
 
 .box-sort {
   position: relative;
+}
+
+.box-filter {
+  position: relative;
+}
+
+.box-search {
+  display: flex;
+  align-items: center;
+}
+
+.box-search-input {
+  min-width: 220px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  font-size: 13px;
+}
+
+.box-search-input:focus {
+  outline: 2px solid #93c5fd;
+  border-color: #93c5fd;
+}
+
+.box-filter-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.box-filter-menu {
+  min-width: 180px;
+}
+
+.box-filter-group {
+  display: grid;
+  gap: 6px;
+}
+
+.box-filter-group + .box-filter-group {
+  padding-top: 6px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.box-filter-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 13px;
+  text-align: left;
+  background: #e2e8f0;
+  color: #1f2937;
+}
+
+.box-filter-option input {
+  accent-color: #3b82f6;
+}
+
+.box-filter-option.checkbox-option {
+  cursor: pointer;
+}
+
+.box-filter-type-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.box-sort-direction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px;
 }
 
 .box-sort-menu {
