@@ -180,6 +180,22 @@ const PokemonDetailsModal = ({ mode = "edit" }) => {
     ? evolutionLevelRequiredRaw
     : 0;
   const meetsLevelRequirement = boxDetail.entry.level >= evolutionLevelRequired;
+  const evolutionItems = boxDetail.entry.evolution_items || [];
+
+  // Build evolution requirement text
+  const evolutionRequirements = [];
+  if (evolutionLevelRequired > 0) {
+    evolutionRequirements.push(`Lv ${evolutionLevelRequired}`);
+  }
+  if (evolutionItems.length > 0) {
+    const itemNames = evolutionItems.map(item => 
+      typeof item === 'string' ? item : item.name
+    ).join(" + ");
+    evolutionRequirements.push(itemNames);
+  }
+  const evolutionRequirementText = evolutionRequirements.length > 0 
+    ? evolutionRequirements.join(" + ") 
+    : "";
 
   return (
     <div className="bag-modal">
@@ -230,8 +246,10 @@ const PokemonDetailsModal = ({ mode = "edit" }) => {
                 disabled={!meetsLevelRequirement || isEvolving}
                 title={
                   meetsLevelRequirement
-                    ? `Evolve to ${boxDetail.entry.evolves_to_name}`
-                    : `Requires level ${evolutionLevelRequired}`
+                    ? evolutionRequirementText
+                      ? `Evolve to ${boxDetail.entry.evolves_to_name} (${evolutionRequirementText})`
+                      : `Evolve to ${boxDetail.entry.evolves_to_name}`
+                    : `Requires ${evolutionRequirementText || `level ${evolutionLevelRequired}`}`
                 }
               >
                 {isEvolving ? "Evolving..." : `→ ${boxDetail.entry.evolves_to_name}`}

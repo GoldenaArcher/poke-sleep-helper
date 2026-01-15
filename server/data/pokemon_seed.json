@@ -141,6 +141,15 @@
         "evolvesFrom": {
           "dexNo": 172,
           "name": "Pichu"
+        },
+        "evolvesTo": {
+          "dexNo": 26,
+          "name": "Raichu",
+          "levelRequired": 0,
+          "evolutionItems": ["Thunder Stone"],
+          "variantMapping": {
+            "default": "default"
+          }
         }
       },
       "variants": [
@@ -193,6 +202,47 @@
           "mainSkill": "Dream Shard Magnet S",
           "detailImage": "25-holiday.png",
           "shinyImage": "25-holiday-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 26,
+      "name": "Raichu",
+      "primaryType": "Electric",
+      "specialty": "Berries",
+      "profileImage": "26.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 25,
+          "name": "Pikachu"
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Raichu",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:36:40",
+            "carryLimit": 21,
+            "friendshipPointsNeeded": 18,
+            "recruitExperience": 125,
+            "recruitShards": 844
+          },
+          "berries": [
+            { "name": "Grepa Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Fancy Apple", "unlockLevel": 1 },
+            { "name": "Fancy Egg", "unlockLevel": 1 },
+            { "name": "Warming Ginger", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "26-default.png",
+          "shinyImage": "26-default-shiny.png"
         }
       ],
       "subSkills": []
@@ -627,6 +677,16 @@
       "primaryType": "Normal",
       "specialty": "Berries",
       "profileImage": "19.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 20,
+          "name": "Raticate",
+          "levelRequired": 15,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
       "variants": [
         {
           "key": "default",
@@ -652,6 +712,47 @@
           "mainSkill": "Charge Energy S",
           "detailImage": "19-default.png",
           "shinyImage": "19-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 20,
+      "name": "Raticate",
+      "primaryType": "Normal",
+      "specialty": "Berries",
+      "profileImage": "20.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 19,
+          "name": "Rattata"
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Raticate",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:49:10",
+            "carryLimit": 16,
+            "friendshipPointsNeeded": 12,
+            "recruitExperience": 60,
+            "recruitShards": 155
+          },
+          "berries": [
+            { "name": "Persim Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Fancy Apple", "unlockLevel": 1 },
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "20-default.png",
+          "shinyImage": "20-default-shiny.png"
         }
       ],
       "subSkills": []
@@ -1191,11 +1292,62 @@
       "subSkills": []
     },
     {
+      "dexNo": 10,
+      "name": "Caterpie",
+      "primaryType": "Bug",
+      "specialty": "Berries",
+      "profileImage": "10.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 11,
+          "name": "Metapod",
+          "levelRequired": 5,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Caterpie",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:13:20",
+            "carryLimit": 11,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 11,
+            "recruitShards": 12
+          },
+          "berries": [
+            { "name": "Lum Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Honey", "unlockLevel": 1 },
+            { "name": "Snoozy Tomato", "unlockLevel": 1 },
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Ingredient Magnet S",
+          "detailImage": "10-default.png",
+          "shinyImage": "10-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 11,
       "name": "Metapod",
       "primaryType": "Bug",
       "specialty": "Berries",
       "profileImage": "11.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 10,
+          "name": "Caterpie"
+        }
+      },
       "variants": [
         {
           "key": "default",
@@ -1360,6 +1512,75 @@
           "mainSkill": "Charge Energy S",
           "detailImage": "104-default.png",
           "shinyImage": "104-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 158,
+      "name": "Totodile",
+      "primaryType": "Water",
+      "specialty": "Berries",
+      "profileImage": "158.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Totodile",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:15:00",
+            "carryLimit": 11,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 20,
+            "recruitShards": 36
+          },
+          "berries": [
+            { "name": "Oran Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Bean Sausage", "unlockLevel": 1 },
+            { "name": "Pure Oil", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "158-default.png",
+          "shinyImage": "158-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 246,
+      "name": "Larvitar",
+      "primaryType": "Rock",
+      "specialty": "Ingredients",
+      "profileImage": "246.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Larvitar",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:20:00",
+            "carryLimit": 9,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 30,
+            "recruitShards": 54
+          },
+          "berries": [
+            { "name": "Sitrus Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Warming Ginger", "unlockLevel": 1 },
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "246-default.png",
+          "shinyImage": "246-default-shiny.png"
         }
       ],
       "subSkills": []

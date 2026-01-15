@@ -1180,6 +1180,12 @@ button {
   gap: 10px;
 }
 
+.berry-note {
+  margin: 0;
+  font-size: 12px;
+  color: #64748b;
+}
+
 .berry-picker {
   display: grid;
   grid-template-columns: 44px 1fr;

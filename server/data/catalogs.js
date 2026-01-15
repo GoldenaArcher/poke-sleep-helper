@@ -2805,13 +2805,48 @@ export const dishLevelData = {
 
 
 export const researchAreas = [
-  { name: "Greengrass Isle", isDefault: 1 },
-  { name: "Cyan Beach", isDefault: 0 },
-  { name: "Taupe Hollow", isDefault: 0 },
-  { name: "Snowdrop Tundra", isDefault: 0 },
-  { name: "Lapis Lakeside", isDefault: 0 },
-  { name: "Old Gold Power Plant", isDefault: 0 },
-  { name: "Amber Canyon", isDefault: 0 }
+  {
+    name: "Greengrass Isle",
+    isDefault: 1,
+    favoritesRandom: true,
+    favorites: []
+  },
+  {
+    name: "Cyan Beach",
+    isDefault: 0,
+    favoritesRandom: false,
+    favorites: ["Pamtre Berry", "Oran Berry", "Pecha Berry"]
+  },
+  {
+    name: "Taupe Hollow",
+    isDefault: 0,
+    favoritesRandom: false,
+    favorites: ["Leppa Berry", "Figy Berry", "Sitrus Berry"]
+  },
+  {
+    name: "Snowdrop Tundra",
+    isDefault: 0,
+    favoritesRandom: false,
+    favorites: ["Rawst Berry", "Persim Berry", "Wiki Berry"]
+  },
+  {
+    name: "Lapis Lakeside",
+    isDefault: 0,
+    favoritesRandom: false,
+    favorites: ["Durin Berry", "Mago Berry", "Cheri Berry"]
+  },
+  {
+    name: "Old Gold Power Plant",
+    isDefault: 0,
+    favoritesRandom: false,
+    favorites: ["Grepa Berry", "Bluk Berry", "Belue Berry"]
+  },
+  {
+    name: "Amber Canyon",
+    isDefault: 0,
+    favoritesRandom: false,
+    favorites: ["Yache Berry", "Lum Berry", "Chesto Berry"]
+  }
 ];
 
 export const pokemonTypes = [

@@ -196,6 +196,29 @@ export const initDb = async () => {
     );
   `);
 
+  // Evolution items catalog
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS evolution_items (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL UNIQUE,
+      description TEXT,
+      image_path TEXT
+    );
+  `);
+
+  // Pokemon evolution items junction (supports multiple items per evolution path)
+  await dbRun(`
+    CREATE TABLE IF NOT EXISTS pokemon_evolution_items (
+      from_species_dex_no INTEGER NOT NULL,
+      to_species_dex_no INTEGER NOT NULL,
+      item_id INTEGER NOT NULL,
+      PRIMARY KEY (from_species_dex_no, to_species_dex_no, item_id),
+      FOREIGN KEY (from_species_dex_no) REFERENCES pokemon_species(dex_no),
+      FOREIGN KEY (to_species_dex_no) REFERENCES pokemon_species(dex_no),
+      FOREIGN KEY (item_id) REFERENCES evolution_items(id)
+    );
+  `);
+
   // Pokemon variant evolution mapping (which variants can evolve to which)
   await dbRun(`
     CREATE TABLE IF NOT EXISTS pokemon_variant_evolution (
@@ -323,9 +346,11 @@ export const initDb = async () => {
     CREATE TABLE IF NOT EXISTS research_areas (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL UNIQUE,
-      is_default INTEGER NOT NULL DEFAULT 0
+      is_default INTEGER NOT NULL DEFAULT 0,
+      favorites_random INTEGER NOT NULL DEFAULT 0
     );
   `);
+  await ensureColumn("research_areas", "favorites_random", "INTEGER NOT NULL DEFAULT 0");
 
   // Research area favorite berries junction table
   await dbRun(`

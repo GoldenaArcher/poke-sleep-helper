@@ -105,6 +105,11 @@ const ResearchAreasModal = ({
     setGoalPreset(settings.preference || "custom");
   }, [settings.preference]);
 
+  const currentArea = useMemo(
+    () => researchAreas.find((area) => area.is_default),
+    [researchAreas]
+  );
+
   return (
     <div className="bag-modal">
       <section className="card">
@@ -278,6 +283,12 @@ const ResearchAreasModal = ({
                 );
               })}
             </div>
+            {currentArea?.favorites_random ? (
+              <p className="berry-note">
+                Greengrass Isle favorites are random each week. These picks are
+                saved as your current set.
+              </p>
+            ) : null}
           </div>
           <div className="area-row">
             <div className="highlight-title">Event buffs</div>

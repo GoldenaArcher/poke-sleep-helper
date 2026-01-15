@@ -20,11 +20,13 @@ export async function seedPokemon(db, dbRun, dbGet) {
   await dbRun("DELETE FROM pokemon_variant_ingredients");
   await dbRun("DELETE FROM pokemon_variant_berries");
   await dbRun("DELETE FROM pokemon_variant_evolution");
+  await dbRun("DELETE FROM pokemon_evolution_items");
   await dbRun("DELETE FROM pokemon_evolution_routes");
   await dbRun("DELETE FROM pokemon_sub_skills");
   // ❌ DO NOT DELETE: pokemon_box, pokemon_box_sub_skills, pokemon_box_ingredients
   await dbRun("DELETE FROM pokemon_variants");
   await dbRun("DELETE FROM pokemon_species");
+  await dbRun("DELETE FROM evolution_items");
   
   // No need to reset auto-increment since we're using dex_no as primary key
 
@@ -32,6 +34,7 @@ export async function seedPokemon(db, dbRun, dbGet) {
   const pokemonData = JSON.parse(fs.readFileSync(pokemonSeedPath, "utf-8"));
 
   const evolutionRoutes = [];
+  const evolutionItemsSet = new Set(); // Collect all unique evolution items
 
   // Seed pokemon species (no need to sort, dex_no is the key)
   for (const species of pokemonData.species) {
@@ -66,16 +69,40 @@ export async function seedPokemon(db, dbRun, dbGet) {
       if (!evolvesTo?.dexNo) {
         return;
       }
-      const items =
-        evolvesTo.items ??
+      
+      // Collect evolution items from various possible field names
+      let items = 
         evolvesTo.evolutionItems ??
+        evolvesTo.items ??
         evolvesTo.itemList ??
         null;
+      
+      // Handle single item (like evolutionItem: "Thunder Stone")
+      if (evolvesTo.evolutionItem && !items) {
+        items = [evolvesTo.evolutionItem];
+      }
+      
+      // Ensure items is an array or null
+      if (items && !Array.isArray(items)) {
+        items = [items];
+      }
+      
+      // Add unique items to the set
+      if (Array.isArray(items)) {
+        items.forEach(item => {
+          if (typeof item === 'string') {
+            evolutionItemsSet.add(item);
+          } else if (item && typeof item === 'object' && item.name) {
+            evolutionItemsSet.add(item.name);
+          }
+        });
+      }
+      
       evolutionRoutes.push({
         fromDexNo: species.dexNo,
         toDexNo: evolvesTo.dexNo,
         levelRequired: evolvesTo.levelRequired ?? null,
-        items: Array.isArray(items) ? items : null
+        items: items
       });
     });
 
@@ -176,6 +203,16 @@ export async function seedPokemon(db, dbRun, dbGet) {
     }
   }
 
+  // Seed evolution items catalog
+  for (const itemName of Array.from(evolutionItemsSet).sort()) {
+    const imageName = itemName.toLowerCase().replace(/[^a-z0-9]/g, '');
+    await dbRun(
+      `INSERT INTO evolution_items (name, image_path) VALUES (?, ?)`,
+      [itemName, `/uploads/evolutionItems/${imageName}.png`]
+    );
+  }
+
+  // Seed evolution routes and evolution items associations
   for (const route of evolutionRoutes) {
     await dbRun(
       `INSERT INTO pokemon_evolution_routes
@@ -188,6 +225,27 @@ export async function seedPokemon(db, dbRun, dbGet) {
         route.items ? JSON.stringify(route.items) : null
       ]
     );
+
+    // Insert evolution items associations
+    if (route.items && Array.isArray(route.items)) {
+      for (const item of route.items) {
+        const itemName = typeof item === 'string' ? item : item.name;
+        if (!itemName) continue;
+        
+        const itemRow = await dbGet(
+          `SELECT id FROM evolution_items WHERE name = ?`,
+          [itemName]
+        );
+        
+        if (itemRow) {
+          await dbRun(
+            `INSERT INTO pokemon_evolution_items (from_species_dex_no, to_species_dex_no, item_id)
+             VALUES (?, ?, ?)`,
+            [route.fromDexNo, route.toDexNo, itemRow.id]
+          );
+        }
+      }
+    }
   }
 
   console.log(`  ✓ Seeded ${pokemonData.species.length} pokemon species with variants`);

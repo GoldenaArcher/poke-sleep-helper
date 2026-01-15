@@ -1427,13 +1427,35 @@ app.get("/api/pokedex/:id", async (req, res) => {
       [speciesId, speciesId]
     );
 
-    const parseItems = (value) => {
+    const parseItems = async (value, fromDexNo, toDexNo) => {
       if (!value) {
         return [];
       }
       try {
         const parsed = JSON.parse(value);
-        return Array.isArray(parsed) ? parsed : [];
+        if (!Array.isArray(parsed)) {
+          return [];
+        }
+        
+        // Get evolution items with image paths
+        const evolutionItemsRows = await dbAll(
+          `SELECT ei.name, ei.image_path
+           FROM pokemon_evolution_items pei
+           JOIN evolution_items ei ON ei.id = pei.item_id
+           WHERE pei.from_species_dex_no = ? AND pei.to_species_dex_no = ?`,
+          [fromDexNo, toDexNo]
+        );
+        
+        // Create a map of item names to their full objects
+        const itemMap = new Map(
+          evolutionItemsRows.map(row => [row.name, { name: row.name, image_path: row.image_path }])
+        );
+        
+        // Return items with image paths if available
+        return parsed.map(itemName => {
+          const itemObj = itemMap.get(itemName);
+          return itemObj || { name: itemName, image_path: null };
+        });
       } catch (error) {
         return [];
       }
@@ -1441,8 +1463,9 @@ app.get("/api/pokedex/:id", async (req, res) => {
 
     const evolvesFrom = [];
     const evolvesTo = [];
-    evolutionRouteRows.forEach((route) => {
-      const items = parseItems(route.items_json);
+    
+    for (const route of evolutionRouteRows) {
+      const items = await parseItems(route.items_json, route.from_species_dex_no, route.to_species_dex_no);
       if (route.to_species_dex_no === speciesId) {
         evolvesFrom.push({
           dex_no: route.from_species_dex_no,
@@ -1459,7 +1482,7 @@ app.get("/api/pokedex/:id", async (req, res) => {
           items
         });
       }
-    });
+    }
 
     if (evolutionRouteRows.length === 0) {
       if (species.evolves_from_dex_no) {
@@ -1471,11 +1494,24 @@ app.get("/api/pokedex/:id", async (req, res) => {
         });
       }
       if (species.evolves_to_dex_no) {
+        // Get evolution items from pokemon_evolution_items table
+        const evolutionItemsRows = await dbAll(
+          `SELECT ei.name, ei.image_path
+           FROM pokemon_evolution_items pei
+           JOIN evolution_items ei ON ei.id = pei.item_id
+           WHERE pei.from_species_dex_no = ? AND pei.to_species_dex_no = ?`,
+          [speciesId, species.evolves_to_dex_no]
+        );
+        const items = evolutionItemsRows.map(row => ({
+          name: row.name,
+          image_path: row.image_path
+        }));
+        
         evolvesTo.push({
           dex_no: species.evolves_to_dex_no,
           name: species.evolves_to_name,
           level_required: species.evolution_level_required,
-          items: []
+          items
         });
       }
     }
@@ -1973,6 +2009,24 @@ const buildBoxDetailPayload = async (entryId) => {
   }
   
   entry.can_evolve = canEvolve;
+  
+  // Get evolution items for this evolution path
+  if (entry.evolves_to_dex_no) {
+    const evolutionItemsRows = await dbAll(
+      `SELECT ei.name, ei.image_path
+       FROM pokemon_evolution_items pei
+       JOIN evolution_items ei ON ei.id = pei.item_id
+       WHERE pei.from_species_dex_no = ? AND pei.to_species_dex_no = ?`,
+      [entry.species_dex_no, entry.evolves_to_dex_no]
+    );
+    entry.evolution_items = evolutionItemsRows.map(row => ({
+      name: row.name,
+      image_path: row.image_path
+    }));
+  } else {
+    entry.evolution_items = [];
+  }
+  
   const ingredientSelections = await dbAll(
     `select pokemon_box_ingredients.slot_level,
             pokemon_box_ingredients.quantity,
@@ -2284,21 +2338,8 @@ app.post("/api/pokemon-box/:id/evolve", async (req, res) => {
       [variantEvolution.to_species_dex_no, variantEvolution.to_variant_key, boxId]
     );
 
-    // Return updated Pokemon data
-    const updatedPokemon = await dbGet(
-      `SELECT pb.*,
-              ps.name as species_name,
-              ps.dex_no,
-              pv.variant_name,
-              pv.image_path,
-              pv.shiny_image_path
-       FROM pokemon_box pb
-       LEFT JOIN pokemon_species ps ON ps.dex_no = pb.species_dex_no
-       LEFT JOIN pokemon_variants pv ON pv.species_dex_no = pb.species_dex_no
-         AND pv.variant_key = pb.variant_key
-       WHERE pb.id = ?`,
-      [boxId]
-    );
+    // Return updated Pokemon data with full payload
+    const updatedPokemon = await buildBoxDetailPayload(boxId);
 
     res.json(updatedPokemon);
   } catch (error) {
@@ -2310,7 +2351,7 @@ app.post("/api/pokemon-box/:id/evolve", async (req, res) => {
 app.get("/api/research-areas", async (req, res) => {
   try {
     const areas = await dbAll(
-      "select id, name, is_default from research_areas order by name"
+      "select id, name, is_default, favorites_random from research_areas order by name"
     );
     const favorites = await dbAll(
       `select research_area_favorite_berries.area_id,
@@ -2353,7 +2394,7 @@ app.put("/api/research-areas/:id/default", async (req, res) => {
       areaId
     ]);
     const areas = await dbAll(
-      "select id, name, is_default from research_areas order by name"
+      "select id, name, is_default, favorites_random from research_areas order by name"
     );
     const favorites = await dbAll(
       `select research_area_favorite_berries.area_id,
@@ -2653,7 +2694,7 @@ app.post("/api/teams/recommendation", async (req, res) => {
 
     // Load favorite berries from default research area
     const researchAreas = await dbAll(
-      `select id, name, is_default from research_areas order by name`
+      `select id, name, is_default, favorites_random from research_areas order by name`
     );
     const defaultArea = researchAreas.find((area) => area.is_default === 1);
     let favoriteBerries = [];

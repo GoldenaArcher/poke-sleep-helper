@@ -140,6 +140,52 @@ const formatEvolutionItems = (items) => {
     .join(" + ");
 };
 
+const EvolutionRouteDisplay = ({ route }) => {
+  if (!route) {
+    return <span className="route-text">Special</span>;
+  }
+
+  const hasLevel = Number.isFinite(route.level_required) && route.level_required > 0;
+  const hasItems = Array.isArray(route.items) && route.items.length > 0;
+
+  if (!hasLevel && !hasItems) {
+    return null;
+  }
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "4px", alignItems: "center" }}>
+      {hasLevel && (
+        <span className="route-text">Lv {route.level_required}</span>
+      )}
+      {hasItems && (
+        <div style={{ display: "flex", gap: "4px", flexWrap: "wrap", justifyContent: "center" }}>
+          {route.items.map((item, index) => {
+            const itemName = typeof item === "string" ? item : (item?.name || "");
+            const itemImage = (typeof item === "object" && item !== null && item.image_path) ? item.image_path : null;
+            
+            console.log("Evolution item:", item, "Name:", itemName, "Image:", itemImage);
+            
+            return (
+              <div key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2px" }}>
+                {itemImage ? (
+                  <img 
+                    src={itemImage} 
+                    alt={itemName}
+                    style={{ width: "24px", height: "24px", objectFit: "contain" }}
+                  />
+                ) : null}
+                <span className="route-text" style={{ fontSize: "0.75rem" }}>
+                  {itemName}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const formatEvolutionRoute = (route) => {
   if (!route) {
     return "Special";
@@ -329,7 +375,6 @@ const PokedexDetailView = () => {
             {evolvesFrom.length > 0 && (
               <div className="evolution-column">
                 {evolvesFrom.map((stage) => {
-                  const routeLabel = formatEvolutionRoute(stage);
                   return (
                     <div className="evolution-branch" key={stage.dex_no}>
                       <Link
@@ -349,9 +394,7 @@ const PokedexDetailView = () => {
                         </div>
                       </Link>
                       <div className="evolution-route">
-                        {routeLabel && (
-                          <span className="route-text">{routeLabel}</span>
-                        )}
+                        <EvolutionRouteDisplay route={stage} />
                         <span className="route-arrow">→</span>
                       </div>
                     </div>
@@ -378,14 +421,11 @@ const PokedexDetailView = () => {
             {evolvesTo.length > 0 && (
               <div className="evolution-column">
                 {evolvesTo.map((stage) => {
-                  const routeLabel = formatEvolutionRoute(stage);
                   return (
                     <div className="evolution-branch" key={stage.dex_no}>
                       <div className="evolution-route">
-                        {routeLabel && (
-                          <span className="route-text">{routeLabel}</span>
-                        )}
                         <span className="route-arrow">→</span>
+                        <EvolutionRouteDisplay route={stage} />
                       </div>
                       <Link
                         to={`/pokedex/${stage.dex_no}`}
