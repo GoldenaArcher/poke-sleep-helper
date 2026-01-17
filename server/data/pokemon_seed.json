@@ -862,11 +862,62 @@
       "subSkills": []
     },
     {
+      "dexNo": 360,
+      "name": "Wynaut",
+      "primaryType": "Psychic",
+      "specialty": "Skills",
+      "profileImage": "360.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 202,
+          "name": "Wobbuffet",
+          "levelRequired": 11,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Wynaut",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:36:40",
+            "carryLimit": 7,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 11,
+            "recruitShards": 12
+          },
+          "berries": [
+            { "name": "Mago Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Fancy Apple", "unlockLevel": 1 },
+            { "name": "Pure Oil", "unlockLevel": 1 },
+            { "name": "Tasty Mushroom", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Energizing Cheer S",
+          "detailImage": "360-default.png",
+          "shinyImage": "360-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 202,
       "name": "Wobbuffet",
       "primaryType": "Psychic",
       "specialty": "Skills",
       "profileImage": "202.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 360,
+          "name": "Wynaut"
+        }
+      },
       "variants": [
         {
           "key": "default",
@@ -1617,6 +1668,51 @@
           "mainSkill": "Dream Shard Magnet S",
           "detailImage": "316-default.png",
           "shinyImage": "316-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 333,
+      "name": "Swablu",
+      "primaryType": "Flying",
+      "specialty": "Berries",
+      "profileImage": "333.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 334,
+          "name": "Altaria",
+          "levelRequired": 26,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Swablu",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:10:00",
+            "carryLimit": 12,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 8,
+            "recruitShards": 17
+          },
+          "berries": [
+            { "name": "Persim Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Fancy Egg", "unlockLevel": 1 },
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 },
+            { "name": "Fancy Apple", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "333-default.png",
+          "shinyImage": "333-default-shiny.png"
         }
       ],
       "subSkills": []
