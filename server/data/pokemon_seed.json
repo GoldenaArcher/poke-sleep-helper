@@ -253,6 +253,16 @@
       "primaryType": "Water",
       "specialty": "Ingredients",
       "profileImage": "7.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 8,
+          "name": "Wartortle",
+          "levelRequired": 12,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
       "variants": [
         {
           "key": "default",
@@ -278,6 +288,55 @@
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "7-default.png",
           "shinyImage": "7-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 8,
+      "name": "Wartortle",
+      "primaryType": "Water",
+      "specialty": "Ingredients",
+      "profileImage": "8.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 7,
+          "name": "Squirtle"
+        },
+        "evolvesTo": {
+          "dexNo": 9,
+          "name": "Blastoise",
+          "levelRequired": 27,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Wartortle",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:56:40",
+            "carryLimit": 14,
+            "friendshipPointsNeeded": 12,
+            "recruitExperience": 116,
+            "recruitShards": 245
+          },
+          "berries": [
+            { "name": "Oran Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Moomoo Milk", "unlockLevel": 1 },
+            { "name": "Soothing Cacao", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Ingredient Magnet S",
+          "detailImage": "8-default.png",
+          "shinyImage": "8-default-shiny.png"
         }
       ],
       "subSkills": []
@@ -318,10 +377,62 @@
       "subSkills": []
     },
     {
+      "dexNo": 174,
+      "name": "Igglybuff",
+      "primaryType": "Fairy",
+      "specialty": "Skills",
+      "profileImage": "174.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 39,
+          "name": "Jigglypuff",
+          "levelRequired": 0,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Igglybuff",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:26:40",
+            "carryLimit": 8,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 11,
+            "recruitShards": 12
+          },
+          "berries": [
+            { "name": "Pecha Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Honey", "unlockLevel": 1 },
+            { "name": "Pure Oil", "unlockLevel": 1 },
+            { "name": "Soothing Cacao", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Energy for Everyone S",
+          "detailImage": "174-default.png",
+          "shinyImage": "174-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 39,
       "name": "Jigglypuff",
       "primaryType": "Fairy",
       "specialty": "Skills",
+      "profileImage": "39.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 174,
+          "name": "Igglybuff"
+        }
+      },
       "variants": [
         {
           "key": "default",

@@ -1600,8 +1600,7 @@ app.get("/api/pokemon-box", async (req, res) => {
        left join main_skill_levels
          on main_skill_levels.skill_id = variant_main_skills.main_skill_id
         and main_skill_levels.level = pokemon_box.main_skill_level
-       left join natures on natures.id = pokemon_box.nature_id
-       order by pokemon_box.created_at desc`
+       left join natures on natures.id = pokemon_box.nature_id`
     );
     // Add variantId for frontend compatibility
     const payload = rows.map(row => ({

@@ -186,6 +186,78 @@ const EvolutionRouteDisplay = ({ route }) => {
   );
 };
 
+// Recursive component to fetch and display evolution chains
+const EvolutionStageColumn = ({ stages }) => {
+  const [nextStages, setNextStages] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch evolution data for each stage
+    const fetchEvolutions = async () => {
+      setLoading(true);
+      const results = {};
+      for (const stage of stages) {
+        try {
+          const data = await apiFetch(`/api/pokemon/${stage.dex_no}`);
+          console.log(`Fetched evolution for ${stage.dex_no}:`, data?.evolution?.evolves_to);
+          if (data?.evolution?.evolves_to?.length > 0) {
+            results[stage.dex_no] = data.evolution.evolves_to;
+          }
+        } catch (error) {
+          console.error(`Failed to fetch evolution for ${stage.dex_no}:`, error);
+        }
+      }
+      console.log('Next stages results:', results);
+      setNextStages(results);
+      setLoading(false);
+    };
+
+    fetchEvolutions();
+  }, [stages]);
+
+  const allNextStages = Object.values(nextStages).flat();
+  const hasNextStages = allNextStages.length > 0;
+
+  console.log('Rendering EvolutionStageColumn:', { stages, nextStages, allNextStages, hasNextStages, loading });
+
+  return (
+    <>
+      <div className="evolution-column">
+        {stages.map((stage) => {
+          return (
+            <div className="evolution-branch" key={stage.dex_no}>
+              <div className="evolution-route">
+                <span className="route-arrow">→</span>
+                <EvolutionRouteDisplay route={stage} />
+              </div>
+              <Link
+                to={`/pokedex/${stage.dex_no}`}
+                className="evolution-link"
+              >
+                <img
+                  src={`/uploads/pokemons/${stage.dex_no}.png`}
+                  alt={stage.name}
+                  className="evolution-preview"
+                />
+                <div>
+                  <strong>
+                    #{String(stage.dex_no).padStart(3, "0")}
+                  </strong>
+                  <p>{stage.name}</p>
+                </div>
+              </Link>
+            </div>
+          );
+        })}
+      </div>
+      {/* Recursively render next stages */}
+      {!loading && hasNextStages && (
+        <EvolutionStageColumn stages={allNextStages} />
+      )}
+    </>
+  );
+};
+
 const formatEvolutionRoute = (route) => {
   if (!route) {
     return "Special";
@@ -419,34 +491,7 @@ const PokedexDetailView = () => {
             </div>
 
             {evolvesTo.length > 0 && (
-              <div className="evolution-column">
-                {evolvesTo.map((stage) => {
-                  return (
-                    <div className="evolution-branch" key={stage.dex_no}>
-                      <div className="evolution-route">
-                        <span className="route-arrow">→</span>
-                        <EvolutionRouteDisplay route={stage} />
-                      </div>
-                      <Link
-                        to={`/pokedex/${stage.dex_no}`}
-                        className="evolution-link"
-                      >
-                        <img
-                          src={`/uploads/pokemons/${stage.dex_no}.png`}
-                          alt={stage.name}
-                          className="evolution-preview"
-                        />
-                        <div>
-                          <strong>
-                            #{String(stage.dex_no).padStart(3, "0")}
-                          </strong>
-                          <p>{stage.name}</p>
-                        </div>
-                      </Link>
-                    </div>
-                  );
-                })}
-              </div>
+              <EvolutionStageColumn stages={evolvesTo} />
             )}
           </div>
         </section>

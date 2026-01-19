@@ -13,7 +13,8 @@ const usePokemonBoxStore = create((set, get) => ({
       method: "POST",
       body: JSON.stringify(payload)
     });
-    set((state) => ({ pokemonBox: [created, ...state.pokemonBox] }));
+    // Reload the entire box to maintain proper sorting
+    await get().loadPokemonBox();
     return created;
   },
   updateBoxEntry: async (entryId, payload) => {
@@ -21,10 +22,10 @@ const usePokemonBoxStore = create((set, get) => ({
       method: "PUT",
       body: JSON.stringify(payload)
     });
+    // Reload the entire box to maintain proper sorting
+    await get().loadPokemonBox();
+    // Update boxDetail if it's the same entry
     set((state) => ({
-      pokemonBox: state.pokemonBox.map((entry) =>
-        entry.id === entryId ? updated : entry
-      ),
       boxDetail:
         state.boxDetail?.entry?.id === entryId
           ? { ...state.boxDetail, entry: updated }
@@ -70,11 +71,8 @@ const usePokemonBoxStore = create((set, get) => ({
     const updated = await apiFetch(`/api/pokemon-box/${entryId}/evolve`, {
       method: "POST"
     });
-    set((state) => ({
-      pokemonBox: state.pokemonBox.map((entry) =>
-        entry.id === entryId ? updated : entry
-      )
-    }));
+    // Reload the entire box to maintain proper sorting
+    await get().loadPokemonBox();
     // Close the detail modal and reload to get full updated data
     get().closeBoxDetail();
     // Reopen with updated data
