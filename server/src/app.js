@@ -283,6 +283,10 @@ app.get("/api/settings", async (req, res) => {
     let berryBaseStrengthDefault = 100;
     let favoriteBerryPenaltyNoMatch = 0.6;
     let favoriteBerryPenaltyNoMatchCooking = 0.8;
+    let boxFilterTypes = [];
+    let boxFilterSpecialties = [];
+    let boxSortMode = "dex";
+    let boxSortDirection = "asc";
 
     if (settings.selected_dish_ids) {
       try {
@@ -407,6 +411,26 @@ app.get("/api/settings", async (req, res) => {
         favoriteBerryPenaltyNoMatchCooking = parsed;
       }
     }
+    if (settings.box_filter_types) {
+      try {
+        boxFilterTypes = JSON.parse(settings.box_filter_types);
+      } catch {
+        boxFilterTypes = [];
+      }
+    }
+    if (settings.box_filter_specialties) {
+      try {
+        boxFilterSpecialties = JSON.parse(settings.box_filter_specialties);
+      } catch {
+        boxFilterSpecialties = [];
+      }
+    }
+    if (settings.box_sort_mode) {
+      boxSortMode = String(settings.box_sort_mode);
+    }
+    if (settings.box_sort_direction) {
+      boxSortDirection = String(settings.box_sort_direction);
+    }
     const version = settings.version ? Number(settings.version) : 1;
     res.json({
       ingredientLimit: Number(settings.ingredient_limit || 0),
@@ -436,6 +460,10 @@ app.get("/api/settings", async (req, res) => {
       berryBaseStrengthDefault,
       favoriteBerryPenaltyNoMatch,
       favoriteBerryPenaltyNoMatchCooking,
+      boxFilterTypes,
+      boxFilterSpecialties,
+      boxSortMode,
+      boxSortDirection,
       version
     });
   } catch (error) {
@@ -471,7 +499,11 @@ app.put("/api/settings", async (req, res) => {
     avgEnergyMultiplier,
     berryBaseStrengthDefault,
     favoriteBerryPenaltyNoMatch,
-    favoriteBerryPenaltyNoMatchCooking
+    favoriteBerryPenaltyNoMatchCooking,
+    boxFilterTypes,
+    boxFilterSpecialties,
+    boxSortMode,
+    boxSortDirection
   } = req.body || {};
   try {
     if (typeof ingredientLimit === "number") {
@@ -637,6 +669,30 @@ app.put("/api/settings", async (req, res) => {
           "favorite_berry_penalty_no_match_cooking",
           String(favoriteBerryPenaltyNoMatchCooking)
         ]
+      );
+    }
+    if (Array.isArray(boxFilterTypes)) {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["box_filter_types", JSON.stringify(boxFilterTypes)]
+      );
+    }
+    if (Array.isArray(boxFilterSpecialties)) {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["box_filter_specialties", JSON.stringify(boxFilterSpecialties)]
+      );
+    }
+    if (typeof boxSortMode === "string") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["box_sort_mode", boxSortMode]
+      );
+    }
+    if (typeof boxSortDirection === "string") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["box_sort_direction", boxSortDirection]
       );
     }
     

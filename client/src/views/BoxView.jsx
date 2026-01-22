@@ -22,7 +22,7 @@ const BoxView = () => {
   const ingredientCatalog = useBagStore((state) => state.ingredientDetails);
   const { natures } = useNaturesStore();
   const { pokedex } = usePokedexStore();
-  const { settings } = useSettingsStore();
+  const { settings, updateSettings } = useSettingsStore();
   const {
     pokemonBox,
     addToBox,
@@ -59,6 +59,7 @@ const BoxView = () => {
   );
   const sortMenuRef = useRef(null);
   const typeMenuRef = useRef(null);
+  const initializedRef = useRef(false);
 
   const selectedSpecies = pokedex.find(
     (species) => String(species.dex_no) === String(newBoxEntry.speciesId)
@@ -335,6 +336,39 @@ const BoxView = () => {
     created: "Created time"
   };
   const sortOrder = ["dex", "name", "level", "created"];
+  
+  // Initialize filter and sort settings from settings store
+  useEffect(() => {
+    // Wait for settings to be loaded from API (version will be set)
+    // AND only initialize once
+    if (!initializedRef.current && settings && settings.version && settings.boxSortMode !== undefined) {
+      // Set initialized flag BEFORE updating state to prevent save trigger
+      initializedRef.current = true;
+      setSortMode(settings.boxSortMode || "dex");
+      setSortDirection(settings.boxSortDirection || "asc");
+      setSelectedTypes(settings.boxFilterTypes || []);
+      setSelectedSpecialties(settings.boxFilterSpecialties || []);
+    }
+  }, [settings]);
+  
+  // Save filter and sort settings when they change (only after initialization)
+  useEffect(() => {
+    if (!initializedRef.current) {
+      return;
+    }
+    // Use a small delay to batch rapid changes and avoid saving during initialization
+    const timeoutId = setTimeout(async () => {
+      await updateSettings({
+        boxFilterTypes: selectedTypes,
+        boxFilterSpecialties: selectedSpecialties,
+        boxSortMode: sortMode,
+        boxSortDirection: sortDirection
+      });
+    }, 300);
+    
+    return () => clearTimeout(timeoutId);
+  }, [selectedTypes, selectedSpecialties, sortMode, sortDirection, updateSettings]);
+  
   useEffect(() => {
     if (!isSortOpen && !isTypeOpen) {
       return;

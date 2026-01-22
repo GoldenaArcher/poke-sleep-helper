@@ -158,6 +158,7 @@
           "name": "Pikachu",
           "isDefault": 1,
           "isEvent": 0,
+          "specialty": "Berries",
           "notes": "Standard variant",
           "stats": {
             "baseFrequency": "00:45:00",
@@ -183,6 +184,7 @@
           "name": "Pikachu (Holiday)",
           "isDefault": 0,
           "isEvent": 1,
+          "specialty": "Skills",
           "notes": "Holiday event variant",
           "stats": {
             "baseFrequency": "00:41:40",
@@ -665,6 +667,7 @@
           "name": "Spheal",
           "isDefault": 1,
           "isEvent": 0,
+          "specialty": "Berries",
           "notes": "Standard variant",
           "stats": {
             "baseFrequency": "01:33:20",
@@ -690,6 +693,7 @@
           "name": "Spheal (Holiday)",
           "isDefault": 0,
           "isEvent": 1,
+          "specialty": "Skills",
           "notes": "Holiday event variant",
           "stats": {
             "baseFrequency": "00:55:00",

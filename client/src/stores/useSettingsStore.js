@@ -28,7 +28,11 @@ const useSettingsStore = create((set) => ({
     },
     eventSubSkillIds: [],
     eventSubSkillMultiplier: 2,
-    selectedDishIds: []
+    selectedDishIds: [],
+    boxFilterTypes: [],
+    boxFilterSpecialties: [],
+    boxSortMode: "dex",
+    boxSortDirection: "asc"
   },
   loadSettings: async () => {
     const settingsData = await apiFetch("/api/settings");
@@ -73,7 +77,15 @@ const useSettingsStore = create((set) => ({
         ),
         selectedDishIds: Array.isArray(settingsData.selectedDishIds)
           ? settingsData.selectedDishIds
-          : []
+          : [],
+        boxFilterTypes: Array.isArray(settingsData.boxFilterTypes)
+          ? settingsData.boxFilterTypes
+          : [],
+        boxFilterSpecialties: Array.isArray(settingsData.boxFilterSpecialties)
+          ? settingsData.boxFilterSpecialties
+          : [],
+        boxSortMode: settingsData.boxSortMode || "dex",
+        boxSortDirection: settingsData.boxSortDirection || "asc"
       }
     });
   },
