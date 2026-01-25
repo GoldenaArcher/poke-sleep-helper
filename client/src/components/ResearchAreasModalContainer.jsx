@@ -15,8 +15,7 @@ const ResearchAreasModalContainer = ({ onClose }) => {
   const setDefaultArea = useResearchStore((state) => state.setDefaultArea);
   const updateAreaFavorites = useResearchStore(
     (state) => state.updateAreaFavorites
-  );
-  const [currentAreaName, setCurrentAreaName] = useState("");
+  );  const updateAreaBonus = useResearchStore((state) => state.updateAreaBonus);  const [currentAreaName, setCurrentAreaName] = useState("");
 
   useEffect(() => {
     const current = researchAreas.find((area) => area.is_default);
@@ -38,6 +37,7 @@ const ResearchAreasModalContainer = ({ onClose }) => {
       setCurrentAreaName={setCurrentAreaName}
       setDefaultArea={setDefaultArea}
       updateAreaFavorites={updateAreaFavorites}
+      updateAreaBonus={updateAreaBonus}
       onClose={onClose}
     />
   );

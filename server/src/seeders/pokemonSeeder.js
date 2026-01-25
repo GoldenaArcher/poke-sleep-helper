@@ -108,6 +108,10 @@ export async function seedPokemon(db, dbRun, dbGet) {
 
     // Seed pokemon variants
     for (const variant of species.variants) {
+      const shinyImagePath = variant.shinyImage 
+        ? `/uploads/pokemons/${variant.shinyImage}`
+        : null;
+      
       await dbRun(
         `INSERT INTO pokemon_variants (species_dex_no, variant_key, variant_name, specialty, is_default, is_event, notes, image_path, shiny_image_path)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -120,7 +124,7 @@ export async function seedPokemon(db, dbRun, dbGet) {
           variant.isEvent,
           variant.notes,
           `/uploads/pokemons/${variant.detailImage || species.dexNo + '-' + variant.key + '.png'}`,
-          `/uploads/pokemons/${variant.shinyImage || species.dexNo + '-' + variant.key + '-shiny.png'}`
+          shinyImagePath
         ]
       );
 

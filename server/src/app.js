@@ -342,8 +342,12 @@ app.get("/api/settings", async (req, res) => {
     if (settings.skill_branch_mode) {
       skillBranchMode = String(settings.skill_branch_mode).toLowerCase();
     }
-    if (settings.area_bonus) {
-      const parsedBonus = Number(settings.area_bonus);
+    // Get area bonus from current default research area instead of settings
+    const defaultArea = await dbGet(
+      "select area_bonus from research_areas where is_default = 1"
+    );
+    if (defaultArea && defaultArea.area_bonus) {
+      const parsedBonus = Number(defaultArea.area_bonus);
       if (Number.isFinite(parsedBonus) && parsedBonus > 0) {
         areaBonus = parsedBonus;
       }
@@ -584,12 +588,7 @@ app.put("/api/settings", async (req, res) => {
         ["skill_branch_mode", skillBranchMode]
       );
     }
-    if (typeof areaBonus === "number") {
-      await dbRun(
-        "insert or replace into settings (key, value) values (?, ?)",
-        ["area_bonus", String(areaBonus)]
-      );
-    }
+    // Area bonus is now stored per research area, not in settings
     if (typeof dayOfWeek === "string") {
       await dbRun(
         "insert or replace into settings (key, value) values (?, ?)",
@@ -2406,7 +2405,7 @@ app.post("/api/pokemon-box/:id/evolve", async (req, res) => {
 app.get("/api/research-areas", async (req, res) => {
   try {
     const areas = await dbAll(
-      "select id, name, is_default, favorites_random from research_areas order by name"
+      "select id, name, is_default, favorites_random, area_bonus from research_areas order by name"
     );
     const favorites = await dbAll(
       `select research_area_favorite_berries.area_id,
@@ -2449,7 +2448,7 @@ app.put("/api/research-areas/:id/default", async (req, res) => {
       areaId
     ]);
     const areas = await dbAll(
-      "select id, name, is_default, favorites_random from research_areas order by name"
+      "select id, name, is_default, favorites_random, area_bonus from research_areas order by name"
     );
     const favorites = await dbAll(
       `select research_area_favorite_berries.area_id,
@@ -2512,6 +2511,29 @@ app.put("/api/research-areas/:id/favorites", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to update favorites" });
+  }
+});
+
+app.put("/api/research-areas/:id/area-bonus", async (req, res) => {
+  const areaId = Number(req.params.id);
+  const { areaBonus } = req.body || {};
+  if (!areaId || typeof areaBonus !== "number") {
+    res.status(400).json({ error: "invalid request" });
+    return;
+  }
+  try {
+    await dbRun(
+      "update research_areas set area_bonus = ? where id = ?",
+      [areaBonus, areaId]
+    );
+    const area = await dbGet(
+      "select id, name, is_default, favorites_random, area_bonus from research_areas where id = ?",
+      [areaId]
+    );
+    res.json(area);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to update area bonus" });
   }
 });
 

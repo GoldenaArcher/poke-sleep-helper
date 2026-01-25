@@ -39,6 +39,20 @@ const useResearchStore = create((set) => ({
         area.id === areaId ? { ...area, favorites: updated } : area
       )
     }));
+  },
+  updateAreaBonus: async (areaId, areaBonus) => {
+    const updated = await apiFetch(
+      `/api/research-areas/${areaId}/area-bonus`,
+      {
+        method: "PUT",
+        body: JSON.stringify({ areaBonus })
+      }
+    );
+    set((state) => ({
+      researchAreas: state.researchAreas.map((area) =>
+        area.id === areaId ? { ...area, area_bonus: updated.area_bonus } : area
+      )
+    }));
   }
 }));
 

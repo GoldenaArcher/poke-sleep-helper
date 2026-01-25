@@ -332,6 +332,7 @@ const PokemonDetailsModal = ({ mode = "edit" }) => {
               <input
                 type="checkbox"
                 checked={boxDetailDraft.isShiny}
+                disabled={!boxDetail.entry.variant_shiny_image_path}
                 onChange={(event) =>
                   setBoxDetailDraft((prev) => ({
                     ...prev,

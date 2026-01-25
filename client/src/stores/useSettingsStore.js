@@ -85,7 +85,8 @@ const useSettingsStore = create((set) => ({
           ? settingsData.boxFilterSpecialties
           : [],
         boxSortMode: settingsData.boxSortMode || "dex",
-        boxSortDirection: settingsData.boxSortDirection || "asc"
+        boxSortDirection: settingsData.boxSortDirection || "asc",
+        weekDishType: settingsData.weekDishType || "salad"
       }
     });
   },

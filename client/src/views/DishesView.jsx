@@ -2,11 +2,36 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { apiFetch } from "../utils/api.js";
 import useDishesStore from "../stores/useDishesStore.js";
+import useSettingsStore from "../stores/useSettingsStore.js";
 
 const DishesView = () => {
   const dishes = useDishesStore((state) => state.dishes);
-  const [filterCookable, setFilterCookable] = useState(false);
+  const { settings, updateSettings } = useSettingsStore();
+  const [filterCookable, setFilterCookable] = useState(true);
   const [dishType, setDishType] = useState("all");
+  const initializedRef = useRef(false);
+
+  // Initialize from settings
+  useEffect(() => {
+    if (!initializedRef.current && settings && settings.version && settings.weekDishType !== undefined) {
+      initializedRef.current = true;
+      setDishType(settings.weekDishType || "salad");
+    }
+  }, [settings]);
+
+  // Save to settings when changed
+  useEffect(() => {
+    if (!initializedRef.current) {
+      return;
+    }
+    const timeoutId = setTimeout(async () => {
+      await updateSettings({
+        weekDishType: dishType
+      });
+    }, 300);
+    
+    return () => clearTimeout(timeoutId);
+  }, [dishType, updateSettings]);
 
   const visibleDishes = useMemo(() => {
     if (!filterCookable) {

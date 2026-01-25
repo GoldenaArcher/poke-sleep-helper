@@ -1831,6 +1831,94 @@
         }
       ],
       "subSkills": []
+    },
+    {
+      "dexNo": 58,
+      "name": "Growlithe",
+      "primaryType": "Fire",
+      "specialty": "Skills",
+      "profileImage": "58.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 59,
+          "name": "Arcanine",
+          "levelRequired": 0,
+          "evolutionItems": ["Fire Stone"],
+          "candyRequired": 80,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Growlithe",
+          "isDefault": 1,
+          "isEvent": 0,
+          "specialty": "Skills",
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:11:40",
+            "carryLimit": 8,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 5,
+            "recruitShards": 16
+          },
+          "berries": [
+            { "name": "Leppa Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Fiery Herb", "unlockLevel": 1 },
+            { "name": "Moomoo Milk", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Extra Helpful S",
+          "detailImage": "58-default.png",
+          "shinyImage": "58-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 491,
+      "name": "Darkrai",
+      "primaryType": "Dark",
+      "specialty": "Skills",
+      "profileImage": "491.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Darkrai",
+          "isDefault": 1,
+          "isEvent": 0,
+          "specialty": "Skills",
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:46:20",
+            "carryLimit": 28,
+            "friendshipPointsNeeded": 8,
+            "recruitExperience": 251,
+            "recruitShards": 4263
+          },
+          "berries": [
+            { "name": "Wiki Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Fancy Apple", "unlockLevel": 1 },
+            { "name": "Fiery Herb", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 1 },
+            { "name": "Moomoo Milk", "unlockLevel": 1 },
+            { "name": "Honey", "unlockLevel": 1 },
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 },
+            { "name": "Greengrass Corn", "unlockLevel": 1 },
+            { "name": "Rousing Coffee", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Strength M",
+          "detailImage": "491-default.png"
+        }
+      ],
+      "subSkills": []
     }
   ]
 }

@@ -15,6 +15,7 @@ const ResearchAreasModal = ({
   setCurrentAreaName,
   setDefaultArea,
   updateAreaFavorites,
+  updateAreaBonus,
   onClose
 }) => {
   const [dishSearch, setDishSearch] = useState("");
@@ -35,7 +36,11 @@ const ResearchAreasModal = ({
   const eventSkillStrengthMultiplier = settings.eventSkillStrengthMultiplier ?? 1;
   const eventSkillLevelPlusOneOnTrigger =
     Boolean(settings.eventSkillLevelPlusOneOnTrigger);
-  const areaBonus = settings.areaBonus ?? 1;
+  const currentArea = useMemo(
+    () => researchAreas.find((area) => area.is_default),
+    [researchAreas]
+  );
+  const areaBonus = currentArea?.area_bonus ?? 1;
   const selectedDishes = useMemo(
     () => dishes.filter((dish) => selectedDishIds.includes(dish.id)),
     [dishes, selectedDishIds]
@@ -104,11 +109,6 @@ const ResearchAreasModal = ({
   useEffect(() => {
     setGoalPreset(settings.preference || "custom");
   }, [settings.preference]);
-
-  const currentArea = useMemo(
-    () => researchAreas.find((area) => area.is_default),
-    [researchAreas]
-  );
 
   return (
     <div className="bag-modal">
@@ -182,11 +182,14 @@ const ResearchAreasModal = ({
                   type="number"
                   step="0.05"
                   value={areaBonus}
-                  onChange={(event) =>
-                    updateSettings({
-                      areaBonus: Number(event.target.value || 1)
-                    })
-                  }
+                  onChange={(event) => {
+                    if (currentArea) {
+                      updateAreaBonus(
+                        currentArea.id,
+                        Number(event.target.value || 1)
+                      );
+                    }
+                  }}
                 />
               </label>
             </div>
@@ -260,11 +263,11 @@ const ResearchAreasModal = ({
                         )}
                       </div>
                       <SearchSelect
-                        defaultValue={favoriteName}
+                        value={favoriteName}
                         placeholder="Select berry"
                         options={berries.map((berry) => berry.name)}
                         listId={`berry-options-${slot}`}
-                        onBlur={(event) => {
+                        onChange={(event) => {
                           if (!currentArea) {
                             return;
                           }

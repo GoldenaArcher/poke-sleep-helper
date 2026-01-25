@@ -351,6 +351,7 @@ export const initDb = async () => {
     );
   `);
   await ensureColumn("research_areas", "favorites_random", "INTEGER NOT NULL DEFAULT 0");
+  await ensureColumn("research_areas", "area_bonus", "REAL NOT NULL DEFAULT 1");
 
   // Research area favorite berries junction table
   await dbRun(`
