@@ -57,6 +57,7 @@ const BagModal = ({
             <input
               type="number"
               min="0"
+              step="20"
               value={settings.ingredientLimit}
               onChange={(event) =>
                 setSettings({
@@ -70,10 +71,25 @@ const BagModal = ({
             <input
               type="number"
               min="0"
+              step="20"
               value={settings.itemLimit}
               onChange={(event) =>
                 setSettings({
                   itemLimit: Number(event.target.value)
+                })
+              }
+            />
+          </label>
+          <label>
+            Pokemon box cap
+            <input
+              type="number"
+              min="0"
+              step="20"
+              value={settings.pokemonBoxLimit}
+              onChange={(event) =>
+                setSettings({
+                  pokemonBoxLimit: Number(event.target.value)
                 })
               }
             />

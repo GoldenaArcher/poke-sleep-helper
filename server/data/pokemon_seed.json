@@ -1833,6 +1833,53 @@
       "subSkills": []
     },
     {
+      "dexNo": 54,
+      "name": "Psyduck",
+      "primaryType": "Water",
+      "specialty": "Skills",
+      "profileImage": "54.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 55,
+          "name": "Golduck",
+          "levelRequired": 26,
+          "candyRequired": 40,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Psyduck",
+          "isDefault": 1,
+          "isEvent": 0,
+          "specialty": "Skills",
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:30:00",
+            "carryLimit": 8,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 9,
+            "recruitShards": 16
+          },
+          "berries": [
+            { "name": "Oran Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Soothing Cacao", "unlockLevel": 1 },
+            { "name": "Fancy Apple", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "54-default.png",
+          "shinyImage": "54-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 58,
       "name": "Growlithe",
       "primaryType": "Fire",

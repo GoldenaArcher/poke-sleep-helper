@@ -480,6 +480,7 @@ app.put("/api/settings", async (req, res) => {
   const {
     ingredientLimit,
     itemLimit,
+    pokemonBoxLimit,
     eventTypes,
     eventBuffs,
     eventSubSkillIds,
@@ -520,6 +521,12 @@ app.put("/api/settings", async (req, res) => {
       await dbRun(
         "insert or replace into settings (key, value) values (?, ?)",
         ["item_limit", String(itemLimit)]
+      );
+    }
+    if (typeof pokemonBoxLimit === "number") {
+      await dbRun(
+        "insert or replace into settings (key, value) values (?, ?)",
+        ["pokemon_box_limit", String(pokemonBoxLimit)]
       );
     }
     if (Array.isArray(eventTypes)) {

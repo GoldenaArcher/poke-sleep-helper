@@ -96,7 +96,8 @@ const BagModalContainer = ({ onClose, setStatus }) => {
     try {
       await updateSettings({
         ingredientLimit: Number(settings.ingredientLimit) || 0,
-        itemLimit: Number(settings.itemLimit) || 0
+        itemLimit: Number(settings.itemLimit) || 0,
+        pokemonBoxLimit: Number(settings.pokemonBoxLimit) || 0
       });
       setStatus("Bag limits updated.");
     } catch (error) {
