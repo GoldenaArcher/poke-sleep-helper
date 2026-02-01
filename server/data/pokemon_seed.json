@@ -1880,6 +1880,53 @@
       "subSkills": []
     },
     {
+      "dexNo": 92,
+      "name": "Gastly",
+      "primaryType": "Ghost",
+      "specialty": "Ingredients",
+      "profileImage": "92.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 93,
+          "name": "Haunter",
+          "levelRequired": 19,
+          "candyRequired": 40,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Gastly",
+          "isDefault": 1,
+          "isEvent": 0,
+          "specialty": "Ingredients",
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:03:20",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 7,
+            "recruitShards": 20
+          },
+          "berries": [
+            { "name": "Bluk Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Fiery Herb", "unlockLevel": 1 },
+            { "name": "Tasty Mushroom", "unlockLevel": 1 },
+            { "name": "Pure Oil", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "92-default.png",
+          "shinyImage": "92-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 58,
       "name": "Growlithe",
       "primaryType": "Fire",
