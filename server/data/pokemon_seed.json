@@ -1975,6 +1975,52 @@
       "subSkills": []
     },
     {
+      "dexNo": 155,
+      "name": "Cyndaquil",
+      "primaryType": "Fire",
+      "specialty": "Berries",
+      "profileImage": "155.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 156,
+          "name": "Quilava",
+          "levelRequired": 11,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Cyndaquil",
+          "isDefault": 1,
+          "isEvent": 0,
+          "specialty": "Berries",
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:58:20",
+            "carryLimit": 14,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 16,
+            "recruitShards": 42
+          },
+          "berries": [
+            { "name": "Leppa Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Warming Ginger", "unlockLevel": 1 },
+            { "name": "Fiery Herb", "unlockLevel": 1 },
+            { "name": "Pure Oil", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "155-default.png",
+          "shinyImage": "155-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 491,
       "name": "Darkrai",
       "primaryType": "Dark",
