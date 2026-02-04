@@ -6,6 +6,17 @@
       "primaryType": "Fire",
       "specialty": "Ingredients",
       "profileImage": "4.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 5,
+          "name": "Charmeleon",
+          "levelRequired": 12,
+          "candyRequired": 40,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
       "variants": [
         {
           "key": "default",
@@ -31,6 +42,47 @@
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "4-default.png",
           "shinyImage": "4-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 5,
+      "name": "Charmeleon",
+      "primaryType": "Fire",
+      "specialty": "Ingredients",
+      "profileImage": "5.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 4,
+          "name": "Charmander"
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Charmeleon",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:59:00",
+            "carryLimit": 15,
+            "friendshipPointsNeeded": 12,
+            "recruitExperience": 116,
+            "recruitShards": 245
+          },
+          "berries": [
+            { "name": "Leppa Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Bean Sausage", "unlockLevel": 1 },
+            { "name": "Warming Ginger", "unlockLevel": 1 },
+            { "name": "Fiery Herb", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Ingredient Magnet S",
+          "detailImage": "5-default.png",
+          "shinyImage": "5-default-shiny.png"
         }
       ],
       "subSkills": []
