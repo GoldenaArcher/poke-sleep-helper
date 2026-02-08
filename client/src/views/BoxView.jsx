@@ -9,6 +9,7 @@ import {
   IoArrowUpOutline,
   IoArrowDownOutline
 } from "react-icons/io5";
+import { IoMdMale, IoMdFemale } from "react-icons/io";
 import SearchSelect from "../components/SearchSelect.jsx";
 import PokemonDetailsModal from "../components/PokemonDetailsModal.jsx";
 import useBagStore from "../stores/useBagStore.js";
@@ -673,6 +674,12 @@ const BoxView = () => {
                     <span className="type-specialty">
                       {entry.specialty || "—"}
                     </span>
+                    {entry.gender && (
+                      <span className={`gender-chip ${entry.gender}`}>
+                        {entry.gender === "male" && <IoMdMale />}
+                        {entry.gender === "female" && <IoMdFemale />}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -777,10 +784,13 @@ const BoxView = () => {
                       gender: event.target.value
                     }))
                   }
+                  style={{
+                    color: newBoxEntry.gender === "male" ? "#3b82f6" : newBoxEntry.gender === "female" ? "#ef4444" : "inherit"
+                  }}
                 >
-                  <option value="unknown">Unknown</option>
-                  <option value="male">♂ Male</option>
-                  <option value="female">♀ Female</option>
+                  <option value="unknown">⚲ Unknown</option>
+                  <option value="male" style={{ color: "#3b82f6" }}>♂ Male</option>
+                  <option value="female" style={{ color: "#ef4444" }}>♀ Female</option>
                 </select>
               </label>
               <label>

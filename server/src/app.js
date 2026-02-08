@@ -2037,6 +2037,7 @@ const buildBoxDetailPayload = async (entryId) => {
             pokemon_box.main_skill_value,
             main_skill_levels.value_min as main_skill_value_default,
             pokemon_box.is_shiny,
+            pokemon_box.gender,
             pokemon_species.name as species_name,
             pokemon_species.dex_no as dex_no,
             pokemon_species.primary_type as primary_type,

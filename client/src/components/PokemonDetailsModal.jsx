@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IoCloseOutline } from "react-icons/io5";
+import { IoCloseOutline, IoMale, IoFemale } from "react-icons/io5";
 import useNaturesStore from "../stores/useNaturesStore.js";
 import usePokemonBoxStore from "../stores/usePokemonBoxStore.js";
 
@@ -311,10 +311,13 @@ const PokemonDetailsModal = ({ mode = "edit" }) => {
                     gender: event.target.value
                   }))
                 }
+                style={{
+                  color: boxDetailDraft.gender === "male" ? "#3b82f6" : boxDetailDraft.gender === "female" ? "#ef4444" : "inherit"
+                }}
               >
-                <option value="unknown">Unknown</option>
-                <option value="male">♂ Male</option>
-                <option value="female">♀ Female</option>
+                <option value="unknown">⚲ Unknown</option>
+                <option value="male" style={{ color: "#3b82f6" }}>♂ Male</option>
+                <option value="female" style={{ color: "#ef4444" }}>♀ Female</option>
               </select>
             </label>
             <label>

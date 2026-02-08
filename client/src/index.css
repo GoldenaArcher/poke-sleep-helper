@@ -230,6 +230,48 @@ button {
   color: #64748b;
 }
 
+.gender-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 900;
+  color: white;
+}
+
+.gender-chip svg {
+  stroke-width: 2;
+  filter: drop-shadow(0 0 0.5px white);
+}
+
+.gender-chip.male {
+  background: #3b82f6;
+}
+
+.gender-chip.female {
+  background: #ef4444;
+}
+
+.gender-chip.unknown {
+  background: #94a3b8;
+  position: relative;
+}
+
+.gender-chip.unknown::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .type-inline {
   display: flex;
   align-items: center;
