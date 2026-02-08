@@ -360,7 +360,7 @@ button {
 
 .dish-row {
   display: grid;
-  grid-template-columns: minmax(200px, 1.1fr) minmax(240px, 1.6fr) minmax(200px, 1fr);
+  grid-template-columns: minmax(280px, 1.3fr) minmax(240px, 1.5fr) minmax(200px, 1fr);
   gap: 16px;
   padding: 14px 16px;
   border-radius: 16px;

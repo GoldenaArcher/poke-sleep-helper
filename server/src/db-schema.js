@@ -239,6 +239,7 @@ export const initDb = async () => {
       to_species_dex_no INTEGER NOT NULL,
       level_required INTEGER,
       items_json TEXT,
+      gender_required TEXT CHECK(gender_required IN ('male', 'female', NULL)),
       PRIMARY KEY (from_species_dex_no, to_species_dex_no),
       FOREIGN KEY (from_species_dex_no) REFERENCES pokemon_species(dex_no),
       FOREIGN KEY (to_species_dex_no) REFERENCES pokemon_species(dex_no)
@@ -380,6 +381,7 @@ export const initDb = async () => {
       main_skill_trigger_rate REAL NOT NULL DEFAULT 0.1,
       energy INTEGER NOT NULL DEFAULT 150,
       is_shiny INTEGER NOT NULL DEFAULT 0,
+      gender TEXT CHECK(gender IN ('male', 'female', 'unknown')) DEFAULT 'unknown',
       created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (species_dex_no, variant_key) REFERENCES pokemon_variants(species_dex_no, variant_key),
       FOREIGN KEY (nature_id) REFERENCES natures(id)
@@ -443,6 +445,12 @@ export const initDb = async () => {
       FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
     );
   `);
+
+  // Migration: Add gender column to pokemon_box if it doesn't exist
+  await ensureColumn('pokemon_box', 'gender', "TEXT CHECK(gender IN ('male', 'female', 'unknown')) DEFAULT 'unknown'");
+
+  // Migration: Add gender_required column to pokemon_evolution_routes if it doesn't exist
+  await ensureColumn('pokemon_evolution_routes', 'gender_required', "TEXT CHECK(gender_required IN ('male', 'female', NULL))");
 
   console.log("✅ Database schema initialized");
 };

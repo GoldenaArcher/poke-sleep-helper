@@ -1637,6 +1637,7 @@ app.get("/api/pokemon-box", async (req, res) => {
               pokemon_box.main_skill_value,
               main_skill_levels.value_min as main_skill_value_default,
               pokemon_box.is_shiny,
+              pokemon_box.gender,
               pokemon_box.created_at,
               pokemon_species.name as species_name,
               pokemon_species.dex_no as dex_no,
@@ -1688,6 +1689,7 @@ app.post("/api/pokemon-box", async (req, res) => {
     mainSkillValue,
     mainSkillTriggerRate,
     isShiny,
+    gender,
     ingredientSlots
   } =
     req.body || {};
@@ -1724,10 +1726,11 @@ app.post("/api/pokemon-box", async (req, res) => {
       !Number.isFinite(Number(mainSkillTriggerRate))
         ? 0.1
         : Number(mainSkillTriggerRate);
+    const validGender = ['male', 'female', 'unknown'].includes(gender) ? gender : 'unknown';
     await dbRun(
       `insert into pokemon_box
-       (species_dex_no, variant_key, nature_id, nickname, level, main_skill_level, main_skill_value, main_skill_trigger_rate, is_shiny)
-       values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       (species_dex_no, variant_key, nature_id, nickname, level, main_skill_level, main_skill_value, main_skill_trigger_rate, is_shiny, gender)
+       values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         dexNo,
         vKey,
@@ -1737,7 +1740,8 @@ app.post("/api/pokemon-box", async (req, res) => {
         Math.max(1, Number(mainSkillLevel) || 1),
         parsedMainSkillValue,
         parsedMainSkillTriggerRate,
-        isShiny ? 1 : 0
+        isShiny ? 1 : 0,
+        validGender
       ]
     );
     const createdEntry = await dbGet(
@@ -1872,6 +1876,7 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
     mainSkillValue,
     mainSkillTriggerRate,
     isShiny,
+    gender,
     ingredients,
     subSkills
   } = req.body || {};
@@ -1894,6 +1899,7 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
     return;
   }
   try {
+    const validGender = gender && ['male', 'female', 'unknown'].includes(gender) ? gender : undefined;
     await dbRun(
       `update pokemon_box
        set nature_id = ?,
@@ -1903,8 +1909,19 @@ app.put("/api/pokemon-box/:id", async (req, res) => {
            main_skill_value = ?,
            main_skill_trigger_rate = ?,
            is_shiny = ?
+           ${validGender ? ', gender = ?' : ''}
        where id = ?`,
-      [
+      validGender ? [
+        natureId || null,
+        nickname || null,
+        Math.max(1, Number(level) || 1),
+        Math.max(1, Number(mainSkillLevel) || 1),
+        parsedMainSkillValue,
+        parsedMainSkillTriggerRate,
+        isShiny ? 1 : 0,
+        validGender,
+        entryId
+      ] : [
         natureId || null,
         nickname || null,
         Math.max(1, Number(level) || 1),
@@ -2389,6 +2406,23 @@ app.post("/api/pokemon-box/:id/evolve", async (req, res) => {
         error: "This variant cannot evolve (e.g., Holiday variants)"
       });
       return;
+    }
+
+    // Check gender requirement for evolution
+    const evolutionRoute = await dbGet(
+      `SELECT gender_required
+       FROM pokemon_evolution_routes
+       WHERE from_species_dex_no = ? AND to_species_dex_no = ?`,
+      [pokemon.species_dex_no, variantEvolution.to_species_dex_no]
+    );
+
+    if (evolutionRoute && evolutionRoute.gender_required) {
+      if (pokemon.gender !== evolutionRoute.gender_required) {
+        res.status(400).json({
+          error: `This Pokemon must be ${evolutionRoute.gender_required} to evolve to this form`
+        });
+        return;
+      }
     }
 
     // Update the Pokemon to evolved form

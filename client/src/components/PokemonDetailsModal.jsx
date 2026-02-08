@@ -67,6 +67,7 @@ const PokemonDetailsModal = ({ mode = "edit" }) => {
       mainSkillOverride:
         typeof boxDetail.entry.main_skill_value === "number",
       isShiny: Boolean(boxDetail.entry.is_shiny),
+      gender: boxDetail.entry.gender || "unknown",
       ingredientSlots: ingredientSlotLevels.map((slotLevel) => {
         const slot = ingredientSlotMap.get(slotLevel);
         const rawQuantity = Number(slot?.quantity);
@@ -114,6 +115,7 @@ const PokemonDetailsModal = ({ mode = "edit" }) => {
           ? Number(boxDetailDraft.mainSkillValue)
           : null,
       isShiny: boxDetailDraft.isShiny,
+      gender: boxDetailDraft.gender,
       subSkills: boxDetailDraft.subSkillSlots.map((slot) => ({
         slotLevel: slot.slotLevel,
         subSkillId: slot.subSkillId ? Number(slot.subSkillId) : null
@@ -297,6 +299,22 @@ const PokemonDetailsModal = ({ mode = "edit" }) => {
                     {nature.name}
                   </option>
                 ))}
+              </select>
+            </label>
+            <label>
+              Gender
+              <select
+                value={boxDetailDraft.gender}
+                onChange={(event) =>
+                  setBoxDetailDraft((prev) => ({
+                    ...prev,
+                    gender: event.target.value
+                  }))
+                }
+              >
+                <option value="unknown">Unknown</option>
+                <option value="male">♂ Male</option>
+                <option value="female">♀ Female</option>
               </select>
             </label>
             <label>

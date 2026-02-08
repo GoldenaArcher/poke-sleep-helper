@@ -112,16 +112,18 @@ const DishesView = () => {
                   <Link className="dish-link" to={`/dishes/${dish.id}`}>
                     {dish.name}
                   </Link>
-                  {dish.dish_level && dish.dish_level > 1 && (
-                    <span className="chip compact" style={{ fontSize: "0.75rem", padding: "2px 6px" }}>
+                  {dish.level_value != null && dish.dish_level && dish.dish_level > 1 && (
+                    <span className="chip compact" style={{ fontSize: "0.75rem", padding: "2px 6px", marginLeft: "8px" }}>
                       Lv {dish.dish_level}
                     </span>
                   )}
                 </div>
                 <div className="inline-fields compact">
-                  <span className="meta">
-                    Strength: {dish.level_value ?? dish.base_strength}
-                  </span>
+                  {dish.level_value != null && (
+                    <span className="meta">
+                      Strength: {dish.level_value}
+                    </span>
+                  )}
                   <span className="meta">Type: {dish.type}</span>
                 </div>
               </div>

@@ -36,7 +36,8 @@ const BoxView = () => {
     nickname: "",
     level: "1",
     mainSkillLevel: "1",
-    isShiny: false
+    isShiny: false,
+    gender: "unknown"
   });
   const [speciesSearch, setSpeciesSearch] = useState("");
   const [sortMode, setSortMode] = useState("dex");
@@ -417,6 +418,7 @@ const BoxView = () => {
       level: Number(newBoxEntry.level) || 1,
       mainSkillLevel: Number(newBoxEntry.mainSkillLevel) || 1,
       isShiny: newBoxEntry.isShiny,
+      gender: newBoxEntry.gender,
       ingredientSlots: ingredientSlots
         .filter((slot) => slot.ingredient_id)
         .map((slot) => ({
@@ -432,7 +434,8 @@ const BoxView = () => {
       nickname: "",
       level: "1",
       mainSkillLevel: "1",
-      isShiny: false
+      isShiny: false,
+      gender: "unknown"
     });
     setSpeciesSearch("");
     setIngredientSlots(emptyIngredientSlots);
@@ -762,6 +765,22 @@ const BoxView = () => {
                       {nature.name}
                     </option>
                   ))}
+                </select>
+              </label>
+              <label>
+                Gender
+                <select
+                  value={newBoxEntry.gender}
+                  onChange={(event) =>
+                    setNewBoxEntry((prev) => ({
+                      ...prev,
+                      gender: event.target.value
+                    }))
+                  }
+                >
+                  <option value="unknown">Unknown</option>
+                  <option value="male">♂ Male</option>
+                  <option value="female">♀ Female</option>
                 </select>
               </label>
               <label>
