@@ -599,15 +599,23 @@ const PokemonDetailsModal = ({ mode = "edit" }) => {
           <div>
             <h4>Unlocked Ingredients</h4>
             {boxDetail.ingredientSelections?.length ? (
-              boxDetail.ingredientSelections
-                .filter(
-                  (ingredient) =>
-                    ingredient.name &&
-                    boxDetail.unlockedSlots?.includes(ingredient.slot_level)
-                )
-                .map((ingredient) => (
+              (() => {
+                const uniqueIngredients = boxDetail.ingredientSelections
+                  .filter(
+                    (ingredient) =>
+                      ingredient.name &&
+                      boxDetail.unlockedSlots?.includes(ingredient.slot_level)
+                  )
+                  .reduce((acc, ingredient) => {
+                    if (!acc.find((item) => item.name === ingredient.name)) {
+                      acc.push(ingredient);
+                    }
+                    return acc;
+                  }, []);
+                
+                return uniqueIngredients.map((ingredient) => (
                   <div
-                    key={`${ingredient.name}-${ingredient.slot_level}`}
+                    key={ingredient.name}
                     className="ingredient-preview-row"
                   >
                     {ingredient.image_path ? (
@@ -615,7 +623,8 @@ const PokemonDetailsModal = ({ mode = "edit" }) => {
                     ) : null}
                     <span>{ingredient.name}</span>
                   </div>
-                ))
+                ));
+              })()
             ) : (
               <p className="meta">No ingredients set.</p>
             )}

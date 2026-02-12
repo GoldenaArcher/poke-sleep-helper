@@ -787,6 +787,18 @@ export const dishCatalog = [
       { name: "Snoozy Tomato", quantity: 16 },
       { name: "Moomoo Milk", quantity: 14 }
     ]
+  },
+  {
+    name: "Honey Gather Chocolate Waffles",
+    type: "dessert",
+    description:
+      "A sweet treat made with bitter batter mixed with cacao, covered in heaps of honey.",
+    ingredients: [
+      { name: "Honey", quantity: 38 },
+      { name: "Greengrass Corn", quantity: 28 },
+      { name: "Pure Oil", quantity: 28 },
+      { name: "Soothing Cacao", quantity: 21 }
+    ]
   }
 ];
 
@@ -4767,6 +4779,73 @@ export const berryStrengthData = {
     { level: 63, strength: 162 },
     { level: 64, strength: 166 },
     { level: 65, strength: 170 }
+  ],
+  "Honey Gather Chocolate Waffles": [
+    { level: 1, experience: 0, value: 25484 },
+    { level: 2, experience: 5454, value: 26019 },
+    { level: 3, experience: 11735, value: 26554 },
+    { level: 4, experience: 19875, value: 27089 },
+    { level: 5, experience: 27995, value: 27624 },
+    { level: 6, experience: 37066, value: 27891 },
+    { level: 7, experience: 48105, value: 28426 },
+    { level: 8, experience: 61197, value: 28961 },
+    { level: 9, experience: 76311, value: 29496 },
+    { level: 10, experience: 93565, value: 30031 },
+    { level: 11, experience: 112927, value: 30566 },
+    { level: 12, experience: 134593, value: 31101 },
+    { level: 13, experience: 158431, value: 31636 },
+    { level: 14, experience: 184550, value: 32171 },
+    { level: 15, experience: 212958, value: 32707 },
+    { level: 16, experience: 243728, value: 33242 },
+    { level: 17, experience: 276791, value: 33777 },
+    { level: 18, experience: 312347, value: 34312 },
+    { level: 19, experience: 350333, value: 34847 },
+    { level: 20, experience: 390841, value: 35382 },
+    { level: 21, experience: 433800, value: 35917 },
+    { level: 22, experience: 479364, value: 36452 },
+    { level: 23, experience: 527453, value: 36987 },
+    { level: 24, experience: 578157, value: 37522 },
+    { level: 25, experience: 631485, value: 38057 },
+    { level: 26, experience: 687448, value: 38592 },
+    { level: 27, experience: 746069, value: 39127 },
+    { level: 28, experience: 807338, value: 39662 },
+    { level: 29, experience: 871278, value: 40197 },
+    { level: 30, experience: 937920, value: 40732 },
+    { level: 31, experience: 1007214, value: 41268 },
+    { level: 32, experience: 1079279, value: 41803 },
+    { level: 33, experience: 1154058, value: 42338 },
+    { level: 34, experience: 1231602, value: 42873 },
+    { level: 35, experience: 1311901, value: 43408 },
+    { level: 36, experience: 1394955, value: 43943 },
+    { level: 37, experience: 1480754, value: 44478 },
+    { level: 38, experience: 1569329, value: 45013 },
+    { level: 39, experience: 1660648, value: 45548 },
+    { level: 40, experience: 1754755, value: 46083 },
+    { level: 41, experience: 1851637, value: 46618 },
+    { level: 42, experience: 1951337, value: 47153 },
+    { level: 43, experience: 2053824, value: 47688 },
+    { level: 44, experience: 2159141, value: 48223 },
+    { level: 45, experience: 2267287, value: 48758 },
+    { level: 46, experience: 2378241, value: 49293 },
+    { level: 47, experience: 2492092, value: 49828 },
+    { level: 48, experience: 2608809, value: 50364 },
+    { level: 49, experience: 2728424, value: 50899 },
+    { level: 50, experience: 2850959, value: 51434 },
+    { level: 51, experience: 2976370, value: 51969 },
+    { level: 52, experience: 3104743, value: 52504 },
+    { level: 53, experience: 3236036, value: 53039 },
+    { level: 54, experience: 3370292, value: 53574 },
+    { level: 55, experience: 3507511, value: 54109 },
+    { level: 56, experience: 3647703, value: 54644 },
+    { level: 57, experience: 3790890, value: 55179 },
+    { level: 58, experience: 3937072, value: 55714 },
+    { level: 59, experience: 4086217, value: 56249 },
+    { level: 60, experience: 4238402, value: 56784 },
+    { level: 61, experience: 4393593, value: 57319 },
+    { level: 62, experience: 4551855, value: 57854 },
+    { level: 63, experience: 4713167, value: 58389 },
+    { level: 64, experience: 4877561, value: 58924 },
+    { level: 65, experience: 5045037, value: 59460 }
   ]
 };
 

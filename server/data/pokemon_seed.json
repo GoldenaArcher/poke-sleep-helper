@@ -1636,6 +1636,17 @@
       "primaryType": "Fire",
       "specialty": "Berries",
       "profileImage": "37.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 38,
+          "name": "Ninetales",
+          "evolutionItem": "Fire Stone",
+          "candyRequired": 80,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
       "variants": [
         {
           "key": "default",
@@ -1644,11 +1655,11 @@
           "isEvent": 0,
           "notes": "Standard variant",
           "stats": {
-            "baseFrequency": "01:18:20",
-            "carryLimit": 13,
-            "friendshipPointsNeeded": 7,
-            "recruitExperience": 25,
-            "recruitShards": 64
+            "baseFrequency": "00:43:20",
+            "carryLimit": 23,
+            "friendshipPointsNeeded": 20,
+            "recruitExperience": 221,
+            "recruitShards": 467
           },
           "berries": [
             { "name": "Leppa Berry", "quantity": 2 }
@@ -1661,6 +1672,47 @@
           "mainSkill": "Energizing Cheer S",
           "detailImage": "37-default.png",
           "shinyImage": "37-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 38,
+      "name": "Ninetales",
+      "primaryType": "Fire",
+      "specialty": "Berries",
+      "profileImage": "38.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 37,
+          "name": "Vulpix"
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Ninetales",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:36:40",
+            "carryLimit": 28,
+            "friendshipPointsNeeded": 35,
+            "recruitExperience": 629,
+            "recruitShards": 1329
+          },
+          "berries": [
+            { "name": "Leppa Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 },
+            { "name": "Greengrass Corn", "unlockLevel": 1 },
+            { "name": "Soft Potato", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Energizing Cheer S",
+          "detailImage": "38-default.png",
+          "shinyImage": "38-default-shiny.png"
         }
       ],
       "subSkills": []

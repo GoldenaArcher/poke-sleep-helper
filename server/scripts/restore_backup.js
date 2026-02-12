@@ -51,8 +51,8 @@ async function restoreUserData(backupFilePath) {
     // Restore pokemon_box
     for (const pokemon of backupData.data.pokemon_box) {
       await dbRun(
-        `INSERT INTO pokemon_box (id, species_dex_no, variant_key, nickname, level, current_exp, nature_id, is_shiny, main_skill_level, main_skill_value, main_skill_trigger_rate, energy, created_at) 
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO pokemon_box (id, species_dex_no, variant_key, nickname, level, current_exp, nature_id, is_shiny, main_skill_level, main_skill_value, main_skill_trigger_rate, energy, created_at, gender) 
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           pokemon.id,
           pokemon.species_dex_no,
@@ -66,7 +66,8 @@ async function restoreUserData(backupFilePath) {
           pokemon.main_skill_value || null,
           pokemon.main_skill_trigger_rate || 0,
           pokemon.energy || 0,
-          pokemon.created_at
+          pokemon.created_at,
+          pokemon.gender || 'unknown'
         ]
       );
     }
