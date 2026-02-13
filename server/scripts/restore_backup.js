@@ -47,6 +47,7 @@ async function restoreUserData(backupFilePath) {
     await dbRun("DELETE FROM pokemon_box");
     await dbRun("DELETE FROM settings");
     await dbRun("DELETE FROM bag_ingredients");
+    await dbRun("DELETE FROM research_areas");
 
     // Restore pokemon_box
     for (const pokemon of backupData.data.pokemon_box) {
@@ -118,11 +119,22 @@ async function restoreUserData(backupFilePath) {
       }
     }
 
+    // Restore research_areas
+    if (backupData.data.research_areas && backupData.data.research_areas.length > 0) {
+      for (const area of backupData.data.research_areas) {
+        await dbRun(
+          `INSERT INTO research_areas (id, name, area_bonus, target_dish_id, enabled) VALUES (?, ?, ?, ?, ?)`,
+          [area.id, area.name, area.area_bonus || 1, area.target_dish_id, area.enabled || 0]
+        );
+      }
+    }
+
     console.log(`  ✓ Restored from backup created at ${backupData.timestamp}`);
     console.log(`    - Pokemon: ${backupData.data.pokemon_box.length}`);
     console.log(`    - Settings: ${backupData.data.settings.length}`);
     console.log(`    - Bag items: ${backupData.data.bag_ingredients.length}`);
     console.log(`    - Dish levels: ${backupData.data.dish_levels?.length || 0}`);
+    console.log(`    - Research areas: ${backupData.data.research_areas?.length || 0}`);
   } catch (error) {
     console.error("  ❌ Restore failed:", error.message);
     throw error;

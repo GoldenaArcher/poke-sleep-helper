@@ -35,6 +35,7 @@ async function createBackup() {
     const settings = await dbAll("SELECT * FROM settings");
     const bagIngredients = await dbAll("SELECT * FROM bag_ingredients");
     const dishLevels = await dbAll("SELECT id, dish_level FROM dishes WHERE dish_level > 1");
+    const researchAreas = await dbAll("SELECT * FROM research_areas");
 
     // Create backup data
     const backupData = {
@@ -46,13 +47,15 @@ async function createBackup() {
         pokemon_box_ingredients: pokemonBoxIngredients,
         settings: settings,
         bag_ingredients: bagIngredients,
-        dish_levels: dishLevels
+        dish_levels: dishLevels,
+        research_areas: researchAreas
       },
       counts: {
         pokemon: pokemonBox.length,
         settings: settings.length,
         bag_items: bagIngredients.length,
-        dish_levels: dishLevels.length
+        dish_levels: dishLevels.length,
+        research_areas: researchAreas.length
       }
     };
 
@@ -68,6 +71,7 @@ async function createBackup() {
     console.log(`    - Settings: ${settings.length}`);
     console.log(`    - Bag items: ${bagIngredients.length}`);
     console.log(`    - Dish levels: ${dishLevels.length}`);
+    console.log(`    - Research areas: ${researchAreas.length}`);
     console.log(`\n📂 Backup location: ${backupFile}`);
 
     // Clean old backups (keep last 10)

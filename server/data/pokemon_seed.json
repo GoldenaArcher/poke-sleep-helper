@@ -1,6 +1,41 @@
 {
   "species": [
     {
+      "dexNo": 1,
+      "name": "Bulbasaur",
+      "primaryType": "Grass",
+      "specialty": "Ingredients",
+      "profileImage": "1.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Bulbasaur",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:13:20",
+            "carryLimit": 11,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 18,
+            "recruitShards": 39
+          },
+          "berries": [
+            { "name": "Durin Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Honey", "unlockLevel": 1 },
+            { "name": "Soft Potato", "unlockLevel": 1 },
+            { "name": "Snoozy Tomato", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Ingredient Magnet S",
+          "detailImage": "1-default.png",
+          "shinyImage": "1-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 4,
       "name": "Charmander",
       "primaryType": "Fire",

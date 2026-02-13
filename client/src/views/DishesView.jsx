@@ -3,19 +3,31 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { apiFetch } from "../utils/api.js";
 import useDishesStore from "../stores/useDishesStore.js";
 import useSettingsStore from "../stores/useSettingsStore.js";
+import { IoArrowUp, IoArrowDown } from "react-icons/io5";
 
 const DishesView = () => {
   const dishes = useDishesStore((state) => state.dishes);
   const { settings, updateSettings } = useSettingsStore();
   const [filterCookable, setFilterCookable] = useState(true);
   const [dishType, setDishType] = useState("all");
+  const [sortBy, setSortBy] = useState("name");
+  const [sortDirection, setSortDirection] = useState("asc");
+  const [showSortMenu, setShowSortMenu] = useState(false);
   const initializedRef = useRef(false);
 
   // Initialize from settings
   useEffect(() => {
-    if (!initializedRef.current && settings && settings.version && settings.weekDishType !== undefined) {
+    if (!initializedRef.current && settings && settings.version) {
       initializedRef.current = true;
-      setDishType(settings.weekDishType || "salad");
+      if (settings.weekDishType !== undefined) {
+        setDishType(settings.weekDishType);
+      }
+      if (settings.dishSortBy !== undefined) {
+        setSortBy(settings.dishSortBy);
+      }
+      if (settings.dishSortDirection !== undefined) {
+        setSortDirection(settings.dishSortDirection);
+      }
     }
   }, [settings]);
 
@@ -26,12 +38,14 @@ const DishesView = () => {
     }
     const timeoutId = setTimeout(async () => {
       await updateSettings({
-        weekDishType: dishType
+        weekDishType: dishType,
+        dishSortBy: sortBy,
+        dishSortDirection: sortDirection
       });
     }, 300);
     
     return () => clearTimeout(timeoutId);
-  }, [dishType, updateSettings]);
+  }, [dishType, sortBy, sortDirection, updateSettings]);
 
   const visibleDishes = useMemo(() => {
     if (!filterCookable) {
@@ -41,11 +55,36 @@ const DishesView = () => {
   }, [dishes, filterCookable]);
 
   const filteredDishes = useMemo(() => {
-    if (dishType === "all") {
-      return visibleDishes;
+    let result = visibleDishes;
+    
+    // Filter by type
+    if (dishType !== "all") {
+      result = result.filter((dish) => dish.type === dishType);
     }
-    return visibleDishes.filter((dish) => dish.type === dishType);
-  }, [visibleDishes, dishType]);
+    
+    // Sort
+    const sorted = [...result].sort((a, b) => {
+      let compareValue = 0;
+      
+      switch (sortBy) {
+        case "name":
+          compareValue = a.name.localeCompare(b.name);
+          break;
+        case "level":
+          compareValue = (a.dish_level || 1) - (b.dish_level || 1);
+          break;
+        case "strength":
+          compareValue = (a.level_value || 0) - (b.level_value || 0);
+          break;
+        default:
+          compareValue = 0;
+      }
+      
+      return sortDirection === "asc" ? compareValue : -compareValue;
+    });
+    
+    return sorted;
+  }, [visibleDishes, dishType, sortBy, sortDirection]);
 
   return (
     <>
@@ -76,14 +115,53 @@ const DishesView = () => {
               </button>
             ))}
           </div>
-          <label className="checkbox">
-            <input
-              type="checkbox"
-              checked={filterCookable}
-              onChange={(event) => setFilterCookable(event.target.checked)}
-            />
-            Show cookable only
-          </label>
+          <div style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
+            <div className="box-sort" style={{ position: "relative" }}>
+              <button
+                className="box-sort-button button ghost"
+                onClick={() => setShowSortMenu(!showSortMenu)}
+              >
+                Sort: {sortBy === "name" ? "Name" : sortBy === "level" ? "Level" : "Strength"}
+              </button>
+              {showSortMenu && (
+                <div className="box-sort-menu">
+                  {[
+                    { label: "Name", value: "name" },
+                    { label: "Level", value: "level" },
+                    { label: "Strength", value: "strength" }
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      className="box-sort-option"
+                      onClick={() => {
+                        setSortBy(option.value);
+                        setShowSortMenu(false);
+                      }}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <button
+              className="box-sort-direction icon-button"
+              onClick={() =>
+                setSortDirection(sortDirection === "asc" ? "desc" : "asc")
+              }
+              title={sortDirection === "asc" ? "Ascending" : "Descending"}
+            >
+              {sortDirection === "asc" ? <IoArrowUp /> : <IoArrowDown />}
+            </button>
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                checked={filterCookable}
+                onChange={(event) => setFilterCookable(event.target.checked)}
+              />
+              Show cookable only
+            </label>
+          </div>
         </div>
         <div className="dish-table">
           <div className="dish-row header">

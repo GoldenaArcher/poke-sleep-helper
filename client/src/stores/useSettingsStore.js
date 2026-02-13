@@ -7,6 +7,26 @@ const preferencePresets = {
   cooking: { berry: 0.35, ingredient: 0.25, cooking: 0.35, dreamShard: 0.05 }
 };
 
+// Load from localStorage
+const loadFromLocalStorage = () => {
+  try {
+    const stored = localStorage.getItem('poke-sleep-ui-settings');
+    return stored ? JSON.parse(stored) : {};
+  } catch (error) {
+    console.error('Failed to load settings from localStorage:', error);
+    return {};
+  }
+};
+
+// Save to localStorage
+const saveToLocalStorage = (settings) => {
+  try {
+    localStorage.setItem('poke-sleep-ui-settings', JSON.stringify(settings));
+  } catch (error) {
+    console.error('Failed to save settings to localStorage:', error);
+  }
+};
+
 const useSettingsStore = create((set) => ({
   settings: {
     ingredientLimit: 100,
@@ -32,9 +52,11 @@ const useSettingsStore = create((set) => ({
     boxFilterTypes: [],
     boxFilterSpecialties: [],
     boxSortMode: "dex",
-    boxSortDirection: "asc"
+    boxSortDirection: "asc",
+    ...loadFromLocalStorage()
   },
   loadSettings: async () => {
+    const localSettings = loadFromLocalStorage();
     const settingsData = await apiFetch("/api/settings");
     const preference =
       settingsData.preference && typeof settingsData.preference === "string"
@@ -84,9 +106,11 @@ const useSettingsStore = create((set) => ({
         boxFilterSpecialties: Array.isArray(settingsData.boxFilterSpecialties)
           ? settingsData.boxFilterSpecialties
           : [],
-        boxSortMode: settingsData.boxSortMode || "dex",
-        boxSortDirection: settingsData.boxSortDirection || "asc",
-        weekDishType: settingsData.weekDishType || "salad"
+        boxSortMode: settingsData.boxSortMode || localSettings.boxSortMode || "dex",
+        boxSortDirection: settingsData.boxSortDirection || localSettings.boxSortDirection || "asc",
+        weekDishType: settingsData.weekDishType || localSettings.weekDishType || "salad",
+        dishSortBy: settingsData.dishSortBy || localSettings.dishSortBy || "name",
+        dishSortDirection: settingsData.dishSortDirection || localSettings.dishSortDirection || "asc"
       }
     });
   },
@@ -99,6 +123,22 @@ const useSettingsStore = create((set) => ({
     ) {
       nextPayload.weights = preferencePresets[nextPayload.preference];
     }
+    
+    // Save UI-specific settings to localStorage
+    const uiSettings = {};
+    if (nextPayload.boxSortMode !== undefined) uiSettings.boxSortMode = nextPayload.boxSortMode;
+    if (nextPayload.boxSortDirection !== undefined) uiSettings.boxSortDirection = nextPayload.boxSortDirection;
+    if (nextPayload.weekDishType !== undefined) uiSettings.weekDishType = nextPayload.weekDishType;
+    if (nextPayload.dishSortBy !== undefined) uiSettings.dishSortBy = nextPayload.dishSortBy;
+    if (nextPayload.dishSortDirection !== undefined) uiSettings.dishSortDirection = nextPayload.dishSortDirection;
+    if (nextPayload.boxFilterTypes !== undefined) uiSettings.boxFilterTypes = nextPayload.boxFilterTypes;
+    if (nextPayload.boxFilterSpecialties !== undefined) uiSettings.boxFilterSpecialties = nextPayload.boxFilterSpecialties;
+    
+    if (Object.keys(uiSettings).length > 0) {
+      const currentLocal = loadFromLocalStorage();
+      saveToLocalStorage({ ...currentLocal, ...uiSettings });
+    }
+    
     await apiFetch("/api/settings", {
       method: "PUT",
       body: JSON.stringify(nextPayload)
