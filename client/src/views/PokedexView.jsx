@@ -344,6 +344,7 @@ const PokedexDetailView = () => {
   const navigate = useNavigate();
   const [species, setSpecies] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedVariantForEvolution, setSelectedVariantForEvolution] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -371,6 +372,15 @@ const PokedexDetailView = () => {
 
   const variants = useMemo(() => species?.variants || [], [species]);
 
+  // Set default selected variant when species loads
+  useEffect(() => {
+    if (species && variants.length > 0 && !selectedVariantForEvolution) {
+      // Find default variant or use first one
+      const defaultVariant = variants.find(v => v.is_default === 1) || variants[0];
+      setSelectedVariantForEvolution(defaultVariant.variant_key);
+    }
+  }, [species, variants, selectedVariantForEvolution]);
+
   if (loading) {
     return (
       <section className="card placeholder">
@@ -387,12 +397,20 @@ const PokedexDetailView = () => {
     );
   }
 
+  // Get evolution data for the selected variant
+  const selectedVariant = variants.find(v => v.variant_key === selectedVariantForEvolution);
+  const variantEvolution = selectedVariant?.evolution;
+  
+  // Use variant-specific evolution if available, otherwise fall back to species-level
   const evolvesFrom = normalizeEvolutionList(
-    species.evolution?.evolves_from
+    variantEvolution?.evolves_from || species.evolution?.evolves_from
   );
   const evolvesTo = normalizeEvolutionList(
-    species.evolution?.evolves_to
+    variantEvolution?.evolves_to || species.evolution?.evolves_to
   );
+  
+  // Check if any variant has evolution data
+  const hasVariantEvolutions = variants.some(v => v.evolution);
 
   return (
     <>
@@ -442,6 +460,22 @@ const PokedexDetailView = () => {
               <h3>Evolution Chain</h3>
               <p className="meta">Evolution routes and branches.</p>
             </div>
+            {hasVariantEvolutions && variants.length > 1 && (
+              <div className="filter-group">
+                <label htmlFor="variant-evolution-selector">Variant:</label>
+                <select
+                  id="variant-evolution-selector"
+                  value={selectedVariantForEvolution || ''}
+                  onChange={(e) => setSelectedVariantForEvolution(e.target.value)}
+                >
+                  {variants.map((variant) => (
+                    <option key={variant.variant_key} value={variant.variant_key}>
+                      {variant.variant_name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
           </div>
           <div className="evolution-chain compact">
             {evolvesFrom.length > 0 && (

@@ -124,7 +124,7 @@ async function restoreUserData(backupFilePath) {
       for (const area of backupData.data.research_areas) {
         await dbRun(
           `INSERT INTO research_areas (id, name, area_bonus, target_dish_id, enabled) VALUES (?, ?, ?, ?, ?)`,
-          [area.id, area.name, area.area_bonus || 1, area.target_dish_id, area.enabled || 0]
+          [area.id, area.name, area.area_bonus ?? 1, area.target_dish_id, area.enabled ?? 0]
         );
       }
     }

@@ -1,10 +1,12 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import PokemonDetailsModal from "../components/PokemonDetailsModal.jsx";
 import useBagStore from "../stores/useBagStore.js";
 import useDishesStore from "../stores/useDishesStore.js";
 import usePokemonBoxStore from "../stores/usePokemonBoxStore.js";
+import useSettingsStore from "../stores/useSettingsStore.js";
 import { apiFetch } from "../utils/api.js";
+import { IoArrowUp, IoArrowDown } from "react-icons/io5";
 
 const useIngredientIndex = ({ ingredientCatalog, ingredients, dishes }) => {
   const ingredientNames = useMemo(() => {
@@ -44,6 +46,40 @@ const IngredientsListView = () => {
   const ingredients = useBagStore((state) => state.ingredients);
   const ingredientDetails = useBagStore((state) => state.ingredientDetails);
   const dishes = useDishesStore((state) => state.dishes);
+  const { settings, updateSettings } = useSettingsStore();
+  const [sortBy, setSortBy] = useState("name");
+  const [sortDirection, setSortDirection] = useState("asc");
+  const [showSortMenu, setShowSortMenu] = useState(false);
+  const initializedRef = useRef(false);
+
+  // Initialize from settings
+  useEffect(() => {
+    if (!initializedRef.current && settings && settings.version) {
+      initializedRef.current = true;
+      if (settings.ingredientSortBy !== undefined) {
+        setSortBy(settings.ingredientSortBy);
+      }
+      if (settings.ingredientSortDirection !== undefined) {
+        setSortDirection(settings.ingredientSortDirection);
+      }
+    }
+  }, [settings]);
+
+  // Save to settings when changed
+  useEffect(() => {
+    if (!initializedRef.current) {
+      return;
+    }
+    const timeoutId = setTimeout(async () => {
+      await updateSettings({
+        ingredientSortBy: sortBy,
+        ingredientSortDirection: sortDirection
+      });
+    }, 300);
+    
+    return () => clearTimeout(timeoutId);
+  }, [sortBy, sortDirection, updateSettings]);
+  
   const ingredientImageMap = useMemo(
     () =>
       new Map(
@@ -54,6 +90,40 @@ const IngredientsListView = () => {
   const { ingredientNames, ingredientUsage, bagIngredientMap } =
     useIngredientIndex({ ingredientCatalog, ingredients, dishes });
 
+  const sortedIngredients = useMemo(() => {
+    return [...ingredientNames].sort((a, b) => {
+      let compareValue = 0;
+      
+      switch (sortBy) {
+        case "name":
+          compareValue = a.localeCompare(b);
+          break;
+        case "strength": {
+          const aStrength = ingredientImageMap.get(a.toLowerCase())?.base_strength || 0;
+          const bStrength = ingredientImageMap.get(b.toLowerCase())?.base_strength || 0;
+          compareValue = aStrength - bStrength;
+          break;
+        }
+        case "quantity": {
+          const aQty = bagIngredientMap.get(a.toLowerCase())?.quantity || 0;
+          const bQty = bagIngredientMap.get(b.toLowerCase())?.quantity || 0;
+          compareValue = Number(aQty) - Number(bQty);
+          break;
+        }
+        case "usage": {
+          const aUsage = ingredientUsage.get(a.toLowerCase())?.dishes.length || 0;
+          const bUsage = ingredientUsage.get(b.toLowerCase())?.dishes.length || 0;
+          compareValue = aUsage - bUsage;
+          break;
+        }
+        default:
+          compareValue = 0;
+      }
+      
+      return sortDirection === "asc" ? compareValue : -compareValue;
+    });
+  }, [ingredientNames, sortBy, sortDirection, ingredientImageMap, bagIngredientMap, ingredientUsage]);
+
   return (
     <>
       <header className="hero">
@@ -62,17 +132,61 @@ const IngredientsListView = () => {
         <p className="subhead">{ingredientNames.length} ingredients</p>
       </header>
       <section className="card">
+        <div className="section-header">
+          <div style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
+            <div className="box-sort" style={{ position: "relative" }}>
+              <button
+                className="box-sort-button button ghost"
+                onClick={() => setShowSortMenu(!showSortMenu)}
+              >
+                Sort: {sortBy === "name" ? "Name" : sortBy === "strength" ? "Strength" : sortBy === "quantity" ? "Quantity" : "Usage"}
+              </button>
+              {showSortMenu && (
+                <div className="box-sort-menu">
+                  {[
+                    { label: "Name", value: "name" },
+                    { label: "Strength", value: "strength" },
+                    { label: "Quantity", value: "quantity" },
+                    { label: "Usage", value: "usage" }
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      className="box-sort-option"
+                      onClick={() => {
+                        setSortBy(option.value);
+                        setShowSortMenu(false);
+                      }}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <button
+              className="box-sort-direction icon-button"
+              onClick={() =>
+                setSortDirection(sortDirection === "asc" ? "desc" : "asc")
+              }
+              title={sortDirection === "asc" ? "Ascending" : "Descending"}
+            >
+              {sortDirection === "asc" ? <IoArrowUp /> : <IoArrowDown />}
+            </button>
+          </div>
+        </div>
         <div className="ingredient-table">
           <div className="ingredient-row header">
             <div>Name</div>
+            <div>Strength</div>
             <div>In bag</div>
             <div>Used in dishes</div>
           </div>
-          {ingredientNames.map((name) => {
+          {sortedIngredients.map((name) => {
             const key = name.toLowerCase();
             const bagItem = bagIngredientMap.get(key);
             const usage = ingredientUsage.get(key);
             const usageCount = usage ? usage.dishes.length : 0;
+            const strength = ingredientImageMap.get(key)?.base_strength || 0;
             return (
               <div key={name} className="ingredient-row">
                 <div className="ingredient-name">
@@ -93,6 +207,7 @@ const IngredientsListView = () => {
                     {name}
                   </Link>
                 </div>
+                <div>{strength}</div>
                 <div>{bagItem ? Number(bagItem.quantity) || 0 : 0}</div>
                 <div>{usageCount}</div>
               </div>

@@ -995,6 +995,41 @@
       "subSkills": []
     },
     {
+      "dexNo": 194,
+      "name": "Wooper",
+      "primaryType": "Poison",
+      "specialty": "Ingredients",
+      "profileImage": "194.png",
+      "variants": [
+        {
+          "key": "paldean",
+          "name": "Wooper (Paldean)",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Paldean form",
+          "stats": {
+            "baseFrequency": "01:40:40",
+            "carryLimit": 9,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 147,
+            "recruitShards": 119
+          },
+          "berries": [
+            { "name": "Chesto Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Soothing Cacao", "unlockLevel": 1 },
+            { "name": "Rousing Coffee", "unlockLevel": 1 },
+            { "name": "Soft Potato", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "194-paldean.png",
+          "shinyImage": "194-paldean-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 52,
       "name": "Meowth",
       "primaryType": "Normal",

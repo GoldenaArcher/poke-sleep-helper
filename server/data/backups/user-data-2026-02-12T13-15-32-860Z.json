@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-06T15:27:00.617Z",
+  "timestamp": "2026-02-12T13:15:32.862Z",
   "version": "1.0",
   "data": {
     "pokemon_box": [
@@ -17,14 +17,14 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:05:53",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 6,
         "species_dex_no": 133,
         "variant_key": "default",
         "nickname": null,
-        "level": 27,
+        "level": 28,
         "current_exp": 0,
         "nature_id": null,
         "main_skill_level": 2,
@@ -33,7 +33,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:12:58",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 7,
@@ -49,7 +49,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:15:13",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 8,
@@ -65,7 +65,7 @@
         "energy": 150,
         "is_shiny": 1,
         "created_at": "2026-01-02 19:22:49",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 9,
@@ -81,7 +81,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:24:33",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 10,
@@ -97,7 +97,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:25:02",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 11,
@@ -113,7 +113,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:25:30",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 12,
@@ -129,7 +129,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:26:15",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 13,
@@ -145,7 +145,7 @@
         "energy": 150,
         "is_shiny": 1,
         "created_at": "2026-01-02 19:27:00",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 14,
@@ -161,7 +161,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:27:36",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 16,
@@ -177,7 +177,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:29:52",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 17,
@@ -193,7 +193,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:30:35",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 22,
@@ -209,7 +209,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:34:03",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 23,
@@ -225,7 +225,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:34:36",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 24,
@@ -241,7 +241,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:37:52",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 25,
@@ -257,7 +257,7 @@
         "energy": 150,
         "is_shiny": 1,
         "created_at": "2026-01-02 19:38:28",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 26,
@@ -273,7 +273,7 @@
         "energy": 150,
         "is_shiny": 1,
         "created_at": "2026-01-02 19:38:57",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 27,
@@ -289,7 +289,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:39:25",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 32,
@@ -305,14 +305,14 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:42:14",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 33,
         "species_dex_no": 26,
         "variant_key": "default",
         "nickname": "Naughty",
-        "level": 30,
+        "level": 31,
         "current_exp": 0,
         "nature_id": 3,
         "main_skill_level": 1,
@@ -321,7 +321,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:42:45",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 34,
@@ -337,14 +337,14 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:43:14",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 35,
         "species_dex_no": 627,
         "variant_key": "default",
         "nickname": null,
-        "level": 6,
+        "level": 7,
         "current_exp": 0,
         "nature_id": 3,
         "main_skill_level": 1,
@@ -353,7 +353,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:43:45",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 38,
@@ -369,7 +369,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:45:18",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 39,
@@ -385,7 +385,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-02 19:45:43",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 40,
@@ -401,7 +401,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-03 16:17:43",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 41,
@@ -417,7 +417,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-03 18:02:55",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 42,
@@ -433,7 +433,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-03 18:03:28",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 44,
@@ -449,14 +449,14 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-06 11:09:29",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 45,
         "species_dex_no": 447,
         "variant_key": "default",
         "nickname": null,
-        "level": 7,
+        "level": 10,
         "current_exp": 0,
         "nature_id": 17,
         "main_skill_level": 1,
@@ -465,7 +465,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-06 18:50:39",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 46,
@@ -481,14 +481,14 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-06 18:59:21",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 47,
         "species_dex_no": 104,
         "variant_key": "default",
         "nickname": null,
-        "level": 1,
+        "level": 6,
         "current_exp": 0,
         "nature_id": 5,
         "main_skill_level": 1,
@@ -497,39 +497,23 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-06 18:59:58",
-        "gender": "unknown"
-      },
-      {
-        "id": 48,
-        "species_dex_no": 37,
-        "variant_key": "default",
-        "nickname": null,
-        "level": 1,
-        "current_exp": 0,
-        "nature_id": null,
-        "main_skill_level": 1,
-        "main_skill_value": null,
-        "main_skill_trigger_rate": 0.1,
-        "energy": 150,
-        "is_shiny": 0,
-        "created_at": "2026-01-06 19:00:27",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 50,
         "species_dex_no": 8,
         "variant_key": "default",
         "nickname": null,
-        "level": 17,
+        "level": 25,
         "current_exp": 0,
         "nature_id": 10,
-        "main_skill_level": 1,
+        "main_skill_level": 4,
         "main_skill_value": null,
         "main_skill_trigger_rate": 0.1,
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-07 21:07:45",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 51,
@@ -545,7 +529,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-08 16:31:25",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 53,
@@ -561,23 +545,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-09 13:24:11",
-        "gender": "unknown"
-      },
-      {
-        "id": 54,
-        "species_dex_no": 10,
-        "variant_key": "default",
-        "nickname": null,
-        "level": 15,
-        "current_exp": 0,
-        "nature_id": 20,
-        "main_skill_level": 1,
-        "main_skill_value": null,
-        "main_skill_trigger_rate": 0.1,
-        "energy": 150,
-        "is_shiny": 0,
-        "created_at": "2026-01-09 13:27:53",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 56,
@@ -593,23 +561,7 @@
         "energy": 150,
         "is_shiny": 1,
         "created_at": "2026-01-10 19:01:38",
-        "gender": "unknown"
-      },
-      {
-        "id": 57,
-        "species_dex_no": 246,
-        "variant_key": "default",
-        "nickname": null,
-        "level": 8,
-        "current_exp": 0,
-        "nature_id": 14,
-        "main_skill_level": 1,
-        "main_skill_value": null,
-        "main_skill_trigger_rate": 0.1,
-        "energy": 150,
-        "is_shiny": 0,
-        "created_at": "2026-01-11 19:28:20",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 58,
@@ -625,7 +577,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-12 20:18:55",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 59,
@@ -641,7 +593,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-12 20:19:27",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 60,
@@ -657,14 +609,14 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-14 12:14:40",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 62,
         "species_dex_no": 360,
         "variant_key": "default",
         "nickname": null,
-        "level": 1,
+        "level": 8,
         "current_exp": 0,
         "nature_id": 15,
         "main_skill_level": 1,
@@ -673,7 +625,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-14 22:09:04",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 64,
@@ -689,14 +641,14 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-15 14:05:05",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 65,
         "species_dex_no": 5,
         "variant_key": "default",
         "nickname": null,
-        "level": 13,
+        "level": 14,
         "current_exp": 0,
         "nature_id": 5,
         "main_skill_level": 1,
@@ -705,14 +657,14 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-16 14:07:15",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 67,
         "species_dex_no": 363,
         "variant_key": "default",
         "nickname": null,
-        "level": 12,
+        "level": 13,
         "current_exp": 0,
         "nature_id": 17,
         "main_skill_level": 1,
@@ -721,7 +673,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-16 18:51:24",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 69,
@@ -753,7 +705,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-21 15:52:38",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 71,
@@ -769,7 +721,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-23 14:07:03",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 72,
@@ -785,7 +737,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-24 20:01:17",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 73,
@@ -801,7 +753,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-24 20:02:00",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 74,
@@ -817,14 +769,14 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-25 13:13:33",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 75,
         "species_dex_no": 252,
         "variant_key": "default",
         "nickname": null,
-        "level": 1,
+        "level": 9,
         "current_exp": 0,
         "nature_id": 17,
         "main_skill_level": 1,
@@ -833,7 +785,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-26 13:26:36",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 76,
@@ -849,7 +801,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-27 13:03:17",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 77,
@@ -865,7 +817,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-29 12:58:29",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 78,
@@ -881,7 +833,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-01-31 15:51:44",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 79,
@@ -897,7 +849,7 @@
         "energy": 150,
         "is_shiny": 1,
         "created_at": "2026-02-02 12:56:20",
-        "gender": "unknown"
+        "gender": "female"
       },
       {
         "id": 80,
@@ -913,7 +865,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-02-03 12:43:39",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 82,
@@ -929,14 +881,14 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-02-03 12:44:49",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 83,
         "species_dex_no": 152,
         "variant_key": "default",
         "nickname": null,
-        "level": 9,
+        "level": 10,
         "current_exp": 0,
         "nature_id": null,
         "main_skill_level": 1,
@@ -945,7 +897,7 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-02-04 13:51:50",
-        "gender": "unknown"
+        "gender": "male"
       },
       {
         "id": 84,
@@ -961,175 +913,352 @@
         "energy": 150,
         "is_shiny": 0,
         "created_at": "2026-02-05 16:04:25",
-        "gender": "unknown"
+        "gender": "male"
+      },
+      {
+        "id": 85,
+        "species_dex_no": 710,
+        "variant_key": "jumbo",
+        "nickname": null,
+        "level": 10,
+        "current_exp": 0,
+        "nature_id": 24,
+        "main_skill_level": 1,
+        "main_skill_value": null,
+        "main_skill_trigger_rate": 0.1,
+        "energy": 150,
+        "is_shiny": 0,
+        "created_at": "2026-02-06 15:29:55",
+        "gender": "female"
+      },
+      {
+        "id": 86,
+        "species_dex_no": 10,
+        "variant_key": "default",
+        "nickname": null,
+        "level": 9,
+        "current_exp": 0,
+        "nature_id": 8,
+        "main_skill_level": 1,
+        "main_skill_value": null,
+        "main_skill_trigger_rate": 0.1,
+        "energy": 150,
+        "is_shiny": 0,
+        "created_at": "2026-02-06 15:34:37",
+        "gender": "male"
+      },
+      {
+        "id": 87,
+        "species_dex_no": 246,
+        "variant_key": "default",
+        "nickname": null,
+        "level": 10,
+        "current_exp": 0,
+        "nature_id": 7,
+        "main_skill_level": 1,
+        "main_skill_value": null,
+        "main_skill_trigger_rate": 0.1,
+        "energy": 150,
+        "is_shiny": 0,
+        "created_at": "2026-02-08 00:52:40",
+        "gender": "female"
+      },
+      {
+        "id": 88,
+        "species_dex_no": 37,
+        "variant_key": "default",
+        "nickname": null,
+        "level": 10,
+        "current_exp": 0,
+        "nature_id": 2,
+        "main_skill_level": 1,
+        "main_skill_value": null,
+        "main_skill_trigger_rate": 0.1,
+        "energy": 150,
+        "is_shiny": 0,
+        "created_at": "2026-02-08 19:53:07",
+        "gender": "female"
+      },
+      {
+        "id": 91,
+        "species_dex_no": 38,
+        "variant_key": "default",
+        "nickname": null,
+        "level": 23,
+        "current_exp": 0,
+        "nature_id": 25,
+        "main_skill_level": 1,
+        "main_skill_value": null,
+        "main_skill_trigger_rate": 0.1,
+        "energy": 150,
+        "is_shiny": 0,
+        "created_at": "2026-02-09 13:35:17",
+        "gender": "female"
+      },
+      {
+        "id": 92,
+        "species_dex_no": 79,
+        "variant_key": "default",
+        "nickname": null,
+        "level": 9,
+        "current_exp": 0,
+        "nature_id": 15,
+        "main_skill_level": 1,
+        "main_skill_value": null,
+        "main_skill_trigger_rate": 0.1,
+        "energy": 150,
+        "is_shiny": 0,
+        "created_at": "2026-02-09 13:36:09",
+        "gender": "male"
+      },
+      {
+        "id": 93,
+        "species_dex_no": 37,
+        "variant_key": "default",
+        "nickname": null,
+        "level": 10,
+        "current_exp": 0,
+        "nature_id": 22,
+        "main_skill_level": 1,
+        "main_skill_value": null,
+        "main_skill_trigger_rate": 0.1,
+        "energy": 150,
+        "is_shiny": 0,
+        "created_at": "2026-02-10 12:58:51",
+        "gender": "female"
+      },
+      {
+        "id": 95,
+        "species_dex_no": 1,
+        "variant_key": "default",
+        "nickname": null,
+        "level": 11,
+        "current_exp": 0,
+        "nature_id": 9,
+        "main_skill_level": 1,
+        "main_skill_value": null,
+        "main_skill_trigger_rate": 0.1,
+        "energy": 150,
+        "is_shiny": 0,
+        "created_at": "2026-02-11 15:45:19",
+        "gender": "male"
       }
     ],
     "pokemon_box_sub_skills": [
       {
-        "id": 14,
-        "box_id": 24,
-        "sub_skill_id": 10,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 15,
-        "box_id": 27,
+        "id": 90,
+        "box_id": 6,
         "sub_skill_id": 18,
         "unlock_level": 10,
         "current_level": 1
       },
       {
-        "id": 31,
-        "box_id": 44,
-        "sub_skill_id": 18,
-        "unlock_level": 10,
+        "id": 91,
+        "box_id": 6,
+        "sub_skill_id": 7,
+        "unlock_level": 25,
         "current_level": 1
       },
       {
-        "id": 41,
-        "box_id": 54,
-        "sub_skill_id": 9,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 43,
-        "box_id": 46,
-        "sub_skill_id": 15,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 53,
+        "id": 93,
         "box_id": 69,
         "sub_skill_id": 18,
         "unlock_level": 10,
         "current_level": 1
       },
       {
-        "id": 54,
-        "box_id": 11,
-        "sub_skill_id": 7,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 56,
-        "box_id": 51,
-        "sub_skill_id": 2,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 57,
-        "box_id": 38,
-        "sub_skill_id": 2,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 60,
-        "box_id": 14,
-        "sub_skill_id": 10,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 62,
-        "box_id": 73,
-        "sub_skill_id": 2,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 63,
-        "box_id": 74,
-        "sub_skill_id": 18,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 68,
-        "box_id": 42,
-        "sub_skill_id": 7,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 69,
-        "box_id": 23,
-        "sub_skill_id": 7,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 71,
-        "box_id": 33,
-        "sub_skill_id": 18,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 72,
-        "box_id": 33,
-        "sub_skill_id": 10,
-        "unlock_level": 25,
-        "current_level": 1
-      },
-      {
-        "id": 73,
-        "box_id": 6,
-        "sub_skill_id": 18,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 74,
-        "box_id": 6,
-        "sub_skill_id": 7,
-        "unlock_level": 25,
-        "current_level": 1
-      },
-      {
-        "id": 77,
-        "box_id": 80,
-        "sub_skill_id": 18,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 78,
-        "box_id": 82,
-        "sub_skill_id": 17,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 79,
+        "id": 94,
         "box_id": 1,
         "sub_skill_id": 18,
         "unlock_level": 10,
         "current_level": 1
       },
       {
-        "id": 81,
-        "box_id": 50,
-        "sub_skill_id": 8,
+        "id": 96,
+        "box_id": 11,
+        "sub_skill_id": 7,
         "unlock_level": 10,
         "current_level": 1
       },
       {
-        "id": 82,
+        "id": 97,
+        "box_id": 14,
+        "sub_skill_id": 10,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 100,
+        "box_id": 46,
+        "sub_skill_id": 15,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 101,
+        "box_id": 23,
+        "sub_skill_id": 7,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 102,
+        "box_id": 42,
+        "sub_skill_id": 7,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 103,
+        "box_id": 73,
+        "sub_skill_id": 2,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 104,
+        "box_id": 44,
+        "sub_skill_id": 18,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 105,
+        "box_id": 24,
+        "sub_skill_id": 10,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 106,
+        "box_id": 38,
+        "sub_skill_id": 2,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 107,
+        "box_id": 74,
+        "sub_skill_id": 18,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 108,
+        "box_id": 80,
+        "sub_skill_id": 18,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 109,
+        "box_id": 51,
+        "sub_skill_id": 2,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 110,
+        "box_id": 82,
+        "sub_skill_id": 17,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 111,
+        "box_id": 27,
+        "sub_skill_id": 18,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 112,
+        "box_id": 85,
+        "sub_skill_id": 9,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 114,
+        "box_id": 87,
+        "sub_skill_id": 9,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 115,
+        "box_id": 88,
+        "sub_skill_id": 10,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 116,
+        "box_id": 33,
+        "sub_skill_id": 18,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 117,
+        "box_id": 33,
+        "sub_skill_id": 10,
+        "unlock_level": 25,
+        "current_level": 1
+      },
+      {
+        "id": 118,
         "box_id": 65,
         "sub_skill_id": 18,
         "unlock_level": 10,
         "current_level": 1
       },
       {
-        "id": 83,
+        "id": 119,
+        "box_id": 45,
+        "sub_skill_id": 7,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 120,
+        "box_id": 83,
+        "sub_skill_id": 17,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 122,
+        "box_id": 91,
+        "sub_skill_id": 9,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 124,
         "box_id": 67,
         "sub_skill_id": 8,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 126,
+        "box_id": 50,
+        "sub_skill_id": 8,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 127,
+        "box_id": 50,
+        "sub_skill_id": 15,
+        "unlock_level": 25,
+        "current_level": 1
+      },
+      {
+        "id": 128,
+        "box_id": 93,
+        "sub_skill_id": 2,
         "unlock_level": 10,
         "current_level": 1
       }
@@ -1694,24 +1823,6 @@
         "quantity": 3
       },
       {
-        "box_id": 48,
-        "ingredient_id": 15,
-        "slot_level": 1,
-        "quantity": 1
-      },
-      {
-        "box_id": 48,
-        "ingredient_id": 16,
-        "slot_level": 30,
-        "quantity": 2
-      },
-      {
-        "box_id": 48,
-        "ingredient_id": 16,
-        "slot_level": 60,
-        "quantity": 3
-      },
-      {
         "box_id": 50,
         "ingredient_id": 8,
         "slot_level": 1,
@@ -1766,24 +1877,6 @@
         "quantity": 4
       },
       {
-        "box_id": 54,
-        "ingredient_id": 9,
-        "slot_level": 1,
-        "quantity": 1
-      },
-      {
-        "box_id": 54,
-        "ingredient_id": 12,
-        "slot_level": 30,
-        "quantity": 2
-      },
-      {
-        "box_id": 54,
-        "ingredient_id": 15,
-        "slot_level": 60,
-        "quantity": 4
-      },
-      {
         "box_id": 56,
         "ingredient_id": 5,
         "slot_level": 1,
@@ -1800,24 +1893,6 @@
         "ingredient_id": 7,
         "slot_level": 60,
         "quantity": 3
-      },
-      {
-        "box_id": 57,
-        "ingredient_id": 11,
-        "slot_level": 1,
-        "quantity": 2
-      },
-      {
-        "box_id": 57,
-        "ingredient_id": 15,
-        "slot_level": 30,
-        "quantity": 5
-      },
-      {
-        "box_id": 57,
-        "ingredient_id": 7,
-        "slot_level": 60,
-        "quantity": 8
       },
       {
         "box_id": 58,
@@ -2214,6 +2289,150 @@
         "ingredient_id": 6,
         "slot_level": 60,
         "quantity": 4
+      },
+      {
+        "box_id": 85,
+        "ingredient_id": 18,
+        "slot_level": 1,
+        "quantity": 2
+      },
+      {
+        "box_id": 85,
+        "ingredient_id": 18,
+        "slot_level": 30,
+        "quantity": 5
+      },
+      {
+        "box_id": 85,
+        "ingredient_id": 18,
+        "slot_level": 60,
+        "quantity": 15
+      },
+      {
+        "box_id": 86,
+        "ingredient_id": 9,
+        "slot_level": 1,
+        "quantity": 1
+      },
+      {
+        "box_id": 86,
+        "ingredient_id": 9,
+        "slot_level": 30,
+        "quantity": 2
+      },
+      {
+        "box_id": 86,
+        "ingredient_id": 15,
+        "slot_level": 60,
+        "quantity": 4
+      },
+      {
+        "box_id": 87,
+        "ingredient_id": 11,
+        "slot_level": 1,
+        "quantity": 2
+      },
+      {
+        "box_id": 87,
+        "ingredient_id": 15,
+        "slot_level": 30,
+        "quantity": 5
+      },
+      {
+        "box_id": 87,
+        "ingredient_id": 15,
+        "slot_level": 60,
+        "quantity": 8
+      },
+      {
+        "box_id": 88,
+        "ingredient_id": 15,
+        "slot_level": 1,
+        "quantity": 1
+      },
+      {
+        "box_id": 88,
+        "ingredient_id": 15,
+        "slot_level": 30,
+        "quantity": 2
+      },
+      {
+        "box_id": 88,
+        "ingredient_id": 15,
+        "slot_level": 60,
+        "quantity": 4
+      },
+      {
+        "box_id": 91,
+        "ingredient_id": 15,
+        "slot_level": 1,
+        "quantity": 1
+      },
+      {
+        "box_id": 91,
+        "ingredient_id": 16,
+        "slot_level": 30,
+        "quantity": 2
+      },
+      {
+        "box_id": 91,
+        "ingredient_id": 4,
+        "slot_level": 60,
+        "quantity": 3
+      },
+      {
+        "box_id": 92,
+        "ingredient_id": 13,
+        "slot_level": 1,
+        "quantity": 1
+      },
+      {
+        "box_id": 92,
+        "ingredient_id": 13,
+        "slot_level": 30,
+        "quantity": 2
+      },
+      {
+        "box_id": 92,
+        "ingredient_id": 14,
+        "slot_level": 60,
+        "quantity": 2
+      },
+      {
+        "box_id": 93,
+        "ingredient_id": 15,
+        "slot_level": 1,
+        "quantity": 1
+      },
+      {
+        "box_id": 93,
+        "ingredient_id": 15,
+        "slot_level": 30,
+        "quantity": 2
+      },
+      {
+        "box_id": 93,
+        "ingredient_id": 15,
+        "slot_level": 60,
+        "quantity": 4
+      },
+      {
+        "box_id": 95,
+        "ingredient_id": 9,
+        "slot_level": 1,
+        "quantity": 2
+      },
+      {
+        "box_id": 95,
+        "ingredient_id": 9,
+        "slot_level": 30,
+        "quantity": 5
+      },
+      {
+        "box_id": 95,
+        "ingredient_id": 9,
+        "slot_level": 60,
+        "quantity": 7
       }
     ],
     "settings": [
@@ -2226,18 +2445,6 @@
         "value": "salad"
       },
       {
-        "key": "ingredient_limit",
-        "value": "300"
-      },
-      {
-        "key": "item_limit",
-        "value": "100"
-      },
-      {
-        "key": "pokemon_box_limit",
-        "value": "80"
-      },
-      {
         "key": "team_weights",
         "value": "{\"berry\":0.65,\"ingredient\":0.2,\"cooking\":0.1,\"dreamShard\":0.05}"
       },
@@ -2246,8 +2453,24 @@
         "value": "growth"
       },
       {
+        "key": "event_skill_level_plus_one_on_trigger",
+        "value": "0"
+      },
+      {
+        "key": "ingredient_limit",
+        "value": "420"
+      },
+      {
+        "key": "item_limit",
+        "value": "140"
+      },
+      {
+        "key": "pokemon_box_limit",
+        "value": "100"
+      },
+      {
         "key": "week_dish_type",
-        "value": "salad"
+        "value": "dessert"
       },
       {
         "key": "box_filter_types",
@@ -2267,71 +2490,71 @@
       },
       {
         "key": "version",
-        "value": "479"
+        "value": "666"
       }
     ],
     "bag_ingredients": [
       {
         "ingredient_id": 3,
-        "quantity": 7
+        "quantity": 28
       },
       {
         "ingredient_id": 4,
-        "quantity": 9
+        "quantity": 22
       },
       {
         "ingredient_id": 5,
-        "quantity": 0
+        "quantity": 32
       },
       {
         "ingredient_id": 7,
-        "quantity": 40
-      },
-      {
-        "ingredient_id": 8,
-        "quantity": 19
-      },
-      {
-        "ingredient_id": 9,
-        "quantity": 49
-      },
-      {
-        "ingredient_id": 10,
-        "quantity": 14
-      },
-      {
-        "ingredient_id": 12,
         "quantity": 3
       },
       {
+        "ingredient_id": 8,
+        "quantity": 68
+      },
+      {
+        "ingredient_id": 9,
+        "quantity": 64
+      },
+      {
+        "ingredient_id": 10,
+        "quantity": 33
+      },
+      {
+        "ingredient_id": 12,
+        "quantity": 9
+      },
+      {
         "ingredient_id": 13,
-        "quantity": 18
+        "quantity": 19
       },
       {
         "ingredient_id": 15,
-        "quantity": 30
+        "quantity": 18
       },
       {
         "ingredient_id": 16,
-        "quantity": 1
+        "quantity": 16
       },
       {
         "ingredient_id": 17,
-        "quantity": 50
+        "quantity": 81
       }
     ],
     "dish_levels": [
       {
         "id": 4,
-        "dish_level": 6
-      },
-      {
-        "id": 5,
         "dish_level": 11
       },
       {
+        "id": 5,
+        "dish_level": 12
+      },
+      {
         "id": 6,
-        "dish_level": 7
+        "dish_level": 10
       },
       {
         "id": 8,
@@ -2343,11 +2566,11 @@
       },
       {
         "id": 10,
-        "dish_level": 8
+        "dish_level": 11
       },
       {
         "id": 11,
-        "dish_level": 12
+        "dish_level": 14
       },
       {
         "id": 13,
@@ -2355,7 +2578,7 @@
       },
       {
         "id": 15,
-        "dish_level": 18
+        "dish_level": 22
       },
       {
         "id": 20,
@@ -2383,7 +2606,7 @@
       },
       {
         "id": 52,
-        "dish_level": 17
+        "dish_level": 19
       },
       {
         "id": 54,
@@ -2399,11 +2622,11 @@
       },
       {
         "id": 58,
-        "dish_level": 7
+        "dish_level": 13
       },
       {
         "id": 59,
-        "dish_level": 22
+        "dish_level": 24
       },
       {
         "id": 61,
@@ -2423,7 +2646,7 @@
       },
       {
         "id": 65,
-        "dish_level": 12
+        "dish_level": 13
       },
       {
         "id": 66,
@@ -2431,11 +2654,15 @@
       },
       {
         "id": 67,
-        "dish_level": 7
+        "dish_level": 13
+      },
+      {
+        "id": 68,
+        "dish_level": 8
       },
       {
         "id": 70,
-        "dish_level": 4
+        "dish_level": 9
       },
       {
         "id": 72,
@@ -2444,9 +2671,9 @@
     ]
   },
   "counts": {
-    "pokemon": 60,
-    "settings": 13,
+    "pokemon": 65,
+    "settings": 14,
     "bag_items": 12,
-    "dish_levels": 30
+    "dish_levels": 31
   }
 }

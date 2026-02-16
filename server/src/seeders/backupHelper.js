@@ -37,6 +37,9 @@ export async function backupUserData(db, dbAll) {
     
     // Backup dish levels (user progress)
     const dishLevels = await dbAll("SELECT id, dish_level FROM dishes WHERE dish_level > 1");
+    
+    // Backup research areas
+    const researchAreas = await dbAll("SELECT * FROM research_areas");
 
     const backup = {
       timestamp: new Date().toISOString(),
@@ -47,13 +50,15 @@ export async function backupUserData(db, dbAll) {
         pokemon_box_ingredients: pokemonBoxIngredients,
         settings: settings,
         bag_ingredients: bagIngredients,
-        dish_levels: dishLevels
+        dish_levels: dishLevels,
+        research_areas: researchAreas
       },
       counts: {
         pokemon: pokemonBox.length,
         settings: settings.length,
         bag_items: bagIngredients.length,
-        dish_levels: dishLevels.length
+        dish_levels: dishLevels.length,
+        research_areas: researchAreas.length
       }
     };
 
@@ -64,6 +69,7 @@ export async function backupUserData(db, dbAll) {
     console.log(`    - Settings: ${settings.length}`);
     console.log(`    - Bag items: ${bagIngredients.length}`);
     console.log(`    - Dish levels: ${dishLevels.length}`);
+    console.log(`    - Research areas: ${researchAreas.length}`);
 
     cleanOldBackups(defaultBackupKeepCount);
 
@@ -89,6 +95,7 @@ export async function restoreUserData(db, dbRun, backupFilePath) {
     await dbRun("DELETE FROM pokemon_box");
     await dbRun("DELETE FROM settings");
     await dbRun("DELETE FROM bag_ingredients");
+    await dbRun("DELETE FROM research_areas");
 
     // Restore pokemon_box
     for (const pokemon of backupData.data.pokemon_box) {
@@ -166,12 +173,23 @@ export async function restoreUserData(db, dbRun, backupFilePath) {
         );
       }
     }
+    
+    // Restore research areas
+    if (backupData.data.research_areas && backupData.data.research_areas.length > 0) {
+      for (const area of backupData.data.research_areas) {
+        await dbRun(
+          `INSERT INTO research_areas (id, name, area_bonus, target_dish_id, enabled) VALUES (?, ?, ?, ?, ?)`,
+          [area.id, area.name, area.area_bonus ?? 1, area.target_dish_id, area.enabled ?? 0]
+        );
+      }
+    }
 
     console.log(`  ✓ Restored from backup created at ${backupData.timestamp}`);
     console.log(`    - Pokemon: ${backupData.counts.pokemon}`);
     console.log(`    - Settings: ${backupData.counts.settings}`);
     console.log(`    - Bag items: ${backupData.counts.bag_items}`);
     console.log(`    - Dish levels: ${backupData.counts.dish_levels || 0}`);
+    console.log(`    - Research areas: ${backupData.counts.research_areas || 0}`);
 
     return true;
   } catch (error) {

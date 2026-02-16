@@ -1578,6 +1578,52 @@ app.get("/api/pokedex/:id", async (req, res) => {
       }
     }
 
+    // Get variant-specific evolution mappings
+    const variantEvolutionRows = await dbAll(
+      `SELECT pve.from_species_dex_no, pve.from_variant_key, pve.to_species_dex_no, pve.to_variant_key,
+              to_species.name as to_species_name,
+              to_variant.variant_name as to_variant_name
+       FROM pokemon_variant_evolution pve
+       LEFT JOIN pokemon_species to_species ON to_species.dex_no = pve.to_species_dex_no
+       LEFT JOIN pokemon_variants to_variant ON to_variant.species_dex_no = pve.to_species_dex_no 
+         AND to_variant.variant_key = pve.to_variant_key
+       WHERE pve.from_species_dex_no = ? OR pve.to_species_dex_no = ?`,
+      [speciesId, speciesId]
+    );
+
+    // Build variant evolution map
+    const variantEvolutionMap = new Map();
+    variantEvolutionRows.forEach(row => {
+      const fromKey = `${row.from_species_dex_no}-${row.from_variant_key}`;
+      const toKey = `${row.to_species_dex_no}-${row.to_variant_key}`;
+      
+      if (row.from_species_dex_no === speciesId) {
+        // This variant evolves TO something
+        if (!variantEvolutionMap.has(fromKey)) {
+          variantEvolutionMap.set(fromKey, { evolvesFrom: [], evolvesTo: [] });
+        }
+        const entry = variantEvolutionMap.get(fromKey);
+        entry.evolvesTo.push({
+          dex_no: row.to_species_dex_no,
+          variant_key: row.to_variant_key,
+          name: row.to_species_name,
+          variant_name: row.to_variant_name
+        });
+      }
+      
+      if (row.to_species_dex_no === speciesId) {
+        // This variant evolves FROM something
+        if (!variantEvolutionMap.has(toKey)) {
+          variantEvolutionMap.set(toKey, { evolvesFrom: [], evolvesTo: [] });
+        }
+        const entry = variantEvolutionMap.get(toKey);
+        entry.evolvesFrom.push({
+          dex_no: row.from_species_dex_no,
+          variant_key: row.from_variant_key
+        });
+      }
+    });
+
     const evolution =
       evolvesFrom.length > 0 || evolvesTo.length > 0
         ? {
@@ -1592,13 +1638,43 @@ app.get("/api/pokedex/:id", async (req, res) => {
       subSkills,
       variants: variants.map((variant) => {
         const key = makeKey(variant);
+        const variantEvolution = variantEvolutionMap.get(key);
+        
+        // Merge species-level evolution with variant-specific evolution
+        let variantEvolvesFrom = evolvesFrom;
+        let variantEvolvesTo = evolvesTo;
+        
+        if (variantEvolution) {
+          // If variant has specific evolution data, use that
+          if (variantEvolution.evolvesTo.length > 0) {
+            variantEvolvesTo = variantEvolution.evolvesTo.map(evo => {
+              // Find matching route data
+              const route = evolutionRouteRows.find(r => 
+                r.from_species_dex_no === speciesId && r.to_species_dex_no === evo.dex_no
+              );
+              return {
+                dex_no: evo.dex_no,
+                name: evo.name,
+                variant_key: evo.variant_key,
+                variant_name: evo.variant_name,
+                level_required: route?.level_required || null,
+                items: route ? JSON.parse(route.items_json || '[]') : []
+              };
+            });
+          }
+        }
+        
         return {
           id: key, // Add composite key as id for frontend compatibility
           ...variant,
           stats: statsMap.get(key) || null,
           berries: berryMap.get(key) || [],
           ingredients: ingredientMap.get(key) || [],
-          mainSkills: skillMap.get(key) || []
+          mainSkills: skillMap.get(key) || [],
+          evolution: (variantEvolvesFrom.length > 0 || variantEvolvesTo.length > 0) ? {
+            evolves_from: variantEvolvesFrom,
+            evolves_to: variantEvolvesTo
+          } : null
         };
       })
     };

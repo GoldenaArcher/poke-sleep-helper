@@ -110,7 +110,9 @@ const useSettingsStore = create((set) => ({
         boxSortDirection: settingsData.boxSortDirection || localSettings.boxSortDirection || "asc",
         weekDishType: settingsData.weekDishType || localSettings.weekDishType || "salad",
         dishSortBy: settingsData.dishSortBy || localSettings.dishSortBy || "name",
-        dishSortDirection: settingsData.dishSortDirection || localSettings.dishSortDirection || "asc"
+        dishSortDirection: settingsData.dishSortDirection || localSettings.dishSortDirection || "asc",
+        ingredientSortBy: settingsData.ingredientSortBy || localSettings.ingredientSortBy || "name",
+        ingredientSortDirection: settingsData.ingredientSortDirection || localSettings.ingredientSortDirection || "asc"
       }
     });
   },
@@ -131,6 +133,8 @@ const useSettingsStore = create((set) => ({
     if (nextPayload.weekDishType !== undefined) uiSettings.weekDishType = nextPayload.weekDishType;
     if (nextPayload.dishSortBy !== undefined) uiSettings.dishSortBy = nextPayload.dishSortBy;
     if (nextPayload.dishSortDirection !== undefined) uiSettings.dishSortDirection = nextPayload.dishSortDirection;
+    if (nextPayload.ingredientSortBy !== undefined) uiSettings.ingredientSortBy = nextPayload.ingredientSortBy;
+    if (nextPayload.ingredientSortDirection !== undefined) uiSettings.ingredientSortDirection = nextPayload.ingredientSortDirection;
     if (nextPayload.boxFilterTypes !== undefined) uiSettings.boxFilterTypes = nextPayload.boxFilterTypes;
     if (nextPayload.boxFilterSpecialties !== undefined) uiSettings.boxFilterSpecialties = nextPayload.boxFilterSpecialties;
     
