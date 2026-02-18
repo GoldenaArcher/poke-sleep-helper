@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-11T15:39:38.431Z",
+  "timestamp": "2026-02-13T16:36:47.987Z",
   "version": "1.0",
   "data": {
     "pokemon_box": [
@@ -24,7 +24,7 @@
         "species_dex_no": 133,
         "variant_key": "default",
         "nickname": null,
-        "level": 28,
+        "level": 29,
         "current_exp": 0,
         "nature_id": null,
         "main_skill_level": 2,
@@ -456,7 +456,7 @@
         "species_dex_no": 447,
         "variant_key": "default",
         "nickname": null,
-        "level": 10,
+        "level": 11,
         "current_exp": 0,
         "nature_id": 17,
         "main_skill_level": 1,
@@ -888,7 +888,7 @@
         "species_dex_no": 152,
         "variant_key": "default",
         "nickname": null,
-        "level": 10,
+        "level": 11,
         "current_exp": 0,
         "nature_id": null,
         "main_skill_level": 1,
@@ -1026,23 +1026,57 @@
         "is_shiny": 0,
         "created_at": "2026-02-10 12:58:51",
         "gender": "female"
+      },
+      {
+        "id": 95,
+        "species_dex_no": 1,
+        "variant_key": "default",
+        "nickname": null,
+        "level": 11,
+        "current_exp": 0,
+        "nature_id": 9,
+        "main_skill_level": 1,
+        "main_skill_value": null,
+        "main_skill_trigger_rate": 0.1,
+        "energy": 150,
+        "is_shiny": 0,
+        "created_at": "2026-02-11 15:45:19",
+        "gender": "male"
+      },
+      {
+        "id": 96,
+        "species_dex_no": 194,
+        "variant_key": "paldean",
+        "nickname": null,
+        "level": 11,
+        "current_exp": 0,
+        "nature_id": 3,
+        "main_skill_level": 1,
+        "main_skill_value": null,
+        "main_skill_trigger_rate": 0.1,
+        "energy": 150,
+        "is_shiny": 0,
+        "created_at": "2026-02-12 13:18:29",
+        "gender": "male"
+      },
+      {
+        "id": 97,
+        "species_dex_no": 742,
+        "variant_key": "default",
+        "nickname": null,
+        "level": 10,
+        "current_exp": 0,
+        "nature_id": 3,
+        "main_skill_level": 1,
+        "main_skill_value": null,
+        "main_skill_trigger_rate": 0.1,
+        "energy": 150,
+        "is_shiny": 0,
+        "created_at": "2026-02-13 15:18:15",
+        "gender": "male"
       }
     ],
     "pokemon_box_sub_skills": [
-      {
-        "id": 90,
-        "box_id": 6,
-        "sub_skill_id": 18,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 91,
-        "box_id": 6,
-        "sub_skill_id": 7,
-        "unlock_level": 25,
-        "current_level": 1
-      },
       {
         "id": 93,
         "box_id": 69,
@@ -1198,20 +1232,6 @@
         "current_level": 1
       },
       {
-        "id": 119,
-        "box_id": 45,
-        "sub_skill_id": 7,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
-        "id": 120,
-        "box_id": 83,
-        "sub_skill_id": 17,
-        "unlock_level": 10,
-        "current_level": 1
-      },
-      {
         "id": 122,
         "box_id": 91,
         "sub_skill_id": 9,
@@ -1243,6 +1263,48 @@
         "id": 128,
         "box_id": 93,
         "sub_skill_id": 2,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 129,
+        "box_id": 96,
+        "sub_skill_id": 7,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 130,
+        "box_id": 45,
+        "sub_skill_id": 7,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 131,
+        "box_id": 97,
+        "sub_skill_id": 17,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 132,
+        "box_id": 6,
+        "sub_skill_id": 18,
+        "unlock_level": 10,
+        "current_level": 1
+      },
+      {
+        "id": 133,
+        "box_id": 6,
+        "sub_skill_id": 7,
+        "unlock_level": 25,
+        "current_level": 1
+      },
+      {
+        "id": 134,
+        "box_id": 83,
+        "sub_skill_id": 17,
         "unlock_level": 10,
         "current_level": 1
       }
@@ -2399,6 +2461,60 @@
         "ingredient_id": 15,
         "slot_level": 60,
         "quantity": 4
+      },
+      {
+        "box_id": 95,
+        "ingredient_id": 9,
+        "slot_level": 1,
+        "quantity": 2
+      },
+      {
+        "box_id": 95,
+        "ingredient_id": 9,
+        "slot_level": 30,
+        "quantity": 5
+      },
+      {
+        "box_id": 95,
+        "ingredient_id": 9,
+        "slot_level": 60,
+        "quantity": 7
+      },
+      {
+        "box_id": 96,
+        "ingredient_id": 13,
+        "slot_level": 1,
+        "quantity": 2
+      },
+      {
+        "box_id": 96,
+        "ingredient_id": 17,
+        "slot_level": 30,
+        "quantity": 4
+      },
+      {
+        "box_id": 96,
+        "ingredient_id": 13,
+        "slot_level": 60,
+        "quantity": 7
+      },
+      {
+        "box_id": 97,
+        "ingredient_id": 9,
+        "slot_level": 1,
+        "quantity": 2
+      },
+      {
+        "box_id": 97,
+        "ingredient_id": 10,
+        "slot_level": 30,
+        "quantity": 4
+      },
+      {
+        "box_id": 97,
+        "ingredient_id": 16,
+        "slot_level": 60,
+        "quantity": 5
       }
     ],
     "settings": [
@@ -2419,20 +2535,20 @@
         "value": "growth"
       },
       {
+        "key": "event_skill_level_plus_one_on_trigger",
+        "value": "0"
+      },
+      {
         "key": "ingredient_limit",
-        "value": "340"
+        "value": "420"
       },
       {
         "key": "item_limit",
-        "value": "120"
+        "value": "140"
       },
       {
         "key": "pokemon_box_limit",
-        "value": "80"
-      },
-      {
-        "key": "event_skill_level_plus_one_on_trigger",
-        "value": "0"
+        "value": "100"
       },
       {
         "key": "box_filter_types",
@@ -2456,21 +2572,21 @@
       },
       {
         "key": "version",
-        "value": "646"
+        "value": "724"
       }
     ],
     "bag_ingredients": [
       {
         "ingredient_id": 3,
-        "quantity": 22
+        "quantity": 28
       },
       {
         "ingredient_id": 4,
-        "quantity": 22
+        "quantity": 14
       },
       {
         "ingredient_id": 5,
-        "quantity": 25
+        "quantity": 47
       },
       {
         "ingredient_id": 7,
@@ -2478,35 +2594,35 @@
       },
       {
         "ingredient_id": 8,
-        "quantity": 51
+        "quantity": 52
       },
       {
         "ingredient_id": 9,
-        "quantity": 49
+        "quantity": 70
       },
       {
         "ingredient_id": 10,
-        "quantity": 31
+        "quantity": 48
       },
       {
         "ingredient_id": 12,
-        "quantity": 9
+        "quantity": 0
       },
       {
         "ingredient_id": 13,
-        "quantity": 24
+        "quantity": 35
       },
       {
         "ingredient_id": 15,
-        "quantity": 31
+        "quantity": 27
       },
       {
         "ingredient_id": 16,
-        "quantity": 10
+        "quantity": 16
       },
       {
         "ingredient_id": 17,
-        "quantity": 75
+        "quantity": 91
       }
     ],
     "dish_levels": [
@@ -2572,7 +2688,7 @@
       },
       {
         "id": 52,
-        "dish_level": 19
+        "dish_level": 21
       },
       {
         "id": 54,
@@ -2612,7 +2728,7 @@
       },
       {
         "id": 65,
-        "dish_level": 13
+        "dish_level": 15
       },
       {
         "id": 66,
@@ -2620,7 +2736,7 @@
       },
       {
         "id": 67,
-        "dish_level": 7
+        "dish_level": 13
       },
       {
         "id": 68,
@@ -2628,18 +2744,70 @@
       },
       {
         "id": 70,
-        "dish_level": 4
+        "dish_level": 9
       },
       {
         "id": 72,
         "dish_level": 8
       }
+    ],
+    "research_areas": [
+      {
+        "id": 1,
+        "name": "Greengrass Isle",
+        "is_default": 1,
+        "favorites_random": 1,
+        "area_bonus": 50
+      },
+      {
+        "id": 2,
+        "name": "Cyan Beach",
+        "is_default": 0,
+        "favorites_random": 0,
+        "area_bonus": 1
+      },
+      {
+        "id": 3,
+        "name": "Taupe Hollow",
+        "is_default": 0,
+        "favorites_random": 0,
+        "area_bonus": 1
+      },
+      {
+        "id": 4,
+        "name": "Snowdrop Tundra",
+        "is_default": 0,
+        "favorites_random": 0,
+        "area_bonus": 1
+      },
+      {
+        "id": 5,
+        "name": "Lapis Lakeside",
+        "is_default": 0,
+        "favorites_random": 0,
+        "area_bonus": 1
+      },
+      {
+        "id": 6,
+        "name": "Old Gold Power Plant",
+        "is_default": 0,
+        "favorites_random": 0,
+        "area_bonus": 1
+      },
+      {
+        "id": 7,
+        "name": "Amber Canyon",
+        "is_default": 0,
+        "favorites_random": 0,
+        "area_bonus": 1
+      }
     ]
   },
   "counts": {
-    "pokemon": 64,
+    "pokemon": 67,
     "settings": 14,
     "bag_items": 12,
-    "dish_levels": 31
+    "dish_levels": 31,
+    "research_areas": 7
   }
 }
