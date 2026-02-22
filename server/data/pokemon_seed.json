@@ -347,6 +347,7 @@
           "dexNo": 8,
           "name": "Wartortle",
           "levelRequired": 12,
+          "candyRequired": 40,
           "variantMapping": {
             "default": "default"
           }
@@ -396,6 +397,7 @@
           "dexNo": 9,
           "name": "Blastoise",
           "levelRequired": 27,
+          "candyRequired": 80,
           "variantMapping": {
             "default": "default"
           }
@@ -426,6 +428,47 @@
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "8-default.png",
           "shinyImage": "8-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 9,
+      "name": "Blastoise",
+      "primaryType": "Water",
+      "specialty": "Ingredients",
+      "profileImage": "9.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 8,
+          "name": "Wartortle"
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Blastoise",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:46:40",
+            "carryLimit": 17,
+            "friendshipPointsNeeded": 20,
+            "recruitExperience": 528,
+            "recruitShards": 1115
+          },
+          "berries": [
+            { "name": "Oran Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Moomoo Milk", "unlockLevel": 1 },
+            { "name": "Soothing Cacao", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Ingredient Magnet S",
+          "detailImage": "9-default.png",
+          "shinyImage": "9-default-shiny.png"
         }
       ],
       "subSkills": []
@@ -2403,6 +2446,52 @@
           "mainSkill": "Ingredient Draw S",
           "detailImage": "742-default.png",
           "shinyImage": "742-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 909,
+      "name": "Fuecoco",
+      "primaryType": "Fire",
+      "specialty": "Ingredients",
+      "profileImage": "909.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 910,
+          "name": "Crocalor",
+          "levelRequired": 12,
+          "candyRequired": 40,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Fuecoco",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:10:00",
+            "carryLimit": 11,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 54,
+            "recruitShards": 43
+          },
+          "berries": [
+            { "name": "Leppa Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Fancy Apple", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 1 },
+            { "name": "Fiery Herb", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "909-default.png",
+          "shinyImage": "909-default-shiny.png"
         }
       ],
       "subSkills": []
