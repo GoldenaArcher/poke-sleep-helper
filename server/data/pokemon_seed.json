@@ -2495,6 +2495,172 @@
         }
       ],
       "subSkills": []
+    },
+    {
+      "dexNo": 912,
+      "name": "Quaxly",
+      "primaryType": "Water",
+      "specialty": "Ingredients",
+      "profileImage": "912.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 913,
+          "name": "Quaxwell",
+          "levelRequired": 12,
+          "candyRequired": 40,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Quaxly",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:20:00",
+            "carryLimit": 16,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 43,
+            "recruitShards": 62
+          },
+          "berries": [
+            { "name": "Oran Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 },
+            { "name": "Large Leek", "unlockLevel": 1 },
+            { "name": "Pure Oil", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Strength M",
+          "detailImage": "912-default.png",
+          "shinyImage": "912-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 453,
+      "name": "Croagunk",
+      "primaryType": "Poison",
+      "specialty": "Ingredients",
+      "profileImage": "453.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 454,
+          "name": "Toxicroak",
+          "levelRequired": 28,
+          "candyRequired": 40,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Croagunk",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:33:20",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 22,
+            "recruitShards": 16
+          },
+          "berries": [
+            { "name": "Chesto Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Pure Oil", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "453-default.png",
+          "shinyImage": "453-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 454,
+      "name": "Toxicroak",
+      "primaryType": "Poison",
+      "specialty": "Ingredients",
+      "profileImage": "454.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 453,
+          "name": "Croagunk"
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Toxicroak",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:56:40",
+            "carryLimit": 14,
+            "friendshipPointsNeeded": 12,
+            "recruitExperience": 126,
+            "recruitShards": 257
+          },
+          "berries": [
+            { "name": "Chesto Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Pure Oil", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "454-default.png",
+          "shinyImage": "454-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 127,
+      "name": "Pinsir",
+      "primaryType": "Bug",
+      "specialty": "Ingredients",
+      "profileImage": "127.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Pinsir",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:49:00",
+            "carryLimit": 24,
+            "friendshipPointsNeeded": 15,
+            "recruitExperience": 235,
+            "recruitShards": 608
+          },
+          "berries": [
+            { "name": "Lum Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Honey", "unlockLevel": 1 },
+            { "name": "Fancy Apple", "unlockLevel": 1 },
+            { "name": "Bean Sausage", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "127-default.png",
+          "shinyImage": "127-default-shiny.png"
+        }
+      ],
+      "subSkills": []
     }
   ]
 }
