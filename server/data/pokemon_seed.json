@@ -2628,6 +2628,51 @@
       "subSkills": []
     },
     {
+      "dexNo": 848,
+      "name": "Toxel",
+      "primaryType": "Poison",
+      "specialty": "Skills",
+      "profileImage": "848.png",
+      "evolutionChain": {
+        "evolvesTo": [
+          {
+            "dexNo": 849,
+            "name": "Toxtricity",
+            "level": 30,
+            "candyRequired": 80
+          }
+        ]
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Toxel",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:33:20",
+            "carryLimit": 8,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 46,
+            "recruitShards": 73
+          },
+          "berries": [
+            { "name": "Chesto Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Moomoo Milk", "unlockLevel": 1 },
+            { "name": "Fancy Apple", "unlockLevel": 1 },
+            { "name": "Large Leek", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Ingredient Magnet S",
+          "detailImage": "848-default.png",
+          "shinyImage": "848-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 127,
       "name": "Pinsir",
       "primaryType": "Bug",

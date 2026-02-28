@@ -223,9 +223,15 @@ const EvolutionStageColumn = ({ stages }) => {
   return (
     <>
       <div className="evolution-column">
-        {stages.map((stage) => {
+        {stages.map((stage, idx) => {
+          // Create unique key combining dex_no and index to handle multiple forms
+          const uniqueKey = `${stage.dex_no}-${idx}`;
+          // Check if this is a branching evolution (multiple forms of same Pokemon)
+          const sameDexNoCount = stages.filter(s => s.dex_no === stage.dex_no).length;
+          const isBranchingForm = sameDexNoCount > 1;
+          
           return (
-            <div className="evolution-branch" key={stage.dex_no}>
+            <div className="evolution-branch" key={uniqueKey}>
               <div className="evolution-route">
                 <span className="route-arrow">→</span>
                 <EvolutionRouteDisplay route={stage} />
@@ -244,6 +250,9 @@ const EvolutionStageColumn = ({ stages }) => {
                     #{String(stage.dex_no).padStart(3, "0")}
                   </strong>
                   <p>{stage.name}</p>
+                  {isBranchingForm && stage.form_name && (
+                    <span className="meta">{stage.form_name}</span>
+                  )}
                 </div>
               </Link>
             </div>
