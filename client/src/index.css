@@ -190,8 +190,31 @@ button {
   cursor: pointer;
 }
 
+.bag-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  margin: 0;
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
 .bag-header .inline-fields {
   margin: 0;
+}
+
+.bag-content {
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.bag-content > div {
+  margin-bottom: 32px;
+}
+
+.bag-content > div:last-child {
+  margin-bottom: 0;
 }
 
 .meta {
@@ -1504,13 +1527,38 @@ button {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.2);
-  padding: 48px 24px;
-  overflow: auto;
+  padding: 24px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .bag-modal .card {
   max-width: 920px;
-  margin: 0 auto;
+  width: 100%;
+  max-height: calc(100vh - 48px);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+  .bag-modal .card {
+    max-width: 90vw;
+  }
+}
+
+@media (max-width: 700px) {
+  .bag-modal {
+    padding: 16px;
+  }
+
+  .bag-modal .card {
+    max-width: 100%;
+    max-height: calc(100vh - 32px);
+  }
 }
 
 @media (max-width: 700px) {

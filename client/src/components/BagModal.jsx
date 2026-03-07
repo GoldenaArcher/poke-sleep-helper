@@ -26,7 +26,7 @@ const BagModal = ({
   onClose
 }) => (
   <div className="bag-modal">
-    <section className="card grid">
+    <section className="card">
       <header className="section-header bag-header">
         <div>
           <h2>Bag</h2>
@@ -49,6 +49,7 @@ const BagModal = ({
         </div>
       </header>
 
+      <div className="bag-content">{/* All content below header */}
       <div>
         <h3>Bag limits</h3>
         <div className="inline-fields">
@@ -279,6 +280,7 @@ const BagModal = ({
           Total ingredients: {ingredientTotal} / {settings.ingredientLimit}
         </p>
       </div>
+      </div>{/* End bag-content */}
     </section>
   </div>
 );

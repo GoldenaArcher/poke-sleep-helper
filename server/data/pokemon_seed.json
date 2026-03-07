@@ -2673,6 +2673,50 @@
       "subSkills": []
     },
     {
+      "dexNo": 517,
+      "name": "Munna",
+      "primaryType": "Psychic",
+      "specialty": "Berries",
+      "profileImage": "517.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 518,
+          "name": "Musharna",
+          "levelRequired": 0,
+          "candyRequired": 80,
+          "evolutionItems": ["Moon Stone"]
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Munna",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:35:00",
+            "carryLimit": 12,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 35,
+            "recruitShards": 95
+          },
+          "berries": [
+            { "name": "Miso Berry", "quantity": 2 }
+          ],
+          "ingredients": [
+            { "name": "Moomoo Milk", "unlockLevel": 1 },
+            { "name": "Honey", "unlockLevel": 1 },
+            { "name": "Rousing Coffee", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Dream Shard Magnet S",
+          "detailImage": "517-default.png",
+          "shinyImage": "517-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 127,
       "name": "Pinsir",
       "primaryType": "Bug",
@@ -2703,6 +2747,55 @@
           "mainSkill": "Charge Strength S",
           "detailImage": "127-default.png",
           "shinyImage": "127-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 81,
+      "name": "Magnemite",
+      "primaryType": "Steel",
+      "specialty": "Skills",
+      "profileImage": "81.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 82,
+          "name": "Magneton",
+          "level": 23,
+          "candyRequired": 40,
+          "evolvesTo": {
+            "dexNo": 462,
+            "name": "Magnezone",
+            "levelRequired": 0,
+            "candyRequired": 80,
+            "evolutionItems": ["Thunder Stone"]
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Magnemite",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:36:49",
+            "carryLimit": 8,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 7,
+            "recruitShards": 20
+          },
+          "berries": [
+            { "name": "Belue Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Pure Oil", "unlockLevel": 1 },
+            { "name": "Fiery Herb", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Cooking Power-Up S",
+          "detailImage": "81-default.png",
+          "shinyImage": "81-default-shiny.png"
         }
       ],
       "subSkills": []
