@@ -198,7 +198,7 @@ const EvolutionStageColumn = ({ stages }) => {
       const results = {};
       for (const stage of stages) {
         try {
-          const data = await apiFetch(`/api/pokemon/${stage.dex_no}`);
+          const data = await apiFetch(`/api/pokedex/${stage.dex_no}`);
           console.log(`Fetched evolution for ${stage.dex_no}:`, data?.evolution?.evolves_to);
           if (data?.evolution?.evolves_to?.length > 0) {
             results[stage.dex_no] = data.evolution.evolves_to;

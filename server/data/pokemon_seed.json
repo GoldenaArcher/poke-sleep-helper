@@ -46,7 +46,6 @@
           "dexNo": 5,
           "name": "Charmeleon",
           "levelRequired": 12,
-          "candyRequired": 40,
           "variantMapping": {
             "default": "default"
           }
@@ -60,11 +59,11 @@
           "isEvent": 0,
           "notes": "Standard variant",
           "stats": {
-            "baseFrequency": "00:50:20",
-            "carryLimit": 12,
-            "friendshipPointsNeeded": 5,
-            "recruitExperience": 16,
-            "recruitShards": 42
+            "baseFrequency": "00:40:00",
+            "carryLimit": 19,
+            "friendshipPointsNeeded": 20,
+            "recruitExperience": 328,
+            "recruitShards": 1116
           },
           "berries": [
             { "name": "Leppa Berry", "quantity": 1 }
@@ -91,6 +90,14 @@
         "evolvesFrom": {
           "dexNo": 4,
           "name": "Charmander"
+        },
+        "evolvesTo": {
+          "dexNo": 6,
+          "name": "Charizard",
+          "levelRequired": 27,
+          "variantMapping": {
+            "default": "default"
+          }
         }
       },
       "variants": [
@@ -118,6 +125,47 @@
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "5-default.png",
           "shinyImage": "5-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 6,
+      "name": "Charizard",
+      "primaryType": "Fire",
+      "specialty": "Ingredients",
+      "profileImage": "6.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 5,
+          "name": "Charmeleon"
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Charizard",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:06:40",
+            "carryLimit": 22,
+            "friendshipPointsNeeded": 22,
+            "recruitExperience": 328,
+            "recruitShards": 630
+          },
+          "berries": [
+            { "name": "Leppa Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Bean Sausage", "unlockLevel": 1 },
+            { "name": "Warming Ginger", "unlockLevel": 1 },
+            { "name": "Fiery Herb", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Ingredient Magnet S",
+          "detailImage": "6-default.png",
+          "shinyImage": "6-default-shiny.png"
         }
       ],
       "subSkills": []
@@ -347,7 +395,6 @@
           "dexNo": 8,
           "name": "Wartortle",
           "levelRequired": 12,
-          "candyRequired": 40,
           "variantMapping": {
             "default": "default"
           }
@@ -397,7 +444,6 @@
           "dexNo": 9,
           "name": "Blastoise",
           "levelRequired": 27,
-          "candyRequired": 80,
           "variantMapping": {
             "default": "default"
           }
@@ -853,6 +899,16 @@
       "primaryType": "Rock",
       "specialty": "Skills",
       "profileImage": "438.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 185,
+          "name": "Sudowoodo",
+          "levelRequired": 12,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
       "variants": [
         {
           "key": "default",
@@ -878,6 +934,47 @@
           "mainSkill": "Charge Strength M",
           "detailImage": "438-default.png",
           "shinyImage": "438-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 185,
+      "name": "Sudowoodo",
+      "primaryType": "Rock",
+      "specialty": "Skills",
+      "profileImage": "185.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 438,
+          "name": "Bonsly"
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Sudowoodo",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:06:40",
+            "carryLimit": 16,
+            "friendshipPointsNeeded": 7,
+            "recruitExperience": 23,
+            "recruitShards": 41
+          },
+          "berries": [
+            { "name": "Sitrus Berry", "quantity": 1 }
+          ],
+          "ingredients": [
+            { "name": "Snoozy Tomato", "unlockLevel": 1 },
+            { "name": "Tasty Mushroom", "unlockLevel": 1 },
+            { "name": "Greengrass Soybeans", "unlockLevel": 1 }
+          ],
+          "mainSkill": "Charge Strength M",
+          "detailImage": "185-default.png",
+          "shinyImage": "185-default-shiny.png"
         }
       ],
       "subSkills": []
@@ -1754,7 +1851,6 @@
           "dexNo": 38,
           "name": "Ninetales",
           "evolutionItem": "Fire Stone",
-          "candyRequired": 80,
           "variantMapping": {
             "default": "default"
           }
@@ -2060,7 +2156,6 @@
           "dexNo": 55,
           "name": "Golduck",
           "levelRequired": 26,
-          "candyRequired": 40,
           "variantMapping": {
             "default": "default"
           }
@@ -2107,7 +2202,6 @@
           "dexNo": 93,
           "name": "Haunter",
           "levelRequired": 19,
-          "candyRequired": 40,
           "variantMapping": {
             "default": "default"
           }
@@ -2155,7 +2249,6 @@
           "name": "Arcanine",
           "levelRequired": 0,
           "evolutionItems": ["Fire Stone"],
-          "candyRequired": 80,
           "variantMapping": {
             "default": "default"
           }
@@ -2415,7 +2508,6 @@
           "dexNo": 743,
           "name": "Ribombee",
           "levelRequired": 19,
-          "candyRequired": 40,
           "variantMapping": {
             "default": "default"
           }
@@ -2461,7 +2553,6 @@
           "dexNo": 910,
           "name": "Crocalor",
           "levelRequired": 12,
-          "candyRequired": 40,
           "variantMapping": {
             "default": "default"
           }
@@ -2507,7 +2598,6 @@
           "dexNo": 913,
           "name": "Quaxwell",
           "levelRequired": 12,
-          "candyRequired": 40,
           "variantMapping": {
             "default": "default"
           }
@@ -2553,7 +2643,6 @@
           "dexNo": 454,
           "name": "Toxicroak",
           "levelRequired": 28,
-          "candyRequired": 40,
           "variantMapping": {
             "default": "default"
           }
@@ -2638,8 +2727,7 @@
           {
             "dexNo": 849,
             "name": "Toxtricity",
-            "level": 30,
-            "candyRequired": 80
+            "levelRequired": 30
           }
         ]
       },
@@ -2683,7 +2771,6 @@
           "dexNo": 518,
           "name": "Musharna",
           "levelRequired": 0,
-          "candyRequired": 80,
           "evolutionItems": ["Moon Stone"]
         }
       },
@@ -2761,13 +2848,11 @@
         "evolvesTo": {
           "dexNo": 82,
           "name": "Magneton",
-          "level": 23,
-          "candyRequired": 40,
+          "levelRequired": 23,
           "evolvesTo": {
             "dexNo": 462,
             "name": "Magnezone",
             "levelRequired": 0,
-            "candyRequired": 80,
             "evolutionItems": ["Thunder Stone"]
           }
         }
