@@ -5,7 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import db, { dbAll, dbGet, dbRun } from "./db-schema.js";
 import { normalizeScores, scoreAll, pickTeam } from "./teamScoring.js";
-import { ingredientCatalog } from "../data/catalogs.js";
+import { ingredientCatalog } from "../data/catalogs/index.js";
 
 dotenv.config();
 

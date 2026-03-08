@@ -3,7 +3,7 @@
  * Seeds berries and berry strength data
  */
 
-import { berryCatalog, berryStrengthData } from "../../data/catalogs.js";
+import { berryCatalog, berryStrengthData } from "../../data/catalogs/index.js";
 
 export async function seedBerries(db, dbRun, dbGet) {
   console.log("🫐 Seeding berries...");

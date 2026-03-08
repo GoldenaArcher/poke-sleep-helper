@@ -1,0 +1,116 @@
+[
+  {
+    "name": "Berry Finding S",
+    "description": "Increases the number of Berries this Pokémon finds at one time by 1.",
+    "rarity": "Gold",
+    "upgradableTo": ""
+  },
+  {
+    "name": "Dream Shard Bonus",
+    "description": "Boosts the number of Dream Shards you earn from sleep research by 6%.",
+    "rarity": "Gold",
+    "upgradableTo": ""
+  },
+  {
+    "name": "Energy Recovery Bonus",
+    "description": "Multiplies the Energy the team recovers from sleep sessions by 1.12.",
+    "rarity": "Gold",
+    "upgradableTo": ""
+  },
+  {
+    "name": "Energy Recovery M",
+    "description": "Boosts the Energy this Pokémon recovers from sleep sessions by %.",
+    "rarity": "",
+    "upgradableTo": ""
+  },
+  {
+    "name": "Energy Recovery S",
+    "description": "Boosts the Energy this Pokémon recovers from sleep sessions by %.",
+    "rarity": "",
+    "upgradableTo": ""
+  },
+  {
+    "name": "Helping Bonus",
+    "description": "Reduces the time needed by team members to help out by 5%.",
+    "rarity": "Gold",
+    "upgradableTo": ""
+  },
+  {
+    "name": "Helping Speed M",
+    "description": "Reduces the time needed for this Pokémon to help out by 14%.",
+    "rarity": "Silver",
+    "upgradableTo": ""
+  },
+  {
+    "name": "Helping Speed S",
+    "description": "Reduces the time needed for this Pokémon to help out by 7%.",
+    "rarity": "White",
+    "upgradableTo": "Helping Speed M"
+  },
+  {
+    "name": "Ingredient Finder M",
+    "description": "Boosts the likelihood of this Pokémon finding ingredients by 36%.",
+    "rarity": "Silver",
+    "upgradableTo": ""
+  },
+  {
+    "name": "Ingredient Finder S",
+    "description": "Slightly boosts the likelihood of this Pokémon finding ingredients by 18%.",
+    "rarity": "White",
+    "upgradableTo": "Ingredient Finder M"
+  },
+  {
+    "name": "Inventory Up L",
+    "description": "Increases the max number of Berries and ingredients this Pokémon can have by 18.",
+    "rarity": "Silver",
+    "upgradableTo": ""
+  },
+  {
+    "name": "Inventory Up M",
+    "description": "Increases the max number of Berries and ingredients this Pokémon can have by 12.",
+    "rarity": "Silver",
+    "upgradableTo": "Inventory Up L"
+  },
+  {
+    "name": "Inventory Up S",
+    "description": "Increases the max number of Berries and ingredients this Pokémon can have by 6.",
+    "rarity": "White",
+    "upgradableTo": "Inventory Up M"
+  },
+  {
+    "name": "Research EXP Bonus",
+    "description": "Boosts the EXP you earn from doing sleep research by 9%.",
+    "rarity": "Gold",
+    "upgradableTo": ""
+  },
+  {
+    "name": "Skill Level Up M",
+    "description": "Boosts the level of this Pokémon's main skill by 2.",
+    "rarity": "Gold",
+    "upgradableTo": ""
+  },
+  {
+    "name": "Skill Level Up S",
+    "description": "Boosts the level of this Pokémon's main skill by 1.",
+    "rarity": "Silver",
+    "upgradableTo": "Skill Level Up M"
+  },
+  {
+    "name": "Skill Trigger M",
+    "description": "Boosts the chance of this Pokémon's main skill being used by 36%.",
+    "rarity": "Silver",
+    "upgradableTo": ""
+  },
+  {
+    "name": "Skill Trigger S",
+    "description": "Slightly boosts the chance of this Pokémon's main skill being used by 18%.",
+    "rarity": "White",
+    "upgradableTo": "Skill Trigger M"
+  },
+  {
+    "name": "Sleep EXP Bonus",
+    "description": "Boosts the EXP earned by the team after sleep sessions by 14%.",
+    "rarity": "Gold",
+    "upgradableTo": ""
+  }
+]

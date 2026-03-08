@@ -3,7 +3,7 @@
  * Seeds research areas/locations
  */
 
-import { researchAreas } from "../../data/catalogs.js";
+import { researchAreas } from "../../data/catalogs/index.js";
 
 export async function seedResearchAreas(db, dbRun, dbGet) {
   console.log("🗺️  Seeding research areas...");

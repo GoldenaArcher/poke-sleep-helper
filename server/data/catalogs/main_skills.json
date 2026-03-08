@@ -1,0 +1,164 @@
+[
+  {
+    "name": "Charge Strength S",
+    "effectType": "snorlax_strength",
+    "target": "snorlax",
+    "notes": "Increases Snorlax's Strength by anywhere from 200 to 800."
+  },
+  {
+    "name": "Charge Strength M",
+    "effectType": "snorlax_strength",
+    "target": "snorlax",
+    "notes": "Increases Snorlax's Strength by 880."
+  },
+  {
+    "name": "Dream Shard Magnet S",
+    "effectType": "dream_shard",
+    "target": "player",
+    "notes": "Obtain 44 to 176 Dream Shards."
+  },
+  {
+    "name": "Energizing Cheer S",
+    "effectType": "energy_restore",
+    "target": "random_ally",
+    "notes": "Restores 14 Energy to another Pokémon chosen at random."
+  },
+  {
+    "name": "Charge Energy S",
+    "effectType": "energy_restore",
+    "target": "self",
+    "notes": "Restores 12 Energy to the user."
+  },
+  {
+    "name": "Energy for Everyone S",
+    "effectType": "energy_restore",
+    "target": "team",
+    "notes": "Restores 5 Energy to each helper Pokémon on your team."
+  },
+  {
+    "name": "Extra Helpful S",
+    "effectType": "helper_boost",
+    "target": "single_helper",
+    "notes": "Instantly gets you x4 the usual help from a helper Pokémon."
+  },
+  {
+    "name": "Ingredient Magnet S",
+    "effectType": "ingredient_magnet",
+    "target": "player",
+    "notes": "Gets you 6 ingredients chosen at random."
+  },
+  {
+    "name": "Cooking Power-Up S",
+    "effectType": "pot_expand",
+    "target": "player",
+    "notes": "Gives your pot room for 7 more ingredients next time you cook."
+  },
+  {
+    "name": "Metronome",
+    "effectType": "skill_copy",
+    "target": "random_skill",
+    "notes": "Uses one randomly chosen main skill."
+  },
+  {
+    "name": "Tasty Chance S",
+    "effectType": "extra_tasty",
+    "target": "player",
+    "notes": "Raises your Extra Tasty rate by ??%. The effect lasts until you cook an Extra Tasty dish or change sites. This can stack up to 70% at any one time."
+  },
+  {
+    "name": "Helper Boost",
+    "effectType": "helper_boost",
+    "target": "team",
+    "notes": "Instantly gets you x? the usual help from all Pokémon on the team. Meet certain conditions to boost effect. - Each one is different based on the Pokémon"
+  },
+  {
+    "name": "Stockpile (Charge Strength S)",
+    "effectType": "snorlax_strength",
+    "target": "snorlax",
+    "notes": "When Spit Up triggers, Snorlax gains strength according to the number of times Stockpile was triggered. After Spit Up Triggers, Stockpile's number resets"
+  },
+  {
+    "name": "Disguise (Berry Burst)",
+    "effectType": "berry_burst",
+    "target": "team",
+    "notes": "Gets ? Berries plus ? of each of the Berries other Pokémon on your team collect. May activate Greater Success which drops an increase. It can be activated once per day"
+  },
+  {
+    "name": "Moonlight (Charge Energy S)",
+    "effectType": "energy_restore",
+    "target": "self_or_random_ally",
+    "notes": "Restores 12 Energy to the user. Has a chance of restoring 5 energy to another Pokémon"
+  },
+  {
+    "name": "Transform (Skill Copy)",
+    "effectType": "skill_copy",
+    "target": "random_ally",
+    "notes": "Copies and performs the main skill of one randomly selected Pokémon on the team."
+  },
+  {
+    "name": "Mimic (Skill Copy)",
+    "effectType": "skill_copy",
+    "target": "random_ally",
+    "notes": "Copies and performs the main skill of one randomly selected Pokémon on the team."
+  },
+  {
+    "name": "Berry Burst",
+    "effectType": "berry_burst",
+    "target": "team",
+    "notes": "Gets ? Berries plus ? of each of the Berries other Pokémon on your team collect."
+  },
+  {
+    "name": "Lunar Blessing (Energy for Everyone S)",
+    "effectType": "energy_restore",
+    "target": "team",
+    "notes": "Restores some Energy to all helper Pokémon on your team plus gives ? of each of the Berries other Pokémon on your team collect."
+  },
+  {
+    "name": "Bad Dreams (Charge Strength M)",
+    "effectType": "snorlax_strength",
+    "target": "snorlax",
+    "notes": "Increases Snorlax's Strength by ?, but at the same time, reduces the Energy of helper Pokémon on your team that aren't Dark type by 12."
+  },
+  {
+    "name": "Super Luck (Ingredient Draw S)",
+    "effectType": "ingredient_draw",
+    "target": "player",
+    "notes": "Gets one type of ingredient chosen randomly from a specific selection of ingredients. On rare occasions, gets a great number of Dream Shards instead."
+  },
+  {
+    "name": "Hyper Cutter (Ingredient Draw S)",
+    "effectType": "ingredient_draw",
+    "target": "player",
+    "notes": "Gets one type of ingredient chosen randomly from a specific selection of ingredients. Sometimes gets more ingredients than usual."
+  },
+  {
+    "name": "Minus (Cooking Power-Up S)",
+    "effectType": "pot_expand",
+    "target": "player",
+    "notes": "Gives your cooking pot room for more ingredients next time you cook. Restores Energy to one random Pokémon on your team if there's one or more other Pokémon on the team with the Plus or Minus main skills."
+  },
+  {
+    "name": "Plus (Ingredient Magnet S)",
+    "effectType": "ingredient_magnet",
+    "target": "player",
+    "notes": "Gets you ingredients chosen at random. If there's one or more other Pokémon on the team with the Plus or Minus main skills, gets even more ingredients."
+  },
+  {
+    "name": "Ingredient Draw S",
+    "effectType": "ingredient_draw",
+    "target": "player",
+    "notes": "Gets one type of ingredient chosen randomly from a specific selection of ingredients."
+  },
+  {
+    "name": "Present (Ingredient Magnet S)",
+    "effectType": "ingredient_magnet",
+    "target": "player",
+    "notes": "Gets you ? ingredients chosen at random. Sometimes gets an additional 4 candies for one Pokémon on your team."
+  },
+  {
+    "name": "Nuzzle (Energizing Cheer S)",
+    "effectType": "energy_restore",
+    "target": "random_ally",
+    "notes": "Restores ? Energy to one random Pokémon on your team. If you're lucky, that Pokémon will also gain a main skill activation bonus."
+  }
+]

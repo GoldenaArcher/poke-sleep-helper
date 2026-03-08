@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Belue Berry",
+    "type": "Steel"
+  },
+  {
+    "name": "Bluk Berry",
+    "type": "Ghost"
+  },
+  {
+    "name": "Cheri Berry",
+    "type": "Fighting"
+  },
+  {
+    "name": "Chesto Berry",
+    "type": "Poison"
+  },
+  {
+    "name": "Durin Berry",
+    "type": "Grass"
+  },
+  {
+    "name": "Figy Berry",
+    "type": "Ground"
+  },
+  {
+    "name": "Grepa Berry",
+    "type": "Electric"
+  },
+  {
+    "name": "Leppa Berry",
+    "type": "Fire"
+  },
+  {
+    "name": "Lum Berry",
+    "type": "Bug"
+  },
+  {
+    "name": "Mago Berry",
+    "type": "Psychic"
+  },
+  {
+    "name": "Oran Berry",
+    "type": "Water"
+  },
+  {
+    "name": "Pamtre Berry",
+    "type": "Flying"
+  },
+  {
+    "name": "Pecha Berry",
+    "type": "Fairy"
+  },
+  {
+    "name": "Persim Berry",
+    "type": "Normal"
+  },
+  {
+    "name": "Rawst Berry",
+    "type": "Ice"
+  },
+  {
+    "name": "Sitrus Berry",
+    "type": "Rock"
+  },
+  {
+    "name": "Wiki Berry",
+    "type": "Dark"
+  },
+  {
+    "name": "Yache Berry",
+    "type": "Dragon"
+  }
+]

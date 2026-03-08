@@ -3,7 +3,7 @@
  * Seeds dishes and dish level data
  */
 
-import { dishCatalog, dishLevelData } from "../../data/catalogs.js";
+import { dishCatalog, dishLevelData } from "../../data/catalogs/index.js";
 
 export async function seedDishes(db, dbRun, dbGet) {
   console.log("🍛 Seeding dishes...");

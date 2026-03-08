@@ -3,7 +3,7 @@
  * Seeds sub skills (aka passive skills)
  */
 
-import { subSkillCatalog } from "../../data/catalogs.js";
+import { subSkillCatalog } from "../../data/catalogs/index.js";
 
 export async function seedSubSkills(db, dbRun, dbGet) {
   console.log("💫 Seeding sub skills...");

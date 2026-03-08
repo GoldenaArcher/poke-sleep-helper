@@ -1,0 +1,5561 @@
+{
+  "Fancy Apple Curry": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 748
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 763
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 778
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 793
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 808
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 815
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 830
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 845
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 868
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 883
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 890
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 905
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 920
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 928
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 942
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 957
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 972
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 980
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 995
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 1010
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 1025
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 1047
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 1062
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 1085
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 1100
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 1122
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 1137
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 1159
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 1182
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 1204
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 1227
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 1249
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 1272
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 1302
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 1324
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 1354
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 1376
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 1406
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 1436
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 1466
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 1496
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 1526
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 1556
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 1593
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 1623
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 1661
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 1698
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 1735
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 1773
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 1810
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 1855
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 1892
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 1937
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 1982
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 2027
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 2072
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 2117
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 2169
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 2222
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 2266
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 2311
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 2356
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 2401
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 2446
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 2498
+    }
+  ],
+  "Solar Power Tomato Curry": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 2078
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 2120
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 2161
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 2203
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 2244
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 2265
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 2307
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 2348
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 2410
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 2452
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 2473
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 2514
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 2556
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 2577
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 2618
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 2660
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 2701
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 2722
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 2764
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 2805
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 2847
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 2909
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 2951
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 3013
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 3055
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 3117
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 3159
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 3221
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 3283
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 3346
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 3408
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 3470
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 3533
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 3616
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 3678
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 3761
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 3824
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 3907
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 3990
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 4073
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 4156
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 4239
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 4322
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 4426
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 4509
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 4613
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 4717
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 4821
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 4925
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 5029
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 5153
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 5257
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 5382
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 5507
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 5631
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 5756
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 5881
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 6026
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 6172
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 6296
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 6421
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 6546
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 6670
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 6795
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 6941
+    }
+  ],
+  "Dream Eater Butter Curry": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 9010
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 9190
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 9370
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 9551
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 9731
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 9821
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 10001
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 10181
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 10452
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 10632
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 10722
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 10902
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 11082
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 11172
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 11353
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 11533
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 11713
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 11803
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 11983
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 12164
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 12344
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 12614
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 12794
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 13065
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 13245
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 13515
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 13695
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 13966
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 14236
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 14506
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 14776
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 15047
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 15317
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 15677
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 15948
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 16308
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 16578
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 16939
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 17299
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 17660
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 18020
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 18380
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 18741
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 19191
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 19552
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 20002
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 20453
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 20903
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 21354
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 21804
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 22345
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 22795
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 23336
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 23877
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 24417
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 24958
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 25498
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 26129
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 26760
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 27300
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 27841
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 28382
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 28922
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 29463
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 30093
+    }
+  ],
+  "Spore Mushroom Curry": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 4162
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 4245
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 4328
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 4412
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 4495
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 4537
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 4620
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 4703
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 4828
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 4911
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 4953
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 5036
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 5119
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 5161
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 5244
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 5327
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 5411
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 5452
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 5535
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 5619
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 5702
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 5827
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 5910
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 6035
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 6118
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 6243
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 6326
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 6451
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 6576
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 6701
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 6826
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 6951
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 7075
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 7242
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 7367
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 7533
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 7658
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 7825
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 7991
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 8158
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 8324
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 8490
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 8657
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 8865
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 9032
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 9240
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 9448
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 9656
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 9864
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 10072
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 10322
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 10530
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 10780
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 11029
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 11279
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 11529
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 11778
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 12070
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 12361
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 12611
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 12861
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 13110
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 13360
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 13610
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 13901
+    }
+  ],
+  "Egg Bomb Curry": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 4523
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 4613
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 4704
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 4794
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 4885
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 4930
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 5021
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 5111
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 5247
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 5337
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 5382
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 5473
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 5563
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 5609
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 5699
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 5789
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 5880
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 5925
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 6016
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 6106
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 6197
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 6332
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 6423
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 6558
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 6649
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 6785
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 6875
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 7011
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 7146
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 7282
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 7418
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 7553
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 7689
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 7870
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 8006
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 8187
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 8322
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 8503
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 8684
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 8865
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 9046
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 9227
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 9408
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 9634
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 9815
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 10041
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 10267
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 10493
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 10720
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 10946
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 11217
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 11443
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 11715
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 11986
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 12257
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 12529
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 12800
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 13117
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 13433
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 13705
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 13976
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 14247
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 14519
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 14790
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 15107
+    }
+  ],
+  "Hearty Cheeseburger Curry": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 1910
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 1948
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 1986
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 2025
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 2063
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 2082
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 2120
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 2158
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 2216
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 2254
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 2273
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 2311
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 2349
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 2368
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 2407
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 2445
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 2483
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 2502
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 2540
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 2579
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 2617
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 2674
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 2712
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 2770
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 2808
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 2865
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 2903
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 2961
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 3018
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 3075
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 3132
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 3190
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 3247
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 3323
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 3381
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 3457
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 3514
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 3591
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 3667
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 3744
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 3820
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 3896
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 3973
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 4068
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 4145
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 4240
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 4336
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 4431
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 4527
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 4622
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 4737
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 4832
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 4947
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 5062
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 5176
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 5291
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 5405
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 5539
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 5673
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 5787
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 5902
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 6017
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 6131
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 6246
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 6379
+    }
+  ],
+  "Soft Potato Chowder": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 3181
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 3245
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 3308
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 3372
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 3435
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 3467
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 3531
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 3595
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 3690
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 3754
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 3785
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 3849
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 3913
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 3944
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 4008
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 4072
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 4135
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 4167
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 4231
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 4294
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 4358
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 4453
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 4517
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 4612
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 4676
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 4772
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 4835
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 4931
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 5026
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 5121
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 5217
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 5312
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 5408
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 5535
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 5630
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 5758
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 5853
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 5980
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 6108
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 6235
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 6362
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 6489
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 6616
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 6776
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 6903
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 7062
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 7221
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 7380
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 7539
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 7698
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 7889
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 8048
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 8239
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 8430
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 8621
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 8811
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 9002
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 9225
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 9448
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 9638
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 9829
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 10020
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 10211
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 10402
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 10625
+    }
+  ],
+  "Simple Chowder": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 814
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 830
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 847
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 863
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 879
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 887
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 904
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 920
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 944
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 961
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 969
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 985
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 1001
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 1009
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 1026
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 1042
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 1058
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 1066
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 1083
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 1099
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 1115
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 1140
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 1156
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 1180
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 1197
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 1221
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 1237
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 1262
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 1286
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 1311
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 1335
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 1359
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 1384
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 1416
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 1441
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 1473
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 1498
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 1530
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 1563
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 1595
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 1628
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 1661
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 1693
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 1734
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 1766
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 1807
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 1848
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 1888
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 1929
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 1970
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 2019
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 2059
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 2108
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 2157
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 2206
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 2255
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 2304
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 2361
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 2418
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 2466
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 2515
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 2564
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 2613
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 2662
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 2719
+    }
+  ],
+  "Beanburger Curry": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 856
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 873
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 890
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 907
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 924
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 933
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 950
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 967
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 993
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 1010
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 1019
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 1036
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 1053
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 1061
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 1079
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 1096
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 1113
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 1121
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 1138
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 1156
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 1173
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 1198
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 1216
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 1241
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 1258
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 1284
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 1301
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 1327
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 1352
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 1378
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 1404
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 1430
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 1455
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 1489
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 1515
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 1549
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 1575
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 1609
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 1644
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 1678
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 1712
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 1746
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 1780
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 1823
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 1858
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 1900
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 1943
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 1986
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 2029
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 2072
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 2123
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 2166
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 2217
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 2268
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 2320
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 2371
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 2422
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 2482
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 2542
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 2594
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 2645
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 2696
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 2748
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 2799
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 2859
+    }
+  ],
+  "Mild Honey Curry": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 839
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 856
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 873
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 889
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 906
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 915
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 931
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 948
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 973
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 990
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 998
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 1015
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 1032
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 1040
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 1057
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 1074
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 1091
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 1099
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 1116
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 1133
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 1149
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 1175
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 1191
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 1217
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 1233
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 1259
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 1275
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 1300
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 1326
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 1351
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 1376
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 1401
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 1426
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 1460
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 1485
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 1519
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 1544
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 1577
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 1611
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 1644
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 1678
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 1712
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 1745
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 1787
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 1821
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 1863
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 1905
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 1946
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 1988
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 2030
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 2081
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 2123
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 2173
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 2223
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 2274
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 2324
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 2374
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 2433
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 2492
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 2542
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 2593
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 2643
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 2693
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 2744
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 2802
+    }
+  ],
+  "Drought Katsu Curry": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 1942
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 1981
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 2020
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 2059
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 2097
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 2117
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 2156
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 2194
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 2253
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 2292
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 2311
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 2350
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 2389
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 2408
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 2447
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 2486
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 2525
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 2544
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 2583
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 2622
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 2661
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 2719
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 2758
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 2816
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 2855
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 2913
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 2952
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 3010
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 3068
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 3127
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 3185
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 3243
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 3301
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 3379
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 3437
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 3515
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 3573
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 3651
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 3729
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 3806
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 3884
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 3962
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 4039
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 4136
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 4214
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 4311
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 4408
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 4505
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 4603
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 4700
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 4816
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 4913
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 5030
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 5146
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 5263
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 5379
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 5496
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 5632
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 5768
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 5884
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 6001
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 6117
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 6234
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 6350
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 6486
+    }
+  ],
+  "Melty Omelette Curry": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 2150
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 2193
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 2236
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 2279
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 2322
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 2344
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 2387
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 2430
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 2494
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 2537
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 2559
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 2602
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 2645
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 2666
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 2709
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 2752
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 2795
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 2817
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 2860
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 2903
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 2946
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 3010
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 3053
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 3118
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 3161
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 3225
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 3268
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 3333
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 3397
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 3462
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 3526
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 3591
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 3655
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 3741
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 3806
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 3892
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 3956
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 4042
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 4128
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 4214
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 4300
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 4386
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 4472
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 4580
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 4666
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 4773
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 4881
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 4988
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 5096
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 5203
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 5332
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 5440
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 5569
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 5698
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 5827
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 5956
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 6085
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 6235
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 6386
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 6515
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 6644
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 6773
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 6902
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 7031
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 7181
+    }
+  ],
+  "Bulk Up Bean Curry": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 3372
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 3439
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 3507
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 3574
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 3642
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 3675
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 3743
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 3810
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 3912
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 3979
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 4013
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 4080
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 4148
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 4181
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 4249
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 4316
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 4384
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 4417
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 4485
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 4552
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 4620
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 4721
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 4788
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 4889
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 4957
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 5058
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 5125
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 5227
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 5328
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 5429
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 5530
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 5631
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 5732
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 5867
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 5968
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 6103
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 6204
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 6339
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 6474
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 6609
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 6744
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 6879
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 7014
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 7182
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 7317
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 7486
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 7654
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 7823
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 7992
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 8160
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 8363
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 8531
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 8733
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 8936
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 9138
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 9340
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 9543
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 9779
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 10015
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 10217
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 10419
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 10622
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 10824
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 11026
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 11262
+    }
+  ],
+  "Limber Corn Stew": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 4670
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 4763
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 4857
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 4950
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 5044
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 5090
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 5184
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 5277
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 5417
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 5511
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 5557
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 5651
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 5744
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 5791
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 5884
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 5978
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 6071
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 6118
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 6211
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 6305
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 6398
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 6538
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 6631
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 6772
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 6865
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 7005
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 7098
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 7239
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 7379
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 7519
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 7659
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 7799
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 7939
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 8126
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 8266
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 8453
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 8593
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 8780
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 8966
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 9153
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 9340
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 9527
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 9714
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 9947
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 10134
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 10367
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 10601
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 10834
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 11068
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 11301
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 11582
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 11815
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 12095
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 12376
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 12656
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 12936
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 13216
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 13543
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 13870
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 14150
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 14430
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 14711
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 14991
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 15271
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 15598
+    }
+  ],
+  "Inferno Corn Keema Curry": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 13690
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 13964
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 14238
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 14511
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 14785
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 14922
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 15196
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 15470
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 15880
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 16154
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 16291
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 16565
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 16839
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 16976
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 17249
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 17523
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 17797
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 17934
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 18208
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 18482
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 18755
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 19166
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 19440
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 19851
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 20124
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 20535
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 20809
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 21220
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 21630
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 22041
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 22452
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 22862
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 23273
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 23821
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 24231
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 24779
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 25190
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 25737
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 26285
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 26832
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 27380
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 27928
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 28475
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 29160
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 29707
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 30392
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 31076
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 31761
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 32445
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 33130
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 33951
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 34636
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 35457
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 36279
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 37100
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 37921
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 38743
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 39701
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 40659
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 41481
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 42302
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 43124
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 43945
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 44766
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 45725
+    }
+  ],
+  "Dizzy Punch Spicy Curry": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 5702
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 5816
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 5930
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 6044
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 6158
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 6215
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 6329
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 6443
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 6614
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 6728
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 6785
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 6899
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 7013
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 7070
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 7185
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 7299
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 7413
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 7470
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 7584
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 7698
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 7812
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 7983
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 8097
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 8268
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 8382
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 8553
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 8667
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 8838
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 9009
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 9180
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 9351
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 9522
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 9693
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 9921
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 10093
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 10321
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 10492
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 10720
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 10948
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 11176
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 11404
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 11632
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 11860
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 12145
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 12373
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 12658
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 12944
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 13229
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 13514
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 13799
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 14141
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 14426
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 14768
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 15110
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 15452
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 15795
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 16137
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 16536
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 16935
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 17277
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 17619
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 17961
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 18303
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 18646
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 19045
+    }
+  ],
+  "Hidden Power Perk-Up Stew": [
+    {
+      "level": 1,
+      "experience": 0,
+      "value": 19061
+    },
+    {
+      "level": 2,
+      "experience": 1080,
+      "value": 19442
+    },
+    {
+      "level": 3,
+      "experience": 2324,
+      "value": 19823
+    },
+    {
+      "level": 4,
+      "experience": 3936,
+      "value": 20205
+    },
+    {
+      "level": 5,
+      "experience": 5545,
+      "value": 20586
+    },
+    {
+      "level": 6,
+      "experience": 7341,
+      "value": 20776
+    },
+    {
+      "level": 7,
+      "experience": 9712,
+      "value": 21158
+    },
+    {
+      "level": 8,
+      "experience": 12760,
+      "value": 21539
+    },
+    {
+      "level": 9,
+      "experience": 16426,
+      "value": 22111
+    },
+    {
+      "level": 10,
+      "experience": 20791,
+      "value": 22492
+    },
+    {
+      "level": 11,
+      "experience": 25639,
+      "value": 22683
+    },
+    {
+      "level": 12,
+      "experience": 30911,
+      "value": 23064
+    },
+    {
+      "level": 13,
+      "experience": 36621,
+      "value": 23445
+    },
+    {
+      "level": 14,
+      "experience": 42922,
+      "value": 23636
+    },
+    {
+      "level": 15,
+      "experience": 49882,
+      "value": 24017
+    },
+    {
+      "level": 16,
+      "experience": 57551,
+      "value": 24398
+    },
+    {
+      "level": 17,
+      "experience": 66001,
+      "value": 24779
+    },
+    {
+      "level": 18,
+      "experience": 75131,
+      "value": 24970
+    },
+    {
+      "level": 19,
+      "experience": 84981,
+      "value": 25351
+    },
+    {
+      "level": 20,
+      "experience": 95642,
+      "value": 25732
+    },
+    {
+      "level": 21,
+      "experience": 107159,
+      "value": 26114
+    },
+    {
+      "level": 22,
+      "experience": 119576,
+      "value": 26685
+    },
+    {
+      "level": 23,
+      "experience": 132938,
+      "value": 27067
+    },
+    {
+      "level": 24,
+      "experience": 147309,
+      "value": 27638
+    },
+    {
+      "level": 25,
+      "experience": 162621,
+      "value": 28020
+    },
+    {
+      "level": 26,
+      "experience": 178929,
+      "value": 28592
+    },
+    {
+      "level": 27,
+      "experience": 196563,
+      "value": 28973
+    },
+    {
+      "level": 28,
+      "experience": 215605,
+      "value": 29545
+    },
+    {
+      "level": 29,
+      "experience": 236149,
+      "value": 30116
+    },
+    {
+      "level": 30,
+      "experience": 258299,
+      "value": 30688
+    },
+    {
+      "level": 31,
+      "experience": 281955,
+      "value": 31260
+    },
+    {
+      "level": 32,
+      "experience": 306759,
+      "value": 31832
+    },
+    {
+      "level": 33,
+      "experience": 332769,
+      "value": 32404
+    },
+    {
+      "level": 34,
+      "experience": 360469,
+      "value": 33166
+    },
+    {
+      "level": 35,
+      "experience": 389943,
+      "value": 33738
+    },
+    {
+      "level": 36,
+      "experience": 421521,
+      "value": 34500
+    },
+    {
+      "level": 37,
+      "experience": 455380,
+      "value": 35072
+    },
+    {
+      "level": 38,
+      "experience": 491055,
+      "value": 35835
+    },
+    {
+      "level": 39,
+      "experience": 528663,
+      "value": 36597
+    },
+    {
+      "level": 40,
+      "experience": 568918,
+      "value": 37360
+    },
+    {
+      "level": 41,
+      "experience": 611541,
+      "value": 38122
+    },
+    {
+      "level": 42,
+      "experience": 656646,
+      "value": 38884
+    },
+    {
+      "level": 43,
+      "experience": 704344,
+      "value": 39647
+    },
+    {
+      "level": 44,
+      "experience": 754748,
+      "value": 40600
+    },
+    {
+      "level": 45,
+      "experience": 807184,
+      "value": 41362
+    },
+    {
+      "level": 46,
+      "experience": 862205,
+      "value": 42315
+    },
+    {
+      "level": 47,
+      "experience": 920936,
+      "value": 43268
+    },
+    {
+      "level": 48,
+      "experience": 983590,
+      "value": 44222
+    },
+    {
+      "level": 49,
+      "experience": 1050391,
+      "value": 45175
+    },
+    {
+      "level": 50,
+      "experience": 1121582,
+      "value": 46128
+    },
+    {
+      "level": 51,
+      "experience": 1196687,
+      "value": 47271
+    },
+    {
+      "level": 52,
+      "experience": 1319485,
+      "value": 48224
+    },
+    {
+      "level": 53,
+      "experience": 1471363,
+      "value": 49368
+    },
+    {
+      "level": 54,
+      "experience": 1672589,
+      "value": 50512
+    },
+    {
+      "level": 55,
+      "experience": 1930878,
+      "value": 51655
+    },
+    {
+      "level": 56,
+      "experience": 2231322,
+      "value": 52799
+    },
+    {
+      "level": 57,
+      "experience": 2579312,
+      "value": 53943
+    },
+    {
+      "level": 58,
+      "experience": 2977994,
+      "value": 55277
+    },
+    {
+      "level": 59,
+      "experience": 3413120,
+      "value": 56611
+    },
+    {
+      "level": 60,
+      "experience": 3891145,
+      "value": 57755
+    },
+    {
+      "level": 61,
+      "experience": 4433557,
+      "value": 58898
+    },
+    {
+      "level": 62,
+      "experience": 5054788,
+      "value": 60042
+    },
+    {
+      "level": 63,
+      "experience": 5773019,
+      "value": 61186
+    },
+    {
+      "level": 64,
+      "experience": 6606405,
+      "value": 62329
+    },
+    {
+      "level": 65,
+      "experience": 7599103,
+      "value": 63664
+    }
+  ]
+}

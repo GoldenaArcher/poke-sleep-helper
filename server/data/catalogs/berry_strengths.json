@@ -1,0 +1,4718 @@
+{
+  "Belue Berry": [
+    {
+      "level": 1,
+      "strength": 33
+    },
+    {
+      "level": 2,
+      "strength": 34
+    },
+    {
+      "level": 3,
+      "strength": 35
+    },
+    {
+      "level": 4,
+      "strength": 36
+    },
+    {
+      "level": 5,
+      "strength": 37
+    },
+    {
+      "level": 6,
+      "strength": 38
+    },
+    {
+      "level": 7,
+      "strength": 39
+    },
+    {
+      "level": 8,
+      "strength": 40
+    },
+    {
+      "level": 9,
+      "strength": 41
+    },
+    {
+      "level": 10,
+      "strength": 42
+    },
+    {
+      "level": 11,
+      "strength": 43
+    },
+    {
+      "level": 12,
+      "strength": 44
+    },
+    {
+      "level": 13,
+      "strength": 45
+    },
+    {
+      "level": 14,
+      "strength": 46
+    },
+    {
+      "level": 15,
+      "strength": 47
+    },
+    {
+      "level": 16,
+      "strength": 48
+    },
+    {
+      "level": 17,
+      "strength": 49
+    },
+    {
+      "level": 18,
+      "strength": 50
+    },
+    {
+      "level": 19,
+      "strength": 51
+    },
+    {
+      "level": 20,
+      "strength": 53
+    },
+    {
+      "level": 21,
+      "strength": 54
+    },
+    {
+      "level": 22,
+      "strength": 55
+    },
+    {
+      "level": 23,
+      "strength": 57
+    },
+    {
+      "level": 24,
+      "strength": 58
+    },
+    {
+      "level": 25,
+      "strength": 60
+    },
+    {
+      "level": 26,
+      "strength": 61
+    },
+    {
+      "level": 27,
+      "strength": 63
+    },
+    {
+      "level": 28,
+      "strength": 64
+    },
+    {
+      "level": 29,
+      "strength": 66
+    },
+    {
+      "level": 30,
+      "strength": 68
+    },
+    {
+      "level": 31,
+      "strength": 69
+    },
+    {
+      "level": 32,
+      "strength": 71
+    },
+    {
+      "level": 33,
+      "strength": 73
+    },
+    {
+      "level": 34,
+      "strength": 75
+    },
+    {
+      "level": 35,
+      "strength": 76
+    },
+    {
+      "level": 36,
+      "strength": 78
+    },
+    {
+      "level": 37,
+      "strength": 80
+    },
+    {
+      "level": 38,
+      "strength": 82
+    },
+    {
+      "level": 39,
+      "strength": 84
+    },
+    {
+      "level": 40,
+      "strength": 86
+    },
+    {
+      "level": 41,
+      "strength": 89
+    },
+    {
+      "level": 42,
+      "strength": 91
+    },
+    {
+      "level": 43,
+      "strength": 93
+    },
+    {
+      "level": 44,
+      "strength": 95
+    },
+    {
+      "level": 45,
+      "strength": 98
+    },
+    {
+      "level": 46,
+      "strength": 100
+    },
+    {
+      "level": 47,
+      "strength": 103
+    },
+    {
+      "level": 48,
+      "strength": 105
+    },
+    {
+      "level": 49,
+      "strength": 108
+    },
+    {
+      "level": 50,
+      "strength": 111
+    },
+    {
+      "level": 51,
+      "strength": 113
+    },
+    {
+      "level": 52,
+      "strength": 116
+    },
+    {
+      "level": 53,
+      "strength": 119
+    },
+    {
+      "level": 54,
+      "strength": 122
+    },
+    {
+      "level": 55,
+      "strength": 125
+    },
+    {
+      "level": 56,
+      "strength": 128
+    },
+    {
+      "level": 57,
+      "strength": 132
+    },
+    {
+      "level": 58,
+      "strength": 135
+    },
+    {
+      "level": 59,
+      "strength": 138
+    },
+    {
+      "level": 60,
+      "strength": 142
+    },
+    {
+      "level": 61,
+      "strength": 145
+    },
+    {
+      "level": 62,
+      "strength": 149
+    },
+    {
+      "level": 63,
+      "strength": 153
+    },
+    {
+      "level": 64,
+      "strength": 156
+    },
+    {
+      "level": 65,
+      "strength": 160
+    }
+  ],
+  "Bluk Berry": [
+    {
+      "level": 1,
+      "strength": 26
+    },
+    {
+      "level": 2,
+      "strength": 27
+    },
+    {
+      "level": 3,
+      "strength": 28
+    },
+    {
+      "level": 4,
+      "strength": 29
+    },
+    {
+      "level": 5,
+      "strength": 30
+    },
+    {
+      "level": 6,
+      "strength": 31
+    },
+    {
+      "level": 7,
+      "strength": 32
+    },
+    {
+      "level": 8,
+      "strength": 33
+    },
+    {
+      "level": 9,
+      "strength": 34
+    },
+    {
+      "level": 10,
+      "strength": 35
+    },
+    {
+      "level": 11,
+      "strength": 36
+    },
+    {
+      "level": 12,
+      "strength": 37
+    },
+    {
+      "level": 13,
+      "strength": 38
+    },
+    {
+      "level": 14,
+      "strength": 39
+    },
+    {
+      "level": 15,
+      "strength": 40
+    },
+    {
+      "level": 16,
+      "strength": 41
+    },
+    {
+      "level": 17,
+      "strength": 42
+    },
+    {
+      "level": 18,
+      "strength": 43
+    },
+    {
+      "level": 19,
+      "strength": 44
+    },
+    {
+      "level": 20,
+      "strength": 45
+    },
+    {
+      "level": 21,
+      "strength": 46
+    },
+    {
+      "level": 22,
+      "strength": 47
+    },
+    {
+      "level": 23,
+      "strength": 48
+    },
+    {
+      "level": 24,
+      "strength": 49
+    },
+    {
+      "level": 25,
+      "strength": 50
+    },
+    {
+      "level": 26,
+      "strength": 51
+    },
+    {
+      "level": 27,
+      "strength": 52
+    },
+    {
+      "level": 28,
+      "strength": 53
+    },
+    {
+      "level": 29,
+      "strength": 54
+    },
+    {
+      "level": 30,
+      "strength": 55
+    },
+    {
+      "level": 31,
+      "strength": 56
+    },
+    {
+      "level": 32,
+      "strength": 57
+    },
+    {
+      "level": 33,
+      "strength": 58
+    },
+    {
+      "level": 34,
+      "strength": 59
+    },
+    {
+      "level": 35,
+      "strength": 60
+    },
+    {
+      "level": 36,
+      "strength": 62
+    },
+    {
+      "level": 37,
+      "strength": 63
+    },
+    {
+      "level": 38,
+      "strength": 65
+    },
+    {
+      "level": 39,
+      "strength": 66
+    },
+    {
+      "level": 40,
+      "strength": 68
+    },
+    {
+      "level": 41,
+      "strength": 70
+    },
+    {
+      "level": 42,
+      "strength": 72
+    },
+    {
+      "level": 43,
+      "strength": 73
+    },
+    {
+      "level": 44,
+      "strength": 75
+    },
+    {
+      "level": 45,
+      "strength": 77
+    },
+    {
+      "level": 46,
+      "strength": 79
+    },
+    {
+      "level": 47,
+      "strength": 81
+    },
+    {
+      "level": 48,
+      "strength": 83
+    },
+    {
+      "level": 49,
+      "strength": 85
+    },
+    {
+      "level": 50,
+      "strength": 87
+    },
+    {
+      "level": 51,
+      "strength": 89
+    },
+    {
+      "level": 52,
+      "strength": 92
+    },
+    {
+      "level": 53,
+      "strength": 94
+    },
+    {
+      "level": 54,
+      "strength": 96
+    },
+    {
+      "level": 55,
+      "strength": 99
+    },
+    {
+      "level": 56,
+      "strength": 101
+    },
+    {
+      "level": 57,
+      "strength": 104
+    },
+    {
+      "level": 58,
+      "strength": 106
+    },
+    {
+      "level": 59,
+      "strength": 109
+    },
+    {
+      "level": 60,
+      "strength": 112
+    },
+    {
+      "level": 61,
+      "strength": 114
+    },
+    {
+      "level": 62,
+      "strength": 117
+    },
+    {
+      "level": 63,
+      "strength": 120
+    },
+    {
+      "level": 64,
+      "strength": 123
+    },
+    {
+      "level": 65,
+      "strength": 126
+    }
+  ],
+  "Cheri Berry": [
+    {
+      "level": 1,
+      "strength": 27
+    },
+    {
+      "level": 2,
+      "strength": 28
+    },
+    {
+      "level": 3,
+      "strength": 29
+    },
+    {
+      "level": 4,
+      "strength": 30
+    },
+    {
+      "level": 5,
+      "strength": 31
+    },
+    {
+      "level": 6,
+      "strength": 32
+    },
+    {
+      "level": 7,
+      "strength": 33
+    },
+    {
+      "level": 8,
+      "strength": 34
+    },
+    {
+      "level": 9,
+      "strength": 35
+    },
+    {
+      "level": 10,
+      "strength": 36
+    },
+    {
+      "level": 11,
+      "strength": 37
+    },
+    {
+      "level": 12,
+      "strength": 38
+    },
+    {
+      "level": 13,
+      "strength": 39
+    },
+    {
+      "level": 14,
+      "strength": 40
+    },
+    {
+      "level": 15,
+      "strength": 41
+    },
+    {
+      "level": 16,
+      "strength": 42
+    },
+    {
+      "level": 17,
+      "strength": 43
+    },
+    {
+      "level": 18,
+      "strength": 44
+    },
+    {
+      "level": 19,
+      "strength": 45
+    },
+    {
+      "level": 20,
+      "strength": 46
+    },
+    {
+      "level": 21,
+      "strength": 47
+    },
+    {
+      "level": 22,
+      "strength": 48
+    },
+    {
+      "level": 23,
+      "strength": 49
+    },
+    {
+      "level": 24,
+      "strength": 50
+    },
+    {
+      "level": 25,
+      "strength": 51
+    },
+    {
+      "level": 26,
+      "strength": 52
+    },
+    {
+      "level": 27,
+      "strength": 53
+    },
+    {
+      "level": 28,
+      "strength": 54
+    },
+    {
+      "level": 29,
+      "strength": 55
+    },
+    {
+      "level": 30,
+      "strength": 56
+    },
+    {
+      "level": 31,
+      "strength": 57
+    },
+    {
+      "level": 32,
+      "strength": 58
+    },
+    {
+      "level": 33,
+      "strength": 60
+    },
+    {
+      "level": 34,
+      "strength": 61
+    },
+    {
+      "level": 35,
+      "strength": 63
+    },
+    {
+      "level": 36,
+      "strength": 64
+    },
+    {
+      "level": 37,
+      "strength": 66
+    },
+    {
+      "level": 38,
+      "strength": 67
+    },
+    {
+      "level": 39,
+      "strength": 69
+    },
+    {
+      "level": 40,
+      "strength": 71
+    },
+    {
+      "level": 41,
+      "strength": 72
+    },
+    {
+      "level": 42,
+      "strength": 74
+    },
+    {
+      "level": 43,
+      "strength": 76
+    },
+    {
+      "level": 44,
+      "strength": 78
+    },
+    {
+      "level": 45,
+      "strength": 80
+    },
+    {
+      "level": 46,
+      "strength": 82
+    },
+    {
+      "level": 47,
+      "strength": 84
+    },
+    {
+      "level": 48,
+      "strength": 86
+    },
+    {
+      "level": 49,
+      "strength": 88
+    },
+    {
+      "level": 50,
+      "strength": 91
+    },
+    {
+      "level": 51,
+      "strength": 93
+    },
+    {
+      "level": 52,
+      "strength": 95
+    },
+    {
+      "level": 53,
+      "strength": 98
+    },
+    {
+      "level": 54,
+      "strength": 100
+    },
+    {
+      "level": 55,
+      "strength": 102
+    },
+    {
+      "level": 56,
+      "strength": 105
+    },
+    {
+      "level": 57,
+      "strength": 108
+    },
+    {
+      "level": 58,
+      "strength": 110
+    },
+    {
+      "level": 59,
+      "strength": 113
+    },
+    {
+      "level": 60,
+      "strength": 116
+    },
+    {
+      "level": 61,
+      "strength": 119
+    },
+    {
+      "level": 62,
+      "strength": 122
+    },
+    {
+      "level": 63,
+      "strength": 125
+    },
+    {
+      "level": 64,
+      "strength": 128
+    },
+    {
+      "level": 65,
+      "strength": 131
+    }
+  ],
+  "Chesto Berry": [
+    {
+      "level": 1,
+      "strength": 32
+    },
+    {
+      "level": 2,
+      "strength": 33
+    },
+    {
+      "level": 3,
+      "strength": 34
+    },
+    {
+      "level": 4,
+      "strength": 35
+    },
+    {
+      "level": 5,
+      "strength": 36
+    },
+    {
+      "level": 6,
+      "strength": 37
+    },
+    {
+      "level": 7,
+      "strength": 38
+    },
+    {
+      "level": 8,
+      "strength": 39
+    },
+    {
+      "level": 9,
+      "strength": 40
+    },
+    {
+      "level": 10,
+      "strength": 41
+    },
+    {
+      "level": 11,
+      "strength": 42
+    },
+    {
+      "level": 12,
+      "strength": 43
+    },
+    {
+      "level": 13,
+      "strength": 44
+    },
+    {
+      "level": 14,
+      "strength": 45
+    },
+    {
+      "level": 15,
+      "strength": 46
+    },
+    {
+      "level": 16,
+      "strength": 47
+    },
+    {
+      "level": 17,
+      "strength": 48
+    },
+    {
+      "level": 18,
+      "strength": 49
+    },
+    {
+      "level": 19,
+      "strength": 50
+    },
+    {
+      "level": 20,
+      "strength": 51
+    },
+    {
+      "level": 21,
+      "strength": 52
+    },
+    {
+      "level": 22,
+      "strength": 54
+    },
+    {
+      "level": 23,
+      "strength": 55
+    },
+    {
+      "level": 24,
+      "strength": 56
+    },
+    {
+      "level": 25,
+      "strength": 58
+    },
+    {
+      "level": 26,
+      "strength": 59
+    },
+    {
+      "level": 27,
+      "strength": 61
+    },
+    {
+      "level": 28,
+      "strength": 62
+    },
+    {
+      "level": 29,
+      "strength": 64
+    },
+    {
+      "level": 30,
+      "strength": 65
+    },
+    {
+      "level": 31,
+      "strength": 67
+    },
+    {
+      "level": 32,
+      "strength": 69
+    },
+    {
+      "level": 33,
+      "strength": 71
+    },
+    {
+      "level": 34,
+      "strength": 72
+    },
+    {
+      "level": 35,
+      "strength": 74
+    },
+    {
+      "level": 36,
+      "strength": 76
+    },
+    {
+      "level": 37,
+      "strength": 78
+    },
+    {
+      "level": 38,
+      "strength": 80
+    },
+    {
+      "level": 39,
+      "strength": 82
+    },
+    {
+      "level": 40,
+      "strength": 84
+    },
+    {
+      "level": 41,
+      "strength": 86
+    },
+    {
+      "level": 42,
+      "strength": 88
+    },
+    {
+      "level": 43,
+      "strength": 90
+    },
+    {
+      "level": 44,
+      "strength": 93
+    },
+    {
+      "level": 45,
+      "strength": 95
+    },
+    {
+      "level": 46,
+      "strength": 97
+    },
+    {
+      "level": 47,
+      "strength": 100
+    },
+    {
+      "level": 48,
+      "strength": 102
+    },
+    {
+      "level": 49,
+      "strength": 105
+    },
+    {
+      "level": 50,
+      "strength": 107
+    },
+    {
+      "level": 51,
+      "strength": 110
+    },
+    {
+      "level": 52,
+      "strength": 113
+    },
+    {
+      "level": 53,
+      "strength": 116
+    },
+    {
+      "level": 54,
+      "strength": 118
+    },
+    {
+      "level": 55,
+      "strength": 121
+    },
+    {
+      "level": 56,
+      "strength": 124
+    },
+    {
+      "level": 57,
+      "strength": 128
+    },
+    {
+      "level": 58,
+      "strength": 131
+    },
+    {
+      "level": 59,
+      "strength": 134
+    },
+    {
+      "level": 60,
+      "strength": 137
+    },
+    {
+      "level": 61,
+      "strength": 141
+    },
+    {
+      "level": 62,
+      "strength": 144
+    },
+    {
+      "level": 63,
+      "strength": 148
+    },
+    {
+      "level": 64,
+      "strength": 152
+    },
+    {
+      "level": 65,
+      "strength": 155
+    }
+  ],
+  "Durin Berry": [
+    {
+      "level": 1,
+      "strength": 30
+    },
+    {
+      "level": 2,
+      "strength": 31
+    },
+    {
+      "level": 3,
+      "strength": 32
+    },
+    {
+      "level": 4,
+      "strength": 33
+    },
+    {
+      "level": 5,
+      "strength": 34
+    },
+    {
+      "level": 6,
+      "strength": 35
+    },
+    {
+      "level": 7,
+      "strength": 36
+    },
+    {
+      "level": 8,
+      "strength": 37
+    },
+    {
+      "level": 9,
+      "strength": 38
+    },
+    {
+      "level": 10,
+      "strength": 39
+    },
+    {
+      "level": 11,
+      "strength": 40
+    },
+    {
+      "level": 12,
+      "strength": 41
+    },
+    {
+      "level": 13,
+      "strength": 42
+    },
+    {
+      "level": 14,
+      "strength": 43
+    },
+    {
+      "level": 15,
+      "strength": 44
+    },
+    {
+      "level": 16,
+      "strength": 45
+    },
+    {
+      "level": 17,
+      "strength": 46
+    },
+    {
+      "level": 18,
+      "strength": 47
+    },
+    {
+      "level": 19,
+      "strength": 48
+    },
+    {
+      "level": 20,
+      "strength": 49
+    },
+    {
+      "level": 21,
+      "strength": 50
+    },
+    {
+      "level": 22,
+      "strength": 51
+    },
+    {
+      "level": 23,
+      "strength": 52
+    },
+    {
+      "level": 24,
+      "strength": 53
+    },
+    {
+      "level": 25,
+      "strength": 54
+    },
+    {
+      "level": 26,
+      "strength": 56
+    },
+    {
+      "level": 27,
+      "strength": 57
+    },
+    {
+      "level": 28,
+      "strength": 58
+    },
+    {
+      "level": 29,
+      "strength": 60
+    },
+    {
+      "level": 30,
+      "strength": 61
+    },
+    {
+      "level": 31,
+      "strength": 63
+    },
+    {
+      "level": 32,
+      "strength": 65
+    },
+    {
+      "level": 33,
+      "strength": 66
+    },
+    {
+      "level": 34,
+      "strength": 68
+    },
+    {
+      "level": 35,
+      "strength": 69
+    },
+    {
+      "level": 36,
+      "strength": 71
+    },
+    {
+      "level": 37,
+      "strength": 73
+    },
+    {
+      "level": 38,
+      "strength": 75
+    },
+    {
+      "level": 39,
+      "strength": 77
+    },
+    {
+      "level": 40,
+      "strength": 79
+    },
+    {
+      "level": 41,
+      "strength": 81
+    },
+    {
+      "level": 42,
+      "strength": 83
+    },
+    {
+      "level": 43,
+      "strength": 85
+    },
+    {
+      "level": 44,
+      "strength": 87
+    },
+    {
+      "level": 45,
+      "strength": 89
+    },
+    {
+      "level": 46,
+      "strength": 91
+    },
+    {
+      "level": 47,
+      "strength": 93
+    },
+    {
+      "level": 48,
+      "strength": 96
+    },
+    {
+      "level": 49,
+      "strength": 98
+    },
+    {
+      "level": 50,
+      "strength": 101
+    },
+    {
+      "level": 51,
+      "strength": 103
+    },
+    {
+      "level": 52,
+      "strength": 106
+    },
+    {
+      "level": 53,
+      "strength": 108
+    },
+    {
+      "level": 54,
+      "strength": 111
+    },
+    {
+      "level": 55,
+      "strength": 114
+    },
+    {
+      "level": 56,
+      "strength": 117
+    },
+    {
+      "level": 57,
+      "strength": 120
+    },
+    {
+      "level": 58,
+      "strength": 123
+    },
+    {
+      "level": 59,
+      "strength": 126
+    },
+    {
+      "level": 60,
+      "strength": 129
+    },
+    {
+      "level": 61,
+      "strength": 132
+    },
+    {
+      "level": 62,
+      "strength": 135
+    },
+    {
+      "level": 63,
+      "strength": 139
+    },
+    {
+      "level": 64,
+      "strength": 142
+    },
+    {
+      "level": 65,
+      "strength": 146
+    }
+  ],
+  "Figy Berry": [
+    {
+      "level": 1,
+      "strength": 29
+    },
+    {
+      "level": 2,
+      "strength": 30
+    },
+    {
+      "level": 3,
+      "strength": 31
+    },
+    {
+      "level": 4,
+      "strength": 32
+    },
+    {
+      "level": 5,
+      "strength": 33
+    },
+    {
+      "level": 6,
+      "strength": 34
+    },
+    {
+      "level": 7,
+      "strength": 35
+    },
+    {
+      "level": 8,
+      "strength": 36
+    },
+    {
+      "level": 9,
+      "strength": 37
+    },
+    {
+      "level": 10,
+      "strength": 38
+    },
+    {
+      "level": 11,
+      "strength": 39
+    },
+    {
+      "level": 12,
+      "strength": 40
+    },
+    {
+      "level": 13,
+      "strength": 41
+    },
+    {
+      "level": 14,
+      "strength": 42
+    },
+    {
+      "level": 15,
+      "strength": 43
+    },
+    {
+      "level": 16,
+      "strength": 44
+    },
+    {
+      "level": 17,
+      "strength": 45
+    },
+    {
+      "level": 18,
+      "strength": 46
+    },
+    {
+      "level": 19,
+      "strength": 47
+    },
+    {
+      "level": 20,
+      "strength": 48
+    },
+    {
+      "level": 21,
+      "strength": 49
+    },
+    {
+      "level": 22,
+      "strength": 50
+    },
+    {
+      "level": 23,
+      "strength": 51
+    },
+    {
+      "level": 24,
+      "strength": 52
+    },
+    {
+      "level": 25,
+      "strength": 53
+    },
+    {
+      "level": 26,
+      "strength": 54
+    },
+    {
+      "level": 27,
+      "strength": 55
+    },
+    {
+      "level": 28,
+      "strength": 56
+    },
+    {
+      "level": 29,
+      "strength": 58
+    },
+    {
+      "level": 30,
+      "strength": 59
+    },
+    {
+      "level": 31,
+      "strength": 61
+    },
+    {
+      "level": 32,
+      "strength": 62
+    },
+    {
+      "level": 33,
+      "strength": 64
+    },
+    {
+      "level": 34,
+      "strength": 66
+    },
+    {
+      "level": 35,
+      "strength": 67
+    },
+    {
+      "level": 36,
+      "strength": 69
+    },
+    {
+      "level": 37,
+      "strength": 71
+    },
+    {
+      "level": 38,
+      "strength": 72
+    },
+    {
+      "level": 39,
+      "strength": 74
+    },
+    {
+      "level": 40,
+      "strength": 76
+    },
+    {
+      "level": 41,
+      "strength": 78
+    },
+    {
+      "level": 42,
+      "strength": 80
+    },
+    {
+      "level": 43,
+      "strength": 82
+    },
+    {
+      "level": 44,
+      "strength": 84
+    },
+    {
+      "level": 45,
+      "strength": 86
+    },
+    {
+      "level": 46,
+      "strength": 88
+    },
+    {
+      "level": 47,
+      "strength": 90
+    },
+    {
+      "level": 48,
+      "strength": 93
+    },
+    {
+      "level": 49,
+      "strength": 95
+    },
+    {
+      "level": 50,
+      "strength": 97
+    },
+    {
+      "level": 51,
+      "strength": 100
+    },
+    {
+      "level": 52,
+      "strength": 102
+    },
+    {
+      "level": 53,
+      "strength": 105
+    },
+    {
+      "level": 54,
+      "strength": 107
+    },
+    {
+      "level": 55,
+      "strength": 110
+    },
+    {
+      "level": 56,
+      "strength": 113
+    },
+    {
+      "level": 57,
+      "strength": 116
+    },
+    {
+      "level": 58,
+      "strength": 118
+    },
+    {
+      "level": 59,
+      "strength": 121
+    },
+    {
+      "level": 60,
+      "strength": 124
+    },
+    {
+      "level": 61,
+      "strength": 128
+    },
+    {
+      "level": 62,
+      "strength": 131
+    },
+    {
+      "level": 63,
+      "strength": 134
+    },
+    {
+      "level": 64,
+      "strength": 137
+    },
+    {
+      "level": 65,
+      "strength": 141
+    }
+  ],
+  "Grepa Berry": [
+    {
+      "level": 1,
+      "strength": 25
+    },
+    {
+      "level": 2,
+      "strength": 26
+    },
+    {
+      "level": 3,
+      "strength": 27
+    },
+    {
+      "level": 4,
+      "strength": 28
+    },
+    {
+      "level": 5,
+      "strength": 29
+    },
+    {
+      "level": 6,
+      "strength": 30
+    },
+    {
+      "level": 7,
+      "strength": 31
+    },
+    {
+      "level": 8,
+      "strength": 32
+    },
+    {
+      "level": 9,
+      "strength": 33
+    },
+    {
+      "level": 10,
+      "strength": 34
+    },
+    {
+      "level": 11,
+      "strength": 35
+    },
+    {
+      "level": 12,
+      "strength": 36
+    },
+    {
+      "level": 13,
+      "strength": 37
+    },
+    {
+      "level": 14,
+      "strength": 38
+    },
+    {
+      "level": 15,
+      "strength": 39
+    },
+    {
+      "level": 16,
+      "strength": 40
+    },
+    {
+      "level": 17,
+      "strength": 41
+    },
+    {
+      "level": 18,
+      "strength": 42
+    },
+    {
+      "level": 19,
+      "strength": 43
+    },
+    {
+      "level": 20,
+      "strength": 44
+    },
+    {
+      "level": 21,
+      "strength": 45
+    },
+    {
+      "level": 22,
+      "strength": 46
+    },
+    {
+      "level": 23,
+      "strength": 47
+    },
+    {
+      "level": 24,
+      "strength": 48
+    },
+    {
+      "level": 25,
+      "strength": 49
+    },
+    {
+      "level": 26,
+      "strength": 50
+    },
+    {
+      "level": 27,
+      "strength": 51
+    },
+    {
+      "level": 28,
+      "strength": 52
+    },
+    {
+      "level": 29,
+      "strength": 53
+    },
+    {
+      "level": 30,
+      "strength": 54
+    },
+    {
+      "level": 31,
+      "strength": 55
+    },
+    {
+      "level": 32,
+      "strength": 56
+    },
+    {
+      "level": 33,
+      "strength": 57
+    },
+    {
+      "level": 34,
+      "strength": 58
+    },
+    {
+      "level": 35,
+      "strength": 59
+    },
+    {
+      "level": 36,
+      "strength": 60
+    },
+    {
+      "level": 37,
+      "strength": 61
+    },
+    {
+      "level": 38,
+      "strength": 62
+    },
+    {
+      "level": 39,
+      "strength": 64
+    },
+    {
+      "level": 40,
+      "strength": 65
+    },
+    {
+      "level": 41,
+      "strength": 67
+    },
+    {
+      "level": 42,
+      "strength": 69
+    },
+    {
+      "level": 43,
+      "strength": 71
+    },
+    {
+      "level": 44,
+      "strength": 72
+    },
+    {
+      "level": 45,
+      "strength": 74
+    },
+    {
+      "level": 46,
+      "strength": 76
+    },
+    {
+      "level": 47,
+      "strength": 78
+    },
+    {
+      "level": 48,
+      "strength": 80
+    },
+    {
+      "level": 49,
+      "strength": 82
+    },
+    {
+      "level": 50,
+      "strength": 84
+    },
+    {
+      "level": 51,
+      "strength": 86
+    },
+    {
+      "level": 52,
+      "strength": 88
+    },
+    {
+      "level": 53,
+      "strength": 90
+    },
+    {
+      "level": 54,
+      "strength": 93
+    },
+    {
+      "level": 55,
+      "strength": 95
+    },
+    {
+      "level": 56,
+      "strength": 97
+    },
+    {
+      "level": 57,
+      "strength": 100
+    },
+    {
+      "level": 58,
+      "strength": 102
+    },
+    {
+      "level": 59,
+      "strength": 105
+    },
+    {
+      "level": 60,
+      "strength": 107
+    },
+    {
+      "level": 61,
+      "strength": 110
+    },
+    {
+      "level": 62,
+      "strength": 113
+    },
+    {
+      "level": 63,
+      "strength": 116
+    },
+    {
+      "level": 64,
+      "strength": 118
+    },
+    {
+      "level": 65,
+      "strength": 121
+    }
+  ],
+  "Leppa Berry": [
+    {
+      "level": 1,
+      "strength": 27
+    },
+    {
+      "level": 2,
+      "strength": 28
+    },
+    {
+      "level": 3,
+      "strength": 29
+    },
+    {
+      "level": 4,
+      "strength": 30
+    },
+    {
+      "level": 5,
+      "strength": 31
+    },
+    {
+      "level": 6,
+      "strength": 32
+    },
+    {
+      "level": 7,
+      "strength": 33
+    },
+    {
+      "level": 8,
+      "strength": 34
+    },
+    {
+      "level": 9,
+      "strength": 35
+    },
+    {
+      "level": 10,
+      "strength": 36
+    },
+    {
+      "level": 11,
+      "strength": 37
+    },
+    {
+      "level": 12,
+      "strength": 38
+    },
+    {
+      "level": 13,
+      "strength": 39
+    },
+    {
+      "level": 14,
+      "strength": 40
+    },
+    {
+      "level": 15,
+      "strength": 41
+    },
+    {
+      "level": 16,
+      "strength": 42
+    },
+    {
+      "level": 17,
+      "strength": 43
+    },
+    {
+      "level": 18,
+      "strength": 44
+    },
+    {
+      "level": 19,
+      "strength": 45
+    },
+    {
+      "level": 20,
+      "strength": 46
+    },
+    {
+      "level": 21,
+      "strength": 47
+    },
+    {
+      "level": 22,
+      "strength": 48
+    },
+    {
+      "level": 23,
+      "strength": 49
+    },
+    {
+      "level": 24,
+      "strength": 50
+    },
+    {
+      "level": 25,
+      "strength": 51
+    },
+    {
+      "level": 26,
+      "strength": 52
+    },
+    {
+      "level": 27,
+      "strength": 53
+    },
+    {
+      "level": 28,
+      "strength": 54
+    },
+    {
+      "level": 29,
+      "strength": 55
+    },
+    {
+      "level": 30,
+      "strength": 56
+    },
+    {
+      "level": 31,
+      "strength": 57
+    },
+    {
+      "level": 32,
+      "strength": 58
+    },
+    {
+      "level": 33,
+      "strength": 60
+    },
+    {
+      "level": 34,
+      "strength": 61
+    },
+    {
+      "level": 35,
+      "strength": 63
+    },
+    {
+      "level": 36,
+      "strength": 64
+    },
+    {
+      "level": 37,
+      "strength": 66
+    },
+    {
+      "level": 38,
+      "strength": 67
+    },
+    {
+      "level": 39,
+      "strength": 69
+    },
+    {
+      "level": 40,
+      "strength": 71
+    },
+    {
+      "level": 41,
+      "strength": 72
+    },
+    {
+      "level": 42,
+      "strength": 74
+    },
+    {
+      "level": 43,
+      "strength": 76
+    },
+    {
+      "level": 44,
+      "strength": 78
+    },
+    {
+      "level": 45,
+      "strength": 80
+    },
+    {
+      "level": 46,
+      "strength": 82
+    },
+    {
+      "level": 47,
+      "strength": 84
+    },
+    {
+      "level": 48,
+      "strength": 86
+    },
+    {
+      "level": 49,
+      "strength": 88
+    },
+    {
+      "level": 50,
+      "strength": 91
+    },
+    {
+      "level": 51,
+      "strength": 93
+    },
+    {
+      "level": 52,
+      "strength": 95
+    },
+    {
+      "level": 53,
+      "strength": 98
+    },
+    {
+      "level": 54,
+      "strength": 100
+    },
+    {
+      "level": 55,
+      "strength": 102
+    },
+    {
+      "level": 56,
+      "strength": 105
+    },
+    {
+      "level": 57,
+      "strength": 108
+    },
+    {
+      "level": 58,
+      "strength": 110
+    },
+    {
+      "level": 59,
+      "strength": 113
+    },
+    {
+      "level": 60,
+      "strength": 116
+    },
+    {
+      "level": 61,
+      "strength": 119
+    },
+    {
+      "level": 62,
+      "strength": 122
+    },
+    {
+      "level": 63,
+      "strength": 125
+    },
+    {
+      "level": 64,
+      "strength": 128
+    },
+    {
+      "level": 65,
+      "strength": 131
+    }
+  ],
+  "Lum Berry": [
+    {
+      "level": 1,
+      "strength": 24
+    },
+    {
+      "level": 2,
+      "strength": 25
+    },
+    {
+      "level": 3,
+      "strength": 26
+    },
+    {
+      "level": 4,
+      "strength": 27
+    },
+    {
+      "level": 5,
+      "strength": 28
+    },
+    {
+      "level": 6,
+      "strength": 29
+    },
+    {
+      "level": 7,
+      "strength": 30
+    },
+    {
+      "level": 8,
+      "strength": 31
+    },
+    {
+      "level": 9,
+      "strength": 32
+    },
+    {
+      "level": 10,
+      "strength": 33
+    },
+    {
+      "level": 11,
+      "strength": 34
+    },
+    {
+      "level": 12,
+      "strength": 35
+    },
+    {
+      "level": 13,
+      "strength": 36
+    },
+    {
+      "level": 14,
+      "strength": 37
+    },
+    {
+      "level": 15,
+      "strength": 38
+    },
+    {
+      "level": 16,
+      "strength": 39
+    },
+    {
+      "level": 17,
+      "strength": 40
+    },
+    {
+      "level": 18,
+      "strength": 41
+    },
+    {
+      "level": 19,
+      "strength": 42
+    },
+    {
+      "level": 20,
+      "strength": 43
+    },
+    {
+      "level": 21,
+      "strength": 44
+    },
+    {
+      "level": 22,
+      "strength": 45
+    },
+    {
+      "level": 23,
+      "strength": 46
+    },
+    {
+      "level": 24,
+      "strength": 47
+    },
+    {
+      "level": 25,
+      "strength": 48
+    },
+    {
+      "level": 26,
+      "strength": 49
+    },
+    {
+      "level": 27,
+      "strength": 50
+    },
+    {
+      "level": 28,
+      "strength": 51
+    },
+    {
+      "level": 29,
+      "strength": 52
+    },
+    {
+      "level": 30,
+      "strength": 53
+    },
+    {
+      "level": 31,
+      "strength": 54
+    },
+    {
+      "level": 32,
+      "strength": 55
+    },
+    {
+      "level": 33,
+      "strength": 56
+    },
+    {
+      "level": 34,
+      "strength": 57
+    },
+    {
+      "level": 35,
+      "strength": 58
+    },
+    {
+      "level": 36,
+      "strength": 59
+    },
+    {
+      "level": 37,
+      "strength": 60
+    },
+    {
+      "level": 38,
+      "strength": 61
+    },
+    {
+      "level": 39,
+      "strength": 62
+    },
+    {
+      "level": 40,
+      "strength": 63
+    },
+    {
+      "level": 41,
+      "strength": 64
+    },
+    {
+      "level": 42,
+      "strength": 66
+    },
+    {
+      "level": 43,
+      "strength": 68
+    },
+    {
+      "level": 44,
+      "strength": 69
+    },
+    {
+      "level": 45,
+      "strength": 71
+    },
+    {
+      "level": 46,
+      "strength": 73
+    },
+    {
+      "level": 47,
+      "strength": 75
+    },
+    {
+      "level": 48,
+      "strength": 77
+    },
+    {
+      "level": 49,
+      "strength": 79
+    },
+    {
+      "level": 50,
+      "strength": 80
+    },
+    {
+      "level": 51,
+      "strength": 82
+    },
+    {
+      "level": 52,
+      "strength": 85
+    },
+    {
+      "level": 53,
+      "strength": 87
+    },
+    {
+      "level": 54,
+      "strength": 89
+    },
+    {
+      "level": 55,
+      "strength": 91
+    },
+    {
+      "level": 56,
+      "strength": 93
+    },
+    {
+      "level": 57,
+      "strength": 96
+    },
+    {
+      "level": 58,
+      "strength": 98
+    },
+    {
+      "level": 59,
+      "strength": 101
+    },
+    {
+      "level": 60,
+      "strength": 103
+    },
+    {
+      "level": 61,
+      "strength": 106
+    },
+    {
+      "level": 62,
+      "strength": 108
+    },
+    {
+      "level": 63,
+      "strength": 111
+    },
+    {
+      "level": 64,
+      "strength": 114
+    },
+    {
+      "level": 65,
+      "strength": 117
+    }
+  ],
+  "Mago Berry": [
+    {
+      "level": 1,
+      "strength": 26
+    },
+    {
+      "level": 2,
+      "strength": 27
+    },
+    {
+      "level": 3,
+      "strength": 28
+    },
+    {
+      "level": 4,
+      "strength": 29
+    },
+    {
+      "level": 5,
+      "strength": 30
+    },
+    {
+      "level": 6,
+      "strength": 31
+    },
+    {
+      "level": 7,
+      "strength": 32
+    },
+    {
+      "level": 8,
+      "strength": 33
+    },
+    {
+      "level": 9,
+      "strength": 34
+    },
+    {
+      "level": 10,
+      "strength": 35
+    },
+    {
+      "level": 11,
+      "strength": 36
+    },
+    {
+      "level": 12,
+      "strength": 37
+    },
+    {
+      "level": 13,
+      "strength": 38
+    },
+    {
+      "level": 14,
+      "strength": 39
+    },
+    {
+      "level": 15,
+      "strength": 40
+    },
+    {
+      "level": 16,
+      "strength": 41
+    },
+    {
+      "level": 17,
+      "strength": 42
+    },
+    {
+      "level": 18,
+      "strength": 43
+    },
+    {
+      "level": 19,
+      "strength": 44
+    },
+    {
+      "level": 20,
+      "strength": 45
+    },
+    {
+      "level": 21,
+      "strength": 46
+    },
+    {
+      "level": 22,
+      "strength": 47
+    },
+    {
+      "level": 23,
+      "strength": 48
+    },
+    {
+      "level": 24,
+      "strength": 49
+    },
+    {
+      "level": 25,
+      "strength": 50
+    },
+    {
+      "level": 26,
+      "strength": 51
+    },
+    {
+      "level": 27,
+      "strength": 52
+    },
+    {
+      "level": 28,
+      "strength": 53
+    },
+    {
+      "level": 29,
+      "strength": 54
+    },
+    {
+      "level": 30,
+      "strength": 55
+    },
+    {
+      "level": 31,
+      "strength": 56
+    },
+    {
+      "level": 32,
+      "strength": 57
+    },
+    {
+      "level": 33,
+      "strength": 58
+    },
+    {
+      "level": 34,
+      "strength": 59
+    },
+    {
+      "level": 35,
+      "strength": 60
+    },
+    {
+      "level": 36,
+      "strength": 62
+    },
+    {
+      "level": 37,
+      "strength": 63
+    },
+    {
+      "level": 38,
+      "strength": 65
+    },
+    {
+      "level": 39,
+      "strength": 66
+    },
+    {
+      "level": 40,
+      "strength": 68
+    },
+    {
+      "level": 41,
+      "strength": 70
+    },
+    {
+      "level": 42,
+      "strength": 72
+    },
+    {
+      "level": 43,
+      "strength": 73
+    },
+    {
+      "level": 44,
+      "strength": 75
+    },
+    {
+      "level": 45,
+      "strength": 77
+    },
+    {
+      "level": 46,
+      "strength": 79
+    },
+    {
+      "level": 47,
+      "strength": 81
+    },
+    {
+      "level": 48,
+      "strength": 83
+    },
+    {
+      "level": 49,
+      "strength": 85
+    },
+    {
+      "level": 50,
+      "strength": 87
+    },
+    {
+      "level": 51,
+      "strength": 89
+    },
+    {
+      "level": 52,
+      "strength": 92
+    },
+    {
+      "level": 53,
+      "strength": 94
+    },
+    {
+      "level": 54,
+      "strength": 96
+    },
+    {
+      "level": 55,
+      "strength": 99
+    },
+    {
+      "level": 56,
+      "strength": 101
+    },
+    {
+      "level": 57,
+      "strength": 104
+    },
+    {
+      "level": 58,
+      "strength": 106
+    },
+    {
+      "level": 59,
+      "strength": 109
+    },
+    {
+      "level": 60,
+      "strength": 112
+    },
+    {
+      "level": 61,
+      "strength": 114
+    },
+    {
+      "level": 62,
+      "strength": 117
+    },
+    {
+      "level": 63,
+      "strength": 120
+    },
+    {
+      "level": 64,
+      "strength": 123
+    },
+    {
+      "level": 65,
+      "strength": 126
+    }
+  ],
+  "Oran Berry": [
+    {
+      "level": 1,
+      "strength": 31
+    },
+    {
+      "level": 2,
+      "strength": 32
+    },
+    {
+      "level": 3,
+      "strength": 33
+    },
+    {
+      "level": 4,
+      "strength": 34
+    },
+    {
+      "level": 5,
+      "strength": 35
+    },
+    {
+      "level": 6,
+      "strength": 36
+    },
+    {
+      "level": 7,
+      "strength": 37
+    },
+    {
+      "level": 8,
+      "strength": 38
+    },
+    {
+      "level": 9,
+      "strength": 39
+    },
+    {
+      "level": 10,
+      "strength": 40
+    },
+    {
+      "level": 11,
+      "strength": 41
+    },
+    {
+      "level": 12,
+      "strength": 42
+    },
+    {
+      "level": 13,
+      "strength": 43
+    },
+    {
+      "level": 14,
+      "strength": 44
+    },
+    {
+      "level": 15,
+      "strength": 45
+    },
+    {
+      "level": 16,
+      "strength": 46
+    },
+    {
+      "level": 17,
+      "strength": 47
+    },
+    {
+      "level": 18,
+      "strength": 48
+    },
+    {
+      "level": 19,
+      "strength": 49
+    },
+    {
+      "level": 20,
+      "strength": 50
+    },
+    {
+      "level": 21,
+      "strength": 51
+    },
+    {
+      "level": 22,
+      "strength": 52
+    },
+    {
+      "level": 23,
+      "strength": 53
+    },
+    {
+      "level": 24,
+      "strength": 55
+    },
+    {
+      "level": 25,
+      "strength": 56
+    },
+    {
+      "level": 26,
+      "strength": 57
+    },
+    {
+      "level": 27,
+      "strength": 59
+    },
+    {
+      "level": 28,
+      "strength": 60
+    },
+    {
+      "level": 29,
+      "strength": 62
+    },
+    {
+      "level": 30,
+      "strength": 63
+    },
+    {
+      "level": 31,
+      "strength": 65
+    },
+    {
+      "level": 32,
+      "strength": 67
+    },
+    {
+      "level": 33,
+      "strength": 68
+    },
+    {
+      "level": 34,
+      "strength": 70
+    },
+    {
+      "level": 35,
+      "strength": 72
+    },
+    {
+      "level": 36,
+      "strength": 74
+    },
+    {
+      "level": 37,
+      "strength": 75
+    },
+    {
+      "level": 38,
+      "strength": 77
+    },
+    {
+      "level": 39,
+      "strength": 79
+    },
+    {
+      "level": 40,
+      "strength": 81
+    },
+    {
+      "level": 41,
+      "strength": 83
+    },
+    {
+      "level": 42,
+      "strength": 85
+    },
+    {
+      "level": 43,
+      "strength": 87
+    },
+    {
+      "level": 44,
+      "strength": 90
+    },
+    {
+      "level": 45,
+      "strength": 92
+    },
+    {
+      "level": 46,
+      "strength": 94
+    },
+    {
+      "level": 47,
+      "strength": 97
+    },
+    {
+      "level": 48,
+      "strength": 99
+    },
+    {
+      "level": 49,
+      "strength": 101
+    },
+    {
+      "level": 50,
+      "strength": 104
+    },
+    {
+      "level": 51,
+      "strength": 107
+    },
+    {
+      "level": 52,
+      "strength": 109
+    },
+    {
+      "level": 53,
+      "strength": 112
+    },
+    {
+      "level": 54,
+      "strength": 115
+    },
+    {
+      "level": 55,
+      "strength": 118
+    },
+    {
+      "level": 56,
+      "strength": 121
+    },
+    {
+      "level": 57,
+      "strength": 124
+    },
+    {
+      "level": 58,
+      "strength": 127
+    },
+    {
+      "level": 59,
+      "strength": 130
+    },
+    {
+      "level": 60,
+      "strength": 133
+    },
+    {
+      "level": 61,
+      "strength": 136
+    },
+    {
+      "level": 62,
+      "strength": 140
+    },
+    {
+      "level": 63,
+      "strength": 143
+    },
+    {
+      "level": 64,
+      "strength": 147
+    },
+    {
+      "level": 65,
+      "strength": 151
+    }
+  ],
+  "Pamtre Berry": [
+    {
+      "level": 1,
+      "strength": 24
+    },
+    {
+      "level": 2,
+      "strength": 25
+    },
+    {
+      "level": 3,
+      "strength": 26
+    },
+    {
+      "level": 4,
+      "strength": 27
+    },
+    {
+      "level": 5,
+      "strength": 28
+    },
+    {
+      "level": 6,
+      "strength": 29
+    },
+    {
+      "level": 7,
+      "strength": 30
+    },
+    {
+      "level": 8,
+      "strength": 31
+    },
+    {
+      "level": 9,
+      "strength": 32
+    },
+    {
+      "level": 10,
+      "strength": 33
+    },
+    {
+      "level": 11,
+      "strength": 34
+    },
+    {
+      "level": 12,
+      "strength": 35
+    },
+    {
+      "level": 13,
+      "strength": 36
+    },
+    {
+      "level": 14,
+      "strength": 37
+    },
+    {
+      "level": 15,
+      "strength": 38
+    },
+    {
+      "level": 16,
+      "strength": 39
+    },
+    {
+      "level": 17,
+      "strength": 40
+    },
+    {
+      "level": 18,
+      "strength": 41
+    },
+    {
+      "level": 19,
+      "strength": 42
+    },
+    {
+      "level": 20,
+      "strength": 43
+    },
+    {
+      "level": 21,
+      "strength": 44
+    },
+    {
+      "level": 22,
+      "strength": 45
+    },
+    {
+      "level": 23,
+      "strength": 46
+    },
+    {
+      "level": 24,
+      "strength": 47
+    },
+    {
+      "level": 25,
+      "strength": 48
+    },
+    {
+      "level": 26,
+      "strength": 49
+    },
+    {
+      "level": 27,
+      "strength": 50
+    },
+    {
+      "level": 28,
+      "strength": 51
+    },
+    {
+      "level": 29,
+      "strength": 52
+    },
+    {
+      "level": 30,
+      "strength": 53
+    },
+    {
+      "level": 31,
+      "strength": 54
+    },
+    {
+      "level": 32,
+      "strength": 55
+    },
+    {
+      "level": 33,
+      "strength": 56
+    },
+    {
+      "level": 34,
+      "strength": 57
+    },
+    {
+      "level": 35,
+      "strength": 58
+    },
+    {
+      "level": 36,
+      "strength": 59
+    },
+    {
+      "level": 37,
+      "strength": 60
+    },
+    {
+      "level": 38,
+      "strength": 61
+    },
+    {
+      "level": 39,
+      "strength": 62
+    },
+    {
+      "level": 40,
+      "strength": 63
+    },
+    {
+      "level": 41,
+      "strength": 64
+    },
+    {
+      "level": 42,
+      "strength": 66
+    },
+    {
+      "level": 43,
+      "strength": 68
+    },
+    {
+      "level": 44,
+      "strength": 69
+    },
+    {
+      "level": 45,
+      "strength": 71
+    },
+    {
+      "level": 46,
+      "strength": 73
+    },
+    {
+      "level": 47,
+      "strength": 75
+    },
+    {
+      "level": 48,
+      "strength": 77
+    },
+    {
+      "level": 49,
+      "strength": 79
+    },
+    {
+      "level": 50,
+      "strength": 80
+    },
+    {
+      "level": 51,
+      "strength": 82
+    },
+    {
+      "level": 52,
+      "strength": 85
+    },
+    {
+      "level": 53,
+      "strength": 87
+    },
+    {
+      "level": 54,
+      "strength": 89
+    },
+    {
+      "level": 55,
+      "strength": 91
+    },
+    {
+      "level": 56,
+      "strength": 93
+    },
+    {
+      "level": 57,
+      "strength": 96
+    },
+    {
+      "level": 58,
+      "strength": 98
+    },
+    {
+      "level": 59,
+      "strength": 101
+    },
+    {
+      "level": 60,
+      "strength": 103
+    },
+    {
+      "level": 61,
+      "strength": 106
+    },
+    {
+      "level": 62,
+      "strength": 108
+    },
+    {
+      "level": 63,
+      "strength": 111
+    },
+    {
+      "level": 64,
+      "strength": 114
+    },
+    {
+      "level": 65,
+      "strength": 117
+    }
+  ],
+  "Pecha Berry": [
+    {
+      "level": 1,
+      "strength": 26
+    },
+    {
+      "level": 2,
+      "strength": 27
+    },
+    {
+      "level": 3,
+      "strength": 28
+    },
+    {
+      "level": 4,
+      "strength": 29
+    },
+    {
+      "level": 5,
+      "strength": 30
+    },
+    {
+      "level": 6,
+      "strength": 31
+    },
+    {
+      "level": 7,
+      "strength": 32
+    },
+    {
+      "level": 8,
+      "strength": 33
+    },
+    {
+      "level": 9,
+      "strength": 34
+    },
+    {
+      "level": 10,
+      "strength": 35
+    },
+    {
+      "level": 11,
+      "strength": 36
+    },
+    {
+      "level": 12,
+      "strength": 37
+    },
+    {
+      "level": 13,
+      "strength": 38
+    },
+    {
+      "level": 14,
+      "strength": 39
+    },
+    {
+      "level": 15,
+      "strength": 40
+    },
+    {
+      "level": 16,
+      "strength": 41
+    },
+    {
+      "level": 17,
+      "strength": 42
+    },
+    {
+      "level": 18,
+      "strength": 43
+    },
+    {
+      "level": 19,
+      "strength": 44
+    },
+    {
+      "level": 20,
+      "strength": 45
+    },
+    {
+      "level": 21,
+      "strength": 46
+    },
+    {
+      "level": 22,
+      "strength": 47
+    },
+    {
+      "level": 23,
+      "strength": 48
+    },
+    {
+      "level": 24,
+      "strength": 49
+    },
+    {
+      "level": 25,
+      "strength": 50
+    },
+    {
+      "level": 26,
+      "strength": 51
+    },
+    {
+      "level": 27,
+      "strength": 52
+    },
+    {
+      "level": 28,
+      "strength": 53
+    },
+    {
+      "level": 29,
+      "strength": 54
+    },
+    {
+      "level": 30,
+      "strength": 55
+    },
+    {
+      "level": 31,
+      "strength": 56
+    },
+    {
+      "level": 32,
+      "strength": 57
+    },
+    {
+      "level": 33,
+      "strength": 58
+    },
+    {
+      "level": 34,
+      "strength": 59
+    },
+    {
+      "level": 35,
+      "strength": 60
+    },
+    {
+      "level": 36,
+      "strength": 62
+    },
+    {
+      "level": 37,
+      "strength": 63
+    },
+    {
+      "level": 38,
+      "strength": 65
+    },
+    {
+      "level": 39,
+      "strength": 66
+    },
+    {
+      "level": 40,
+      "strength": 68
+    },
+    {
+      "level": 41,
+      "strength": 70
+    },
+    {
+      "level": 42,
+      "strength": 72
+    },
+    {
+      "level": 43,
+      "strength": 73
+    },
+    {
+      "level": 44,
+      "strength": 75
+    },
+    {
+      "level": 45,
+      "strength": 77
+    },
+    {
+      "level": 46,
+      "strength": 79
+    },
+    {
+      "level": 47,
+      "strength": 81
+    },
+    {
+      "level": 48,
+      "strength": 83
+    },
+    {
+      "level": 49,
+      "strength": 85
+    },
+    {
+      "level": 50,
+      "strength": 87
+    },
+    {
+      "level": 51,
+      "strength": 89
+    },
+    {
+      "level": 52,
+      "strength": 92
+    },
+    {
+      "level": 53,
+      "strength": 94
+    },
+    {
+      "level": 54,
+      "strength": 96
+    },
+    {
+      "level": 55,
+      "strength": 99
+    },
+    {
+      "level": 56,
+      "strength": 101
+    },
+    {
+      "level": 57,
+      "strength": 104
+    },
+    {
+      "level": 58,
+      "strength": 106
+    },
+    {
+      "level": 59,
+      "strength": 109
+    },
+    {
+      "level": 60,
+      "strength": 112
+    },
+    {
+      "level": 61,
+      "strength": 114
+    },
+    {
+      "level": 62,
+      "strength": 117
+    },
+    {
+      "level": 63,
+      "strength": 120
+    },
+    {
+      "level": 64,
+      "strength": 123
+    },
+    {
+      "level": 65,
+      "strength": 126
+    }
+  ],
+  "Persim Berry": [
+    {
+      "level": 1,
+      "strength": 28
+    },
+    {
+      "level": 2,
+      "strength": 29
+    },
+    {
+      "level": 3,
+      "strength": 30
+    },
+    {
+      "level": 4,
+      "strength": 31
+    },
+    {
+      "level": 5,
+      "strength": 32
+    },
+    {
+      "level": 6,
+      "strength": 33
+    },
+    {
+      "level": 7,
+      "strength": 34
+    },
+    {
+      "level": 8,
+      "strength": 35
+    },
+    {
+      "level": 9,
+      "strength": 36
+    },
+    {
+      "level": 10,
+      "strength": 37
+    },
+    {
+      "level": 11,
+      "strength": 38
+    },
+    {
+      "level": 12,
+      "strength": 39
+    },
+    {
+      "level": 13,
+      "strength": 40
+    },
+    {
+      "level": 14,
+      "strength": 41
+    },
+    {
+      "level": 15,
+      "strength": 42
+    },
+    {
+      "level": 16,
+      "strength": 43
+    },
+    {
+      "level": 17,
+      "strength": 44
+    },
+    {
+      "level": 18,
+      "strength": 45
+    },
+    {
+      "level": 19,
+      "strength": 46
+    },
+    {
+      "level": 20,
+      "strength": 47
+    },
+    {
+      "level": 21,
+      "strength": 48
+    },
+    {
+      "level": 22,
+      "strength": 49
+    },
+    {
+      "level": 23,
+      "strength": 50
+    },
+    {
+      "level": 24,
+      "strength": 51
+    },
+    {
+      "level": 25,
+      "strength": 52
+    },
+    {
+      "level": 26,
+      "strength": 53
+    },
+    {
+      "level": 27,
+      "strength": 54
+    },
+    {
+      "level": 28,
+      "strength": 55
+    },
+    {
+      "level": 29,
+      "strength": 56
+    },
+    {
+      "level": 30,
+      "strength": 57
+    },
+    {
+      "level": 31,
+      "strength": 59
+    },
+    {
+      "level": 32,
+      "strength": 60
+    },
+    {
+      "level": 33,
+      "strength": 62
+    },
+    {
+      "level": 34,
+      "strength": 63
+    },
+    {
+      "level": 35,
+      "strength": 65
+    },
+    {
+      "level": 36,
+      "strength": 66
+    },
+    {
+      "level": 37,
+      "strength": 68
+    },
+    {
+      "level": 38,
+      "strength": 70
+    },
+    {
+      "level": 39,
+      "strength": 72
+    },
+    {
+      "level": 40,
+      "strength": 73
+    },
+    {
+      "level": 41,
+      "strength": 75
+    },
+    {
+      "level": 42,
+      "strength": 77
+    },
+    {
+      "level": 43,
+      "strength": 79
+    },
+    {
+      "level": 44,
+      "strength": 81
+    },
+    {
+      "level": 45,
+      "strength": 83
+    },
+    {
+      "level": 46,
+      "strength": 85
+    },
+    {
+      "level": 47,
+      "strength": 87
+    },
+    {
+      "level": 48,
+      "strength": 89
+    },
+    {
+      "level": 49,
+      "strength": 92
+    },
+    {
+      "level": 50,
+      "strength": 94
+    },
+    {
+      "level": 51,
+      "strength": 96
+    },
+    {
+      "level": 52,
+      "strength": 99
+    },
+    {
+      "level": 53,
+      "strength": 101
+    },
+    {
+      "level": 54,
+      "strength": 104
+    },
+    {
+      "level": 55,
+      "strength": 106
+    },
+    {
+      "level": 56,
+      "strength": 109
+    },
+    {
+      "level": 57,
+      "strength": 112
+    },
+    {
+      "level": 58,
+      "strength": 114
+    },
+    {
+      "level": 59,
+      "strength": 117
+    },
+    {
+      "level": 60,
+      "strength": 120
+    },
+    {
+      "level": 61,
+      "strength": 123
+    },
+    {
+      "level": 62,
+      "strength": 126
+    },
+    {
+      "level": 63,
+      "strength": 129
+    },
+    {
+      "level": 64,
+      "strength": 133
+    },
+    {
+      "level": 65,
+      "strength": 136
+    }
+  ],
+  "Rawst Berry": [
+    {
+      "level": 1,
+      "strength": 32
+    },
+    {
+      "level": 2,
+      "strength": 33
+    },
+    {
+      "level": 3,
+      "strength": 34
+    },
+    {
+      "level": 4,
+      "strength": 35
+    },
+    {
+      "level": 5,
+      "strength": 36
+    },
+    {
+      "level": 6,
+      "strength": 37
+    },
+    {
+      "level": 7,
+      "strength": 38
+    },
+    {
+      "level": 8,
+      "strength": 39
+    },
+    {
+      "level": 9,
+      "strength": 40
+    },
+    {
+      "level": 10,
+      "strength": 41
+    },
+    {
+      "level": 11,
+      "strength": 42
+    },
+    {
+      "level": 12,
+      "strength": 43
+    },
+    {
+      "level": 13,
+      "strength": 44
+    },
+    {
+      "level": 14,
+      "strength": 45
+    },
+    {
+      "level": 15,
+      "strength": 46
+    },
+    {
+      "level": 16,
+      "strength": 47
+    },
+    {
+      "level": 17,
+      "strength": 48
+    },
+    {
+      "level": 18,
+      "strength": 49
+    },
+    {
+      "level": 19,
+      "strength": 50
+    },
+    {
+      "level": 20,
+      "strength": 51
+    },
+    {
+      "level": 21,
+      "strength": 52
+    },
+    {
+      "level": 22,
+      "strength": 54
+    },
+    {
+      "level": 23,
+      "strength": 55
+    },
+    {
+      "level": 24,
+      "strength": 56
+    },
+    {
+      "level": 25,
+      "strength": 58
+    },
+    {
+      "level": 26,
+      "strength": 59
+    },
+    {
+      "level": 27,
+      "strength": 61
+    },
+    {
+      "level": 28,
+      "strength": 62
+    },
+    {
+      "level": 29,
+      "strength": 64
+    },
+    {
+      "level": 30,
+      "strength": 65
+    },
+    {
+      "level": 31,
+      "strength": 67
+    },
+    {
+      "level": 32,
+      "strength": 69
+    },
+    {
+      "level": 33,
+      "strength": 71
+    },
+    {
+      "level": 34,
+      "strength": 72
+    },
+    {
+      "level": 35,
+      "strength": 74
+    },
+    {
+      "level": 36,
+      "strength": 76
+    },
+    {
+      "level": 37,
+      "strength": 78
+    },
+    {
+      "level": 38,
+      "strength": 80
+    },
+    {
+      "level": 39,
+      "strength": 82
+    },
+    {
+      "level": 40,
+      "strength": 84
+    },
+    {
+      "level": 41,
+      "strength": 86
+    },
+    {
+      "level": 42,
+      "strength": 88
+    },
+    {
+      "level": 43,
+      "strength": 90
+    },
+    {
+      "level": 44,
+      "strength": 93
+    },
+    {
+      "level": 45,
+      "strength": 95
+    },
+    {
+      "level": 46,
+      "strength": 97
+    },
+    {
+      "level": 47,
+      "strength": 100
+    },
+    {
+      "level": 48,
+      "strength": 102
+    },
+    {
+      "level": 49,
+      "strength": 105
+    },
+    {
+      "level": 50,
+      "strength": 107
+    },
+    {
+      "level": 51,
+      "strength": 110
+    },
+    {
+      "level": 52,
+      "strength": 113
+    },
+    {
+      "level": 53,
+      "strength": 116
+    },
+    {
+      "level": 54,
+      "strength": 118
+    },
+    {
+      "level": 55,
+      "strength": 121
+    },
+    {
+      "level": 56,
+      "strength": 124
+    },
+    {
+      "level": 57,
+      "strength": 128
+    },
+    {
+      "level": 58,
+      "strength": 131
+    },
+    {
+      "level": 59,
+      "strength": 134
+    },
+    {
+      "level": 60,
+      "strength": 137
+    },
+    {
+      "level": 61,
+      "strength": 141
+    },
+    {
+      "level": 62,
+      "strength": 144
+    },
+    {
+      "level": 63,
+      "strength": 148
+    },
+    {
+      "level": 64,
+      "strength": 152
+    },
+    {
+      "level": 65,
+      "strength": 155
+    }
+  ],
+  "Sitrus Berry": [
+    {
+      "level": 1,
+      "strength": 30
+    },
+    {
+      "level": 2,
+      "strength": 31
+    },
+    {
+      "level": 3,
+      "strength": 32
+    },
+    {
+      "level": 4,
+      "strength": 33
+    },
+    {
+      "level": 5,
+      "strength": 34
+    },
+    {
+      "level": 6,
+      "strength": 35
+    },
+    {
+      "level": 7,
+      "strength": 36
+    },
+    {
+      "level": 8,
+      "strength": 37
+    },
+    {
+      "level": 9,
+      "strength": 38
+    },
+    {
+      "level": 10,
+      "strength": 39
+    },
+    {
+      "level": 11,
+      "strength": 40
+    },
+    {
+      "level": 12,
+      "strength": 41
+    },
+    {
+      "level": 13,
+      "strength": 42
+    },
+    {
+      "level": 14,
+      "strength": 43
+    },
+    {
+      "level": 15,
+      "strength": 44
+    },
+    {
+      "level": 16,
+      "strength": 45
+    },
+    {
+      "level": 17,
+      "strength": 46
+    },
+    {
+      "level": 18,
+      "strength": 47
+    },
+    {
+      "level": 19,
+      "strength": 48
+    },
+    {
+      "level": 20,
+      "strength": 49
+    },
+    {
+      "level": 21,
+      "strength": 50
+    },
+    {
+      "level": 22,
+      "strength": 51
+    },
+    {
+      "level": 23,
+      "strength": 52
+    },
+    {
+      "level": 24,
+      "strength": 53
+    },
+    {
+      "level": 25,
+      "strength": 54
+    },
+    {
+      "level": 26,
+      "strength": 56
+    },
+    {
+      "level": 27,
+      "strength": 57
+    },
+    {
+      "level": 28,
+      "strength": 58
+    },
+    {
+      "level": 29,
+      "strength": 60
+    },
+    {
+      "level": 30,
+      "strength": 61
+    },
+    {
+      "level": 31,
+      "strength": 63
+    },
+    {
+      "level": 32,
+      "strength": 65
+    },
+    {
+      "level": 33,
+      "strength": 66
+    },
+    {
+      "level": 34,
+      "strength": 68
+    },
+    {
+      "level": 35,
+      "strength": 69
+    },
+    {
+      "level": 36,
+      "strength": 71
+    },
+    {
+      "level": 37,
+      "strength": 73
+    },
+    {
+      "level": 38,
+      "strength": 75
+    },
+    {
+      "level": 39,
+      "strength": 77
+    },
+    {
+      "level": 40,
+      "strength": 79
+    },
+    {
+      "level": 41,
+      "strength": 81
+    },
+    {
+      "level": 42,
+      "strength": 83
+    },
+    {
+      "level": 43,
+      "strength": 85
+    },
+    {
+      "level": 44,
+      "strength": 87
+    },
+    {
+      "level": 45,
+      "strength": 89
+    },
+    {
+      "level": 46,
+      "strength": 91
+    },
+    {
+      "level": 47,
+      "strength": 93
+    },
+    {
+      "level": 48,
+      "strength": 96
+    },
+    {
+      "level": 49,
+      "strength": 98
+    },
+    {
+      "level": 50,
+      "strength": 101
+    },
+    {
+      "level": 51,
+      "strength": 103
+    },
+    {
+      "level": 52,
+      "strength": 106
+    },
+    {
+      "level": 53,
+      "strength": 108
+    },
+    {
+      "level": 54,
+      "strength": 111
+    },
+    {
+      "level": 55,
+      "strength": 114
+    },
+    {
+      "level": 56,
+      "strength": 117
+    },
+    {
+      "level": 57,
+      "strength": 120
+    },
+    {
+      "level": 58,
+      "strength": 123
+    },
+    {
+      "level": 59,
+      "strength": 126
+    },
+    {
+      "level": 60,
+      "strength": 129
+    },
+    {
+      "level": 61,
+      "strength": 132
+    },
+    {
+      "level": 62,
+      "strength": 135
+    },
+    {
+      "level": 63,
+      "strength": 139
+    },
+    {
+      "level": 64,
+      "strength": 142
+    },
+    {
+      "level": 65,
+      "strength": 146
+    }
+  ],
+  "Wiki Berry": [
+    {
+      "level": 1,
+      "strength": 31
+    },
+    {
+      "level": 2,
+      "strength": 32
+    },
+    {
+      "level": 3,
+      "strength": 33
+    },
+    {
+      "level": 4,
+      "strength": 34
+    },
+    {
+      "level": 5,
+      "strength": 35
+    },
+    {
+      "level": 6,
+      "strength": 36
+    },
+    {
+      "level": 7,
+      "strength": 37
+    },
+    {
+      "level": 8,
+      "strength": 38
+    },
+    {
+      "level": 9,
+      "strength": 39
+    },
+    {
+      "level": 10,
+      "strength": 40
+    },
+    {
+      "level": 11,
+      "strength": 41
+    },
+    {
+      "level": 12,
+      "strength": 42
+    },
+    {
+      "level": 13,
+      "strength": 43
+    },
+    {
+      "level": 14,
+      "strength": 44
+    },
+    {
+      "level": 15,
+      "strength": 45
+    },
+    {
+      "level": 16,
+      "strength": 46
+    },
+    {
+      "level": 17,
+      "strength": 47
+    },
+    {
+      "level": 18,
+      "strength": 48
+    },
+    {
+      "level": 19,
+      "strength": 49
+    },
+    {
+      "level": 20,
+      "strength": 50
+    },
+    {
+      "level": 21,
+      "strength": 51
+    },
+    {
+      "level": 22,
+      "strength": 52
+    },
+    {
+      "level": 23,
+      "strength": 53
+    },
+    {
+      "level": 24,
+      "strength": 55
+    },
+    {
+      "level": 25,
+      "strength": 56
+    },
+    {
+      "level": 26,
+      "strength": 57
+    },
+    {
+      "level": 27,
+      "strength": 59
+    },
+    {
+      "level": 28,
+      "strength": 60
+    },
+    {
+      "level": 29,
+      "strength": 62
+    },
+    {
+      "level": 30,
+      "strength": 63
+    },
+    {
+      "level": 31,
+      "strength": 65
+    },
+    {
+      "level": 32,
+      "strength": 67
+    },
+    {
+      "level": 33,
+      "strength": 68
+    },
+    {
+      "level": 34,
+      "strength": 70
+    },
+    {
+      "level": 35,
+      "strength": 72
+    },
+    {
+      "level": 36,
+      "strength": 74
+    },
+    {
+      "level": 37,
+      "strength": 75
+    },
+    {
+      "level": 38,
+      "strength": 77
+    },
+    {
+      "level": 39,
+      "strength": 79
+    },
+    {
+      "level": 40,
+      "strength": 81
+    },
+    {
+      "level": 41,
+      "strength": 83
+    },
+    {
+      "level": 42,
+      "strength": 85
+    },
+    {
+      "level": 43,
+      "strength": 87
+    },
+    {
+      "level": 44,
+      "strength": 90
+    },
+    {
+      "level": 45,
+      "strength": 92
+    },
+    {
+      "level": 46,
+      "strength": 94
+    },
+    {
+      "level": 47,
+      "strength": 97
+    },
+    {
+      "level": 48,
+      "strength": 99
+    },
+    {
+      "level": 49,
+      "strength": 101
+    },
+    {
+      "level": 50,
+      "strength": 104
+    },
+    {
+      "level": 51,
+      "strength": 107
+    },
+    {
+      "level": 52,
+      "strength": 109
+    },
+    {
+      "level": 53,
+      "strength": 112
+    },
+    {
+      "level": 54,
+      "strength": 115
+    },
+    {
+      "level": 55,
+      "strength": 118
+    },
+    {
+      "level": 56,
+      "strength": 121
+    },
+    {
+      "level": 57,
+      "strength": 124
+    },
+    {
+      "level": 58,
+      "strength": 127
+    },
+    {
+      "level": 59,
+      "strength": 130
+    },
+    {
+      "level": 60,
+      "strength": 133
+    },
+    {
+      "level": 61,
+      "strength": 136
+    },
+    {
+      "level": 62,
+      "strength": 140
+    },
+    {
+      "level": 63,
+      "strength": 143
+    },
+    {
+      "level": 64,
+      "strength": 147
+    },
+    {
+      "level": 65,
+      "strength": 151
+    }
+  ],
+  "Yache Berry": [
+    {
+      "level": 1,
+      "strength": 35
+    },
+    {
+      "level": 2,
+      "strength": 36
+    },
+    {
+      "level": 3,
+      "strength": 37
+    },
+    {
+      "level": 4,
+      "strength": 38
+    },
+    {
+      "level": 5,
+      "strength": 39
+    },
+    {
+      "level": 6,
+      "strength": 40
+    },
+    {
+      "level": 7,
+      "strength": 41
+    },
+    {
+      "level": 8,
+      "strength": 42
+    },
+    {
+      "level": 9,
+      "strength": 43
+    },
+    {
+      "level": 10,
+      "strength": 44
+    },
+    {
+      "level": 11,
+      "strength": 45
+    },
+    {
+      "level": 12,
+      "strength": 46
+    },
+    {
+      "level": 13,
+      "strength": 47
+    },
+    {
+      "level": 14,
+      "strength": 48
+    },
+    {
+      "level": 15,
+      "strength": 49
+    },
+    {
+      "level": 16,
+      "strength": 51
+    },
+    {
+      "level": 17,
+      "strength": 52
+    },
+    {
+      "level": 18,
+      "strength": 53
+    },
+    {
+      "level": 19,
+      "strength": 55
+    },
+    {
+      "level": 20,
+      "strength": 56
+    },
+    {
+      "level": 21,
+      "strength": 57
+    },
+    {
+      "level": 22,
+      "strength": 59
+    },
+    {
+      "level": 23,
+      "strength": 60
+    },
+    {
+      "level": 24,
+      "strength": 62
+    },
+    {
+      "level": 25,
+      "strength": 63
+    },
+    {
+      "level": 26,
+      "strength": 65
+    },
+    {
+      "level": 27,
+      "strength": 67
+    },
+    {
+      "level": 28,
+      "strength": 68
+    },
+    {
+      "level": 29,
+      "strength": 70
+    },
+    {
+      "level": 30,
+      "strength": 72
+    },
+    {
+      "level": 31,
+      "strength": 73
+    },
+    {
+      "level": 32,
+      "strength": 75
+    },
+    {
+      "level": 33,
+      "strength": 77
+    },
+    {
+      "level": 34,
+      "strength": 79
+    },
+    {
+      "level": 35,
+      "strength": 81
+    },
+    {
+      "level": 36,
+      "strength": 83
+    },
+    {
+      "level": 37,
+      "strength": 85
+    },
+    {
+      "level": 38,
+      "strength": 87
+    },
+    {
+      "level": 39,
+      "strength": 89
+    },
+    {
+      "level": 40,
+      "strength": 92
+    },
+    {
+      "level": 41,
+      "strength": 94
+    },
+    {
+      "level": 42,
+      "strength": 96
+    },
+    {
+      "level": 43,
+      "strength": 99
+    },
+    {
+      "level": 44,
+      "strength": 101
+    },
+    {
+      "level": 45,
+      "strength": 104
+    },
+    {
+      "level": 46,
+      "strength": 106
+    },
+    {
+      "level": 47,
+      "strength": 109
+    },
+    {
+      "level": 48,
+      "strength": 112
+    },
+    {
+      "level": 49,
+      "strength": 115
+    },
+    {
+      "level": 50,
+      "strength": 117
+    },
+    {
+      "level": 51,
+      "strength": 120
+    },
+    {
+      "level": 52,
+      "strength": 123
+    },
+    {
+      "level": 53,
+      "strength": 126
+    },
+    {
+      "level": 54,
+      "strength": 130
+    },
+    {
+      "level": 55,
+      "strength": 133
+    },
+    {
+      "level": 56,
+      "strength": 136
+    },
+    {
+      "level": 57,
+      "strength": 140
+    },
+    {
+      "level": 58,
+      "strength": 143
+    },
+    {
+      "level": 59,
+      "strength": 147
+    },
+    {
+      "level": 60,
+      "strength": 150
+    },
+    {
+      "level": 61,
+      "strength": 154
+    },
+    {
+      "level": 62,
+      "strength": 158
+    },
+    {
+      "level": 63,
+      "strength": 162
+    },
+    {
+      "level": 64,
+      "strength": 166
+    },
+    {
+      "level": 65,
+      "strength": 170
+    }
+  ]
+}

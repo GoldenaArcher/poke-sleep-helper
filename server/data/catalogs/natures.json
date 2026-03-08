@@ -1,0 +1,177 @@
+[
+  {
+    "name": "Lonely",
+    "boostStat": "speed_help",
+    "boostPct": 10,
+    "reductionStat": "energy_recovery",
+    "reductionPct": 12
+  },
+  {
+    "name": "Adamant",
+    "boostStat": "speed_help",
+    "boostPct": 10,
+    "reductionStat": "ingredient_finding",
+    "reductionPct": 20
+  },
+  {
+    "name": "Naughty",
+    "boostStat": "speed_help",
+    "boostPct": 10,
+    "reductionStat": "main_skill_chance",
+    "reductionPct": 20
+  },
+  {
+    "name": "Brave",
+    "boostStat": "speed_help",
+    "boostPct": 10,
+    "reductionStat": "exp_gains",
+    "reductionPct": 18
+  },
+  {
+    "name": "Bold",
+    "boostStat": "energy_recovery",
+    "boostPct": 20,
+    "reductionStat": "speed_help",
+    "reductionPct": 10
+  },
+  {
+    "name": "Impish",
+    "boostStat": "energy_recovery",
+    "boostPct": 20,
+    "reductionStat": "ingredient_finding",
+    "reductionPct": 20
+  },
+  {
+    "name": "Lax",
+    "boostStat": "energy_recovery",
+    "boostPct": 20,
+    "reductionStat": "main_skill_chance",
+    "reductionPct": 20
+  },
+  {
+    "name": "Relaxed",
+    "boostStat": "energy_recovery",
+    "boostPct": 20,
+    "reductionStat": "exp_gains",
+    "reductionPct": 18
+  },
+  {
+    "name": "Modest",
+    "boostStat": "ingredient_finding",
+    "boostPct": 20,
+    "reductionStat": "speed_help",
+    "reductionPct": 10
+  },
+  {
+    "name": "Mild",
+    "boostStat": "ingredient_finding",
+    "boostPct": 20,
+    "reductionStat": "energy_recovery",
+    "reductionPct": 12
+  },
+  {
+    "name": "Rash",
+    "boostStat": "ingredient_finding",
+    "boostPct": 20,
+    "reductionStat": "main_skill_chance",
+    "reductionPct": 20
+  },
+  {
+    "name": "Quiet",
+    "boostStat": "ingredient_finding",
+    "boostPct": 20,
+    "reductionStat": "exp_gains",
+    "reductionPct": 18
+  },
+  {
+    "name": "Calm",
+    "boostStat": "main_skill_chance",
+    "boostPct": 20,
+    "reductionStat": "speed_help",
+    "reductionPct": 10
+  },
+  {
+    "name": "Gentle",
+    "boostStat": "main_skill_chance",
+    "boostPct": 20,
+    "reductionStat": "energy_recovery",
+    "reductionPct": 12
+  },
+  {
+    "name": "Careful",
+    "boostStat": "main_skill_chance",
+    "boostPct": 20,
+    "reductionStat": "ingredient_finding",
+    "reductionPct": 20
+  },
+  {
+    "name": "Sassy",
+    "boostStat": "main_skill_chance",
+    "boostPct": 20,
+    "reductionStat": "exp_gains",
+    "reductionPct": 18
+  },
+  {
+    "name": "Timid",
+    "boostStat": "exp_gains",
+    "boostPct": 18,
+    "reductionStat": "speed_help",
+    "reductionPct": 10
+  },
+  {
+    "name": "Hasty",
+    "boostStat": "exp_gains",
+    "boostPct": 18,
+    "reductionStat": "energy_recovery",
+    "reductionPct": 12
+  },
+  {
+    "name": "Jolly",
+    "boostStat": "exp_gains",
+    "boostPct": 18,
+    "reductionStat": "ingredient_finding",
+    "reductionPct": 20
+  },
+  {
+    "name": "Naive",
+    "boostStat": "exp_gains",
+    "boostPct": 18,
+    "reductionStat": "main_skill_chance",
+    "reductionPct": 20
+  },
+  {
+    "name": "Bashful",
+    "boostStat": "none",
+    "boostPct": 0,
+    "reductionStat": "none",
+    "reductionPct": 0
+  },
+  {
+    "name": "Hardy",
+    "boostStat": "none",
+    "boostPct": 0,
+    "reductionStat": "none",
+    "reductionPct": 0
+  },
+  {
+    "name": "Docile",
+    "boostStat": "none",
+    "boostPct": 0,
+    "reductionStat": "none",
+    "reductionPct": 0
+  },
+  {
+    "name": "Quirky",
+    "boostStat": "none",
+    "boostPct": 0,
+    "reductionStat": "none",
+    "reductionPct": 0
+  },
+  {
+    "name": "Serious",
+    "boostStat": "none",
+    "boostPct": 0,
+    "reductionStat": "none",
+    "reductionPct": 0
+  }
+]

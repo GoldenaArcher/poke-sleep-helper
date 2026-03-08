@@ -3,7 +3,7 @@
  * Seeds pokemon types
  */
 
-import { pokemonTypes } from "../../data/catalogs.js";
+import { pokemonTypes } from "../../data/catalogs/index.js";
 
 export async function seedPokemonTypes(db, dbRun, dbGet) {
   console.log("🔥 Seeding pokemon types...");

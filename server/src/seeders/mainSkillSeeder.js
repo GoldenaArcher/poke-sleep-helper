@@ -3,7 +3,10 @@
  * Seeds main skills and their level data
  */
 
-import { mainSkillCatalog, mainSkillLevelCatalog } from "../../data/catalogs.js";
+import {
+  mainSkillCatalog,
+  mainSkillLevelCatalog
+} from "../../data/catalogs/index.js";
 
 export async function seedMainSkills(db, dbRun, dbGet) {
   console.log("⚡ Seeding main skills...");

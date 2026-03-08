@@ -3,7 +3,7 @@
  * Seeds pokemon natures
  */
 
-import { natureCatalog } from "../../data/catalogs.js";
+import { natureCatalog } from "../../data/catalogs/index.js";
 
 export async function seedNatures(db, dbRun, dbGet) {
   console.log("🌿 Seeding natures...");

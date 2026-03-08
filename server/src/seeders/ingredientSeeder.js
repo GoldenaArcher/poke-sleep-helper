@@ -3,7 +3,7 @@
  * Seeds ingredients data
  */
 
-import { ingredientCatalog } from "../../data/catalogs.js";
+import { ingredientCatalog } from "../../data/catalogs/index.js";
 
 export async function seedIngredients(db, dbRun, dbGet) {
   console.log("🥕 Seeding ingredients...");

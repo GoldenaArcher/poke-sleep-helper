@@ -1,0 +1,78 @@
+[
+  {
+    "name": "Large Leek",
+    "baseStrength": 185
+  },
+  {
+    "name": "Tasty Mushroom",
+    "baseStrength": 167
+  },
+  {
+    "name": "Fancy Egg",
+    "baseStrength": 115
+  },
+  {
+    "name": "Soft Potato",
+    "baseStrength": 124
+  },
+  {
+    "name": "Fancy Apple",
+    "baseStrength": 90
+  },
+  {
+    "name": "Fiery Herb",
+    "baseStrength": 130
+  },
+  {
+    "name": "Bean Sausage",
+    "baseStrength": 103
+  },
+  {
+    "name": "Moomoo Milk",
+    "baseStrength": 98
+  },
+  {
+    "name": "Honey",
+    "baseStrength": 101
+  },
+  {
+    "name": "Pure Oil",
+    "baseStrength": 121
+  },
+  {
+    "name": "Warming Ginger",
+    "baseStrength": 109
+  },
+  {
+    "name": "Snoozy Tomato",
+    "baseStrength": 110
+  },
+  {
+    "name": "Soothing Cacao",
+    "baseStrength": 151
+  },
+  {
+    "name": "Slowpoke Tail",
+    "baseStrength": 342
+  },
+  {
+    "name": "Greengrass Soybeans",
+    "baseStrength": 100
+  },
+  {
+    "name": "Greengrass Corn",
+    "baseStrength": 140
+  },
+  {
+    "name": "Rousing Coffee",
+    "baseStrength": 153
+  },
+  {
+    "name": "Plump Pumpkin",
+    "baseStrength": 250
+  },
+  {
+    "name": "Glossy Avocado",
+    "baseStrength": 162
+  }
+]
