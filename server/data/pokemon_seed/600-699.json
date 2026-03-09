@@ -1,0 +1,51 @@
+{
+  "species": [
+    {
+      "dexNo": 627,
+      "name": "Rufflet",
+      "primaryType": "Flying",
+      "specialty": "Skills",
+      "profileImage": "627.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Rufflet",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:03:20",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 109,
+            "recruitShards": 120
+          },
+          "berries": [
+            {
+              "name": "Pamtre Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Bean Sausage",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Greengrass Corn",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Rousing Coffee",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Berry Burst",
+          "detailImage": "627-default.png",
+          "shinyImage": "627-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    }
+  ]
+}

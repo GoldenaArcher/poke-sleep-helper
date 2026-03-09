@@ -1,0 +1,61 @@
+{
+  "species": [
+    {
+      "dexNo": 517,
+      "name": "Munna",
+      "primaryType": "Psychic",
+      "specialty": "Berries",
+      "profileImage": "517.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 518,
+          "name": "Musharna",
+          "levelRequired": 0,
+          "evolutionItems": [
+            "Moon Stone"
+          ]
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Munna",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:35:00",
+            "carryLimit": 12,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 35,
+            "recruitShards": 95
+          },
+          "berries": [
+            {
+              "name": "Miso Berry",
+              "quantity": 2
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Moomoo Milk",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Honey",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Rousing Coffee",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Dream Shard Magnet S",
+          "detailImage": "517-default.png",
+          "shinyImage": "517-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    }
+  ]
+}

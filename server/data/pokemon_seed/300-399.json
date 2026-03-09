@@ -1,0 +1,299 @@
+{
+  "species": [
+    {
+      "dexNo": 316,
+      "name": "Gulpin",
+      "primaryType": "Poison",
+      "specialty": "Skills",
+      "profileImage": "316.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Gulpin",
+          "specialty": "Skills",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:38:20",
+            "carryLimit": 8,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 11,
+            "recruitShards": 12
+          },
+          "berries": [
+            {
+              "name": "Chesto Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Greengrass Soybeans",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Tasty Mushroom",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Honey",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Dream Shard Magnet S",
+          "detailImage": "316-default.png",
+          "shinyImage": "316-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 333,
+      "name": "Swablu",
+      "primaryType": "Flying",
+      "specialty": "Berries",
+      "profileImage": "333.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 334,
+          "name": "Altaria",
+          "levelRequired": 26,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Swablu",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:10:00",
+            "carryLimit": 12,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 8,
+            "recruitShards": 17
+          },
+          "berries": [
+            {
+              "name": "Persim Berry",
+              "quantity": 2
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Fancy Egg",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Greengrass Soybeans",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Fancy Apple",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "333-default.png",
+          "shinyImage": "333-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 353,
+      "name": "Shuppet",
+      "primaryType": "Ghost",
+      "specialty": "Berries",
+      "profileImage": "353.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Shuppet",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:05:00",
+            "carryLimit": 11,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 8,
+            "recruitShards": 17
+          },
+          "berries": [
+            {
+              "name": "Bluk Berry",
+              "quantity": 2
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Pure Oil",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Warming Ginger",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Tasty Mushroom",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "353-default.png",
+          "shinyImage": "353-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 360,
+      "name": "Wynaut",
+      "primaryType": "Psychic",
+      "specialty": "Skills",
+      "profileImage": "360.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 202,
+          "name": "Wobbuffet",
+          "levelRequired": 11,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Wynaut",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:36:40",
+            "carryLimit": 7,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 11,
+            "recruitShards": 12
+          },
+          "berries": [
+            {
+              "name": "Mago Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Fancy Apple",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Pure Oil",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Tasty Mushroom",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Energizing Cheer S",
+          "detailImage": "360-default.png",
+          "shinyImage": "360-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 363,
+      "name": "Spheal",
+      "primaryType": "Ice",
+      "specialty": "Berries",
+      "profileImage": "363.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Spheal",
+          "isDefault": 1,
+          "isEvent": 0,
+          "specialty": "Berries",
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:33:20",
+            "carryLimit": 9,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 11,
+            "recruitShards": 12
+          },
+          "berries": [
+            {
+              "name": "Rawst Berry",
+              "quantity": 2
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Pure Oil",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Warming Ginger",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Bean Sausage",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Ingredient Magnet S",
+          "detailImage": "363-default.png",
+          "shinyImage": "363-default-shiny.png"
+        },
+        {
+          "key": "holiday",
+          "name": "Spheal (Holiday)",
+          "isDefault": 0,
+          "isEvent": 1,
+          "specialty": "Skills",
+          "notes": "Holiday event variant",
+          "stats": {
+            "baseFrequency": "00:55:00",
+            "carryLimit": 20,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 27,
+            "recruitShards": 75
+          },
+          "berries": [
+            {
+              "name": "Rawst Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Pure Oil",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Bean Sausage",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Warming Ginger",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Tasty Chance S",
+          "detailImage": "363-holiday.png",
+          "shinyImage": "363-holiday-shiny.png"
+        }
+      ],
+      "subSkills": []
+    }
+  ]
+}

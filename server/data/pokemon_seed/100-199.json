@@ -1,0 +1,691 @@
+{
+  "species": [
+    {
+      "dexNo": 104,
+      "name": "Cubone",
+      "primaryType": "Ground",
+      "specialty": "Berries",
+      "profileImage": "104.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Cubone",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:20:00",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 9,
+            "recruitShards": 16
+          },
+          "berries": [
+            {
+              "name": "Figy Berry",
+              "quantity": 2
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Warming Ginger",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Soothing Cacao",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "104-default.png",
+          "shinyImage": "104-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 127,
+      "name": "Pinsir",
+      "primaryType": "Bug",
+      "specialty": "Ingredients",
+      "profileImage": "127.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Pinsir",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:49:00",
+            "carryLimit": 24,
+            "friendshipPointsNeeded": 15,
+            "recruitExperience": 235,
+            "recruitShards": 608
+          },
+          "berries": [
+            {
+              "name": "Lum Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Honey",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Fancy Apple",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Bean Sausage",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "127-default.png",
+          "shinyImage": "127-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 133,
+      "name": "Eevee",
+      "primaryType": "Normal",
+      "specialty": "Skills",
+      "profileImage": "133.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Eevee",
+          "isDefault": 1,
+          "isEvent": 0,
+          "specialty": "Skills",
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:01:40",
+            "carryLimit": 12,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 20,
+            "recruitShards": 36
+          },
+          "berries": [
+            {
+              "name": "Persim Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Moomoo Milk",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Soothing Cacao",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Bean Sausage",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Ingredient Magnet S",
+          "detailImage": "133-default.png",
+          "shinyImage": "133-default-shiny.png"
+        },
+        {
+          "key": "holiday",
+          "name": "Eevee (Holiday)",
+          "isDefault": 0,
+          "isEvent": 1,
+          "specialty": "Berries",
+          "notes": "Holiday event variant",
+          "stats": {
+            "baseFrequency": "00:51:40",
+            "carryLimit": 20,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 27,
+            "recruitShards": 75
+          },
+          "berries": [
+            {
+              "name": "Persim Berry",
+              "quantity": 2
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Moomoo Milk",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Soothing Cacao",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Dream Shard Magnet S",
+          "detailImage": "133-holiday.png",
+          "shinyImage": "133-holiday-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 152,
+      "name": "Chikorita",
+      "primaryType": "Grass",
+      "specialty": "Berries",
+      "profileImage": "152.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Chikorita",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:13:20",
+            "carryLimit": 12,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 18,
+            "recruitShards": 39
+          },
+          "berries": [
+            {
+              "name": "Durin Berry",
+              "quantity": 2
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Soothing Cacao",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Honey",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Large Leek",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "152-default.png",
+          "shinyImage": "152-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 155,
+      "name": "Cyndaquil",
+      "primaryType": "Fire",
+      "specialty": "Berries",
+      "profileImage": "155.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 156,
+          "name": "Quilava",
+          "levelRequired": 11,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Cyndaquil",
+          "isDefault": 1,
+          "isEvent": 0,
+          "specialty": "Berries",
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:58:20",
+            "carryLimit": 14,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 16,
+            "recruitShards": 42
+          },
+          "berries": [
+            {
+              "name": "Leppa Berry",
+              "quantity": 2
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Warming Ginger",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Fiery Herb",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Pure Oil",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "155-default.png",
+          "shinyImage": "155-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 158,
+      "name": "Totodile",
+      "primaryType": "Water",
+      "specialty": "Berries",
+      "profileImage": "158.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Totodile",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:15:00",
+            "carryLimit": 11,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 20,
+            "recruitShards": 36
+          },
+          "berries": [
+            {
+              "name": "Oran Berry",
+              "quantity": 2
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Bean Sausage",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Pure Oil",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "158-default.png",
+          "shinyImage": "158-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 172,
+      "name": "Pichu",
+      "primaryType": "Electric",
+      "specialty": "Berries",
+      "profileImage": "172.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 25,
+          "name": "Pikachu",
+          "levelRequired": 0,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Pichu",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:11:40",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 7,
+            "recruitShards": 20
+          },
+          "berries": [
+            {
+              "name": "Grepa Berry",
+              "quantity": 2
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Fancy Apple",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Fancy Egg",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Warming Ginger",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "172-default.png",
+          "shinyImage": "172-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 174,
+      "name": "Igglybuff",
+      "primaryType": "Fairy",
+      "specialty": "Skills",
+      "profileImage": "174.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 39,
+          "name": "Jigglypuff",
+          "levelRequired": 0,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Igglybuff",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:26:40",
+            "carryLimit": 8,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 11,
+            "recruitShards": 12
+          },
+          "berries": [
+            {
+              "name": "Pecha Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Honey",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Pure Oil",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Soothing Cacao",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Energy for Everyone S",
+          "detailImage": "174-default.png",
+          "shinyImage": "174-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 175,
+      "name": "Togepi",
+      "primaryType": "Fairy",
+      "specialty": "Skills",
+      "profileImage": "175.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 176,
+          "name": "Togetic",
+          "levelRequired": 0,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Togepi",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:20:00",
+            "carryLimit": 8,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 18,
+            "recruitShards": 39
+          },
+          "berries": [
+            {
+              "name": "Pecha Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Fancy Egg",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Warming Ginger",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Soothing Cacao",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Metronome",
+          "detailImage": "175-default.png",
+          "shinyImage": "175-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 176,
+      "name": "Togetic",
+      "primaryType": "Fairy",
+      "specialty": "Skills",
+      "profileImage": "176.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 175,
+          "name": "Togepi"
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Togetic",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:03:20",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 12,
+            "recruitExperience": 76,
+            "recruitShards": 161
+          },
+          "berries": [
+            {
+              "name": "Pecha Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Fancy Egg",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Warming Ginger",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Soothing Cacao",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Metronome",
+          "detailImage": "176-default.png",
+          "shinyImage": "176-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 179,
+      "name": "Mareep",
+      "primaryType": "Electric",
+      "specialty": "Skills",
+      "profileImage": "179.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Mareep",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:16:40",
+            "carryLimit": 9,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 11,
+            "recruitShards": 13
+          },
+          "berries": [
+            {
+              "name": "Grepa Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Fiery Herb",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Fancy Egg",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength M",
+          "detailImage": "179-default.png",
+          "shinyImage": "179-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 185,
+      "name": "Sudowoodo",
+      "primaryType": "Rock",
+      "specialty": "Skills",
+      "profileImage": "185.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 438,
+          "name": "Bonsly"
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Sudowoodo",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:06:40",
+            "carryLimit": 16,
+            "friendshipPointsNeeded": 7,
+            "recruitExperience": 23,
+            "recruitShards": 41
+          },
+          "berries": [
+            {
+              "name": "Sitrus Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Snoozy Tomato",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Tasty Mushroom",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Greengrass Soybeans",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength M",
+          "detailImage": "185-default.png",
+          "shinyImage": "185-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 194,
+      "name": "Wooper",
+      "primaryType": "Poison",
+      "specialty": "Ingredients",
+      "profileImage": "194.png",
+      "variants": [
+        {
+          "key": "paldean",
+          "name": "Wooper (Paldean)",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Paldean form",
+          "stats": {
+            "baseFrequency": "01:40:40",
+            "carryLimit": 9,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 147,
+            "recruitShards": 119
+          },
+          "berries": [
+            {
+              "name": "Chesto Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Soothing Cacao",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Rousing Coffee",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Soft Potato",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "194-paldean.png",
+          "shinyImage": "194-paldean-shiny.png"
+        }
+      ],
+      "subSkills": []
+    }
+  ]
+}

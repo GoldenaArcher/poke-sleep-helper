@@ -1,0 +1,339 @@
+{
+  "species": [
+    {
+      "dexNo": 202,
+      "name": "Wobbuffet",
+      "primaryType": "Psychic",
+      "specialty": "Skills",
+      "profileImage": "202.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 360,
+          "name": "Wynaut"
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Wobbuffet",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:58:20",
+            "carryLimit": 16,
+            "friendshipPointsNeeded": 7,
+            "recruitExperience": 29,
+            "recruitShards": 31
+          },
+          "berries": [
+            {
+              "name": "Mago Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Fancy Apple",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Pure Oil",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Tasty Mushroom",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Energizing Cheer S",
+          "detailImage": "202-default.png",
+          "shinyImage": "202-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 228,
+      "name": "Houndour",
+      "primaryType": "Dark",
+      "specialty": "Berries",
+      "profileImage": "228.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Houndour",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:21:40",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 8,
+            "recruitShards": 17
+          },
+          "berries": [
+            {
+              "name": "Wiki Berry",
+              "quantity": 2
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Fiery Herb",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Warming Ginger",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Large Leek",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength M",
+          "detailImage": "228-default.png",
+          "shinyImage": "228-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 246,
+      "name": "Larvitar",
+      "primaryType": "Rock",
+      "specialty": "Ingredients",
+      "profileImage": "246.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Larvitar",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:20:00",
+            "carryLimit": 9,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 30,
+            "recruitShards": 54
+          },
+          "berries": [
+            {
+              "name": "Sitrus Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Warming Ginger",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Greengrass Soybeans",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Bean Sausage",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "246-default.png",
+          "shinyImage": "246-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 252,
+      "name": "Treecko",
+      "primaryType": "Grass",
+      "specialty": "Skills",
+      "profileImage": "252.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Treecko",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:15:00",
+            "carryLimit": 8,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 51,
+            "recruitShards": 100
+          },
+          "berries": [
+            {
+              "name": "Durin Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Fancy Egg",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Rousing Coffee",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Large Leek",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Energy for Everyone",
+          "detailImage": "252-default.png",
+          "shinyImage": "252-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 255,
+      "name": "Torchic",
+      "primaryType": "Fire",
+      "specialty": "Berries",
+      "profileImage": "255.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Torchic",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:11:40",
+            "carryLimit": 12,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 57,
+            "recruitShards": 90
+          },
+          "berries": [
+            {
+              "name": "Leppa Berry",
+              "quantity": 2
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Tasty Mushroom",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Greengrass Soybeans",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Pure Oil",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "255-default.png",
+          "shinyImage": "255-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 258,
+      "name": "Mudkip",
+      "primaryType": "Water",
+      "specialty": "Berries",
+      "profileImage": "258.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Mudkip",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:18:20",
+            "carryLimit": 11,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 52,
+            "recruitShards": 91
+          },
+          "berries": [
+            {
+              "name": "Oran Berry",
+              "quantity": 2
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Greengrass Corn",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Moomoo Milk",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Tasty Mushroom",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "258-default.png",
+          "shinyImage": "258-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 287,
+      "name": "Slakoth",
+      "primaryType": "Normal",
+      "specialty": "Berries",
+      "profileImage": "287.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Slakoth",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:21:40",
+            "carryLimit": 7,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 11,
+            "recruitShards": 12
+          },
+          "berries": [
+            {
+              "name": "Persim Berry",
+              "quantity": 2
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Snoozy Tomato",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Honey",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Fancy Apple",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Ingredient Magnet S",
+          "detailImage": "287-default.png",
+          "shinyImage": "287-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    }
+  ]
+}

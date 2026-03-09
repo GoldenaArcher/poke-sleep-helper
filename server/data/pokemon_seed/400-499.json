@@ -1,0 +1,381 @@
+{
+  "species": [
+    {
+      "dexNo": 438,
+      "name": "Bonsly",
+      "primaryType": "Rock",
+      "specialty": "Skills",
+      "profileImage": "438.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 185,
+          "name": "Sudowoodo",
+          "levelRequired": 12,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Bonsly",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:45:00",
+            "carryLimit": 8,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 9,
+            "recruitShards": 16
+          },
+          "berries": [
+            {
+              "name": "Sitrus Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Snoozy Tomato",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Tasty Mushroom",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Greengrass Soybeans",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength M",
+          "detailImage": "438-default.png",
+          "shinyImage": "438-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 439,
+      "name": "Mime Jr",
+      "primaryType": "Psychic",
+      "specialty": "Ingredients",
+      "profileImage": "439.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 122,
+          "name": "Mr. Mime",
+          "levelRequired": 12,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Mime Jr",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:11:40",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 7,
+            "recruitShards": 20
+          },
+          "berries": [
+            {
+              "name": "Mago Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Snoozy Tomato",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Soft Potato",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Large Leek",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Mimic (Skill Copy)",
+          "detailImage": "439-default.png",
+          "shinyImage": "439-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 440,
+      "name": "Happiny",
+      "primaryType": "Normal",
+      "specialty": "Ingredients",
+      "profileImage": "440.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Happiny",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:30:00",
+            "carryLimit": 7,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 56,
+            "recruitShards": 55
+          },
+          "berries": [
+            {
+              "name": "Persim Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Fancy Egg",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Soft Potato",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Honey",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Energy for Everyone S",
+          "detailImage": "440-default.png",
+          "shinyImage": "440-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 447,
+      "name": "Riolu",
+      "primaryType": "Fighting",
+      "specialty": "Skills",
+      "profileImage": "447.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Riolu",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:10:00",
+            "carryLimit": 9,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 8,
+            "recruitShards": 17
+          },
+          "berries": [
+            {
+              "name": "Cheri Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Pure Oil",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Soft Potato",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Fancy Egg",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Dream Shard Magnet S",
+          "detailImage": "447-default.png",
+          "shinyImage": "447-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 453,
+      "name": "Croagunk",
+      "primaryType": "Poison",
+      "specialty": "Ingredients",
+      "profileImage": "453.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 454,
+          "name": "Toxicroak",
+          "levelRequired": 28,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Croagunk",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:33:20",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 22,
+            "recruitShards": 16
+          },
+          "berries": [
+            {
+              "name": "Chesto Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Pure Oil",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Bean Sausage",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "453-default.png",
+          "shinyImage": "453-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 454,
+      "name": "Toxicroak",
+      "primaryType": "Poison",
+      "specialty": "Ingredients",
+      "profileImage": "454.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 453,
+          "name": "Croagunk"
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Toxicroak",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:56:40",
+            "carryLimit": 14,
+            "friendshipPointsNeeded": 12,
+            "recruitExperience": 126,
+            "recruitShards": 257
+          },
+          "berries": [
+            {
+              "name": "Chesto Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Pure Oil",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Bean Sausage",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "454-default.png",
+          "shinyImage": "454-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 491,
+      "name": "Darkrai",
+      "primaryType": "Dark",
+      "specialty": "Skills",
+      "profileImage": "491.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Darkrai",
+          "isDefault": 1,
+          "isEvent": 0,
+          "specialty": "Skills",
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:46:20",
+            "carryLimit": 28,
+            "friendshipPointsNeeded": 8,
+            "recruitExperience": 251,
+            "recruitShards": 4263
+          },
+          "berries": [
+            {
+              "name": "Wiki Berry",
+              "quantity": 2
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Fancy Apple",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Fiery Herb",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Bean Sausage",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Moomoo Milk",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Honey",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Greengrass Soybeans",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Greengrass Corn",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Rousing Coffee",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength M",
+          "detailImage": "491-default.png"
+        }
+      ],
+      "subSkills": []
+    }
+  ]
+}

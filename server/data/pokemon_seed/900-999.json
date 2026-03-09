@@ -1,0 +1,212 @@
+{
+  "species": [
+    {
+      "dexNo": 906,
+      "name": "Sprigatito",
+      "primaryType": "Grass",
+      "specialty": "Ingredients",
+      "profileImage": "906.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Sprigatito",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:16:40",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 39,
+            "recruitShards": 70
+          },
+          "berries": [
+            {
+              "name": "Durin Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Soft Potato",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Moomoo Milk",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Warming Ginger",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Cooking Power-up S",
+          "detailImage": "906-default.png",
+          "shinyImage": "906-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 909,
+      "name": "Fuecoco",
+      "primaryType": "Fire",
+      "specialty": "Ingredients",
+      "profileImage": "909.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 910,
+          "name": "Crocalor",
+          "levelRequired": 12,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Fuecoco",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:10:00",
+            "carryLimit": 11,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 54,
+            "recruitShards": 43
+          },
+          "berries": [
+            {
+              "name": "Leppa Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Fancy Apple",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Bean Sausage",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Fiery Herb",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "909-default.png",
+          "shinyImage": "909-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 912,
+      "name": "Quaxly",
+      "primaryType": "Water",
+      "specialty": "Ingredients",
+      "profileImage": "912.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 913,
+          "name": "Quaxwell",
+          "levelRequired": 12,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Quaxly",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:20:00",
+            "carryLimit": 16,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 43,
+            "recruitShards": 62
+          },
+          "berries": [
+            {
+              "name": "Oran Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Greengrass Soybeans",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Large Leek",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Pure Oil",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength M",
+          "detailImage": "912-default.png",
+          "shinyImage": "912-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 974,
+      "name": "Cetoddle",
+      "primaryType": "Ice",
+      "specialty": "Ingredients",
+      "profileImage": "974.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Cetoddle",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:25:00",
+            "carryLimit": 12,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 121,
+            "recruitShards": 99
+          },
+          "berries": [
+            {
+              "name": "Rawst Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Soft Potato",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Bean Sausage",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Plump Pumpkin",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "974-default.png",
+          "shinyImage": "974-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    }
+  ]
+}

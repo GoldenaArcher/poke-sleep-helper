@@ -3,12 +3,7 @@
  * Seeds pokemon species, variants, and all related data
  */
 
-import fs from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const pokemonSeedPath = path.resolve(__dirname, "../../data/pokemon_seed.json");
+import { loadPokemonSeedData } from "../../data/pokemon_seed/index.js";
 
 export async function seedPokemon(db, dbRun, dbGet) {
   console.log("🐾 Seeding pokemon...");
@@ -31,7 +26,7 @@ export async function seedPokemon(db, dbRun, dbGet) {
   // No need to reset auto-increment since we're using dex_no as primary key
 
   // Load pokemon data
-  const pokemonData = JSON.parse(fs.readFileSync(pokemonSeedPath, "utf-8"));
+  const pokemonData = loadPokemonSeedData();
 
   const evolutionRoutes = [];
   const evolutionItemsSet = new Set(); // Collect all unique evolution items

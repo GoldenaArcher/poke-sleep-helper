@@ -1,0 +1,238 @@
+{
+  "species": [
+    {
+      "dexNo": 710,
+      "name": "Pumpkaboo",
+      "primaryType": "Ghost",
+      "specialty": "Ingredients",
+      "profileImage": "710.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 711,
+          "name": "Gourgeist",
+          "evolutionItems": [
+            "Linking Cord"
+          ],
+          "variantMapping": {
+            "small": "small",
+            "medium": "medium",
+            "large": "large",
+            "jumbo": "jumbo"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "small",
+          "name": "Pumpkaboo Small Variety",
+          "isDefault": 1,
+          "isEvent": 0,
+          "specialty": "Ingredients",
+          "notes": "Small size variety",
+          "stats": {
+            "baseFrequency": "01:28:20",
+            "carryLimit": 7,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 44,
+            "recruitShards": 76
+          },
+          "berries": [
+            {
+              "name": "Bluk Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Plump Pumpkin",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Greengrass Soybeans",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Soft Potato",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "710-small.png",
+          "shinyImage": "710-small-shiny.png"
+        },
+        {
+          "key": "medium",
+          "name": "Pumpkaboo Medium Variety",
+          "isDefault": 0,
+          "isEvent": 0,
+          "specialty": "Ingredients",
+          "notes": "Medium size variety",
+          "stats": {
+            "baseFrequency": "01:30:00",
+            "carryLimit": 11,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 44,
+            "recruitShards": 76
+          },
+          "berries": [
+            {
+              "name": "Bluk Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Plump Pumpkin",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Greengrass Soybeans",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Soft Potato",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "710-medium.png",
+          "shinyImage": "710-medium-shiny.png"
+        },
+        {
+          "key": "large",
+          "name": "Pumpkaboo Large Variety",
+          "isDefault": 0,
+          "isEvent": 0,
+          "specialty": "Ingredients",
+          "notes": "Large size variety",
+          "stats": {
+            "baseFrequency": "01:31:40",
+            "carryLimit": 19,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 44,
+            "recruitShards": 76
+          },
+          "berries": [
+            {
+              "name": "Bluk Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Plump Pumpkin",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Greengrass Soybeans",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Soft Potato",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "710-large.png",
+          "shinyImage": "710-large-shiny.png"
+        },
+        {
+          "key": "jumbo",
+          "name": "Pumpkaboo Jumbo Variety",
+          "isDefault": 0,
+          "isEvent": 0,
+          "specialty": "Ingredients",
+          "notes": "Jumbo size variety",
+          "stats": {
+            "baseFrequency": "01:33:20",
+            "carryLimit": 21,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 44,
+            "recruitShards": 76
+          },
+          "berries": [
+            {
+              "name": "Bluk Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Plump Pumpkin",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Greengrass Soybeans",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Soft Potato",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "710-jumbo.png",
+          "shinyImage": "710-jumbo-shiny.png"
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 742,
+      "name": "Cutiefly",
+      "primaryType": "Fairy",
+      "specialty": "Ingredients",
+      "profileImage": "742.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 743,
+          "name": "Ribombee",
+          "levelRequired": 19,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Cutiefly",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:15:00",
+            "carryLimit": 9,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 84,
+            "recruitShards": 165
+          },
+          "berries": [
+            {
+              "name": "Pecha Berry",
+              "quantity": 1
+            }
+          ],
+          "ingredients": [
+            {
+              "name": "Honey",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Pure Oil",
+              "unlockLevel": 1
+            },
+            {
+              "name": "Greengrass Corn",
+              "unlockLevel": 1
+            }
+          ],
+          "mainSkill": "Ingredient Draw S",
+          "detailImage": "742-default.png",
+          "shinyImage": "742-default-shiny.png"
+        }
+      ],
+      "subSkills": []
+    }
+  ]
+}
