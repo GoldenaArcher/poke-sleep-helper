@@ -19,6 +19,8 @@ const assertArray = (value, message) => {
   assert(Array.isArray(value), message);
 };
 
+const ingredientSlotLevels = ["1", "30", "60"];
+
 const parseRange = (filename) => {
   const match = filename.match(/^(\d{3})-(\d{3})\.json$/);
   assert(match, `Invalid Pokemon seed filename "${filename}"`);
@@ -37,6 +39,78 @@ const loadRangeFile = (baseDir, filename) => {
       `Failed to load Pokemon seed file ${filename}: ${error.message}`
     );
   }
+};
+
+const normalizeIngredientOption = (option, messagePrefix) => {
+  assert(
+    option && typeof option === "object" && !Array.isArray(option),
+    `${messagePrefix} must be an object`
+  );
+  assertString(option.name, `${messagePrefix} must have a name`);
+  const quantity =
+    typeof option.quantity === "number" && Number.isFinite(option.quantity)
+      ? option.quantity
+      : 1;
+  assert(
+    Number.isInteger(quantity) && quantity > 0,
+    `${messagePrefix} must have a positive integer quantity`
+  );
+  return {
+    name: option.name,
+    quantity
+  };
+};
+
+const normalizeIngredientOptions = (variant, messagePrefix) => {
+  if (
+    variant.ingredientOptions &&
+    typeof variant.ingredientOptions === "object" &&
+    !Array.isArray(variant.ingredientOptions)
+  ) {
+    const normalized = {};
+    ingredientSlotLevels.forEach((slotLevel) => {
+      const options = variant.ingredientOptions[slotLevel] || [];
+      assertArray(
+        options,
+        `${messagePrefix}.ingredientOptions["${slotLevel}"] must be an array`
+      );
+      normalized[slotLevel] = options.map((option, index) =>
+        normalizeIngredientOption(
+          option,
+          `${messagePrefix}.ingredientOptions["${slotLevel}"][${index}]`
+        )
+      );
+    });
+    return normalized;
+  }
+
+  const legacyIngredients = Array.isArray(variant.ingredients)
+    ? variant.ingredients
+    : [];
+  const normalizedLegacy = legacyIngredients.map((option, index) =>
+    normalizeIngredientOption(option, `${messagePrefix}.ingredients[${index}]`)
+  );
+
+  return {
+    1: normalizedLegacy.map((option) => ({ ...option })),
+    30: normalizedLegacy.map((option) => ({ ...option })),
+    60: normalizedLegacy.map((option) => ({ ...option }))
+  };
+};
+
+const normalizeSpeciesEntry = (entry, index) => {
+  const normalizedVariants = entry.variants.map((variant, variantIndex) => ({
+    ...variant,
+    ingredientOptions: normalizeIngredientOptions(
+      variant,
+      `species[${index}].variants[${variantIndex}]`
+    )
+  }));
+
+  return {
+    ...entry,
+    variants: normalizedVariants
+  };
 };
 
 const validatePokemonSeedData = (species, rangeMembership) => {
@@ -70,6 +144,30 @@ const validatePokemonSeedData = (species, rangeMembership) => {
       entry.dexNo >= range.start && entry.dexNo <= range.end,
       `species[${index}] dexNo ${entry.dexNo} does not belong in ${String(range.start).padStart(3, "0")}-${String(range.end).padStart(3, "0")}.json`
     );
+
+    entry.variants.forEach((variant, variantIndex) => {
+      assertString(
+        variant.key,
+        `species[${index}].variants[${variantIndex}] must have a key`
+      );
+      assertString(
+        variant.name,
+        `species[${index}].variants[${variantIndex}] must have a name`
+      );
+      const ingredientOptions = variant.ingredientOptions;
+      assert(
+        ingredientOptions &&
+          typeof ingredientOptions === "object" &&
+          !Array.isArray(ingredientOptions),
+        `species[${index}].variants[${variantIndex}] must have ingredientOptions`
+      );
+      ingredientSlotLevels.forEach((slotLevel) => {
+        assertArray(
+          ingredientOptions[slotLevel],
+          `species[${index}].variants[${variantIndex}].ingredientOptions["${slotLevel}"] must be an array`
+        );
+      });
+    });
   });
 };
 
@@ -96,9 +194,10 @@ export const loadPokemonSeedData = (baseDir = __dirname) => {
     );
     assertArray(data.species, `${filename} must contain a species array`);
 
-    data.species.forEach((entry) => {
-      species.push(entry);
-      rangeMembership.set(entry.dexNo, range);
+    data.species.forEach((entry, index) => {
+      const normalizedEntry = normalizeSpeciesEntry(entry, index);
+      species.push(normalizedEntry);
+      rangeMembership.set(normalizedEntry.dexNo, range);
     });
   });
 

@@ -26,23 +26,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Greengrass Corn",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Rousing Coffee",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Berry Burst",
           "detailImage": "627-default.png",
-          "shinyImage": "627-default-shiny.png"
+          "shinyImage": "627-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Corn",
+                "quantity": 1
+              },
+              {
+                "name": "Rousing Coffee",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Corn",
+                "quantity": 1
+              },
+              {
+                "name": "Rousing Coffee",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Corn",
+                "quantity": 1
+              },
+              {
+                "name": "Rousing Coffee",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []

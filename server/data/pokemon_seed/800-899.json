@@ -35,23 +35,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Moomoo Milk",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Fancy Apple",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Large Leek",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "848-default.png",
-          "shinyImage": "848-default-shiny.png"
+          "shinyImage": "848-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              },
+              {
+                "name": "Large Leek",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              },
+              {
+                "name": "Large Leek",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              },
+              {
+                "name": "Large Leek",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []

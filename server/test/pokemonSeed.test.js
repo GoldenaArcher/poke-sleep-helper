@@ -28,6 +28,11 @@ test("pokemon seed loader merges all range files", () => {
   assert.equal(data.species.length, 69);
   assert.equal(data.species[0].dexNo, 1);
   assert.equal(data.species.at(-1).dexNo, 974);
+  const pikachu = data.species.find((species) => species.dexNo === 25);
+  assert.ok(pikachu);
+  assert.ok(Array.isArray(pikachu.variants[0].ingredientOptions["1"]));
+  assert.ok(Array.isArray(pikachu.variants[0].ingredientOptions["30"]));
+  assert.ok(Array.isArray(pikachu.variants[0].ingredientOptions["60"]));
 });
 
 test("pokemon seed loader rejects species in the wrong range file", () => {
@@ -66,4 +71,42 @@ test("pokemon seed loader rejects duplicate dex numbers across files", () => {
     () => loadPokemonSeedData(tempDir),
     /duplicate dexNo/
   );
+});
+
+test("pokemon seed loader normalizes legacy flat ingredient arrays", () => {
+  const tempDir = makeTempDir();
+  const payload = {
+    species: [
+      {
+        dexNo: 1,
+        name: "LegacyMon",
+        primaryType: "Electric",
+        specialty: "Berries",
+        variants: [
+          {
+            key: "default",
+            name: "LegacyMon",
+            ingredients: [
+              { name: "Fancy Apple" },
+              { name: "Warming Ginger", quantity: 2 }
+            ]
+          }
+        ]
+      }
+    ]
+  };
+  fs.writeFileSync(
+    path.join(tempDir, "000-099.json"),
+    JSON.stringify(payload, null, 2) + "\n"
+  );
+
+  const data = loadPokemonSeedData(tempDir);
+  const options = data.species[0].variants[0].ingredientOptions;
+
+  assert.deepEqual(options["1"], [
+    { name: "Fancy Apple", quantity: 1 },
+    { name: "Warming Ginger", quantity: 2 }
+  ]);
+  assert.deepEqual(options["30"], options["1"]);
+  assert.deepEqual(options["60"], options["1"]);
 });

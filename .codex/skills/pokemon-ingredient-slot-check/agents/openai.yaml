@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pokemon Ingredient Check"
+  short_description: "Validate Pokemon ingredient slot edits in poke-sleep."
+  default_prompt: "Use this skill to validate Pokemon ingredient slot data after editing server/data/pokemon_seed files in the poke-sleep repo."

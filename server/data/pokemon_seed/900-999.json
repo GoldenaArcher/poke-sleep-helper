@@ -26,23 +26,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Soft Potato",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Moomoo Milk",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Warming Ginger",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Cooking Power-up S",
           "detailImage": "906-default.png",
-          "shinyImage": "906-default-shiny.png"
+          "shinyImage": "906-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              },
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              },
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              },
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -83,23 +113,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Fancy Apple",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Fiery Herb",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Energy S",
           "detailImage": "909-default.png",
-          "shinyImage": "909-default-shiny.png"
+          "shinyImage": "909-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -140,23 +200,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Greengrass Soybeans",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Large Leek",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Pure Oil",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Strength M",
           "detailImage": "912-default.png",
-          "shinyImage": "912-default-shiny.png"
+          "shinyImage": "912-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Large Leek",
+                "quantity": 1
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Large Leek",
+                "quantity": 1
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Large Leek",
+                "quantity": 1
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -187,23 +277,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Soft Potato",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Plump Pumpkin",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Energy S",
           "detailImage": "974-default.png",
-          "shinyImage": "974-default-shiny.png"
+          "shinyImage": "974-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Plump Pumpkin",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Plump Pumpkin",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Plump Pumpkin",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []

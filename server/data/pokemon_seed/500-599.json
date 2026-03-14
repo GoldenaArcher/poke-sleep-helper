@@ -36,23 +36,53 @@
               "quantity": 2
             }
           ],
-          "ingredients": [
-            {
-              "name": "Moomoo Milk",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Honey",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Rousing Coffee",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Dream Shard Magnet S",
           "detailImage": "517-default.png",
-          "shinyImage": "517-default-shiny.png"
+          "shinyImage": "517-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Rousing Coffee",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Rousing Coffee",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Rousing Coffee",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []

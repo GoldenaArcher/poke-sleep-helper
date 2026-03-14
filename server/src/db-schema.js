@@ -266,11 +266,17 @@ export const initDb = async () => {
       variant_key TEXT NOT NULL,
       ingredient_id INTEGER NOT NULL,
       unlock_level INTEGER NOT NULL,
+      quantity INTEGER NOT NULL DEFAULT 1,
       PRIMARY KEY (species_dex_no, variant_key, ingredient_id, unlock_level),
       FOREIGN KEY (species_dex_no, variant_key) REFERENCES pokemon_variants(species_dex_no, variant_key),
       FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
     );
   `);
+  await ensureColumn(
+    "pokemon_variant_ingredients",
+    "quantity",
+    "INTEGER NOT NULL DEFAULT 1"
+  );
 
   // Main skills table
   await dbRun(`

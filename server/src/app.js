@@ -28,6 +28,47 @@ const ingredientStrengthByName = new Map(
 const normalizeName = (value) =>
   typeof value === "string" ? value.trim().toLowerCase() : "";
 
+const ingredientSlotLevels = [1, 30, 60];
+
+const buildIngredientOptionsBySlot = (rows) => {
+  const bySlot = new Map(
+    ingredientSlotLevels.map((slotLevel) => [slotLevel, []])
+  );
+  rows.forEach((row) => {
+    const slotLevel = Number(row.slot_level ?? row.unlock_level) || 1;
+    const list = bySlot.get(slotLevel) || [];
+    list.push({
+      id: row.ingredient_id,
+      ingredient_id: row.ingredient_id,
+      name: row.name,
+      image_path: row.image_path,
+      quantity: Number(row.quantity) || 1,
+      slot_level: slotLevel,
+      unlock_level: slotLevel
+    });
+    bySlot.set(slotLevel, list);
+  });
+
+  const fallbackOptions = bySlot.get(1) || [];
+  ingredientSlotLevels.forEach((slotLevel) => {
+    if ((bySlot.get(slotLevel) || []).length === 0 && fallbackOptions.length > 0) {
+      bySlot.set(
+        slotLevel,
+        fallbackOptions.map((option) => ({
+          ...option,
+          slot_level: slotLevel,
+          unlock_level: slotLevel
+        }))
+      );
+    }
+  });
+
+  return bySlot;
+};
+
+const getIngredientOptionsForSlot = (optionsBySlot, slotLevel) =>
+  optionsBySlot.get(Number(slotLevel)) || optionsBySlot.get(1) || [];
+
 const buildBagPerMeal = (rows) => {
   const bagPerMeal = new Map();
   rows.forEach((row) => {
@@ -1004,7 +1045,8 @@ app.get("/api/ingredients/:name/pokemon", async (req, res) => {
   }
   try {
     const rows = await dbAll(
-      `select pokemon_species.dex_no as species_id,
+      `select distinct
+              pokemon_species.dex_no as species_id,
               pokemon_species.dex_no,
               pokemon_species.name as species_name,
               pokemon_variants.variant_name,
@@ -1409,6 +1451,8 @@ app.get("/api/pokedex/:id", async (req, res) => {
     const ingredientRows = await dbAll(
       `select pokemon_variant_ingredients.species_dex_no,
               pokemon_variant_ingredients.variant_key,
+              pokemon_variant_ingredients.unlock_level,
+              pokemon_variant_ingredients.quantity,
               ingredients.id as ingredient_id,
               ingredients.name,
               ingredients.image_path
@@ -1450,15 +1494,21 @@ app.get("/api/pokedex/:id", async (req, res) => {
       berryMap.set(key, list);
     });
     const ingredientMap = new Map();
+    const ingredientOptionsBySlotMap = new Map();
     ingredientRows.forEach((row) => {
       const key = makeKey(row);
       const list = ingredientMap.get(key) || [];
-      list.push({
-        id: row.ingredient_id,
-        name: row.name,
-        image_path: row.image_path
-      });
+      if (!list.some((item) => item.id === row.ingredient_id)) {
+        list.push({
+          id: row.ingredient_id,
+          name: row.name,
+          image_path: row.image_path
+        });
+      }
       ingredientMap.set(key, list);
+      const slotRows = ingredientOptionsBySlotMap.get(key) || [];
+      slotRows.push(row);
+      ingredientOptionsBySlotMap.set(key, slotRows);
     });
     const skillMap = new Map();
     mainSkills.forEach((row) => {
@@ -1670,6 +1720,13 @@ app.get("/api/pokedex/:id", async (req, res) => {
           stats: statsMap.get(key) || null,
           berries: berryMap.get(key) || [],
           ingredients: ingredientMap.get(key) || [],
+          ingredientOptionsBySlot: Object.fromEntries(
+            Array.from(
+              buildIngredientOptionsBySlot(
+                ingredientOptionsBySlotMap.get(key) || []
+              ).entries()
+            ).map(([slotLevel, options]) => [slotLevel, options])
+          ),
           mainSkills: skillMap.get(key) || [],
           evolution: (variantEvolvesFrom.length > 0 || variantEvolvesTo.length > 0) ? {
             evolves_from: variantEvolvesFrom,
@@ -1824,22 +1881,14 @@ app.post("/api/pokemon-box", async (req, res) => {
       "select last_insert_rowid() as id"
     );
     if (createdEntry) {
-      const ingredientSlotLevels = [1, 30, 60];
       const allowedRows = await dbAll(
-        `select ingredient_id
+        `select ingredient_id, unlock_level, quantity
          from pokemon_variant_ingredients
          where species_dex_no = ? and variant_key = ?
-         order by ingredient_id`,
+         order by unlock_level, ingredient_id`,
         [dexNo, vKey]
       );
-      const allowedIds = allowedRows.map((row) => row.ingredient_id);
-      const allowedSet = new Set(allowedIds);
-      const fallbackIngredientId = allowedIds[0] || null;
-      const defaultIngredientsBySlot = {
-        1: allowedIds[0] || null,
-        30: allowedIds[1] || fallbackIngredientId,
-        60: allowedIds[2] || fallbackIngredientId
-      };
+      const ingredientOptionsBySlot = buildIngredientOptionsBySlot(allowedRows);
       const normalizedSlots = Array.isArray(ingredientSlots)
         ? ingredientSlots
         : [];
@@ -1858,19 +1907,37 @@ app.post("/api/pokemon-box", async (req, res) => {
             : Number(ingredientIdRaw);
         if (
           ingredientId &&
-          !allowedSet.has(ingredientId)
+          !getIngredientOptionsForSlot(
+            ingredientOptionsBySlot,
+            slotLevel
+          ).some(
+            (option) => option.ingredient_id === ingredientId
+          )
         ) {
           res.status(400).json({
             error: `Ingredient not allowed for Lv ${slotLevel}`
           });
           return;
         }
+        const slotOptions = getIngredientOptionsForSlot(
+          ingredientOptionsBySlot,
+          slotLevel
+        );
+        const defaultOption = slotOptions[0] || null;
         const resolvedIngredientId =
-          ingredientId ?? defaultIngredientsBySlot[slotLevel] ?? null;
+          ingredientId ?? defaultOption?.ingredient_id ?? null;
         const quantityRaw = slotSelection?.quantity;
         let quantity = Number(quantityRaw);
         if (!Number.isFinite(quantity)) {
-          quantity = resolvedIngredientId ? 1 : 0;
+          quantity = resolvedIngredientId
+            ? (
+                slotOptions.find(
+                  (option) => option.ingredient_id === resolvedIngredientId
+                )?.quantity ||
+                defaultOption?.quantity ||
+                1
+              )
+            : 0;
         }
         if (
           resolvedIngredientId &&
@@ -2197,24 +2264,21 @@ const buildBoxDetailPayload = async (entryId) => {
   const ingredientOptionsRows = await dbAll(
     `select ingredients.id as ingredient_id,
             ingredients.name,
-            ingredients.image_path
+            ingredients.image_path,
+            pokemon_variant_ingredients.unlock_level as slot_level,
+            pokemon_variant_ingredients.quantity
      from pokemon_variant_ingredients
      join ingredients on ingredients.id = pokemon_variant_ingredients.ingredient_id
      where pokemon_variant_ingredients.species_dex_no = ?
        and pokemon_variant_ingredients.variant_key = ?
-     order by ingredients.name`,
+     order by pokemon_variant_ingredients.unlock_level, ingredients.name`,
     [entry.species_dex_no, entry.variant_key]
   );
-  const ingredientOptions = ingredientOptionsRows.map((row) => ({
-    id: row.ingredient_id,
-    name: row.name,
-    image_path: row.image_path
-  }));
-  const ingredientOptionsBySlot = {
-    1: ingredientOptions,
-    30: ingredientOptions,
-    60: ingredientOptions
-  };
+  const ingredientOptionsBySlot = Object.fromEntries(
+    Array.from(buildIngredientOptionsBySlot(ingredientOptionsRows).entries()).map(
+      ([slotLevel, options]) => [slotLevel, options]
+    )
+  );
   const unlockedSlots = [1, 30, 60].filter(
     (slot) => entry.level >= slot
   );
@@ -2326,14 +2390,22 @@ app.patch("/api/pokemon-box/:id/ingredients", async (req, res) => {
       return;
     }
     const allowedRows = await dbAll(
-      `select ingredient_id
+      `select ingredient_id, unlock_level, quantity
        from pokemon_variant_ingredients
        where species_dex_no = ? and variant_key = ?`,
       [entry.species_dex_no, entry.variant_key]
     );
-    const allowedSet = new Set(
-      allowedRows.map((row) => Number(row.ingredient_id))
-    );
+    const allowedBySlot = new Map();
+    const ingredientOptionsBySlot = buildIngredientOptionsBySlot(allowedRows);
+    ingredientSlotLevels.forEach((slotLevel) => {
+      const slotMap = new Map();
+      getIngredientOptionsForSlot(ingredientOptionsBySlot, slotLevel).forEach(
+        (option) => {
+          slotMap.set(Number(option.ingredient_id), Number(option.quantity) || 1);
+        }
+      );
+      allowedBySlot.set(String(slotLevel), slotMap);
+    });
     const allowedSlots = new Set(["1", "30", "60"]);
     for (const selection of payload) {
       const unlockLevel = String(
@@ -2351,7 +2423,9 @@ app.patch("/api/pokemon-box/:id/ingredients", async (req, res) => {
         ingredientIdRaw !== null &&
         ingredientIdRaw !== undefined &&
         ingredientIdRaw !== "" &&
-        !allowedSet.has(Number(ingredientIdRaw))
+        !((allowedBySlot.get(unlockLevel) || new Map()).has(
+          Number(ingredientIdRaw)
+        ))
       ) {
         res.status(400).json({
           error: `Ingredient not allowed for Lv ${unlockLevel}`
@@ -2374,7 +2448,11 @@ app.patch("/api/pokemon-box/:id/ingredients", async (req, res) => {
       const quantityRaw = selection.quantity;
       let quantity = Number(quantityRaw);
       if (!Number.isFinite(quantity)) {
-        quantity = ingredientId ? 1 : 0;
+        quantity = ingredientId
+          ? (allowedBySlot.get(String(unlockLevel)) || new Map()).get(
+              ingredientId
+            ) || 1
+          : 0;
       }
       if (ingredientId && (!Number.isInteger(quantity) || quantity < 1)) {
         res.status(400).json({
@@ -2993,7 +3071,9 @@ app.post("/api/teams/recommendation", async (req, res) => {
         .map((b) => ({ name: b.name, quantity: b.quantity }));
       const ingredients = ingredientRows
         .filter((i) => i.species_dex_no === variant.species_dex_no && i.variant_key === variant.variant_key)
-        .map((i) => ({ name: i.name }));
+        .map((i) => i.name)
+        .filter((name, index, list) => list.indexOf(name) === index)
+        .map((name) => ({ name }));
       const mainSkills = mainSkillRows.filter(
         (s) => s.species_dex_no === variant.species_dex_no && s.variant_key === variant.variant_key
       );

@@ -149,17 +149,29 @@ export async function seedPokemon(db, dbRun, dbGet) {
         }
       }
 
-      // Seed variant ingredients
-      for (const ingredient of variant.ingredients) {
-        const ingredientRow = await dbGet(
-          `SELECT id FROM ingredients WHERE name = ?`,
-          [ingredient.name]
-        );
-        if (ingredientRow) {
-          await dbRun(
-            `INSERT INTO pokemon_variant_ingredients (species_dex_no, variant_key, ingredient_id, unlock_level) VALUES (?, ?, ?, ?)`,
-            [species.dexNo, variant.key, ingredientRow.id, ingredient.unlockLevel]
+      // Seed slot-specific variant ingredient options
+      for (const [slotLevel, options] of Object.entries(
+        variant.ingredientOptions || {}
+      )) {
+        for (const ingredient of options) {
+          const ingredientRow = await dbGet(
+            `SELECT id FROM ingredients WHERE name = ?`,
+            [ingredient.name]
           );
+          if (ingredientRow) {
+            await dbRun(
+              `INSERT INTO pokemon_variant_ingredients
+               (species_dex_no, variant_key, ingredient_id, unlock_level, quantity)
+               VALUES (?, ?, ?, ?, ?)`,
+              [
+                species.dexNo,
+                variant.key,
+                ingredientRow.id,
+                Number(slotLevel),
+                Number(ingredient.quantity) || 1
+              ]
+            );
+          }
         }
       }
 

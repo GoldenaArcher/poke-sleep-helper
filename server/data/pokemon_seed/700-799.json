@@ -42,23 +42,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Plump Pumpkin",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Greengrass Soybeans",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Soft Potato",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Strength S",
           "detailImage": "710-small.png",
-          "shinyImage": "710-small-shiny.png"
+          "shinyImage": "710-small-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Plump Pumpkin",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Plump Pumpkin",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Plump Pumpkin",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ]
+          }
         },
         {
           "key": "medium",
@@ -80,23 +110,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Plump Pumpkin",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Greengrass Soybeans",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Soft Potato",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Strength S",
           "detailImage": "710-medium.png",
-          "shinyImage": "710-medium-shiny.png"
+          "shinyImage": "710-medium-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Plump Pumpkin",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Plump Pumpkin",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Plump Pumpkin",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ]
+          }
         },
         {
           "key": "large",
@@ -118,23 +178,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Plump Pumpkin",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Greengrass Soybeans",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Soft Potato",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Strength S",
           "detailImage": "710-large.png",
-          "shinyImage": "710-large-shiny.png"
+          "shinyImage": "710-large-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Plump Pumpkin",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Plump Pumpkin",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Plump Pumpkin",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ]
+          }
         },
         {
           "key": "jumbo",
@@ -156,23 +246,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Plump Pumpkin",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Greengrass Soybeans",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Soft Potato",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Strength S",
           "detailImage": "710-jumbo.png",
-          "shinyImage": "710-jumbo-shiny.png"
+          "shinyImage": "710-jumbo-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Plump Pumpkin",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Plump Pumpkin",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Plump Pumpkin",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -213,23 +333,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Honey",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Pure Oil",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Greengrass Corn",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Ingredient Draw S",
           "detailImage": "742-default.png",
-          "shinyImage": "742-default-shiny.png"
+          "shinyImage": "742-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Corn",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Corn",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Corn",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []

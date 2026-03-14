@@ -26,23 +26,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Honey",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Soft Potato",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Snoozy Tomato",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "1-default.png",
-          "shinyImage": "1-default-shiny.png"
+          "shinyImage": "1-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              },
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              },
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              },
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -83,23 +113,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Warming Ginger",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Fiery Herb",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "4-default.png",
-          "shinyImage": "4-default-shiny.png"
+          "shinyImage": "4-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -144,23 +204,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Warming Ginger",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Fiery Herb",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "5-default.png",
-          "shinyImage": "5-default-shiny.png"
+          "shinyImage": "5-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -197,23 +287,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Warming Ginger",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Fiery Herb",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "6-default.png",
-          "shinyImage": "6-default-shiny.png"
+          "shinyImage": "6-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -254,23 +374,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Moomoo Milk",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Soothing Cacao",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "7-default.png",
-          "shinyImage": "7-default-shiny.png"
+          "shinyImage": "7-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -315,23 +465,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Moomoo Milk",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Soothing Cacao",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "8-default.png",
-          "shinyImage": "8-default-shiny.png"
+          "shinyImage": "8-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -368,23 +548,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Moomoo Milk",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Soothing Cacao",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "9-default.png",
-          "shinyImage": "9-default-shiny.png"
+          "shinyImage": "9-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -425,23 +635,53 @@
               "quantity": 2
             }
           ],
-          "ingredients": [
-            {
-              "name": "Honey",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Snoozy Tomato",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Greengrass Soybeans",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "10-default.png",
-          "shinyImage": "10-default-shiny.png"
+          "shinyImage": "10-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -478,23 +718,53 @@
               "quantity": 2
             }
           ],
-          "ingredients": [
-            {
-              "name": "Honey",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Snoozy Tomato",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Greengrass Soybeans",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Ingredient Finder S",
           "detailImage": "11-default.png",
-          "shinyImage": "11-default-shiny.png"
+          "shinyImage": "11-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -535,23 +805,41 @@
               "quantity": 2
             }
           ],
-          "ingredients": [
-            {
-              "name": "Fancy Apple",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Greengrass Soybeans",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Energy S",
           "detailImage": "19-default.png",
-          "shinyImage": "19-default-shiny.png"
+          "shinyImage": "19-default-shiny.png",
+      "ingredientOptions": {
+        "1": [
+          {
+            "name": "Fancy Apple",
+            "quantity": 1
+          }
+        ],
+        "30": [
+          {
+            "name": "Fancy Apple",
+            "quantity": 2
+          },
+          {
+            "name": "Greengrass Soybeans",
+            "quantity": 2
+          }
+        ],
+        "60": [
+          {
+            "name": "Fancy Apple",
+            "quantity": 2
+          },
+          {
+            "name": "Greengrass Soybeans",
+            "quantity": 3
+          },
+          {
+            "name": "Bean Sausage",
+            "quantity": 3
+          }
+        ]
+      }
         }
       ],
       "subSkills": []
@@ -588,23 +876,41 @@
               "quantity": 2
             }
           ],
-          "ingredients": [
-            {
-              "name": "Fancy Apple",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Greengrass Soybeans",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Energy S",
           "detailImage": "20-default.png",
-          "shinyImage": "20-default-shiny.png"
+          "shinyImage": "20-default-shiny.png",
+      "ingredientOptions": {
+        "1": [
+          {
+            "name": "Fancy Apple",
+            "quantity": 1
+          }
+        ],
+        "30": [
+          {
+            "name": "Fancy Apple",
+            "quantity": 2
+          },
+          {
+            "name": "Greengrass Soybeans",
+            "quantity": 2
+          }
+        ],
+        "60": [
+          {
+            "name": "Fancy Apple",
+            "quantity": 2
+          },
+          {
+            "name": "Greengrass Soybeans",
+            "quantity": 3
+          },
+          {
+            "name": "Bean Sausage",
+            "quantity": 3
+          }
+        ]
+      }
         }
       ],
       "subSkills": []
@@ -635,23 +941,53 @@
               "quantity": 2
             }
           ],
-          "ingredients": [
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Fancy Egg",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Fiery Herb",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Energy S",
           "detailImage": "23-default.png",
-          "shinyImage": "23-default-shiny.png"
+          "shinyImage": "23-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Fancy Egg",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Fancy Egg",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Fancy Egg",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -700,23 +1036,37 @@
               "quantity": 2
             }
           ],
-          "ingredients": [
-            {
-              "name": "Fancy Apple",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Fancy Egg",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Warming Ginger",
-              "unlockLevel": 1
-            }
-          ],
-          "mainSkill": "Charge Strength S",
-          "detailImage": "25-default.png",
-          "shinyImage": "25-default-shiny.png"
+      "mainSkill": "Charge Strength S",
+      "detailImage": "25-default.png",
+      "shinyImage": "25-default-shiny.png",
+      "ingredientOptions": {
+        "1": [
+          {
+            "name": "Fancy Apple",
+            "quantity": 1
+          }
+        ],
+        "30": [
+          {
+            "name": "Fancy Apple",
+            "quantity": 1
+          },
+          {
+            "name": "Warming Ginger",
+            "quantity": 2
+          }
+        ],
+        "60": [
+          {
+            "name": "Fancy Apple",
+            "quantity": 1
+          },
+          {
+            "name": "Warming Ginger",
+            "quantity": 3
+          }
+        ]
+      }
         },
         {
           "key": "holiday",
@@ -738,23 +1088,37 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Fancy Apple",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Fancy Egg",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Warming Ginger",
-              "unlockLevel": 1
-            }
-          ],
-          "mainSkill": "Dream Shard Magnet S",
-          "detailImage": "25-holiday.png",
-          "shinyImage": "25-holiday-shiny.png"
+      "mainSkill": "Dream Shard Magnet S",
+      "detailImage": "25-holiday.png",
+      "shinyImage": "25-holiday-shiny.png",
+      "ingredientOptions": {
+        "1": [
+          {
+            "name": "Fancy Apple",
+            "quantity": 1
+          }
+        ],
+        "30": [
+          {
+            "name": "Fancy Apple",
+            "quantity": 1
+          },
+          {
+            "name": "Warming Ginger",
+            "quantity": 2
+          }
+        ],
+        "60": [
+          {
+            "name": "Fancy Apple",
+            "quantity": 1
+          },
+          {
+            "name": "Warming Ginger",
+            "quantity": 3
+          }
+        ]
+      }
         }
       ],
       "subSkills": []
@@ -791,23 +1155,41 @@
               "quantity": 2
             }
           ],
-          "ingredients": [
-            {
-              "name": "Fancy Apple",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Fancy Egg",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Warming Ginger",
-              "unlockLevel": 1
-            }
-          ],
-          "mainSkill": "Charge Strength S",
-          "detailImage": "26-default.png",
-          "shinyImage": "26-default-shiny.png"
+      "mainSkill": "Charge Strength S",
+      "detailImage": "26-default.png",
+      "shinyImage": "26-default-shiny.png",
+      "ingredientOptions": {
+        "1": [
+          {
+            "name": "Fancy Apple",
+            "quantity": 1
+          }
+        ],
+        "30": [
+          {
+            "name": "Fancy Apple",
+            "quantity": 2
+          },
+          {
+            "name": "Warming Ginger",
+            "quantity": 2
+          }
+        ],
+        "60": [
+          {
+            "name": "Fancy Apple",
+            "quantity": 4
+          },
+          {
+            "name": "Fancy Egg",
+            "quantity": 3
+          },
+          {
+            "name": "Warming Ginger",
+            "quantity": 1
+          }
+        ]
+      }
         }
       ],
       "subSkills": []
@@ -848,23 +1230,53 @@
               "quantity": 2
             }
           ],
-          "ingredients": [
-            {
-              "name": "Greengrass Soybeans",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Greengrass Corn",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Soft Potato",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Energizing Cheer S",
           "detailImage": "37-default.png",
-          "shinyImage": "37-default-shiny.png"
+          "shinyImage": "37-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Corn",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Corn",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Corn",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -901,23 +1313,53 @@
               "quantity": 2
             }
           ],
-          "ingredients": [
-            {
-              "name": "Greengrass Soybeans",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Greengrass Corn",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Soft Potato",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Energizing Cheer S",
           "detailImage": "38-default.png",
-          "shinyImage": "38-default-shiny.png"
+          "shinyImage": "38-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Corn",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Corn",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Corn",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -954,23 +1396,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Honey",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Pure Oil",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Soothing Cacao",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Energy for Everyone S",
           "detailImage": "39-default.png",
-          "shinyImage": "39-default-shiny.png"
+          "shinyImage": "39-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Honey",
+                "quantity": 1
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -1001,23 +1473,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Snoozy Tomato",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Large Leek",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Greengrass Soybeans",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Strength S",
           "detailImage": "50-default.png",
-          "shinyImage": "50-default-shiny.png"
+          "shinyImage": "50-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              },
+              {
+                "name": "Large Leek",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              },
+              {
+                "name": "Large Leek",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              },
+              {
+                "name": "Large Leek",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -1048,19 +1550,37 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Moomoo Milk",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Dream Shard Magnet S",
           "detailImage": "52-default.png",
-          "shinyImage": "52-default-shiny.png"
+          "shinyImage": "52-default-shiny.png",
+      "ingredientOptions": {
+        "1": [
+          {
+            "name": "Moomoo Milk",
+            "quantity": 1
+          }
+        ],
+        "30": [
+          {
+            "name": "Moomoo Milk",
+            "quantity": 1
+          },
+          {
+            "name": "Bean Sausage",
+            "quantity": 2
+          }
+        ],
+        "60": [
+          {
+            "name": "Moomoo Milk",
+            "quantity": 4
+          },
+          {
+            "name": "Bean Sausage",
+            "quantity": 2
+          }
+        ]
+      }
         }
       ],
       "subSkills": []
@@ -1102,23 +1622,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Soothing Cacao",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Fancy Apple",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Strength S",
           "detailImage": "54-default.png",
-          "shinyImage": "54-default-shiny.png"
+          "shinyImage": "54-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -1149,23 +1699,53 @@
               "quantity": 2
             }
           ],
-          "ingredients": [
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Tasty Mushroom",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Honey",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Strength S",
           "detailImage": "56-default.png",
-          "shinyImage": "56-default-shiny.png"
+          "shinyImage": "56-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              },
+              {
+                "name": "Honey",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              },
+              {
+                "name": "Honey",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              },
+              {
+                "name": "Honey",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -1210,23 +1790,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Fiery Herb",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Moomoo Milk",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Extra Helpful S",
           "detailImage": "58-default.png",
-          "shinyImage": "58-default-shiny.png"
+          "shinyImage": "58-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              },
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              },
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              },
+              {
+                "name": "Moomoo Milk",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -1257,23 +1867,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Snoozy Tomato",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Soft Potato",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Large Leek",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Ingredient Finder S",
           "detailImage": "69-default.png",
-          "shinyImage": "69-default-shiny.png"
+          "shinyImage": "69-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              },
+              {
+                "name": "Large Leek",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              },
+              {
+                "name": "Large Leek",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              },
+              {
+                "name": "Large Leek",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -1304,23 +1944,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Greengrass Soybeans",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Tasty Mushroom",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Soft Potato",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Strength S",
           "detailImage": "74-default.png",
-          "shinyImage": "74-default-shiny.png"
+          "shinyImage": "74-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -1351,23 +2021,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Soothing Cacao",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Slowpoke Tail",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Snoozy Tomato",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Energizing Cheer S",
           "detailImage": "79-default.png",
-          "shinyImage": "79-default-shiny.png"
+          "shinyImage": "79-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Slowpoke Tail",
+                "quantity": 1
+              },
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Slowpoke Tail",
+                "quantity": 1
+              },
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Slowpoke Tail",
+                "quantity": 1
+              },
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -1413,19 +2113,41 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Pure Oil",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Fiery Herb",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Cooking Power-Up S",
           "detailImage": "81-default.png",
-          "shinyImage": "81-default-shiny.png"
+          "shinyImage": "81-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -1456,23 +2178,53 @@
               "quantity": 2
             }
           ],
-          "ingredients": [
-            {
-              "name": "Greengrass Soybeans",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Soothing Cacao",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Energy S",
           "detailImage": "84-default.png",
-          "shinyImage": "84-default-shiny.png"
+          "shinyImage": "84-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -1514,23 +2266,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Fiery Herb",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Tasty Mushroom",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Pure Oil",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Strength S",
           "detailImage": "92-default.png",
-          "shinyImage": "92-default-shiny.png"
+          "shinyImage": "92-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Fiery Herb",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []

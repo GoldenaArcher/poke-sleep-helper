@@ -27,23 +27,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Greengrass Soybeans",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Tasty Mushroom",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Honey",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Dream Shard Magnet S",
           "detailImage": "316-default.png",
-          "shinyImage": "316-default-shiny.png"
+          "shinyImage": "316-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              },
+              {
+                "name": "Honey",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              },
+              {
+                "name": "Honey",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              },
+              {
+                "name": "Honey",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -84,23 +114,53 @@
               "quantity": 2
             }
           ],
-          "ingredients": [
-            {
-              "name": "Fancy Egg",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Greengrass Soybeans",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Fancy Apple",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Energy S",
           "detailImage": "333-default.png",
-          "shinyImage": "333-default-shiny.png"
+          "shinyImage": "333-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Fancy Egg",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Fancy Egg",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Fancy Egg",
+                "quantity": 1
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 1
+              },
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -131,23 +191,53 @@
               "quantity": 2
             }
           ],
-          "ingredients": [
-            {
-              "name": "Pure Oil",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Warming Ginger",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Tasty Mushroom",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Charge Strength S",
           "detailImage": "353-default.png",
-          "shinyImage": "353-default-shiny.png"
+          "shinyImage": "353-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -188,23 +278,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Fancy Apple",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Pure Oil",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Tasty Mushroom",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Energizing Cheer S",
           "detailImage": "360-default.png",
-          "shinyImage": "360-default-shiny.png"
+          "shinyImage": "360-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Tasty Mushroom",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []
@@ -236,23 +356,53 @@
               "quantity": 2
             }
           ],
-          "ingredients": [
-            {
-              "name": "Pure Oil",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Warming Ginger",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "363-default.png",
-          "shinyImage": "363-default-shiny.png"
+          "shinyImage": "363-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              }
+            ]
+          }
         },
         {
           "key": "holiday",
@@ -274,23 +424,53 @@
               "quantity": 1
             }
           ],
-          "ingredients": [
-            {
-              "name": "Pure Oil",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Bean Sausage",
-              "unlockLevel": 1
-            },
-            {
-              "name": "Warming Ginger",
-              "unlockLevel": 1
-            }
-          ],
           "mainSkill": "Tasty Chance S",
           "detailImage": "363-holiday.png",
-          "shinyImage": "363-holiday-shiny.png"
+          "shinyImage": "363-holiday-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 1
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              }
+            ]
+          }
         }
       ],
       "subSkills": []

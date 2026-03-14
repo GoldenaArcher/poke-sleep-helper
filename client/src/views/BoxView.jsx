@@ -133,6 +133,12 @@ const BoxView = () => {
     );
   }, [pokedex]);
   const slotLevels = [1, 30, 60];
+  const getOptionQuantity = (options, ingredientId) => {
+    const match = options.find(
+      (option) => String(option.id) === String(ingredientId)
+    );
+    return match?.quantity ? String(match.quantity) : "1";
+  };
   const filteredPokemonBox = useMemo(() => {
     const orGroups = searchQuery
       .split(/\s*\|\s*|\s+or\s+/i)
@@ -288,26 +294,30 @@ const BoxView = () => {
       setVariantIngredientOptions({});
       return;
     }
-    const optionMap = new Map();
-    (variant.ingredients || []).forEach((ingredient) => {
-      const detail = ingredientDetailByName.get(
-        String(ingredient.name || "").toLowerCase()
-      );
-      const ingredientId =
-        ingredient.id || ingredient.ingredient_id || detail?.id || "";
-      if (!ingredientId || optionMap.has(String(ingredientId))) {
-        return;
-      }
-      optionMap.set(String(ingredientId), {
-        id: ingredientId,
-        name: ingredient.name,
-        image_path: detail?.image_path
-      });
-    });
-    const optionsList = Array.from(optionMap.values());
     const optionsBySlot = {};
     slotLevels.forEach((level) => {
-      optionsBySlot[level] = optionsList;
+      const rawOptions =
+        variant.ingredientOptionsBySlot?.[String(level)] ||
+        variant.ingredientOptionsBySlot?.[level] ||
+        [];
+      const optionMap = new Map();
+      rawOptions.forEach((ingredient) => {
+        const detail = ingredientDetailByName.get(
+          String(ingredient.name || "").toLowerCase()
+        );
+        const ingredientId =
+          ingredient.id || ingredient.ingredient_id || detail?.id || "";
+        if (!ingredientId || optionMap.has(String(ingredientId))) {
+          return;
+        }
+        optionMap.set(String(ingredientId), {
+          id: ingredientId,
+          name: ingredient.name,
+          image_path: ingredient.image_path || detail?.image_path,
+          quantity: Number(ingredient.quantity) || 1
+        });
+      });
+      optionsBySlot[level] = Array.from(optionMap.values());
     });
     setVariantIngredientOptions(optionsBySlot);
     setIngredientSlots((prev) =>
@@ -318,14 +328,15 @@ const BoxView = () => {
         const isValid = options.some(
           (option) => String(option.id) === String(existingId)
         );
-        const slotIndex = slotLevels.indexOf(level);
-        const fallbackId =
-          options[slotIndex]?.id || options[0]?.id || "";
+        const fallbackId = options[0]?.id || "";
         const nextId = isValid ? existingId : fallbackId;
         return {
           slot_level: level,
           ingredient_id: nextId,
-          quantity: existing?.quantity || "1"
+          quantity:
+            nextId && (!isValid || !existing?.quantity)
+              ? getOptionQuantity(options, nextId)
+              : existing?.quantity || "1"
         };
       })
     );
@@ -872,7 +883,13 @@ const BoxView = () => {
                               entry.slot_level === level
                                 ? {
                                     ...entry,
-                                    ingredient_id: event.target.value
+                                    ingredient_id: event.target.value,
+                                    quantity: event.target.value
+                                      ? getOptionQuantity(
+                                          options,
+                                          event.target.value
+                                        )
+                                      : "1"
                                   }
                                 : entry
                             )
