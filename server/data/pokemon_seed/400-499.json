@@ -44,14 +44,6 @@
               {
                 "name": "Snoozy Tomato",
                 "quantity": 1
-              },
-              {
-                "name": "Tasty Mushroom",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 1
               }
             ],
             "30": [
@@ -60,26 +52,18 @@
                 "quantity": 1
               },
               {
-                "name": "Tasty Mushroom",
-                "quantity": 1
-              },
-              {
                 "name": "Greengrass Soybeans",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "60": [
               {
                 "name": "Snoozy Tomato",
-                "quantity": 1
-              },
-              {
-                "name": "Tasty Mushroom",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Greengrass Soybeans",
-                "quantity": 1
+                "quantity": 2
               }
             ]
           }
@@ -130,43 +114,31 @@
             "1": [
               {
                 "name": "Snoozy Tomato",
-                "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
-              },
-              {
-                "name": "Large Leek",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "30": [
               {
                 "name": "Snoozy Tomato",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Soft Potato",
-                "quantity": 1
-              },
-              {
-                "name": "Large Leek",
-                "quantity": 1
+                "quantity": 4
               }
             ],
             "60": [
               {
                 "name": "Snoozy Tomato",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Large Leek",
-                "quantity": 1
+                "quantity": 4
               }
             ]
           }
@@ -203,38 +175,38 @@
           "mainSkill": "Energy for Everyone S",
           "detailImage": "440-default.png",
           "shinyImage": "440-default-shiny.png",
-      "ingredientOptions": {
-        "1": [
-          {
-            "name": "Fancy Egg",
-            "quantity": 2
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Fancy Egg",
+                "quantity": 2
+              }
+            ],
+            "30": [
+              {
+                "name": "Fancy Egg",
+                "quantity": 5
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 4
+              }
+            ],
+            "60": [
+              {
+                "name": "Fancy Egg",
+                "quantity": 7
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 4
+              },
+              {
+                "name": "Honey",
+                "quantity": 8
+              }
+            ]
           }
-        ],
-        "30": [
-          {
-            "name": "Fancy Egg",
-            "quantity": 5
-          },
-          {
-            "name": "Soft Potato",
-            "quantity": 4
-          }
-        ],
-        "60": [
-          {
-            "name": "Fancy Egg",
-            "quantity": 7
-          },
-          {
-            "name": "Soft Potato",
-            "quantity": 4
-          },
-          {
-            "name": "Honey",
-            "quantity": 8
-          }
-        ]
-      }
         }
       ],
       "subSkills": []
@@ -273,14 +245,6 @@
               {
                 "name": "Pure Oil",
                 "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
-              },
-              {
-                "name": "Fancy Egg",
-                "quantity": 1
               }
             ],
             "30": [
@@ -290,11 +254,7 @@
               },
               {
                 "name": "Soft Potato",
-                "quantity": 1
-              },
-              {
-                "name": "Fancy Egg",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "60": [
@@ -304,11 +264,11 @@
               },
               {
                 "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Fancy Egg",
-                "quantity": 1
+                "quantity": 4
               }
             ]
           }
@@ -359,31 +319,27 @@
             "1": [
               {
                 "name": "Pure Oil",
-                "quantity": 1
-              },
-              {
-                "name": "Bean Sausage",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "30": [
               {
                 "name": "Pure Oil",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Bean Sausage",
-                "quantity": 1
+                "quantity": 5
               }
             ],
             "60": [
               {
                 "name": "Pure Oil",
-                "quantity": 1
+                "quantity": 7
               },
               {
                 "name": "Bean Sausage",
-                "quantity": 1
+                "quantity": 8
               }
             ]
           }
@@ -430,31 +386,27 @@
             "1": [
               {
                 "name": "Pure Oil",
-                "quantity": 1
-              },
-              {
-                "name": "Bean Sausage",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "30": [
               {
                 "name": "Pure Oil",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Bean Sausage",
-                "quantity": 1
+                "quantity": 5
               }
             ],
             "60": [
               {
                 "name": "Pure Oil",
-                "quantity": 1
+                "quantity": 7
               },
               {
                 "name": "Bean Sausage",
-                "quantity": 1
+                "quantity": 8
               }
             ]
           }

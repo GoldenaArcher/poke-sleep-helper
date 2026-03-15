@@ -44,14 +44,6 @@
               {
                 "name": "Moomoo Milk",
                 "quantity": 1
-              },
-              {
-                "name": "Honey",
-                "quantity": 1
-              },
-              {
-                "name": "Rousing Coffee",
-                "quantity": 1
               }
             ],
             "30": [
@@ -61,11 +53,7 @@
               },
               {
                 "name": "Honey",
-                "quantity": 1
-              },
-              {
-                "name": "Rousing Coffee",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "60": [
@@ -75,11 +63,11 @@
               },
               {
                 "name": "Honey",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Rousing Coffee",
-                "quantity": 1
+                "quantity": 2
               }
             ]
           }

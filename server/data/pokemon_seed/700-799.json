@@ -49,43 +49,19 @@
             "1": [
               {
                 "name": "Plump Pumpkin",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "30": [
               {
                 "name": "Plump Pumpkin",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 5
               }
             ],
             "60": [
               {
                 "name": "Plump Pumpkin",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 15
               }
             ]
           }
@@ -117,43 +93,19 @@
             "1": [
               {
                 "name": "Plump Pumpkin",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "30": [
               {
                 "name": "Plump Pumpkin",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 5
               }
             ],
             "60": [
               {
                 "name": "Plump Pumpkin",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 15
               }
             ]
           }
@@ -185,43 +137,19 @@
             "1": [
               {
                 "name": "Plump Pumpkin",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "30": [
               {
                 "name": "Plump Pumpkin",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 5
               }
             ],
             "60": [
               {
                 "name": "Plump Pumpkin",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 15
               }
             ]
           }
@@ -253,43 +181,19 @@
             "1": [
               {
                 "name": "Plump Pumpkin",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "30": [
               {
                 "name": "Plump Pumpkin",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 5
               }
             ],
             "60": [
               {
                 "name": "Plump Pumpkin",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 15
               }
             ]
           }
@@ -340,43 +244,31 @@
             "1": [
               {
                 "name": "Honey",
-                "quantity": 1
-              },
-              {
-                "name": "Pure Oil",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Corn",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "30": [
               {
                 "name": "Honey",
-                "quantity": 1
+                "quantity": 5
               },
               {
                 "name": "Pure Oil",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Corn",
-                "quantity": 1
+                "quantity": 4
               }
             ],
             "60": [
               {
                 "name": "Honey",
-                "quantity": 1
+                "quantity": 7
               },
               {
                 "name": "Pure Oil",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Greengrass Corn",
-                "quantity": 1
+                "quantity": 5
               }
             ]
           }

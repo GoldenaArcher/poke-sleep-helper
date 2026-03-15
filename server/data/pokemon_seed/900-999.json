@@ -33,43 +33,27 @@
             "1": [
               {
                 "name": "Soft Potato",
-                "quantity": 1
-              },
-              {
-                "name": "Moomoo Milk",
-                "quantity": 1
-              },
-              {
-                "name": "Warming Ginger",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "30": [
               {
                 "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Moomoo Milk",
-                "quantity": 1
-              },
-              {
-                "name": "Warming Ginger",
-                "quantity": 1
+                "quantity": 6
               }
             ],
             "60": [
               {
                 "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Moomoo Milk",
-                "quantity": 1
-              },
-              {
-                "name": "Warming Ginger",
-                "quantity": 1
+                "quantity": 9
               }
             ]
           }
@@ -120,43 +104,27 @@
             "1": [
               {
                 "name": "Fancy Apple",
-                "quantity": 1
-              },
-              {
-                "name": "Bean Sausage",
-                "quantity": 1
-              },
-              {
-                "name": "Fiery Herb",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "30": [
               {
                 "name": "Fancy Apple",
-                "quantity": 1
+                "quantity": 5
               },
               {
                 "name": "Bean Sausage",
-                "quantity": 1
-              },
-              {
-                "name": "Fiery Herb",
-                "quantity": 1
+                "quantity": 4
               }
             ],
             "60": [
               {
                 "name": "Fancy Apple",
-                "quantity": 1
+                "quantity": 7
               },
               {
                 "name": "Bean Sausage",
-                "quantity": 1
-              },
-              {
-                "name": "Fiery Herb",
-                "quantity": 1
+                "quantity": 6
               }
             ]
           }
@@ -207,43 +175,31 @@
             "1": [
               {
                 "name": "Greengrass Soybeans",
-                "quantity": 1
-              },
-              {
-                "name": "Large Leek",
-                "quantity": 1
-              },
-              {
-                "name": "Pure Oil",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "30": [
               {
                 "name": "Greengrass Soybeans",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Large Leek",
-                "quantity": 1
-              },
-              {
-                "name": "Pure Oil",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "60": [
               {
                 "name": "Greengrass Soybeans",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Large Leek",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Pure Oil",
-                "quantity": 1
+                "quantity": 6
               }
             ]
           }
@@ -284,43 +240,19 @@
             "1": [
               {
                 "name": "Soft Potato",
-                "quantity": 1
-              },
-              {
-                "name": "Bean Sausage",
-                "quantity": 1
-              },
-              {
-                "name": "Plump Pumpkin",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "30": [
               {
                 "name": "Soft Potato",
-                "quantity": 1
-              },
-              {
-                "name": "Bean Sausage",
-                "quantity": 1
-              },
-              {
-                "name": "Plump Pumpkin",
-                "quantity": 1
+                "quantity": 5
               }
             ],
             "60": [
               {
                 "name": "Soft Potato",
-                "quantity": 1
-              },
-              {
-                "name": "Bean Sausage",
-                "quantity": 1
-              },
-              {
-                "name": "Plump Pumpkin",
-                "quantity": 1
+                "quantity": 7
               }
             ]
           }

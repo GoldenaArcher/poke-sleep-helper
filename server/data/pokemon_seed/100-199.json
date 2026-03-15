@@ -34,10 +34,6 @@
               {
                 "name": "Warming Ginger",
                 "quantity": 1
-              },
-              {
-                "name": "Soothing Cacao",
-                "quantity": 1
               }
             ],
             "30": [
@@ -47,7 +43,7 @@
               },
               {
                 "name": "Soothing Cacao",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "60": [
@@ -57,7 +53,7 @@
               },
               {
                 "name": "Soothing Cacao",
-                "quantity": 1
+                "quantity": 3
               }
             ]
           }
@@ -98,43 +94,31 @@
             "1": [
               {
                 "name": "Honey",
-                "quantity": 1
-              },
-              {
-                "name": "Fancy Apple",
-                "quantity": 1
-              },
-              {
-                "name": "Bean Sausage",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "30": [
               {
                 "name": "Honey",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Fancy Apple",
-                "quantity": 1
-              },
-              {
-                "name": "Bean Sausage",
-                "quantity": 1
+                "quantity": 5
               }
             ],
             "60": [
               {
                 "name": "Honey",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Fancy Apple",
-                "quantity": 1
+                "quantity": 5
               },
               {
                 "name": "Bean Sausage",
-                "quantity": 1
+                "quantity": 7
               }
             ]
           }
@@ -286,42 +270,30 @@
               {
                 "name": "Soothing Cacao",
                 "quantity": 1
-              },
-              {
-                "name": "Honey",
-                "quantity": 1
-              },
-              {
-                "name": "Large Leek",
-                "quantity": 1
               }
             ],
             "30": [
               {
                 "name": "Soothing Cacao",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Honey",
-                "quantity": 1
-              },
-              {
-                "name": "Large Leek",
-                "quantity": 1
+                "quantity": 3
               }
             ],
             "60": [
               {
                 "name": "Soothing Cacao",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Honey",
-                "quantity": 1
+                "quantity": 5
               },
               {
                 "name": "Large Leek",
-                "quantity": 1
+                "quantity": 3
               }
             ]
           }
@@ -374,14 +346,6 @@
               {
                 "name": "Warming Ginger",
                 "quantity": 1
-              },
-              {
-                "name": "Fiery Herb",
-                "quantity": 1
-              },
-              {
-                "name": "Pure Oil",
-                "quantity": 1
               }
             ],
             "30": [
@@ -391,11 +355,7 @@
               },
               {
                 "name": "Fiery Herb",
-                "quantity": 1
-              },
-              {
-                "name": "Pure Oil",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "60": [
@@ -405,11 +365,7 @@
               },
               {
                 "name": "Fiery Herb",
-                "quantity": 1
-              },
-              {
-                "name": "Pure Oil",
-                "quantity": 1
+                "quantity": 3
               }
             ]
           }
@@ -514,41 +470,41 @@
               "quantity": 2
             }
           ],
-      "mainSkill": "Charge Strength S",
-      "detailImage": "172-default.png",
-      "shinyImage": "172-default-shiny.png",
-      "ingredientOptions": {
-        "1": [
-          {
-            "name": "Fancy Apple",
-            "quantity": 1
+          "mainSkill": "Charge Strength S",
+          "detailImage": "172-default.png",
+          "shinyImage": "172-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Fancy Apple",
+                "quantity": 2
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 2
+              }
+            ],
+            "60": [
+              {
+                "name": "Fancy Apple",
+                "quantity": 4
+              },
+              {
+                "name": "Fancy Egg",
+                "quantity": 3
+              },
+              {
+                "name": "Warming Ginger",
+                "quantity": 1
+              }
+            ]
           }
-        ],
-        "30": [
-          {
-            "name": "Fancy Apple",
-            "quantity": 2
-          },
-          {
-            "name": "Warming Ginger",
-            "quantity": 2
-          }
-        ],
-        "60": [
-          {
-            "name": "Fancy Apple",
-            "quantity": 4
-          },
-          {
-            "name": "Fancy Egg",
-            "quantity": 3
-          },
-          {
-            "name": "Warming Ginger",
-            "quantity": 1
-          }
-        ]
-      }
         }
       ],
       "subSkills": []
@@ -597,14 +553,6 @@
               {
                 "name": "Honey",
                 "quantity": 1
-              },
-              {
-                "name": "Pure Oil",
-                "quantity": 1
-              },
-              {
-                "name": "Soothing Cacao",
-                "quantity": 1
               }
             ],
             "30": [
@@ -614,25 +562,21 @@
               },
               {
                 "name": "Pure Oil",
-                "quantity": 1
-              },
-              {
-                "name": "Soothing Cacao",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "60": [
               {
                 "name": "Honey",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Pure Oil",
-                "quantity": 1
+                "quantity": 3
               },
               {
                 "name": "Soothing Cacao",
-                "quantity": 1
+                "quantity": 2
               }
             ]
           }
@@ -684,14 +628,6 @@
               {
                 "name": "Fancy Egg",
                 "quantity": 1
-              },
-              {
-                "name": "Warming Ginger",
-                "quantity": 1
-              },
-              {
-                "name": "Soothing Cacao",
-                "quantity": 1
               }
             ],
             "30": [
@@ -701,11 +637,7 @@
               },
               {
                 "name": "Warming Ginger",
-                "quantity": 1
-              },
-              {
-                "name": "Soothing Cacao",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "60": [
@@ -715,11 +647,11 @@
               },
               {
                 "name": "Warming Ginger",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Soothing Cacao",
-                "quantity": 1
+                "quantity": 3
               }
             ]
           }
@@ -767,14 +699,6 @@
               {
                 "name": "Fancy Egg",
                 "quantity": 1
-              },
-              {
-                "name": "Warming Ginger",
-                "quantity": 1
-              },
-              {
-                "name": "Soothing Cacao",
-                "quantity": 1
               }
             ],
             "30": [
@@ -784,11 +708,7 @@
               },
               {
                 "name": "Warming Ginger",
-                "quantity": 1
-              },
-              {
-                "name": "Soothing Cacao",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "60": [
@@ -798,11 +718,11 @@
               },
               {
                 "name": "Warming Ginger",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Soothing Cacao",
-                "quantity": 1
+                "quantity": 3
               }
             ]
           }
@@ -844,10 +764,6 @@
               {
                 "name": "Fiery Herb",
                 "quantity": 1
-              },
-              {
-                "name": "Fancy Egg",
-                "quantity": 1
               }
             ],
             "30": [
@@ -857,17 +773,17 @@
               },
               {
                 "name": "Fancy Egg",
-                "quantity": 1
+                "quantity": 3
               }
             ],
             "60": [
               {
                 "name": "Fiery Herb",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Fancy Egg",
-                "quantity": 1
+                "quantity": 3
               }
             ]
           }
@@ -915,14 +831,6 @@
               {
                 "name": "Snoozy Tomato",
                 "quantity": 1
-              },
-              {
-                "name": "Tasty Mushroom",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 1
               }
             ],
             "30": [
@@ -931,26 +839,18 @@
                 "quantity": 1
               },
               {
-                "name": "Tasty Mushroom",
-                "quantity": 1
-              },
-              {
                 "name": "Greengrass Soybeans",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "60": [
               {
                 "name": "Snoozy Tomato",
-                "quantity": 1
-              },
-              {
-                "name": "Tasty Mushroom",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Greengrass Soybeans",
-                "quantity": 1
+                "quantity": 2
               }
             ]
           }
@@ -991,43 +891,27 @@
             "1": [
               {
                 "name": "Soothing Cacao",
-                "quantity": 1
-              },
-              {
-                "name": "Rousing Coffee",
-                "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "30": [
               {
                 "name": "Soothing Cacao",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Rousing Coffee",
-                "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 4
               }
             ],
             "60": [
               {
                 "name": "Soothing Cacao",
-                "quantity": 1
+                "quantity": 7
               },
               {
                 "name": "Rousing Coffee",
-                "quantity": 1
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 1
+                "quantity": 4
               }
             ]
           }

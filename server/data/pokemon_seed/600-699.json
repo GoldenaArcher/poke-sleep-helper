@@ -34,42 +34,22 @@
               {
                 "name": "Bean Sausage",
                 "quantity": 1
-              },
-              {
-                "name": "Greengrass Corn",
-                "quantity": 1
-              },
-              {
-                "name": "Rousing Coffee",
-                "quantity": 1
               }
             ],
             "30": [
               {
                 "name": "Bean Sausage",
-                "quantity": 1
-              },
-              {
-                "name": "Greengrass Corn",
-                "quantity": 1
-              },
-              {
-                "name": "Rousing Coffee",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "60": [
               {
                 "name": "Bean Sausage",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Greengrass Corn",
-                "quantity": 1
-              },
-              {
-                "name": "Rousing Coffee",
-                "quantity": 1
+                "quantity": 3
               }
             ]
           }

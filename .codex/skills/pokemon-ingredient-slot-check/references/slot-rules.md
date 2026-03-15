@@ -4,7 +4,18 @@
 - Each variant should use `ingredientOptions` with `"1"`, `"30"`, and `"60"` keys.
 - Slot 30 must include all slot 1 ingredient names.
 - Slot 60 must include all slot 1 and slot 30 ingredient names.
+- A variant has a complete ingredient list when:
+  - slot 1 has exactly 1 ingredient
+  - slot 30 has exactly 2 ingredients
+  - slot 60 has exactly 3 ingredients
+  - if an ingredient appears in a later slot and the earlier slot, the later-slot quantity must be greater
 - When a higher-slot quantity is not confirmed yet, keep the inherited ingredient with a placeholder quantity instead of removing it.
+- If the user omits an ingredient quantity, treat it as `x1`.
+- Ingredient names may be provided in repo-specific shorthand:
+  - resolve common abbreviations such as `hb`, `hn`, `eg`, `ol`, `sb`, `gg`, `ppk`, `mrm`
+  - allow compressed forms that drop vowels or repeated letters, such as `ssg`, `msrm`, `cc`, `gg`, `tmt`
+  - only resolve shorthand when there is one clear ingredient match; otherwise flag the ambiguity
 - After changing slot data, run:
   - `python3 .codex/skills/pokemon-ingredient-slot-check/scripts/check_pokemon_ingredient_slots.py [dexNo ...]`
   - `npm run test --workspace server`
+- The checker's `COMPLETE` or `INCOMPLETE` output is informational; only structural validation failures exit non-zero.

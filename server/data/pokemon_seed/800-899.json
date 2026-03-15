@@ -43,14 +43,6 @@
               {
                 "name": "Moomoo Milk",
                 "quantity": 1
-              },
-              {
-                "name": "Fancy Apple",
-                "quantity": 1
-              },
-              {
-                "name": "Large Leek",
-                "quantity": 1
               }
             ],
             "30": [
@@ -60,11 +52,7 @@
               },
               {
                 "name": "Fancy Apple",
-                "quantity": 1
-              },
-              {
-                "name": "Large Leek",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "60": [
@@ -74,11 +62,7 @@
               },
               {
                 "name": "Fancy Apple",
-                "quantity": 1
-              },
-              {
-                "name": "Large Leek",
-                "quantity": 1
+                "quantity": 4
               }
             ]
           }
