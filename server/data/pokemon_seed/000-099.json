@@ -105,17 +105,17 @@
                 "quantity": 5
               },
               {
-                "name": "Greengrass Soybeans",
+                "name": "Warming Ginger",
                 "quantity": 4
               }
             ],
             "60": [
               {
                 "name": "Bean Sausage",
-                "quantity": 5
+                "quantity": 7
               },
               {
-                "name": "Greengrass Soybeans",
+                "name": "Warming Ginger",
                 "quantity": 4
               },
               {
@@ -171,29 +171,8 @@
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "5-default.png",
           "shinyImage": "5-default-shiny.png",
-          "ingredientOptions": {
-            "1": [
-              {
-                "name": "Bean Sausage",
-                "quantity": 2
-              }
-            ],
-            "30": [
-              {
-                "name": "Bean Sausage",
-                "quantity": 5
-              }
-            ],
-            "60": [
-              {
-                "name": "Bean Sausage",
-                "quantity": 5
-              },
-              {
-                "name": "Fiery Herb",
-                "quantity": 6
-              }
-            ]
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 4
           }
         }
       ],
@@ -234,29 +213,8 @@
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "6-default.png",
           "shinyImage": "6-default-shiny.png",
-          "ingredientOptions": {
-            "1": [
-              {
-                "name": "Bean Sausage",
-                "quantity": 2
-              }
-            ],
-            "30": [
-              {
-                "name": "Bean Sausage",
-                "quantity": 5
-              }
-            ],
-            "60": [
-              {
-                "name": "Bean Sausage",
-                "quantity": 5
-              },
-              {
-                "name": "Fiery Herb",
-                "quantity": 6
-              }
-            ]
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 5
           }
         }
       ],
@@ -376,33 +334,8 @@
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "8-default.png",
           "shinyImage": "8-default-shiny.png",
-          "ingredientOptions": {
-            "1": [
-              {
-                "name": "Moomoo Milk",
-                "quantity": 2
-              }
-            ],
-            "30": [
-              {
-                "name": "Moomoo Milk",
-                "quantity": 5
-              },
-              {
-                "name": "Soothing Cacao",
-                "quantity": 3
-              }
-            ],
-            "60": [
-              {
-                "name": "Moomoo Milk",
-                "quantity": 7
-              },
-              {
-                "name": "Soothing Cacao",
-                "quantity": 5
-              }
-            ]
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 7
           }
         }
       ],
@@ -443,33 +376,8 @@
           "mainSkill": "Ingredient Magnet S",
           "detailImage": "9-default.png",
           "shinyImage": "9-default-shiny.png",
-          "ingredientOptions": {
-            "1": [
-              {
-                "name": "Moomoo Milk",
-                "quantity": 2
-              }
-            ],
-            "30": [
-              {
-                "name": "Moomoo Milk",
-                "quantity": 5
-              },
-              {
-                "name": "Soothing Cacao",
-                "quantity": 3
-              }
-            ],
-            "60": [
-              {
-                "name": "Moomoo Milk",
-                "quantity": 7
-              },
-              {
-                "name": "Soothing Cacao",
-                "quantity": 5
-              }
-            ]
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 7
           }
         }
       ],
@@ -581,33 +489,8 @@
           "mainSkill": "Ingredient Finder S",
           "detailImage": "11-default.png",
           "shinyImage": "11-default-shiny.png",
-          "ingredientOptions": {
-            "1": [
-              {
-                "name": "Honey",
-                "quantity": 1
-              }
-            ],
-            "30": [
-              {
-                "name": "Honey",
-                "quantity": 2
-              }
-            ],
-            "60": [
-              {
-                "name": "Honey",
-                "quantity": 2
-              },
-              {
-                "name": "Snoozy Tomato",
-                "quantity": 3
-              },
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 4
-              }
-            ]
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 10
           }
         }
       ],
@@ -723,38 +606,9 @@
           "mainSkill": "Charge Energy S",
           "detailImage": "20-default.png",
           "shinyImage": "20-default-shiny.png",
-      "ingredientOptions": {
-        "1": [
-          {
-            "name": "Fancy Apple",
-            "quantity": 1
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 19
           }
-        ],
-        "30": [
-          {
-            "name": "Fancy Apple",
-            "quantity": 2
-          },
-          {
-            "name": "Greengrass Soybeans",
-            "quantity": 2
-          }
-        ],
-        "60": [
-          {
-            "name": "Fancy Apple",
-            "quantity": 2
-          },
-          {
-            "name": "Greengrass Soybeans",
-            "quantity": 3
-          },
-          {
-            "name": "Bean Sausage",
-            "quantity": 3
-          }
-        ]
-      }
         }
       ],
       "subSkills": []
@@ -991,41 +845,12 @@
               "quantity": 2
             }
           ],
-      "mainSkill": "Charge Strength S",
-      "detailImage": "26-default.png",
-      "shinyImage": "26-default-shiny.png",
-      "ingredientOptions": {
-        "1": [
-          {
-            "name": "Fancy Apple",
-            "quantity": 1
+          "mainSkill": "Charge Strength S",
+          "detailImage": "26-default.png",
+          "shinyImage": "26-default-shiny.png",
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 25
           }
-        ],
-        "30": [
-          {
-            "name": "Fancy Apple",
-            "quantity": 2
-          },
-          {
-            "name": "Warming Ginger",
-            "quantity": 2
-          }
-        ],
-        "60": [
-          {
-            "name": "Fancy Apple",
-            "quantity": 4
-          },
-          {
-            "name": "Fancy Egg",
-            "quantity": 3
-          },
-          {
-            "name": "Warming Ginger",
-            "quantity": 1
-          }
-        ]
-      }
         }
       ],
       "subSkills": []
@@ -1140,37 +965,8 @@
           "mainSkill": "Energizing Cheer S",
           "detailImage": "38-default.png",
           "shinyImage": "38-default-shiny.png",
-          "ingredientOptions": {
-            "1": [
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 1
-              }
-            ],
-            "30": [
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 2
-              },
-              {
-                "name": "Greengrass Corn",
-                "quantity": 2
-              }
-            ],
-            "60": [
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 4
-              },
-              {
-                "name": "Greengrass Corn",
-                "quantity": 2
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 3
-              }
-            ]
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 37
           }
         }
       ],
@@ -1768,37 +1564,8 @@
           "mainSkill": "Charge Strength S",
           "detailImage": "75-default.png",
           "shinyImage": "75-default-shiny.png",
-          "ingredientOptions": {
-            "1": [
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 2
-              }
-            ],
-            "30": [
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 5
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 4
-              }
-            ],
-            "60": [
-              {
-                "name": "Greengrass Soybeans",
-                "quantity": 7
-              },
-              {
-                "name": "Tasty Mushroom",
-                "quantity": 4
-              },
-              {
-                "name": "Soft Potato",
-                "quantity": 6
-              }
-            ]
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 74
           }
         }
       ],

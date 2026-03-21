@@ -12,8 +12,10 @@
 - When a higher-slot quantity is not confirmed yet, keep the inherited ingredient with a placeholder quantity instead of removing it.
 - If the user omits an ingredient quantity, treat it as `x1`.
 - Ingredient names may be provided in repo-specific shorthand:
-  - resolve common abbreviations such as `hb`, `hn`, `eg`, `ol`, `sb`, `gg`, `ppk`, `mrm`
-  - allow compressed forms that drop vowels or repeated letters, such as `ssg`, `msrm`, `cc`, `gg`, `tmt`
+  - prefer the ingredient's biological or meaningful noun over decorative prefixes such as `Greengrass`, `Soothing`, `Fancy`, `Snoozy`, or `Rousing`
+  - resolve common abbreviations such as `hb`, `hn`, `eg`, `ol`, `sb`, `ppk`, `mrm`
+  - allow compressed forms that drop vowels or repeated letters, such as `ssg`, `msrm`, `cc`, `tmt`
+  - treat `gg` as `Warming Ginger`, not `Greengrass Soybeans`
   - only resolve shorthand when there is one clear ingredient match; otherwise flag the ambiguity
 - After changing slot data, run:
   - `python3 .codex/skills/pokemon-ingredient-slot-check/scripts/check_pokemon_ingredient_slots.py [dexNo ...]`

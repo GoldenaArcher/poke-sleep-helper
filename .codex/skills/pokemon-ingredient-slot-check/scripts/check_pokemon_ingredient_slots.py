@@ -19,6 +19,19 @@ def load_seed_files(seed_dir: Path):
     return payloads
 
 
+def clone_ingredient_options(ingredient_options):
+    return {
+        slot: [
+            {
+                "name": option["name"],
+                "quantity": option["quantity"],
+            }
+            for option in ingredient_options.get(slot, [])
+        ]
+        for slot in EXPECTED_SLOTS
+    }
+
+
 def validate_option(option, context, errors):
     if not isinstance(option, dict):
         errors.append(f"{context}: ingredient option must be an object")
@@ -79,7 +92,107 @@ def evaluate_completeness(slot_options):
     return len(reasons) == 0, reasons
 
 
-def validate_species(species, source_file: Path, errors, target_dex_nos, completeness_results):
+def parse_inheritance_reference(reference, context, errors):
+    if isinstance(reference, int):
+        return (reference, "default")
+    if not isinstance(reference, dict):
+        errors.append(
+            f"{context}: inheritIngredientOptionsFrom must be an object or integer dexNo"
+        )
+        return None
+    dex_no = reference.get("dexNo")
+    if not isinstance(dex_no, int):
+        errors.append(f"{context}: inheritIngredientOptionsFrom.dexNo must be an integer")
+        return None
+    variant_key = reference.get("variantKey")
+    if variant_key is None:
+        variant_key = "default"
+    elif not isinstance(variant_key, str) or not variant_key.strip():
+        errors.append(
+            f"{context}: inheritIngredientOptionsFrom.variantKey must be a non-empty string"
+        )
+        return None
+    return (dex_no, variant_key)
+
+
+def build_variant_index(payloads):
+    variant_index = {}
+    for source_file, payload in payloads:
+        species_list = payload.get("species", [])
+        if not isinstance(species_list, list):
+            continue
+        for species in species_list:
+            dex_no = species.get("dexNo")
+            species_name = species.get("name", f"dex {dex_no}")
+            for variant in species.get("variants", []):
+                variant_key = variant.get("key")
+                if not isinstance(variant_key, str):
+                    continue
+                variant_index[(dex_no, variant_key)] = {
+                    "source_file": source_file,
+                    "species": species,
+                    "species_name": species_name,
+                    "variant": variant,
+                    "variant_name": variant.get("name") or variant_key,
+                }
+    return variant_index
+
+
+def resolve_variant_ingredient_options(variant_record, variant_index, errors, resolving):
+    variant = variant_record["variant"]
+    ingredient_options = variant.get("ingredientOptions")
+    if isinstance(ingredient_options, dict):
+        return ingredient_options
+
+    inherit_reference = variant.get("inheritIngredientOptionsFrom")
+    context = (
+        f"{variant_record['source_file'].name} :: "
+        f"{variant_record['species_name']} [{variant_record['variant_name']}]"
+    )
+    parsed_reference = parse_inheritance_reference(
+        inherit_reference,
+        f"{context}",
+        errors,
+    )
+    if parsed_reference is None:
+        return None
+
+    resolution_key = (variant_record["species"].get("dexNo"), variant.get("key"))
+    if resolution_key in resolving:
+        errors.append(f"{context}: cyclic ingredient inheritance detected")
+        return None
+
+    target_record = variant_index.get(parsed_reference)
+    if target_record is None:
+        errors.append(
+            f"{context}: inherits ingredientOptions from missing dexNo {parsed_reference[0]} variant \"{parsed_reference[1]}\""
+        )
+        return None
+
+    resolving.add(resolution_key)
+    resolved = resolve_variant_ingredient_options(
+        target_record,
+        variant_index,
+        errors,
+        resolving,
+    )
+    resolving.remove(resolution_key)
+    if resolved is None:
+        return None
+
+    normalized = clone_ingredient_options(resolved)
+    variant["ingredientOptions"] = normalized
+    return normalized
+
+
+def validate_species(
+    species,
+    source_file: Path,
+    errors,
+    target_dex_nos,
+    completeness_results,
+    variant_index,
+):
     dex_no = species.get("dexNo")
     if target_dex_nos and dex_no not in target_dex_nos:
         return
@@ -88,7 +201,18 @@ def validate_species(species, source_file: Path, errors, target_dex_nos, complet
     for variant in species.get("variants", []):
         variant_name = variant.get("name") or variant.get("key") or "unknown"
         context_base = f"{source_file.name} :: {species_name} [{variant_name}]"
-        ingredient_options = variant.get("ingredientOptions")
+        ingredient_options = resolve_variant_ingredient_options(
+            {
+                "source_file": source_file,
+                "species": species,
+                "species_name": species_name,
+                "variant": variant,
+                "variant_name": variant_name,
+            },
+            variant_index,
+            errors,
+            set(),
+        )
         if not isinstance(ingredient_options, dict):
             errors.append(f"{context_base}: missing ingredientOptions")
             continue
@@ -160,14 +284,23 @@ def main():
     target_dex_nos = parse_target_dex_nos(sys.argv[1:])
     errors = []
     completeness_results = []
+    payloads = load_seed_files(seed_dir)
+    variant_index = build_variant_index(payloads)
 
-    for source_file, payload in load_seed_files(seed_dir):
+    for source_file, payload in payloads:
         species_list = payload.get("species", [])
         if not isinstance(species_list, list):
             errors.append(f"{source_file.name}: top-level species must be an array")
             continue
         for species in species_list:
-            validate_species(species, source_file, errors, target_dex_nos, completeness_results)
+            validate_species(
+                species,
+                source_file,
+                errors,
+                target_dex_nos,
+                completeness_results,
+                variant_index,
+            )
 
     if errors:
         for error in errors:

@@ -98,19 +98,121 @@ const normalizeIngredientOptions = (variant, messagePrefix) => {
   };
 };
 
+const cloneIngredientOptions = (ingredientOptions) =>
+  Object.fromEntries(
+    ingredientSlotLevels.map((slotLevel) => [
+      slotLevel,
+      (ingredientOptions[slotLevel] || []).map((option) => ({ ...option }))
+    ])
+  );
+
+const parseIngredientInheritanceReference = (value, messagePrefix) => {
+  if (typeof value === "number" && Number.isInteger(value)) {
+    return {
+      dexNo: value,
+      variantKey: "default"
+    };
+  }
+
+  assert(
+    value && typeof value === "object" && !Array.isArray(value),
+    `${messagePrefix} must be an object or integer dexNo`
+  );
+  assert(
+    typeof value.dexNo === "number" && Number.isInteger(value.dexNo),
+    `${messagePrefix}.dexNo must be an integer`
+  );
+
+  return {
+    dexNo: value.dexNo,
+    variantKey:
+      typeof value.variantKey === "string" && value.variantKey.trim().length > 0
+        ? value.variantKey
+        : "default"
+  };
+};
+
 const normalizeSpeciesEntry = (entry, index) => {
-  const normalizedVariants = entry.variants.map((variant, variantIndex) => ({
-    ...variant,
-    ingredientOptions: normalizeIngredientOptions(
-      variant,
-      `species[${index}].variants[${variantIndex}]`
-    )
-  }));
+  const normalizedVariants = entry.variants.map((variant, variantIndex) => {
+    const normalizedVariant = { ...variant };
+    const messagePrefix = `species[${index}].variants[${variantIndex}]`;
+
+    if (variant.inheritIngredientOptionsFrom !== undefined) {
+      normalizedVariant.inheritIngredientOptionsFrom =
+        parseIngredientInheritanceReference(
+          variant.inheritIngredientOptionsFrom,
+          `${messagePrefix}.inheritIngredientOptionsFrom`
+        );
+    }
+
+    if (
+      variant.ingredientOptions !== undefined ||
+      Array.isArray(variant.ingredients) ||
+      variant.inheritIngredientOptionsFrom === undefined
+    ) {
+      normalizedVariant.ingredientOptions = normalizeIngredientOptions(
+        variant,
+        messagePrefix
+      );
+    }
+
+    return normalizedVariant;
+  });
 
   return {
     ...entry,
     variants: normalizedVariants
   };
+};
+
+const resolveInheritedIngredientOptions = (species) => {
+  const variantIndex = new Map();
+
+  species.forEach((entry) => {
+    entry.variants.forEach((variant) => {
+      variantIndex.set(`${entry.dexNo}:${variant.key}`, { entry, variant });
+    });
+  });
+
+  const resolving = new Set();
+
+  const resolveVariant = (entry, variant) => {
+    if (variant.ingredientOptions) {
+      return variant.ingredientOptions;
+    }
+
+    const reference = variant.inheritIngredientOptionsFrom;
+    assert(
+      reference,
+      `species dexNo ${entry.dexNo} variant "${variant.key}" must have ingredientOptions or inheritIngredientOptionsFrom`
+    );
+
+    const resolutionKey = `${entry.dexNo}:${variant.key}`;
+    assert(
+      !resolving.has(resolutionKey),
+      `Pokemon seed contains cyclic ingredient inheritance at dexNo ${entry.dexNo} variant "${variant.key}"`
+    );
+    resolving.add(resolutionKey);
+
+    const target = variantIndex.get(`${reference.dexNo}:${reference.variantKey}`);
+    assert(
+      target,
+      `species dexNo ${entry.dexNo} variant "${variant.key}" inherits ingredientOptions from missing dexNo ${reference.dexNo} variant "${reference.variantKey}"`
+    );
+
+    const resolvedOptions = cloneIngredientOptions(
+      resolveVariant(target.entry, target.variant)
+    );
+    variant.ingredientOptions = resolvedOptions;
+    resolving.delete(resolutionKey);
+    return resolvedOptions;
+  };
+
+  species.forEach((entry) => {
+    entry.variants.forEach((variant) => {
+      resolveVariant(entry, variant);
+    });
+  });
 };
 
 const validatePokemonSeedData = (species, rangeMembership) => {
@@ -201,6 +303,7 @@ export const loadPokemonSeedData = (baseDir = __dirname) => {
     });
   });
 
+  resolveInheritedIngredientOptions(species);
   species.sort((a, b) => a.dexNo - b.dexNo);
   validatePokemonSeedData(species, rangeMembership);
 

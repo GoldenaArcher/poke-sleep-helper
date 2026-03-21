@@ -382,33 +382,8 @@
           "mainSkill": "Charge Strength S",
           "detailImage": "454-default.png",
           "shinyImage": "454-default-shiny.png",
-          "ingredientOptions": {
-            "1": [
-              {
-                "name": "Pure Oil",
-                "quantity": 2
-              }
-            ],
-            "30": [
-              {
-                "name": "Pure Oil",
-                "quantity": 2
-              },
-              {
-                "name": "Bean Sausage",
-                "quantity": 5
-              }
-            ],
-            "60": [
-              {
-                "name": "Pure Oil",
-                "quantity": 7
-              },
-              {
-                "name": "Bean Sausage",
-                "quantity": 8
-              }
-            ]
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 453
           }
         }
       ],

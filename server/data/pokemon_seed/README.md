@@ -19,6 +19,21 @@ Each option is stored as:
 
 ## Inheritance Convention
 
+If an evolution or variant uses the exact same ingredient slot data as another seeded species, a variant may omit `ingredientOptions` and use:
+
+```json
+{
+  "inheritIngredientOptionsFrom": {
+    "dexNo": 74,
+    "variantKey": "default"
+  }
+}
+```
+
+`variantKey` is optional and defaults to `"default"`.
+
+Use this only when the full slot data is identical. If the species differs at any slot or quantity, keep a full inline `ingredientOptions` block instead.
+
 Higher-level slots should include lower-level ingredient possibilities when they remain selectable in-game.
 
 Example:

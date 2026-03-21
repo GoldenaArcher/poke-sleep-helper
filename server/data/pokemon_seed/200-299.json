@@ -433,33 +433,8 @@
           "mainSkill": "Tasty Chance S",
           "detailImage": "259-default.png",
           "shinyImage": "259-default-shiny.png",
-          "ingredientOptions": {
-            "1": [
-              {
-                "name": "Greengrass Corn",
-                "quantity": 1
-              }
-            ],
-            "30": [
-              {
-                "name": "Greengrass Corn",
-                "quantity": 2
-              },
-              {
-                "name": "Moomoo Milk",
-                "quantity": 3
-              }
-            ],
-            "60": [
-              {
-                "name": "Greengrass Corn",
-                "quantity": 4
-              },
-              {
-                "name": "Moomoo Milk",
-                "quantity": 3
-              }
-            ]
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 258
           }
         }
       ],

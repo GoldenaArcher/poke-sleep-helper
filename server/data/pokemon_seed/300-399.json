@@ -237,37 +237,8 @@
           "mainSkill": "Energizing Cheer S",
           "detailImage": "360-default.png",
           "shinyImage": "360-default-shiny.png",
-          "ingredientOptions": {
-            "1": [
-              {
-                "name": "Fancy Apple",
-                "quantity": 1
-              }
-            ],
-            "30": [
-              {
-                "name": "Fancy Apple",
-                "quantity": 1
-              },
-              {
-                "name": "Tasty Mushroom",
-                "quantity": 1
-              }
-            ],
-            "60": [
-              {
-                "name": "Fancy Apple",
-                "quantity": 1
-              },
-              {
-                "name": "Pure Oil",
-                "quantity": 3
-              },
-              {
-                "name": "Tasty Mushroom",
-                "quantity": 2
-              }
-            ]
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 202
           }
         }
       ],

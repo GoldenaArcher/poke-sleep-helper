@@ -110,3 +110,92 @@ test("pokemon seed loader normalizes legacy flat ingredient arrays", () => {
   assert.deepEqual(options["30"], options["1"]);
   assert.deepEqual(options["60"], options["1"]);
 });
+
+test("pokemon seed loader resolves inherited ingredient options", () => {
+  const tempDir = makeTempDir();
+  const payload = {
+    species: [
+      {
+        dexNo: 1,
+        name: "BaseMon",
+        primaryType: "Electric",
+        specialty: "Berries",
+        variants: [
+          {
+            key: "default",
+            name: "BaseMon",
+            ingredientOptions: {
+              "1": [{ name: "Fancy Apple", quantity: 1 }],
+              "30": [
+                { name: "Fancy Apple", quantity: 2 },
+                { name: "Warming Ginger", quantity: 2 }
+              ],
+              "60": [
+                { name: "Fancy Apple", quantity: 4 },
+                { name: "Warming Ginger", quantity: 2 },
+                { name: "Fancy Egg", quantity: 3 }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        dexNo: 2,
+        name: "InheritedMon",
+        primaryType: "Electric",
+        specialty: "Berries",
+        variants: [
+          {
+            key: "default",
+            name: "InheritedMon",
+            inheritIngredientOptionsFrom: {
+              dexNo: 1
+            }
+          }
+        ]
+      }
+    ]
+  };
+  fs.writeFileSync(
+    path.join(tempDir, "000-099.json"),
+    JSON.stringify(payload, null, 2) + "\n"
+  );
+
+  const data = loadPokemonSeedData(tempDir);
+  assert.deepEqual(
+    data.species[1].variants[0].ingredientOptions,
+    data.species[0].variants[0].ingredientOptions
+  );
+});
+
+test("pokemon seed loader rejects missing inherited ingredient sources", () => {
+  const tempDir = makeTempDir();
+  const payload = {
+    species: [
+      {
+        dexNo: 2,
+        name: "BrokenInheritedMon",
+        primaryType: "Electric",
+        specialty: "Berries",
+        variants: [
+          {
+            key: "default",
+            name: "BrokenInheritedMon",
+            inheritIngredientOptionsFrom: {
+              dexNo: 999
+            }
+          }
+        ]
+      }
+    ]
+  };
+  fs.writeFileSync(
+    path.join(tempDir, "000-099.json"),
+    JSON.stringify(payload, null, 2) + "\n"
+  );
+
+  assert.throws(
+    () => loadPokemonSeedData(tempDir),
+    /inherits ingredientOptions from missing dexNo 999 variant "default"/
+  );
+});

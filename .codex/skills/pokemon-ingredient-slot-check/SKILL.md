@@ -47,6 +47,8 @@ npm run test --workspace server
 - For user-provided ingredient shorthand, prefer repo-specific resolution rules:
   - if quantity is omitted, treat it as `x1`
   - tolerate dropped vowels and repeated-letter collapse
-  - accept common short forms such as `hb`, `hn`, `eg`, `ol`, `sb`, `gg`, `ppk`, `mrm`
-  - accept more compressed forms such as `ssg`, `msrm`, `cc`, `gg`, `tmt` when they map cleanly
+  - prefer the ingredient's biological or meaningful noun over decorative prefixes such as `Greengrass`, `Soothing`, `Fancy`, `Snoozy`, or `Rousing`
+  - accept common short forms such as `hb`, `hn`, `eg`, `ol`, `sb`, `ppk`, `mrm`
+  - accept more compressed forms such as `ssg`, `msrm`, `cc`, `tmt` when they map cleanly
+  - treat `gg` as `Warming Ginger` because the core ingredient is `ginger`, not `Greengrass Soybeans`
   - if shorthand is ambiguous, do not guess; ask or flag it

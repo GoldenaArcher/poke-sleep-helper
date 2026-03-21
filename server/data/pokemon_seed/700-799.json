@@ -89,25 +89,9 @@
           "mainSkill": "Charge Strength S",
           "detailImage": "710-medium.png",
           "shinyImage": "710-medium-shiny.png",
-          "ingredientOptions": {
-            "1": [
-              {
-                "name": "Plump Pumpkin",
-                "quantity": 2
-              }
-            ],
-            "30": [
-              {
-                "name": "Plump Pumpkin",
-                "quantity": 5
-              }
-            ],
-            "60": [
-              {
-                "name": "Plump Pumpkin",
-                "quantity": 15
-              }
-            ]
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 710,
+            "variantKey": "small"
           }
         },
         {
@@ -133,25 +117,9 @@
           "mainSkill": "Charge Strength S",
           "detailImage": "710-large.png",
           "shinyImage": "710-large-shiny.png",
-          "ingredientOptions": {
-            "1": [
-              {
-                "name": "Plump Pumpkin",
-                "quantity": 2
-              }
-            ],
-            "30": [
-              {
-                "name": "Plump Pumpkin",
-                "quantity": 5
-              }
-            ],
-            "60": [
-              {
-                "name": "Plump Pumpkin",
-                "quantity": 15
-              }
-            ]
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 710,
+            "variantKey": "small"
           }
         },
         {
@@ -177,25 +145,9 @@
           "mainSkill": "Charge Strength S",
           "detailImage": "710-jumbo.png",
           "shinyImage": "710-jumbo-shiny.png",
-          "ingredientOptions": {
-            "1": [
-              {
-                "name": "Plump Pumpkin",
-                "quantity": 2
-              }
-            ],
-            "30": [
-              {
-                "name": "Plump Pumpkin",
-                "quantity": 5
-              }
-            ],
-            "60": [
-              {
-                "name": "Plump Pumpkin",
-                "quantity": 15
-              }
-            ]
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 710,
+            "variantKey": "small"
           }
         }
       ],
