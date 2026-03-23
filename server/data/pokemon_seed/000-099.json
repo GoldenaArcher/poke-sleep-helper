@@ -1017,7 +1017,7 @@
             "30": [
               {
                 "name": "Honey",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Pure Oil",
@@ -1032,10 +1032,6 @@
               {
                 "name": "Pure Oil",
                 "quantity": 3
-              },
-              {
-                "name": "Soothing Cacao",
-                "quantity": 2
               }
             ]
           }

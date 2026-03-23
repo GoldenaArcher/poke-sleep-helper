@@ -15,6 +15,7 @@ It validates the project rule that:
 - slot `60` includes all slot `1` and slot `30` ingredient names
 - every option has a positive integer quantity
 - a variant is considered to have a complete ingredient list when slot `1` has 1 ingredient, slot `30` has 2 ingredients, slot `60` has 3 ingredients, and inherited ingredient quantities strictly increase at each later slot
+- specific legendary or mythical species may use explicit per-species completeness rules instead of the normal `1 / 2 / 3` rule
 - omitted quantities default to `1`
 - ingredient shorthand may be resolved against the project ingredient catalog when there is one clear match
 
@@ -43,6 +44,9 @@ npm run test --workspace server
 - The checker accepts zero or more dex numbers.
 - With no dex numbers, it validates every Pokemon seed file.
 - The checker also reports completeness status for each validated variant.
+- Current special completeness rules:
+  - `Mew` (`dex 151`): expected slot counts `7 / 8 / 8`
+  - `Darkrai` (`dex 491`): expected slot counts `8 / 8 / 8`
 - This skill is only for ingredient slot seed validation; it does not replace the full server test suite.
 - For user-provided ingredient shorthand, prefer repo-specific resolution rules:
   - if quantity is omitted, treat it as `x1`

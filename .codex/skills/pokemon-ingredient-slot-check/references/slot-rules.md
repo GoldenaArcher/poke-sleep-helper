@@ -9,6 +9,10 @@
   - slot 30 has exactly 2 ingredients
   - slot 60 has exactly 3 ingredients
   - if an ingredient appears in a later slot and the earlier slot, the later-slot quantity must be greater
+- Special-case completeness rules currently supported:
+  - `Mew` (`dex 151`): slot counts must be `7 / 8 / 8`
+  - `Darkrai` (`dex 491`): slot counts must be `8 / 8 / 8`
+  - these special species still use the same increasing-quantity rule for inherited ingredients
 - When a higher-slot quantity is not confirmed yet, keep the inherited ingredient with a placeholder quantity instead of removing it.
 - If the user omits an ingredient quantity, treat it as `x1`.
 - Ingredient names may be provided in repo-specific shorthand:

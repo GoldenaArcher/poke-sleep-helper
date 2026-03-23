@@ -237,6 +237,140 @@
       "subSkills": []
     },
     {
+      "dexNo": 151,
+      "name": "Mew",
+      "primaryType": "Psychic",
+      "specialty": "All",
+      "profileImage": "151.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Mew",
+          "isDefault": 1,
+          "isEvent": 0,
+          "specialty": "All",
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:48:20",
+            "carryLimit": 26,
+            "friendshipPointsNeeded": 25,
+            "recruitExperience": 1885,
+            "recruitShards": 2994
+          },
+          "berries": [
+            {
+              "name": "Mago Berry",
+              "quantity": 1
+            }
+          ],
+          "mainSkill": "Versatile",
+          "detailImage": "151-default.png",
+          "shinyImage": "151-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Large Leek",
+                "quantity": 2
+              },
+              {
+                "name": "Fancy Egg",
+                "quantity": 2
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 2
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 2
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 2
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 2
+              },
+              {
+                "name": "Glossy Avocado",
+                "quantity": 2
+              }
+            ],
+            "30": [
+              {
+                "name": "Large Leek",
+                "quantity": 3
+              },
+              {
+                "name": "Fancy Egg",
+                "quantity": 4
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 4
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 4
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 4
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 5
+              },
+              {
+                "name": "Glossy Avocado",
+                "quantity": 3
+              },
+              {
+                "name": "Slowpoke Tail",
+                "quantity": 1
+              }
+            ],
+            "60": [
+              {
+                "name": "Large Leek",
+                "quantity": 4
+              },
+              {
+                "name": "Fancy Egg",
+                "quantity": 6
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 5
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 7
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 6
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 7
+              },
+              {
+                "name": "Glossy Avocado",
+                "quantity": 4
+              },
+              {
+                "name": "Slowpoke Tail",
+                "quantity": 2
+              }
+            ]
+          }
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 152,
       "name": "Chikorita",
       "primaryType": "Grass",
@@ -475,6 +609,69 @@
           "shinyImage": "172-default-shiny.png",
           "inheritIngredientOptionsFrom": {
             "dexNo": 25
+          }
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 173,
+      "name": "Cleffa",
+      "primaryType": "Fairy",
+      "specialty": "Berries",
+      "profileImage": "173.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 35,
+          "name": "Clefairy",
+          "levelRequired": 0,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Cleffa",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:33:20",
+            "carryLimit": 10,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 25,
+            "recruitShards": 27
+          },
+          "berries": [
+            {
+              "name": "Pecha Berry",
+              "quantity": 2
+            }
+          ],
+          "mainSkill": "Metronome",
+          "detailImage": "173-default.png",
+          "shinyImage": "173-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Honey",
+                "quantity": 2
+              }
+            ],
+            "60": [
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 3
+              }
+            ]
           }
         }
       ],

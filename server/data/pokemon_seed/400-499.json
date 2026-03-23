@@ -277,6 +277,48 @@
       "subSkills": []
     },
     {
+      "dexNo": 448,
+      "name": "Lucario",
+      "primaryType": "Fighting",
+      "specialty": "Skills",
+      "profileImage": "448.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 447,
+          "name": "Riolu"
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Lucario",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:43:20",
+            "carryLimit": 14,
+            "friendshipPointsNeeded": 20,
+            "recruitExperience": 443,
+            "recruitShards": 1147
+          },
+          "berries": [
+            {
+              "name": "Cheri Berry",
+              "quantity": 1
+            }
+          ],
+          "mainSkill": "Dream Shard Magnet S",
+          "detailImage": "448-default.png",
+          "shinyImage": "448-default-shiny.png",
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 447
+          }
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 453,
       "name": "Croagunk",
       "primaryType": "Poison",
@@ -422,27 +464,27 @@
             "1": [
               {
                 "name": "Fancy Apple",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Fiery Herb",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Bean Sausage",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Moomoo Milk",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Honey",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Greengrass Soybeans",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Greengrass Corn",
@@ -450,75 +492,75 @@
               },
               {
                 "name": "Rousing Coffee",
-                "quantity": 1
+                "quantity": 2
               }
             ],
             "30": [
               {
                 "name": "Fancy Apple",
-                "quantity": 1
+                "quantity": 5
               },
               {
                 "name": "Fiery Herb",
-                "quantity": 1
+                "quantity": 3
               },
               {
                 "name": "Bean Sausage",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Moomoo Milk",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Honey",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Greengrass Soybeans",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Greengrass Corn",
-                "quantity": 1
+                "quantity": 3
               },
               {
                 "name": "Rousing Coffee",
-                "quantity": 1
+                "quantity": 3
               }
             ],
             "60": [
               {
                 "name": "Fancy Apple",
-                "quantity": 1
+                "quantity": 7
               },
               {
                 "name": "Fiery Herb",
-                "quantity": 1
+                "quantity": 5
               },
               {
                 "name": "Bean Sausage",
-                "quantity": 1
+                "quantity": 6
               },
               {
                 "name": "Moomoo Milk",
-                "quantity": 1
+                "quantity": 6
               },
               {
                 "name": "Honey",
-                "quantity": 1
+                "quantity": 6
               },
               {
                 "name": "Greengrass Soybeans",
-                "quantity": 1
+                "quantity": 6
               },
               {
                 "name": "Greengrass Corn",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Rousing Coffee",
-                "quantity": 1
+                "quantity": 4
               }
             ]
           }

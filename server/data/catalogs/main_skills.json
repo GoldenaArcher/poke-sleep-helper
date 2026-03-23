@@ -160,5 +160,11 @@
     "effectType": "energy_restore",
     "target": "random_ally",
     "notes": "Restores ? Energy to one random Pokémon on your team. If you're lucky, that Pokémon will also gain a main skill activation bonus."
+  },
+  {
+    "name": "Versatile",
+    "effectType": "skill_copy",
+    "target": "team",
+    "notes": "Can activate one of any Main Skill. In addition, gets candy for one Pokemon on your team."
   }
 ]

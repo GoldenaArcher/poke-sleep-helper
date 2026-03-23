@@ -357,6 +357,71 @@
         }
       ],
       "subSkills": []
+    },
+    {
+      "dexNo": 329,
+      "name": "Vibrava",
+      "primaryType": "Ground",
+      "specialty": "Ingredients",
+      "profileImage": "329.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Vibrava",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:01:40",
+            "carryLimit": 12,
+            "friendshipPointsNeeded": 12,
+            "recruitExperience": 473,
+            "recruitShards": 741
+          },
+          "berries": [
+            {
+              "name": "Figy Berry",
+              "quantity": 1
+            }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "329-default.png",
+          "shinyImage": "329-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Glossy Avocado",
+                "quantity": 2
+              }
+            ],
+            "30": [
+              {
+                "name": "Glossy Avocado",
+                "quantity": 2
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 6
+              }
+            ],
+            "60": [
+              {
+                "name": "Glossy Avocado",
+                "quantity": 2
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 6
+              },
+              {
+                "name": "Greengrass Soybeans",
+                "quantity": 12
+              }
+            ]
+          }
+        }
+      ],
+      "subSkills": []
     }
   ]
 }

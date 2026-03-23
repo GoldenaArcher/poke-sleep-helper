@@ -6,6 +6,16 @@ from pathlib import Path
 
 
 EXPECTED_SLOTS = ("1", "30", "60")
+SPECIAL_COMPLETENESS_RULES = {
+    151: {
+        "label": "Mew",
+        "slot_counts": {"1": 7, "30": 8, "60": 8},
+    },
+    491: {
+        "label": "Darkrai",
+        "slot_counts": {"1": 8, "30": 8, "60": 8},
+    },
+}
 
 
 def load_seed_files(seed_dir: Path):
@@ -57,19 +67,31 @@ def build_quantity_map(options):
     return quantities
 
 
-def evaluate_completeness(slot_options):
+def evaluate_completeness(slot_options, dex_no=None):
     quantities_1 = build_quantity_map(slot_options.get("1", []))
     quantities_30 = build_quantity_map(slot_options.get("30", []))
     quantities_60 = build_quantity_map(slot_options.get("60", []))
 
     reasons = []
+    special_rule = SPECIAL_COMPLETENESS_RULES.get(dex_no)
+    expected_counts = (
+        special_rule["slot_counts"]
+        if special_rule
+        else {"1": 1, "30": 2, "60": 3}
+    )
 
-    if len(quantities_1) != 1:
-        reasons.append(f"slot 1 has {len(quantities_1)} ingredients, expected 1")
-    if len(quantities_30) != 2:
-        reasons.append(f"slot 30 has {len(quantities_30)} ingredients, expected 2")
-    if len(quantities_60) != 3:
-        reasons.append(f"slot 60 has {len(quantities_60)} ingredients, expected 3")
+    if len(quantities_1) != expected_counts["1"]:
+        reasons.append(
+            f"slot 1 has {len(quantities_1)} ingredients, expected {expected_counts['1']}"
+        )
+    if len(quantities_30) != expected_counts["30"]:
+        reasons.append(
+            f"slot 30 has {len(quantities_30)} ingredients, expected {expected_counts['30']}"
+        )
+    if len(quantities_60) != expected_counts["60"]:
+        reasons.append(
+            f"slot 60 has {len(quantities_60)} ingredients, expected {expected_counts['60']}"
+        )
 
     for name, quantity_1 in quantities_1.items():
         quantity_30 = quantities_30.get(name)
@@ -89,7 +111,7 @@ def evaluate_completeness(slot_options):
                 f"slot 60 ingredient '{name}' has quantity {quantity_60}, expected greater than slot 30 quantity {quantity_30}"
             )
 
-    return len(reasons) == 0, reasons
+    return len(reasons) == 0, reasons, special_rule["label"] if special_rule else None
 
 
 def parse_inheritance_reference(reference, context, errors):
@@ -258,13 +280,17 @@ def validate_species(
                 f"{context_base}: slot 60 must include all slot 1 and slot 30 ingredients; missing {', '.join(missing_in_60)}"
             )
 
-        is_complete, reasons = evaluate_completeness(slot_options)
+        is_complete, reasons, completeness_rule = evaluate_completeness(
+            slot_options,
+            dex_no=dex_no,
+        )
         completeness_results.append({
             "dexNo": dex_no,
             "speciesName": species_name,
             "variantName": variant_name,
             "complete": is_complete,
             "reasons": reasons,
+            "ruleLabel": completeness_rule,
         })
 
 
@@ -316,9 +342,10 @@ def main():
 
     for result in completeness_results:
         status = "COMPLETE" if result["complete"] else "INCOMPLETE"
-        print(
-            f"{status}: dex {result['dexNo']} {result['speciesName']} [{result['variantName']}]"
-        )
+        line = f"{status}: dex {result['dexNo']} {result['speciesName']} [{result['variantName']}]"
+        if result["ruleLabel"]:
+            line += f" using special rule for {result['ruleLabel']}"
+        print(line)
         for reason in result["reasons"]:
             print(f"  - {reason}")
 
