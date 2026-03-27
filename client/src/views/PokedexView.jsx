@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { apiFetch } from "../utils/api.js";
 import usePokedexStore from "../stores/usePokedexStore.js";
@@ -142,41 +142,46 @@ const formatEvolutionItems = (items) => {
 
 const EvolutionRouteDisplay = ({ route }) => {
   if (!route) {
-    return <span className="route-text">Special</span>;
+    return (
+      <div className="evolution-route">
+        <span className="route-arrow">→</span>
+      </div>
+    );
   }
 
   const hasLevel = Number.isFinite(route.level_required) && route.level_required > 0;
   const hasItems = Array.isArray(route.items) && route.items.length > 0;
 
   if (!hasLevel && !hasItems) {
-    return null;
+    return (
+      <div className="evolution-route">
+        <span className="route-arrow">→</span>
+      </div>
+    );
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "4px", alignItems: "center" }}>
+    <div className="evolution-route">
+      <span className="route-arrow">→</span>
       {hasLevel && (
         <span className="route-text">Lv {route.level_required}</span>
       )}
       {hasItems && (
-        <div style={{ display: "flex", gap: "4px", flexWrap: "wrap", justifyContent: "center" }}>
+        <div className="evolution-route-items">
           {route.items.map((item, index) => {
             const itemName = typeof item === "string" ? item : (item?.name || "");
             const itemImage = (typeof item === "object" && item !== null && item.image_path) ? item.image_path : null;
-            
-            console.log("Evolution item:", item, "Name:", itemName, "Image:", itemImage);
-            
+
             return (
-              <div key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2px" }}>
+              <div key={index} className="evolution-route-item">
                 {itemImage ? (
-                  <img 
-                    src={itemImage} 
+                  <img
+                    src={itemImage}
                     alt={itemName}
-                    style={{ width: "24px", height: "24px", objectFit: "contain" }}
+                    className="evolution-item-image"
                   />
                 ) : null}
-                <span className="route-text" style={{ fontSize: "0.75rem" }}>
-                  {itemName}
-                </span>
+                <span className="route-text">{itemName}</span>
               </div>
             );
           })}
@@ -186,28 +191,248 @@ const EvolutionRouteDisplay = ({ route }) => {
   );
 };
 
-// Recursive component to fetch and display evolution chains
-const EvolutionStageColumn = ({ stages }) => {
-  const [nextStages, setNextStages] = useState({});
+const EvolutionStageCard = ({ stage, isCurrent = false }) => (
+  <div className={`evolution-column ${isCurrent ? "current" : ""}`}>
+    <Link
+      to={`/pokedex/${stage.dex_no}`}
+      className="evolution-link"
+    >
+      <img
+        src={`/uploads/pokemons/${stage.dex_no}.png`}
+        alt={stage.name}
+        className="evolution-preview"
+      />
+      <div>
+        <strong>
+          #{String(stage.dex_no).padStart(3, "0")}
+        </strong>
+        <p>{stage.name}</p>
+        {stage.form_name && (
+          <span className="meta">{stage.form_name}</span>
+        )}
+        {isCurrent && <span className="meta">Current</span>}
+      </div>
+    </Link>
+  </div>
+);
+
+const LinearEvolutionChain = ({ species, evolvesFrom, evolvesTo }) => {
+  const [ancestors, setAncestors] = useState([]);
+  const [descendants, setDescendants] = useState([]);
+  const [isLinear, setIsLinear] = useState(
+    evolvesFrom.length <= 1 && evolvesTo.length <= 1
+  );
+  const [isResolved, setIsResolved] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const resolveLinearChain = async () => {
+      if (evolvesFrom.length > 1 || evolvesTo.length > 1) {
+        if (isMounted) {
+          setIsLinear(false);
+          setIsResolved(true);
+        }
+        return;
+      }
+
+      const fetchAncestors = async (routeToStage) => {
+        const stage = {
+          dex_no: routeToStage.dex_no,
+          name: routeToStage.name,
+          form_name: routeToStage.form_name
+        };
+        const data = await apiFetch(`/api/pokedex/${stage.dex_no}`);
+        const previous = normalizeEvolutionList(data?.evolution?.evolves_from);
+        if (previous.length > 1) {
+          throw new Error("branching-ancestors");
+        }
+        if (previous.length === 0) {
+          return [{ stage, incomingRoute: null }];
+        }
+        return [
+          ...(await fetchAncestors(previous[0])),
+          { stage, incomingRoute: previous[0] }
+        ];
+      };
+
+      const fetchDescendants = async (routeToStage) => {
+        const stage = {
+          dex_no: routeToStage.dex_no,
+          name: routeToStage.name,
+          form_name: routeToStage.form_name
+        };
+        const data = await apiFetch(`/api/pokedex/${stage.dex_no}`);
+        const next = normalizeEvolutionList(data?.evolution?.evolves_to);
+        if (next.length > 1) {
+          throw new Error("branching-descendants");
+        }
+        if (next.length === 0) {
+          return [{ stage, incomingRoute: routeToStage }];
+        }
+        return [
+          { stage, incomingRoute: routeToStage },
+          ...(await fetchDescendants(next[0]))
+        ];
+      };
+
+      try {
+        const resolvedAncestors =
+          evolvesFrom.length === 1 ? await fetchAncestors(evolvesFrom[0]) : [];
+        const resolvedDescendants =
+          evolvesTo.length === 1 ? await fetchDescendants(evolvesTo[0]) : [];
+
+        if (isMounted) {
+          setAncestors(resolvedAncestors);
+          setDescendants(resolvedDescendants);
+          setIsLinear(true);
+          setIsResolved(true);
+        }
+      } catch (_error) {
+        if (isMounted) {
+          setAncestors([]);
+          setDescendants([]);
+          setIsLinear(false);
+          setIsResolved(true);
+        }
+      }
+    };
+
+    setIsResolved(false);
+    resolveLinearChain();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [evolvesFrom, evolvesTo]);
+
+  if (!isResolved || !isLinear) {
+    return null;
+  }
+
+  return (
+    <div className="evolution-chain compact">
+      {ancestors.map(({ stage, incomingRoute }, index) => (
+        <Fragment key={`ancestor-${stage.dex_no}-${index}`}>
+          {index > 0 && <EvolutionRouteDisplay route={incomingRoute} />}
+          <EvolutionStageCard stage={stage} />
+        </Fragment>
+      ))}
+      {ancestors.length > 0 && <EvolutionRouteDisplay route={evolvesFrom[0]} />}
+      <EvolutionStageCard stage={species} isCurrent />
+      {descendants.map(({ stage, incomingRoute }, index) => (
+        <Fragment key={`descendant-${stage.dex_no}-${index}`}>
+          <EvolutionRouteDisplay route={incomingRoute} />
+          <EvolutionStageCard stage={stage} />
+        </Fragment>
+      ))}
+    </div>
+  );
+};
+
+const EvolutionStageList = ({ stages, direction = "forward" }) => (
+  <div className="evolution-column">
+    {stages.map((stage, idx) => {
+      const uniqueKey = `${stage.dex_no}-${idx}`;
+      const sameDexNoCount = stages.filter((entry) => entry.dex_no === stage.dex_no).length;
+      const isBranchingForm = sameDexNoCount > 1;
+
+      return (
+        <div className="evolution-branch" key={uniqueKey}>
+          {direction === "forward" && (
+            <div className="evolution-route">
+              <span className="route-arrow">→</span>
+              <EvolutionRouteDisplay route={stage} />
+            </div>
+          )}
+          <Link
+            to={`/pokedex/${stage.dex_no}`}
+            className="evolution-link"
+          >
+            <img
+              src={`/uploads/pokemons/${stage.dex_no}.png`}
+              alt={stage.name}
+              className="evolution-preview"
+            />
+            <div>
+              <strong>
+                #{String(stage.dex_no).padStart(3, "0")}
+              </strong>
+              <p>{stage.name}</p>
+              {isBranchingForm && stage.form_name && (
+                <span className="meta">{stage.form_name}</span>
+              )}
+            </div>
+          </Link>
+          {direction === "backward" && (
+            <div className="evolution-route">
+              <EvolutionRouteDisplay route={stage} />
+              <span className="route-arrow">→</span>
+            </div>
+          )}
+        </div>
+      );
+    })}
+  </div>
+);
+
+const EvolutionPreviousColumn = ({ stages }) => {
+  const [previousStages, setPreviousStages] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch evolution data for each stage
     const fetchEvolutions = async () => {
       setLoading(true);
       const results = {};
       for (const stage of stages) {
         try {
           const data = await apiFetch(`/api/pokedex/${stage.dex_no}`);
-          console.log(`Fetched evolution for ${stage.dex_no}:`, data?.evolution?.evolves_to);
+          if (data?.evolution?.evolves_from?.length > 0) {
+            results[stage.dex_no] = data.evolution.evolves_from;
+          }
+        } catch (_error) {
+          // Ignore missing ancestor data and render what we have.
+        }
+      }
+      setPreviousStages(results);
+      setLoading(false);
+    };
+
+    fetchEvolutions();
+  }, [stages]);
+
+  const allPreviousStages = Object.values(previousStages).flat();
+  const hasPreviousStages = allPreviousStages.length > 0;
+
+  return (
+    <>
+      {!loading && hasPreviousStages && (
+        <EvolutionPreviousColumn stages={allPreviousStages} />
+      )}
+      <EvolutionStageList stages={stages} direction="backward" />
+    </>
+  );
+};
+
+// Recursive component to fetch and display forward evolution chains
+const EvolutionStageColumn = ({ stages }) => {
+  const [nextStages, setNextStages] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEvolutions = async () => {
+      setLoading(true);
+      const results = {};
+      for (const stage of stages) {
+        try {
+          const data = await apiFetch(`/api/pokedex/${stage.dex_no}`);
           if (data?.evolution?.evolves_to?.length > 0) {
             results[stage.dex_no] = data.evolution.evolves_to;
           }
-        } catch (error) {
-          console.error(`Failed to fetch evolution for ${stage.dex_no}:`, error);
+        } catch (_error) {
+          // Ignore missing descendant data and render what we have.
         }
       }
-      console.log('Next stages results:', results);
       setNextStages(results);
       setLoading(false);
     };
@@ -218,47 +443,9 @@ const EvolutionStageColumn = ({ stages }) => {
   const allNextStages = Object.values(nextStages).flat();
   const hasNextStages = allNextStages.length > 0;
 
-  console.log('Rendering EvolutionStageColumn:', { stages, nextStages, allNextStages, hasNextStages, loading });
-
   return (
     <>
-      <div className="evolution-column">
-        {stages.map((stage, idx) => {
-          // Create unique key combining dex_no and index to handle multiple forms
-          const uniqueKey = `${stage.dex_no}-${idx}`;
-          // Check if this is a branching evolution (multiple forms of same Pokemon)
-          const sameDexNoCount = stages.filter(s => s.dex_no === stage.dex_no).length;
-          const isBranchingForm = sameDexNoCount > 1;
-          
-          return (
-            <div className="evolution-branch" key={uniqueKey}>
-              <div className="evolution-route">
-                <span className="route-arrow">→</span>
-                <EvolutionRouteDisplay route={stage} />
-              </div>
-              <Link
-                to={`/pokedex/${stage.dex_no}`}
-                className="evolution-link"
-              >
-                <img
-                  src={`/uploads/pokemons/${stage.dex_no}.png`}
-                  alt={stage.name}
-                  className="evolution-preview"
-                />
-                <div>
-                  <strong>
-                    #{String(stage.dex_no).padStart(3, "0")}
-                  </strong>
-                  <p>{stage.name}</p>
-                  {isBranchingForm && stage.form_name && (
-                    <span className="meta">{stage.form_name}</span>
-                  )}
-                </div>
-              </Link>
-            </div>
-          );
-        })}
-      </div>
+      <EvolutionStageList stages={stages} direction="forward" />
       {/* Recursively render next stages */}
       {!loading && hasNextStages && (
         <EvolutionStageColumn stages={allNextStages} />
@@ -380,15 +567,46 @@ const PokedexDetailView = () => {
   }, [id]);
 
   const variants = useMemo(() => species?.variants || [], [species]);
+  const variantsWithEvolution = useMemo(
+    () =>
+      variants.filter((variant) => {
+        const variantEvolution = variant.evolution;
+        const shouldUseSpeciesEvolutionFallback =
+          variants.length === 1 || variant.is_default === 1;
+        const evolvesFrom = normalizeEvolutionList(
+          variantEvolution?.evolves_from ||
+            (shouldUseSpeciesEvolutionFallback ? species?.evolution?.evolves_from : [])
+        );
+        const evolvesTo = normalizeEvolutionList(
+          variantEvolution?.evolves_to ||
+            (shouldUseSpeciesEvolutionFallback ? species?.evolution?.evolves_to : [])
+        );
+        return evolvesFrom.length > 0 || evolvesTo.length > 0;
+      }),
+    [species?.evolution?.evolves_from, species?.evolution?.evolves_to, variants]
+  );
 
   // Set default selected variant when species loads
   useEffect(() => {
-    if (species && variants.length > 0 && !selectedVariantForEvolution) {
-      // Find default variant or use first one
-      const defaultVariant = variants.find(v => v.is_default === 1) || variants[0];
+    if (!species) {
+      return;
+    }
+    if (variantsWithEvolution.length === 0) {
+      if (selectedVariantForEvolution !== null) {
+        setSelectedVariantForEvolution(null);
+      }
+      return;
+    }
+    const selectedStillValid = variantsWithEvolution.some(
+      (variant) => variant.variant_key === selectedVariantForEvolution
+    );
+    if (!selectedStillValid) {
+      const defaultVariant =
+        variantsWithEvolution.find((variant) => variant.is_default === 1) ||
+        variantsWithEvolution[0];
       setSelectedVariantForEvolution(defaultVariant.variant_key);
     }
-  }, [species, variants, selectedVariantForEvolution]);
+  }, [species, variantsWithEvolution, selectedVariantForEvolution]);
 
   if (loading) {
     return (
@@ -409,17 +627,23 @@ const PokedexDetailView = () => {
   // Get evolution data for the selected variant
   const selectedVariant = variants.find(v => v.variant_key === selectedVariantForEvolution);
   const variantEvolution = selectedVariant?.evolution;
-  
-  // Use variant-specific evolution if available, otherwise fall back to species-level
+  const shouldUseSpeciesEvolutionFallback =
+    variants.length === 1 || selectedVariant?.is_default === 1;
+
   const evolvesFrom = normalizeEvolutionList(
-    variantEvolution?.evolves_from || species.evolution?.evolves_from
+    variantEvolution?.evolves_from ||
+      (shouldUseSpeciesEvolutionFallback ? species.evolution?.evolves_from : [])
   );
   const evolvesTo = normalizeEvolutionList(
-    variantEvolution?.evolves_to || species.evolution?.evolves_to
+    variantEvolution?.evolves_to ||
+      (shouldUseSpeciesEvolutionFallback ? species.evolution?.evolves_to : [])
   );
+  const canTryLinearEvolutionLayout =
+    evolvesFrom.length <= 1 && evolvesTo.length <= 1;
+  const shouldRenderEvolutionCard = evolvesFrom.length > 0 || evolvesTo.length > 0;
   
   // Check if any variant has evolution data
-  const hasVariantEvolutions = variants.some(v => v.evolution);
+  const hasVariantEvolutions = variantsWithEvolution.length > 1;
 
   return (
     <>
@@ -462,14 +686,14 @@ const PokedexDetailView = () => {
         </p>
       </header>
 
-      {(evolvesFrom.length > 0 || evolvesTo.length > 0) && (
+      {shouldRenderEvolutionCard && (
         <section className="card evolution-card">
           <div className="section-header">
             <div>
               <h3>Evolution Chain</h3>
               <p className="meta">Evolution routes and branches.</p>
             </div>
-            {hasVariantEvolutions && variants.length > 1 && (
+            {hasVariantEvolutions && (
               <div className="filter-group">
                 <label htmlFor="variant-evolution-selector">Variant:</label>
                 <select
@@ -477,7 +701,7 @@ const PokedexDetailView = () => {
                   value={selectedVariantForEvolution || ''}
                   onChange={(e) => setSelectedVariantForEvolution(e.target.value)}
                 >
-                  {variants.map((variant) => (
+                  {variantsWithEvolution.map((variant) => (
                     <option key={variant.variant_key} value={variant.variant_key}>
                       {variant.variant_name}
                     </option>
@@ -486,57 +710,38 @@ const PokedexDetailView = () => {
               </div>
             )}
           </div>
-          <div className="evolution-chain compact">
-            {evolvesFrom.length > 0 && (
-              <div className="evolution-column">
-                {evolvesFrom.map((stage) => {
-                  return (
-                    <div className="evolution-branch" key={stage.dex_no}>
-                      <Link
-                        to={`/pokedex/${stage.dex_no}`}
-                        className="evolution-link"
-                      >
-                        <img
-                          src={`/uploads/pokemons/${stage.dex_no}.png`}
-                          alt={stage.name}
-                          className="evolution-preview"
-                        />
-                        <div>
-                          <strong>
-                            #{String(stage.dex_no).padStart(3, "0")}
-                          </strong>
-                          <p>{stage.name}</p>
-                        </div>
-                      </Link>
-                      <div className="evolution-route">
-                        <EvolutionRouteDisplay route={stage} />
-                        <span className="route-arrow">→</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+          {canTryLinearEvolutionLayout ? (
+            <LinearEvolutionChain
+              species={species}
+              evolvesFrom={evolvesFrom}
+              evolvesTo={evolvesTo}
+            />
+          ) : (
+            <div className="evolution-chain compact">
+              {evolvesFrom.length > 0 && (
+                <EvolutionPreviousColumn stages={evolvesFrom} />
+              )}
 
-            <div className="evolution-column current">
-              <div className="evolution-link">
-                <img
-                  src={species.image_path || `/uploads/pokemons/${species.dex_no}.png`}
-                  alt={species.name}
-                  className="evolution-preview"
-                />
-                <div>
-                  <strong>#{String(species.dex_no).padStart(3, "0")}</strong>
-                  <p>{species.name}</p>
-                  <span className="meta">Current</span>
+              <div className="evolution-column current">
+                <div className="evolution-link">
+                  <img
+                    src={species.image_path || `/uploads/pokemons/${species.dex_no}.png`}
+                    alt={species.name}
+                    className="evolution-preview"
+                  />
+                  <div>
+                    <strong>#{String(species.dex_no).padStart(3, "0")}</strong>
+                    <p>{species.name}</p>
+                    <span className="meta">Current</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {evolvesTo.length > 0 && (
-              <EvolutionStageColumn stages={evolvesTo} />
-            )}
-          </div>
+              {evolvesTo.length > 0 && (
+                <EvolutionStageColumn stages={evolvesTo} />
+              )}
+            </div>
+          )}
         </section>
       )}
 

@@ -70,6 +70,7 @@ export async function seedPokemon(db, dbRun, dbGet) {
         evolvesTo.evolutionItems ??
         evolvesTo.items ??
         evolvesTo.itemList ??
+        evolvesTo.itemRequired ??
         null;
       
       // Handle single item (like evolutionItem: "Thunder Stone")

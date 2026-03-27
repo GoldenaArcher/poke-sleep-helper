@@ -3,7 +3,67 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { apiFetch } from "../utils/api.js";
 import useDishesStore from "../stores/useDishesStore.js";
 import useSettingsStore from "../stores/useSettingsStore.js";
-import { IoArrowUp, IoArrowDown } from "react-icons/io5";
+import {
+  IoArrowUp,
+  IoArrowDown,
+  IoInformationCircleOutline
+} from "react-icons/io5";
+
+const mixColor = (from, to, progress) =>
+  from.map((value, index) =>
+    Math.round(value + (to[index] - value) * progress)
+  );
+
+const toRgba = (channels, alpha) =>
+  `rgba(${channels[0]}, ${channels[1]}, ${channels[2]}, ${alpha})`;
+
+const ingredientAvailabilityFillStyle = (ingredient) => {
+  const bagQuantity = Number(ingredient.bagQuantity) || 0;
+  const requiredQuantity = Number(ingredient.quantity) || 0;
+  if (requiredQuantity <= 0) {
+    return {};
+  }
+
+  const ratio = bagQuantity / requiredQuantity;
+  if (ratio < 1) {
+    const shortageSeverity = 1 - Math.max(0, Math.min(ratio, 1));
+    return {
+      "--ingredient-fill-width": "100%",
+      "--ingredient-fill-color": toRgba(
+        [239, 68, 68],
+        0.18 + shortageSeverity * 0.24
+      )
+    };
+  }
+
+  if (ratio < 1.5) {
+    const enoughProgress = Math.max(0, Math.min((ratio - 1) / 0.5, 1));
+    const fillColor = mixColor([187, 247, 208], [134, 239, 172], enoughProgress);
+    return {
+      "--ingredient-fill-width": "100%",
+      "--ingredient-fill-color": toRgba(fillColor, 0.3)
+    };
+  }
+
+  const normalizedSurplus = Math.max(0, Math.min((ratio - 1.5) / 3, 1));
+  const fillColor = mixColor([147, 197, 253], [37, 99, 235], normalizedSurplus);
+
+  return {
+    "--ingredient-fill-width": `${(0.35 + normalizedSurplus * 0.65) * 100}%`,
+    "--ingredient-fill-color": toRgba(
+      fillColor,
+      ratio >= 2.5 ? 0.34 : 0.24
+    )
+  };
+};
+
+const ingredientAvailabilityDeltaLabel = (ingredient) => {
+  const delta = (Number(ingredient.bagQuantity) || 0) - (Number(ingredient.quantity) || 0);
+  if (delta === 0) {
+    return "==";
+  }
+  return delta > 0 ? `+${delta}` : `${delta}`;
+};
 
 const DishesView = () => {
   const dishes = useDishesStore((state) => state.dishes);
@@ -211,8 +271,15 @@ const DishesView = () => {
                   <span className="empty">Any combo works.</span>
                 )}
                 <div className="ingredient-list">
-                  {dish.ingredients.map((ingredient) => (
-                    <div key={ingredient.id} className="ingredient-entry">
+                  {dish.ingredients.map((ingredient) => {
+                    const availabilityDeltaLabel = ingredientAvailabilityDeltaLabel(ingredient);
+                    const availabilityFillStyle = ingredientAvailabilityFillStyle(ingredient);
+                    return (
+                    <div
+                      key={ingredient.id}
+                      className="ingredient-entry"
+                      style={availabilityFillStyle}
+                    >
                       <img
                         className="ingredient-preview"
                         src={
@@ -231,9 +298,20 @@ const DishesView = () => {
                       >
                         {ingredient.name}
                       </Link>{" "}
-                      × {ingredient.quantity}
+                      <span className="ingredient-quantity">
+                        × {ingredient.quantity}
+                      </span>
+                      <span
+                        className="ingredient-tooltip"
+                        data-tooltip={availabilityDeltaLabel}
+                        aria-label={availabilityDeltaLabel}
+                        tabIndex={0}
+                      >
+                        <IoInformationCircleOutline />
+                      </span>
                     </div>
-                  ))}
+                    );
+                  })}
                   {dish.ingredients.length > 0 && (
                     <div className="ingredient-total">
                       Total:{" "}

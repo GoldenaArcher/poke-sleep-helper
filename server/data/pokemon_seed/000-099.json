@@ -1830,8 +1830,129 @@
               {
                 "name": "Tasty Mushroom",
                 "quantity": 6
+              },
+              {
+                "name": "Pure Oil",
+                "quantity": 8
               }
             ]
+          }
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 93,
+      "name": "Haunter",
+      "primaryType": "Ghost",
+      "specialty": "Ingredients",
+      "profileImage": "93.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 92,
+          "name": "Gastly",
+          "levelRequired": 19,
+          "variantMapping": {
+            "default": "default"
+          }
+        },
+        "evolvesTo": {
+          "dexNo": 94,
+          "name": "Gengar",
+          "levelRequired": 0,
+          "itemRequired": "Linking Cord",
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "locations": [
+        "Greengrass Isle",
+        "Taupe Hollow",
+        "Snowdrop Tundra",
+        "Old Gold Power Plant"
+      ],
+      "flavorText": "This Pokemon fears the light and revels in the dark. You must never approach it, even when it's asleep. If a sleep-fogged Haunter licks you with its gaseous tongue, it may end up stealing your life-force.",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Haunter",
+          "isDefault": 1,
+          "isEvent": 0,
+          "specialty": "Ingredients",
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:50:00",
+            "carryLimit": 14,
+            "friendshipPointsNeeded": 12,
+            "recruitExperience": 62,
+            "recruitShards": 186
+          },
+          "berries": [
+            {
+              "name": "Bluk Berry",
+              "quantity": 1
+            }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "93-default.png",
+          "shinyImage": "93-default-shiny.png",
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 92,
+            "variantKey": "default"
+          }
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 94,
+      "name": "Gengar",
+      "primaryType": "Ghost",
+      "specialty": "Ingredients",
+      "profileImage": "94.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 93,
+          "name": "Haunter",
+          "levelRequired": 0,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "locations": [
+        "Taupe Hollow",
+        "Old Gold Power Plant"
+      ],
+      "flavorText": "If you feel a sudden chill, a Gengar may be sleeping close by. Apparently, it sometimes falls into a deep sleep while hiding in the shadow of a target it intends to curse.",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Gengar",
+          "isDefault": 1,
+          "isEvent": 0,
+          "specialty": "Ingredients",
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:36:40",
+            "carryLimit": 18,
+            "friendshipPointsNeeded": 22,
+            "recruitExperience": 431,
+            "recruitShards": 1291
+          },
+          "berries": [
+            {
+              "name": "Bluk Berry",
+              "quantity": 1
+            }
+          ],
+          "mainSkill": "Charge Strength S",
+          "detailImage": "94-default.png",
+          "shinyImage": "94-default-shiny.png",
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 92,
+            "variantKey": "default"
           }
         }
       ],

@@ -552,9 +552,84 @@ button {
 }
 
 .ingredient-entry {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  padding: 3px 10px 3px 6px;
+  border-radius: 999px;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.16);
+}
+
+.ingredient-entry::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.ingredient-entry::before {
+  width: var(--ingredient-fill-width, 0%);
+  background: var(--ingredient-fill-color, transparent);
+  z-index: 0;
+}
+
+.ingredient-entry > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ingredient-entry .ingredient-link,
+.ingredient-entry .ingredient-link:visited,
+.ingredient-entry .ingredient-quantity {
+  color: #334155;
+  font-weight: 600;
+}
+
+.ingredient-tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #7c8ba1;
+  cursor: help;
+  line-height: 1;
+}
+
+.ingredient-tooltip svg {
+  display: block;
+}
+
+.ingredient-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%) translateY(4px);
+  padding: 4px 7px;
+  border-radius: 6px;
+  background: #0f172a;
+  color: #f8fafc;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 140ms ease, transform 140ms ease;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.18);
+}
+
+.ingredient-tooltip:hover::after,
+.ingredient-tooltip:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 .bag-ingredient-row {
@@ -783,12 +858,36 @@ button {
   text-align: center;
 }
 
+.evolution-route-items {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.evolution-route-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.evolution-item-image {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
 .evolution-route .route-text {
   padding: 2px 8px;
   border-radius: 999px;
   background: #eef2f7;
   font-weight: 600;
   color: #475569;
+}
+
+.evolution-route-item .route-text {
+  font-size: 0.75rem;
 }
 
 .evolution-route .route-arrow {

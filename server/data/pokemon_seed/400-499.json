@@ -217,6 +217,16 @@
       "primaryType": "Fighting",
       "specialty": "Skills",
       "profileImage": "447.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 448,
+          "name": "Lucario",
+          "levelRequired": 0,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
       "variants": [
         {
           "key": "default",
@@ -250,7 +260,7 @@
             "30": [
               {
                 "name": "Pure Oil",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Soft Potato",
@@ -260,11 +270,11 @@
             "60": [
               {
                 "name": "Pure Oil",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Soft Potato",
-                "quantity": 2
+                "quantity": 4
               },
               {
                 "name": "Fancy Egg",
@@ -311,8 +321,37 @@
           "mainSkill": "Dream Shard Magnet S",
           "detailImage": "448-default.png",
           "shinyImage": "448-default-shiny.png",
-          "inheritIngredientOptionsFrom": {
-            "dexNo": 447
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Pure Oil",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Pure Oil",
+                "quantity": 2
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 2
+              }
+            ],
+            "60": [
+              {
+                "name": "Pure Oil",
+                "quantity": 4
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 4
+              },
+              {
+                "name": "Fancy Egg",
+                "quantity": 4
+              }
+            ]
           }
         }
       ],

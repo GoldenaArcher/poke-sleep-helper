@@ -977,12 +977,15 @@ app.get("/api/dishes", async (req, res) => {
     );
     const ingredientMap = new Map();
     ingredients.forEach((row) => {
+      const bagQuantity = bagMap.get(row.name.toLowerCase()) || 0;
       const list = ingredientMap.get(row.dish_id) || [];
       list.push({
         id: row.ingredient_id,
         name: row.name,
         image_path: row.image_path,
-        quantity: row.quantity
+        quantity: row.quantity,
+        bagQuantity,
+        availabilityRatio: row.quantity > 0 ? bagQuantity / row.quantity : 0
       });
       ingredientMap.set(row.dish_id, list);
     });
@@ -1575,9 +1578,17 @@ app.get("/api/pokedex/:id", async (req, res) => {
 
     const evolvesFrom = [];
     const evolvesTo = [];
-    
+    const routeDataMap = new Map();
+
     for (const route of evolutionRouteRows) {
       const items = await parseItems(route.items_json, route.from_species_dex_no, route.to_species_dex_no);
+      routeDataMap.set(
+        `${route.from_species_dex_no}-${route.to_species_dex_no}`,
+        {
+          level_required: route.level_required,
+          items
+        }
+      );
       if (route.to_species_dex_no === speciesId) {
         evolvesFrom.push({
           dex_no: route.from_species_dex_no,
@@ -1631,9 +1642,14 @@ app.get("/api/pokedex/:id", async (req, res) => {
     // Get variant-specific evolution mappings
     const variantEvolutionRows = await dbAll(
       `SELECT pve.from_species_dex_no, pve.from_variant_key, pve.to_species_dex_no, pve.to_variant_key,
+              from_species.name as from_species_name,
+              from_variant.variant_name as from_variant_name,
               to_species.name as to_species_name,
               to_variant.variant_name as to_variant_name
        FROM pokemon_variant_evolution pve
+       LEFT JOIN pokemon_species from_species ON from_species.dex_no = pve.from_species_dex_no
+       LEFT JOIN pokemon_variants from_variant ON from_variant.species_dex_no = pve.from_species_dex_no
+         AND from_variant.variant_key = pve.from_variant_key
        LEFT JOIN pokemon_species to_species ON to_species.dex_no = pve.to_species_dex_no
        LEFT JOIN pokemon_variants to_variant ON to_variant.species_dex_no = pve.to_species_dex_no 
          AND to_variant.variant_key = pve.to_variant_key
@@ -1669,7 +1685,9 @@ app.get("/api/pokedex/:id", async (req, res) => {
         const entry = variantEvolutionMap.get(toKey);
         entry.evolvesFrom.push({
           dex_no: row.from_species_dex_no,
-          variant_key: row.from_variant_key
+          variant_key: row.from_variant_key,
+          name: row.from_species_name,
+          variant_name: row.from_variant_name
         });
       }
     });
@@ -1689,26 +1707,36 @@ app.get("/api/pokedex/:id", async (req, res) => {
       variants: variants.map((variant) => {
         const key = makeKey(variant);
         const variantEvolution = variantEvolutionMap.get(key);
-        
-        // Merge species-level evolution with variant-specific evolution
-        let variantEvolvesFrom = evolvesFrom;
-        let variantEvolvesTo = evolvesTo;
-        
+        const shouldUseSpeciesEvolutionFallback =
+          variants.length === 1 || variant.is_default === 1;
+
+        let variantEvolvesFrom = shouldUseSpeciesEvolutionFallback ? evolvesFrom : [];
+        let variantEvolvesTo = shouldUseSpeciesEvolutionFallback ? evolvesTo : [];
+
         if (variantEvolution) {
-          // If variant has specific evolution data, use that
           if (variantEvolution.evolvesTo.length > 0) {
             variantEvolvesTo = variantEvolution.evolvesTo.map(evo => {
-              // Find matching route data
-              const route = evolutionRouteRows.find(r => 
-                r.from_species_dex_no === speciesId && r.to_species_dex_no === evo.dex_no
-              );
+              const route = routeDataMap.get(`${speciesId}-${evo.dex_no}`);
               return {
                 dex_no: evo.dex_no,
                 name: evo.name,
                 variant_key: evo.variant_key,
                 variant_name: evo.variant_name,
                 level_required: route?.level_required || null,
-                items: route ? JSON.parse(route.items_json || '[]') : []
+                items: route?.items || []
+              };
+            });
+          }
+          if (variantEvolution.evolvesFrom.length > 0) {
+            variantEvolvesFrom = variantEvolution.evolvesFrom.map((evo) => {
+              const route = routeDataMap.get(`${evo.dex_no}-${speciesId}`);
+              return {
+                dex_no: evo.dex_no,
+                name: evo.name,
+                variant_key: evo.variant_key,
+                variant_name: evo.variant_name,
+                level_required: route?.level_required || null,
+                items: route?.items || []
               };
             });
           }
