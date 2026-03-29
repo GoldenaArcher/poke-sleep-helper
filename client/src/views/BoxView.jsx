@@ -16,6 +16,7 @@ import useBagStore from "../stores/useBagStore.js";
 import useNaturesStore from "../stores/useNaturesStore.js";
 import usePokedexStore from "../stores/usePokedexStore.js";
 import usePokemonBoxStore from "../stores/usePokemonBoxStore.js";
+import useResearchStore from "../stores/useResearchStore.js";
 import useSettingsStore from "../stores/useSettingsStore.js";
 import { apiFetch } from "../utils/api.js";
 
@@ -23,6 +24,7 @@ const BoxView = () => {
   const ingredientCatalog = useBagStore((state) => state.ingredientDetails);
   const { natures } = useNaturesStore();
   const { pokedex } = usePokedexStore();
+  const berries = useResearchStore((state) => state.berries);
   const { settings, updateSettings } = useSettingsStore();
   const {
     pokemonBox,
@@ -48,6 +50,7 @@ const BoxView = () => {
   const [isTypeOpen, setIsTypeOpen] = useState(false);
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedSpecialties, setSelectedSpecialties] = useState([]);
+  const [selectedBerries, setSelectedBerries] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [speciesDetail, setSpeciesDetail] = useState(null);
   const [variantIngredientOptions, setVariantIngredientOptions] = useState({});
@@ -132,6 +135,14 @@ const BoxView = () => {
       a.localeCompare(b)
     );
   }, [pokedex]);
+  const berryOptions = useMemo(
+    () =>
+      [...berries].sort((a, b) => a.name.localeCompare(b.name)).map((berry) => ({
+        name: berry.name,
+        image: berry.image_path || ""
+      })),
+    [berries]
+  );
   const slotLevels = [1, 30, 60];
   const getOptionQuantity = (options, ingredientId) => {
     const match = options.find(
@@ -157,8 +168,16 @@ const BoxView = () => {
         specialty.toLowerCase()
       )
     );
+    const selectedBerrySet = new Set(
+      selectedBerries.map((berry) => berry.toLowerCase())
+    );
     return pokemonBox.filter((entry) => {
-      const speciesInfo = speciesByDex.get(String(entry.dex_no));
+      const speciesInfo = speciesByDex.get(
+        String(entry.species_dex_no ?? entry.dex_no)
+      );
+      const variantInfo = speciesInfo?.variants?.find(
+        (variant) => variant.variant_key === entry.variant_key
+      );
       const primaryType =
         entry.primary_type || speciesInfo?.primary_type || "";
       const secondaryType =
@@ -181,6 +200,15 @@ const BoxView = () => {
       if (!hasSpecialtyMatch) {
         return false;
       }
+      const berryNames = (
+        entry.berries?.length ? entry.berries : variantInfo?.berries || []
+      ).map((berry) => String(berry.name || "").toLowerCase());
+      const hasBerryMatch =
+        selectedBerrySet.size === 0 ||
+        berryNames.some((berryName) => selectedBerrySet.has(berryName));
+      if (!hasBerryMatch) {
+        return false;
+      }
       if (orGroups.length === 0) {
         return true;
       }
@@ -198,7 +226,7 @@ const BoxView = () => {
       };
       return orGroups.some((group) => group.every(matchesToken));
     });
-  }, [pokemonBox, searchQuery, selectedTypes, selectedSpecialties, speciesByDex]);
+  }, [pokemonBox, searchQuery, selectedTypes, selectedSpecialties, selectedBerries, speciesByDex]);
   const sortedPokemonBox = useMemo(() => {
     const entries = [...filteredPokemonBox];
     const direction = sortDirection === "asc" ? 1 : -1;
@@ -361,6 +389,7 @@ const BoxView = () => {
       setSortDirection(settings.boxSortDirection || "asc");
       setSelectedTypes(settings.boxFilterTypes || []);
       setSelectedSpecialties(settings.boxFilterSpecialties || []);
+      setSelectedBerries(settings.boxFilterBerries || []);
     }
   }, [settings]);
   
@@ -374,13 +403,14 @@ const BoxView = () => {
       await updateSettings({
         boxFilterTypes: selectedTypes,
         boxFilterSpecialties: selectedSpecialties,
+        boxFilterBerries: selectedBerries,
         boxSortMode: sortMode,
         boxSortDirection: sortDirection
       });
     }, 300);
     
     return () => clearTimeout(timeoutId);
-  }, [selectedTypes, selectedSpecialties, sortMode, sortDirection, updateSettings]);
+  }, [selectedTypes, selectedSpecialties, selectedBerries, sortMode, sortDirection, updateSettings]);
   
   useEffect(() => {
     if (!isSortOpen && !isTypeOpen) {
@@ -491,11 +521,12 @@ const BoxView = () => {
                 >
                   <IoFilterOutline />
                   Filter
-                  {selectedTypes.length + selectedSpecialties.length >
+                  {selectedTypes.length + selectedSpecialties.length + selectedBerries.length >
                   0
                     ? ` (${
                         selectedTypes.length +
-                        selectedSpecialties.length
+                        selectedSpecialties.length +
+                        selectedBerries.length
                       })`
                     : ""}
                 </button>
@@ -507,6 +538,7 @@ const BoxView = () => {
                       onClick={() => {
                         setSelectedTypes([]);
                         setSelectedSpecialties([]);
+                        setSelectedBerries([]);
                       }}
                     >
                       Clear filter
@@ -514,57 +546,53 @@ const BoxView = () => {
                     {specialtyOptions.length > 0 && (
                       <div className="box-filter-group">
                         <p className="meta">Specialty</p>
+                        <div className="box-filter-options-grid">
                         {specialtyOptions.map((specialty) => (
-                          <label
+                          <button
                             key={specialty}
-                            className="box-filter-option checkbox-option"
+                            type="button"
+                            className={`box-filter-option toggle-option ${
+                              selectedSpecialties.includes(specialty)
+                                ? "active"
+                                : ""
+                            }`}
+                            aria-pressed={selectedSpecialties.includes(
+                              specialty
+                            )}
+                            onClick={() => {
+                              setSelectedSpecialties((prev) =>
+                                prev.includes(specialty)
+                                  ? prev.filter((item) => item !== specialty)
+                                  : [...prev, specialty]
+                              );
+                            }}
                           >
-                            <input
-                              type="checkbox"
-                              checked={selectedSpecialties.includes(
-                                specialty
-                              )}
-                              onChange={(event) => {
-                                const checked = event.target.checked;
-                                setSelectedSpecialties((prev) => {
-                                  if (checked) {
-                                    return [...prev, specialty];
-                                  }
-                                  return prev.filter(
-                                    (item) =>
-                                      item !== specialty
-                                  );
-                                });
-                              }}
-                            />
-                            <span>{specialty}</span>
-                          </label>
+                            <span className="box-filter-option-label">{specialty}</span>
+                          </button>
                         ))}
+                        </div>
                       </div>
                     )}
                     {typeOptions.length > 0 && (
                       <div className="box-filter-group">
                         <p className="meta">Type</p>
+                    <div className="box-filter-options-grid">
                     {typeOptions.map((type) => (
-                      <label
+                      <button
                         key={type.name}
-                        className="box-filter-option checkbox-option"
+                        type="button"
+                        className={`box-filter-option toggle-option ${
+                          selectedTypes.includes(type.name) ? "active" : ""
+                        }`}
+                        aria-pressed={selectedTypes.includes(type.name)}
+                        onClick={() => {
+                          setSelectedTypes((prev) =>
+                            prev.includes(type.name)
+                              ? prev.filter((item) => item !== type.name)
+                              : [...prev, type.name]
+                          );
+                        }}
                       >
-                        <input
-                          type="checkbox"
-                          checked={selectedTypes.includes(type.name)}
-                          onChange={(event) => {
-                            const checked = event.target.checked;
-                            setSelectedTypes((prev) => {
-                              if (checked) {
-                                return [...prev, type.name];
-                              }
-                              return prev.filter(
-                                (item) => item !== type.name
-                              );
-                            });
-                          }}
-                        />
                         {type.image ? (
                           <img
                             className="box-filter-type-icon"
@@ -572,9 +600,47 @@ const BoxView = () => {
                             alt={type.name}
                           />
                         ) : null}
-                        <span>{type.name}</span>
-                      </label>
+                        <span className="box-filter-option-label">{type.name}</span>
+                      </button>
                     ))}
+                    </div>
+                      </div>
+                    )}
+                    {berryOptions.length > 0 && (
+                      <div className="box-filter-group">
+                        <p className="meta">Berry</p>
+                        <div className="box-filter-options-grid">
+                          {berryOptions.map((berry) => (
+                            <button
+                              key={berry.name}
+                              type="button"
+                              className={`box-filter-option toggle-option ${
+                                selectedBerries.includes(berry.name)
+                                  ? "active"
+                                  : ""
+                              }`}
+                              aria-pressed={selectedBerries.includes(
+                                berry.name
+                              )}
+                              onClick={() => {
+                                setSelectedBerries((prev) =>
+                                  prev.includes(berry.name)
+                                    ? prev.filter((item) => item !== berry.name)
+                                    : [...prev, berry.name]
+                                );
+                              }}
+                            >
+                              {berry.image ? (
+                                <img
+                                  className="box-filter-type-icon"
+                                  src={berry.image}
+                                  alt={berry.name}
+                                />
+                              ) : null}
+                              <span className="box-filter-option-label">{berry.name}</span>
+                            </button>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </div>

@@ -62,6 +62,53 @@
       "subSkills": []
     },
     {
+      "dexNo": 113,
+      "name": "Chansey",
+      "primaryType": "Normal",
+      "specialty": "Ingredients",
+      "profileImage": "113.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 440,
+          "name": "Happiny",
+          "itemRequired": "Oval Stone",
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Chansey",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:51:40",
+            "carryLimit": 21,
+            "friendshipPointsNeeded": 20,
+            "recruitExperience": 1645,
+            "recruitShards": 1504
+          },
+          "berries": [
+            {
+              "name": "Persim Berry",
+              "quantity": 1
+            }
+          ],
+          "mainSkill": "Energy for Everyone S",
+          "detailImage": "113-default.png",
+          "shinyImage": "113-default-shiny.png",
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 440,
+            "variantKey": "default"
+          }
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 127,
       "name": "Pinsir",
       "primaryType": "Bug",
@@ -949,6 +996,16 @@
       "primaryType": "Poison",
       "specialty": "Ingredients",
       "profileImage": "194.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 980,
+          "name": "Paldean Clodsire",
+          "levelRequired": 15,
+          "variantMapping": {
+            "paldean": "default"
+          }
+        }
+      },
       "variants": [
         {
           "key": "paldean",
@@ -982,7 +1039,7 @@
             "30": [
               {
                 "name": "Soothing Cacao",
-                "quantity": 2
+                "quantity": 5
               },
               {
                 "name": "Rousing Coffee",
@@ -996,7 +1053,11 @@
               },
               {
                 "name": "Rousing Coffee",
-                "quantity": 4
+                "quantity": 7
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 9
               }
             ]
           }

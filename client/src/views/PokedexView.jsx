@@ -198,7 +198,7 @@ const EvolutionStageCard = ({ stage, isCurrent = false }) => (
       className="evolution-link"
     >
       <img
-        src={`/uploads/pokemons/${stage.dex_no}.png`}
+        src={stage.image_path || `/uploads/pokemons/${stage.dex_no}.png`}
         alt={stage.name}
         className="evolution-preview"
       />
@@ -240,9 +240,28 @@ const LinearEvolutionChain = ({ species, evolvesFrom, evolvesTo }) => {
         const stage = {
           dex_no: routeToStage.dex_no,
           name: routeToStage.name,
-          form_name: routeToStage.form_name
+          form_name: routeToStage.variant_name || routeToStage.form_name,
+          variant_key: routeToStage.variant_key
         };
-        const data = await apiFetch(`/api/pokedex/${stage.dex_no}`);
+        let data = null;
+        try {
+          data = await apiFetch(`/api/pokedex/${stage.dex_no}`);
+          if (stage.variant_key) {
+            const matchedVariant = data?.variants?.find(
+              (variant) => variant.variant_key === stage.variant_key
+            );
+            if (matchedVariant) {
+              stage.image_path =
+                matchedVariant.image_path || matchedVariant.shiny_image_path || null;
+              stage.form_name =
+                matchedVariant.variant_name && matchedVariant.variant_name !== stage.name
+                  ? matchedVariant.variant_name
+                  : stage.form_name;
+            }
+          }
+        } catch (_error) {
+          return [{ stage, incomingRoute: null }];
+        }
         const previous = normalizeEvolutionList(data?.evolution?.evolves_from);
         if (previous.length > 1) {
           throw new Error("branching-ancestors");
@@ -260,9 +279,28 @@ const LinearEvolutionChain = ({ species, evolvesFrom, evolvesTo }) => {
         const stage = {
           dex_no: routeToStage.dex_no,
           name: routeToStage.name,
-          form_name: routeToStage.form_name
+          form_name: routeToStage.variant_name || routeToStage.form_name,
+          variant_key: routeToStage.variant_key
         };
-        const data = await apiFetch(`/api/pokedex/${stage.dex_no}`);
+        let data = null;
+        try {
+          data = await apiFetch(`/api/pokedex/${stage.dex_no}`);
+          if (stage.variant_key) {
+            const matchedVariant = data?.variants?.find(
+              (variant) => variant.variant_key === stage.variant_key
+            );
+            if (matchedVariant) {
+              stage.image_path =
+                matchedVariant.image_path || matchedVariant.shiny_image_path || null;
+              stage.form_name =
+                matchedVariant.variant_name && matchedVariant.variant_name !== stage.name
+                  ? matchedVariant.variant_name
+                  : stage.form_name;
+            }
+          }
+        } catch (_error) {
+          return [{ stage, incomingRoute: routeToStage }];
+        }
         const next = normalizeEvolutionList(data?.evolution?.evolves_to);
         if (next.length > 1) {
           throw new Error("branching-descendants");
@@ -319,7 +357,23 @@ const LinearEvolutionChain = ({ species, evolvesFrom, evolvesTo }) => {
         </Fragment>
       ))}
       {ancestors.length > 0 && <EvolutionRouteDisplay route={evolvesFrom[0]} />}
-      <EvolutionStageCard stage={species} isCurrent />
+      <EvolutionStageCard
+        stage={{
+          dex_no: species.dex_no,
+          name: species.name,
+          form_name:
+            species.selected_variant?.variant_name &&
+            species.selected_variant.variant_name !== species.name
+              ? species.selected_variant.variant_name
+              : null,
+          image_path:
+            species.selected_variant?.image_path ||
+            species.selected_variant?.shiny_image_path ||
+            species.image_path ||
+            null
+        }}
+        isCurrent
+      />
       {descendants.map(({ stage, incomingRoute }, index) => (
         <Fragment key={`descendant-${stage.dex_no}-${index}`}>
           <EvolutionRouteDisplay route={incomingRoute} />
@@ -712,7 +766,10 @@ const PokedexDetailView = () => {
           </div>
           {canTryLinearEvolutionLayout ? (
             <LinearEvolutionChain
-              species={species}
+              species={{
+                ...species,
+                selected_variant: selectedVariant || null
+              }}
               evolvesFrom={evolvesFrom}
               evolvesTo={evolvesTo}
             />
@@ -725,13 +782,22 @@ const PokedexDetailView = () => {
               <div className="evolution-column current">
                 <div className="evolution-link">
                   <img
-                    src={species.image_path || `/uploads/pokemons/${species.dex_no}.png`}
-                    alt={species.name}
+                    src={
+                      selectedVariant?.image_path ||
+                      selectedVariant?.shiny_image_path ||
+                      species.image_path ||
+                      `/uploads/pokemons/${species.dex_no}.png`
+                    }
+                    alt={selectedVariant?.variant_name || species.name}
                     className="evolution-preview"
                   />
                   <div>
                     <strong>#{String(species.dex_no).padStart(3, "0")}</strong>
                     <p>{species.name}</p>
+                    {selectedVariant?.variant_name &&
+                      selectedVariant.variant_name !== species.name && (
+                        <span className="meta">{selectedVariant.variant_name}</span>
+                      )}
                     <span className="meta">Current</span>
                   </div>
                 </div>

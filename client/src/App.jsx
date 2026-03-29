@@ -10,6 +10,7 @@ import { FaMagnifyingGlassLocation } from "react-icons/fa6";
 import BagModalContainer from "./components/BagModalContainer.jsx";
 import ResearchAreasModalContainer from "./components/ResearchAreasModalContainer.jsx";
 import BoxView from "./views/BoxView.jsx";
+import BerriesView from "./views/BerriesView.jsx";
 import DishesView, { DishDetailView } from "./views/DishesView.jsx";
 import {
   IngredientDetailView,
@@ -74,6 +75,7 @@ export default function App() {
               Dishes
             </NavLink>
             <NavLink to="/ingredients">Ingredients</NavLink>
+            <NavLink to="/berries">Berries</NavLink>
             <NavLink to="/pokedex">Pokedex</NavLink>
             <NavLink to="/box">Box</NavLink>
             <NavLink to="/teams">Teams</NavLink>
@@ -101,6 +103,7 @@ export default function App() {
             <Route path="/" element={<DishesView />} />
             <Route path="/dishes/:dishId" element={<DishDetailView />} />
             <Route path="/ingredients" element={<IngredientsListView />} />
+            <Route path="/berries" element={<BerriesView />} />
             <Route
               path="/ingredients/:ingredientName"
               element={<IngredientDetailView />}

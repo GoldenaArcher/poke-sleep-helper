@@ -25,9 +25,9 @@ after(() => {
 test("pokemon seed loader merges all range files", () => {
   const data = loadPokemonSeedData();
 
-  assert.equal(data.species.length, 77);
+  assert.equal(data.species.length, 80);
   assert.equal(data.species[0].dexNo, 1);
-  assert.equal(data.species.at(-1).dexNo, 974);
+  assert.equal(data.species.at(-1).dexNo, 980);
   const pikachu = data.species.find((species) => species.dexNo === 25);
   assert.ok(pikachu);
   assert.ok(Array.isArray(pikachu.variants[0].ingredientOptions["1"]));

@@ -40,12 +40,24 @@
               {
                 "name": "Honey",
                 "quantity": 5
+              },
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 4
               }
             ],
             "60": [
               {
                 "name": "Honey",
                 "quantity": 7
+              },
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 7
+              },
+              {
+                "name": "Soft Potato",
+                "quantity": 6
               }
             ]
           }
@@ -1391,6 +1403,16 @@
       "primaryType": "Grass",
       "specialty": "Ingredients",
       "profileImage": "69.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 70,
+          "name": "Weepinbell",
+          "levelRequired": 16,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
       "variants": [
         {
           "key": "default",
@@ -1434,7 +1456,7 @@
             "60": [
               {
                 "name": "Snoozy Tomato",
-                "quantity": 5
+                "quantity": 7
               },
               {
                 "name": "Soft Potato",
@@ -1445,6 +1467,69 @@
                 "quantity": 4
               }
             ]
+          }
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 70,
+      "name": "Weepinbell",
+      "primaryType": "Grass",
+      "specialty": "Ingredients",
+      "profileImage": "70.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 69,
+          "name": "Bellsprout",
+          "levelRequired": 16,
+          "variantMapping": {
+            "default": "default"
+          }
+        },
+        "evolvesTo": {
+          "dexNo": 71,
+          "name": "Victreebel",
+          "levelRequired": 0,
+          "itemRequired": "Leaf Stone",
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "locations": [
+        "Greengrass Isle",
+        "Cyan Beach",
+        "Lapis Lakeside"
+      ],
+      "flavorText": "It's been found sleeping on trees, hanging by the hook on its rear end. Apparently, it sometimes falls to the ground and carries on sleeping, undisturbed.",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Weepinbell",
+          "isDefault": 1,
+          "isEvent": 0,
+          "specialty": "Ingredients",
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:03:20",
+            "carryLimit": 12,
+            "friendshipPointsNeeded": 12,
+            "recruitExperience": 73,
+            "recruitShards": 131
+          },
+          "berries": [
+            {
+              "name": "Durin Berry",
+              "quantity": 1
+            }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "70-default.png",
+          "shinyImage": "70-default-shiny.png",
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 69,
+            "variantKey": "default"
           }
         }
       ],

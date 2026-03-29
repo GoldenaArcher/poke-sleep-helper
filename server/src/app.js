@@ -2764,7 +2764,7 @@ app.put("/api/research-areas/:id/area-bonus", async (req, res) => {
 app.get("/api/berries", async (req, res) => {
   try {
     const rows = await dbAll(
-      "select id, name, image_path from berries order by name"
+      "select id, name, image_path, type from berries order by name"
     );
     res.json(rows);
   } catch (error) {

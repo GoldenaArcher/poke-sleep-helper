@@ -152,6 +152,16 @@
       "primaryType": "Normal",
       "specialty": "Ingredients",
       "profileImage": "440.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 113,
+          "name": "Chansey",
+          "itemRequired": "Oval Stone",
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
       "variants": [
         {
           "key": "default",
@@ -199,7 +209,7 @@
               },
               {
                 "name": "Soft Potato",
-                "quantity": 4
+                "quantity": 7
               },
               {
                 "name": "Honey",

@@ -259,6 +259,59 @@
         }
       ],
       "subSkills": []
+    },
+    {
+      "dexNo": 980,
+      "name": "Paldean Clodsire",
+      "primaryType": "Poison",
+      "specialty": "Ingredients",
+      "profileImage": "980.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 194,
+          "name": "Wooper",
+          "levelRequired": 15,
+          "variantMapping": {
+            "paldean": "default"
+          }
+        }
+      },
+      "locations": [
+        "Taupe Hollow (Expert)",
+        "Greengrass Isle (Expert)",
+        "Amber Canyon"
+      ],
+      "flavorText": "Clodsire lives in ponds and swamps. It will carry Wooper on its back and ferry them from one shore to the other. On rare occasions, it can be seen sleeping in the mud; this may be because it got sleepy while ferrying Wooper.",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Paldean Clodsire",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Paldean form",
+          "stats": {
+            "baseFrequency": "00:58:20",
+            "carryLimit": 20,
+            "friendshipPointsNeeded": 12,
+            "recruitExperience": 669,
+            "recruitShards": 528
+          },
+          "berries": [
+            {
+              "name": "Chesto Berry",
+              "quantity": 1
+            }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "980-default.png",
+          "shinyImage": "980-default-shiny.png",
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 194,
+            "variantKey": "paldean"
+          }
+        }
+      ],
+      "subSkills": []
     }
   ]
 }
