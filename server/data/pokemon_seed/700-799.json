@@ -154,6 +154,73 @@
       "subSkills": []
     },
     {
+      "dexNo": 714,
+      "name": "Noibat",
+      "primaryType": "Dragon",
+      "specialty": "Skills",
+      "profileImage": "714.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 715,
+          "name": "Noivern",
+          "levelRequired": 36,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Noibat",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:25:00",
+            "carryLimit": 7,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 93,
+            "recruitShards": 148
+          },
+          "berries": [
+            {
+              "name": "Yache Berry",
+              "quantity": 1
+            }
+          ],
+          "mainSkill": "Charge Strength M",
+          "detailImage": "714-default.png",
+          "shinyImage": "714-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Fancy Apple",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Fancy Apple",
+                "quantity": 2
+              }
+            ],
+            "60": [
+              {
+                "name": "Fancy Apple",
+                "quantity": 2
+              },
+              {
+                "name": "Large Leek",
+                "quantity": 2
+              }
+            ]
+          }
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 742,
       "name": "Cutiefly",
       "primaryType": "Fairy",

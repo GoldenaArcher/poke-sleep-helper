@@ -40,7 +40,7 @@
             "30": [
               {
                 "name": "Greengrass Soybeans",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Tasty Mushroom",
@@ -54,7 +54,7 @@
               },
               {
                 "name": "Tasty Mushroom",
-                "quantity": 1
+                "quantity": 2
               }
             ]
           }

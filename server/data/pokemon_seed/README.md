@@ -57,3 +57,10 @@ When exact higher-slot quantities are unknown:
 - prefer a conservative placeholder already confirmed from a lower slot
 
 This keeps slot-option coverage correct even when exact counts are still incomplete.
+
+## Unsupported Metadata
+
+Keep these seed files focused on data that is actually seeded and consumed by the app.
+
+- Do not add `locations` to species entries.
+- If location data becomes useful later, add it back together with a schema/API consumer instead of keeping it as dead seed metadata.

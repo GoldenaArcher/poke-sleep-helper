@@ -1497,11 +1497,6 @@
           }
         }
       },
-      "locations": [
-        "Greengrass Isle",
-        "Cyan Beach",
-        "Lapis Lakeside"
-      ],
       "flavorText": "It's been found sleeping on trees, hanging by the hook on its rear end. Apparently, it sometimes falls to the ground and carries on sleeping, undisturbed.",
       "variants": [
         {
@@ -1772,6 +1767,10 @@
               {
                 "name": "Pure Oil",
                 "quantity": 2
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 2
               }
             ],
             "60": [
@@ -1838,7 +1837,7 @@
             "60": [
               {
                 "name": "Greengrass Soybeans",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Soothing Cacao",
@@ -1951,12 +1950,6 @@
           }
         }
       },
-      "locations": [
-        "Greengrass Isle",
-        "Taupe Hollow",
-        "Snowdrop Tundra",
-        "Old Gold Power Plant"
-      ],
       "flavorText": "This Pokemon fears the light and revels in the dark. You must never approach it, even when it's asleep. If a sleep-fogged Haunter licks you with its gaseous tongue, it may end up stealing your life-force.",
       "variants": [
         {
@@ -2006,10 +1999,6 @@
           }
         }
       },
-      "locations": [
-        "Taupe Hollow",
-        "Old Gold Power Plant"
-      ],
       "flavorText": "If you feel a sudden chill, a Gengar may be sleeping close by. Apparently, it sometimes falls into a deep sleep while hiding in the shadow of a target it intends to curse.",
       "variants": [
         {

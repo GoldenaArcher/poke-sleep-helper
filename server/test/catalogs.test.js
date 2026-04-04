@@ -161,7 +161,7 @@ after(() => {
 
 test("catalog loader exposes the expected datasets", () => {
   assert.equal(dishCatalog.length, 78);
-  assert.equal(Object.keys(dishLevelData).length, 62);
+  assert.equal(Object.keys(dishLevelData).length, 75);
   assert.equal(berryCatalog.length, 18);
   assert.equal(ingredientCatalog.length, 19);
   assert.equal(mainSkillCatalog.length, 28);
