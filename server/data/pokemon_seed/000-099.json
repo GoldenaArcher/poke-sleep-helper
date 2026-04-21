@@ -868,6 +868,60 @@
       "subSkills": []
     },
     {
+      "dexNo": 35,
+      "name": "Clefairy",
+      "primaryType": "Fairy",
+      "specialty": "Berries",
+      "profileImage": "35.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 173,
+          "name": "Cleffa",
+          "variantMapping": {
+            "default": "default"
+          }
+        },
+        "evolvesTo": {
+          "dexNo": 36,
+          "name": "Clefable",
+          "itemRequired": "Moon Stone",
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Clefairy",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:06:40",
+            "carryLimit": 16,
+            "friendshipPointsNeeded": 7,
+            "recruitExperience": 49,
+            "recruitShards": 53
+          },
+          "berries": [
+            {
+              "name": "Pecha Berry",
+              "quantity": 2
+            }
+          ],
+          "mainSkill": "Metronome",
+          "detailImage": "35-default.png",
+          "shinyImage": "35-default-shiny.png",
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 173,
+            "variantKey": "default"
+          }
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 37,
       "name": "Vulpix",
       "primaryType": "Fire",
@@ -1155,7 +1209,7 @@
         "30": [
           {
             "name": "Moomoo Milk",
-            "quantity": 1
+            "quantity": 2
           },
           {
             "name": "Bean Sausage",

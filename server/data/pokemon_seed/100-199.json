@@ -6,6 +6,16 @@
       "primaryType": "Ground",
       "specialty": "Berries",
       "profileImage": "104.png",
+      "evolutionChain": {
+        "evolvesTo": {
+          "dexNo": 105,
+          "name": "Marowak",
+          "levelRequired": 21,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
       "variants": [
         {
           "key": "default",
@@ -39,7 +49,7 @@
             "30": [
               {
                 "name": "Warming Ginger",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Soothing Cacao",
@@ -49,13 +59,60 @@
             "60": [
               {
                 "name": "Warming Ginger",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Soothing Cacao",
                 "quantity": 3
               }
             ]
+          }
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 105,
+      "name": "Marowak",
+      "primaryType": "Ground",
+      "specialty": "Berries",
+      "profileImage": "105.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 104,
+          "name": "Cubone",
+          "levelRequired": 21,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Marowak",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:58:20",
+            "carryLimit": 15,
+            "friendshipPointsNeeded": 12,
+            "recruitExperience": 93,
+            "recruitShards": 197
+          },
+          "berries": [
+            {
+              "name": "Figy Berry",
+              "quantity": 2
+            }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "105-default.png",
+          "shinyImage": "105-default-shiny.png",
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 104,
+            "variantKey": "default"
           }
         }
       ],
@@ -532,7 +589,7 @@
             "30": [
               {
                 "name": "Warming Ginger",
-                "quantity": 1
+                "quantity": 2
               },
               {
                 "name": "Fiery Herb",
@@ -542,10 +599,14 @@
             "60": [
               {
                 "name": "Warming Ginger",
-                "quantity": 1
+                "quantity": 4
               },
               {
                 "name": "Fiery Herb",
+                "quantity": 3
+              },
+              {
+                "name": "Pure Oil",
                 "quantity": 3
               }
             ]
@@ -711,12 +772,24 @@
               {
                 "name": "Honey",
                 "quantity": 2
+              },
+              {
+                "name": "Fancy Apple",
+                "quantity": 2
               }
             ],
             "60": [
               {
                 "name": "Greengrass Soybeans",
                 "quantity": 3
+              },
+              {
+                "name": "Honey",
+                "quantity": 3
+              },
+              {
+                "name": "Fancy Apple",
+                "quantity": 4
               }
             ]
           }

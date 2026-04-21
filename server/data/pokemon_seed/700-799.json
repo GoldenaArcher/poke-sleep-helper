@@ -203,16 +203,24 @@
               {
                 "name": "Fancy Apple",
                 "quantity": 2
+              },
+              {
+                "name": "Large Leek",
+                "quantity": 1
               }
             ],
             "60": [
               {
                 "name": "Fancy Apple",
-                "quantity": 2
+                "quantity": 4
               },
               {
                 "name": "Large Leek",
                 "quantity": 2
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 3
               }
             ]
           }

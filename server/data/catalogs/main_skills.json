@@ -162,6 +162,12 @@
     "notes": "Restores ? Energy to one random Pokémon on your team. If you're lucky, that Pokémon will also gain a main skill activation bonus."
   },
   {
+    "name": "Heal Pulse (Energizing Cheer S)",
+    "effectType": "energy_restore",
+    "target": "two_random_allies",
+    "notes": "Restores Energy to two random Pokémon on your team and instantly gets you x1 the usual help from those Pokémon. Meet certain conditions to boost effect."
+  },
+  {
     "name": "Versatile",
     "effectType": "skill_copy",
     "target": "team",

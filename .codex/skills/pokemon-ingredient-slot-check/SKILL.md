@@ -14,12 +14,13 @@ It validates the project rule that:
 - slot `30` includes all slot `1` ingredient names
 - slot `60` includes all slot `1` and slot `30` ingredient names
 - every option has a positive integer quantity
-- a variant is considered to have a complete ingredient list when slot `1` has 1 ingredient, slot `30` has 2 ingredients, slot `60` has 3 ingredients, and inherited ingredient quantities strictly increase at each later slot
+- a normal variant is considered to have a complete ingredient list when slot `1` has 1 ingredient, slot `30` has 2 ingredients, slot `60` has 3 ingredients, and inherited ingredient quantities strictly increase at each later slot
 - specific legendary or mythical species may use explicit per-species completeness rules instead of the normal `1 / 2 / 3` rule
 - omitted quantities default to `1`
 - ingredient shorthand may be resolved against the project ingredient catalog when there is one clear match
 
 Read [references/slot-rules.md](references/slot-rules.md) if you need the rule summary while editing.
+Use [references/special-completeness-rules.json](references/special-completeness-rules.json) as the source of truth for per-dex completeness exceptions.
 
 ## Workflow
 
@@ -37,7 +38,7 @@ npm run test --workspace server
 ```
 
 4. If the checker fails because a higher slot is missing a lower-slot ingredient, keep the inherited ingredient in the higher slot and use the best known placeholder quantity until the real quantity is confirmed.
-5. When checking a species, read the checker output for `COMPLETE` or `INCOMPLETE` status. This is informational and does not fail validation by itself.
+5. When checking a species, read the checker output for `COMPLETE` or `INCOMPLETE` status. Missing inherited higher-slot ingredients are reported as `INCOMPLETE` and do not fail validation by themselves.
 
 ## Notes
 
@@ -45,8 +46,13 @@ npm run test --workspace server
 - With no dex numbers, it validates every Pokemon seed file.
 - The checker also reports completeness status for each validated variant.
 - Current special completeness rules:
+  - `Meowth` (`dex 52`): expected slot counts `1 / 2 / 2`
+  - `Cubone` (`dex 104`): expected slot counts `1 / 2 / 2`
+  - `Marowak` (`dex 105`): expected slot counts `1 / 2 / 2`
   - `Mew` (`dex 151`): expected slot counts `7 / 8 / 8`
   - `Darkrai` (`dex 491`): expected slot counts `8 / 8 / 8`
+- Use special-case rules for known exceptions instead of widening the normal rule.
+- Edit the JSON file in `references/special-completeness-rules.json` when you need to add or remove an exception.
 - This skill is only for ingredient slot seed validation; it does not replace the full server test suite.
 - For user-provided ingredient shorthand, prefer repo-specific resolution rules:
   - if quantity is omitted, treat it as `x1`

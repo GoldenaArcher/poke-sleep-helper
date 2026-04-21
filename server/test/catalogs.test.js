@@ -164,7 +164,7 @@ test("catalog loader exposes the expected datasets", () => {
   assert.equal(Object.keys(dishLevelData).length, 75);
   assert.equal(berryCatalog.length, 18);
   assert.equal(ingredientCatalog.length, 19);
-  assert.equal(mainSkillCatalog.length, 28);
+  assert.equal(mainSkillCatalog.length, 29);
 });
 
 test("catalog loader rejects broken cross references", () => {

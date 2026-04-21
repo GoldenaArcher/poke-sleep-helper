@@ -382,6 +382,10 @@
               },
               {
                 "name": "Moomoo Milk",
+                "quantity": 5
+              },
+              {
+                "name": "Tasty Mushroom",
                 "quantity": 3
               }
             ]
@@ -433,6 +437,52 @@
           "mainSkill": "Tasty Chance S",
           "detailImage": "259-default.png",
           "shinyImage": "259-default-shiny.png",
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 258
+          }
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 260,
+      "name": "Swampert",
+      "primaryType": "Ground",
+      "specialty": "Berries",
+      "profileImage": "260.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 259,
+          "name": "Marshtomp",
+          "levelRequired": 27,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Swampert",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:46:40",
+            "carryLimit": 20,
+            "friendshipPointsNeeded": 20,
+            "recruitExperience": 1560,
+            "recruitShards": 2089
+          },
+          "berries": [
+            {
+              "name": "Figy Berry",
+              "quantity": 2
+            }
+          ],
+          "mainSkill": "Tasty Chance S",
+          "detailImage": "260-default.png",
+          "shinyImage": "260-default-shiny.png",
           "inheritIngredientOptionsFrom": {
             "dexNo": 258
           }

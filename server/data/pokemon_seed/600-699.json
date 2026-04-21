@@ -40,16 +40,24 @@
               {
                 "name": "Bean Sausage",
                 "quantity": 2
+              },
+              {
+                "name": "Greengrass Corn",
+                "quantity": 2
               }
             ],
             "60": [
               {
-                "name": "Bean Sausage",
+                "name": "Rousing Coffee",
                 "quantity": 2
               },
               {
                 "name": "Greengrass Corn",
                 "quantity": 3
+              },
+              {
+                "name": "Bean Sausage",
+                "quantity": 4
               }
             ]
           }

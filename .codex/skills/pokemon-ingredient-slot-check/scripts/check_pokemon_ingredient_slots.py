@@ -6,16 +6,24 @@ from pathlib import Path
 
 
 EXPECTED_SLOTS = ("1", "30", "60")
-SPECIAL_COMPLETENESS_RULES = {
-    151: {
-        "label": "Mew",
-        "slot_counts": {"1": 7, "30": 8, "60": 8},
-    },
-    491: {
-        "label": "Darkrai",
-        "slot_counts": {"1": 8, "30": 8, "60": 8},
-    },
-}
+SPECIAL_COMPLETENESS_RULES_PATH = (
+    Path(__file__).resolve().parent.parent
+    / "references"
+    / "special-completeness-rules.json"
+)
+
+
+def load_special_completeness_rules():
+    with SPECIAL_COMPLETENESS_RULES_PATH.open("r", encoding="utf-8") as handle:
+        payload = json.load(handle)
+
+    rules = {}
+    for dex_no, rule in payload.items():
+        rules[int(dex_no)] = rule
+    return rules
+
+
+SPECIAL_COMPLETENESS_RULES = load_special_completeness_rules()
 
 
 def load_seed_files(seed_dir: Path):
@@ -91,6 +99,20 @@ def evaluate_completeness(slot_options, dex_no=None):
     if len(quantities_60) != expected_counts["60"]:
         reasons.append(
             f"slot 60 has {len(quantities_60)} ingredients, expected {expected_counts['60']}"
+        )
+
+    missing_in_30 = sorted(set(quantities_1) - set(quantities_30))
+    if missing_in_30:
+        reasons.append(
+            "slot 30 is missing slot 1 ingredients: "
+            + ", ".join(missing_in_30)
+        )
+
+    missing_in_60 = sorted((set(quantities_1) | set(quantities_30)) - set(quantities_60))
+    if missing_in_60:
+        reasons.append(
+            "slot 60 is missing slot 1/30 ingredients: "
+            + ", ".join(missing_in_60)
         )
 
     for name, quantity_1 in quantities_1.items():
@@ -267,18 +289,6 @@ def validate_species(
         names_1 = set(slot_names.get("1", []))
         names_30 = set(slot_names.get("30", []))
         names_60 = set(slot_names.get("60", []))
-
-        missing_in_30 = sorted(names_1 - names_30)
-        if missing_in_30:
-            errors.append(
-                f"{context_base}: slot 30 must include all slot 1 ingredients; missing {', '.join(missing_in_30)}"
-            )
-
-        missing_in_60 = sorted((names_1 | names_30) - names_60)
-        if missing_in_60:
-            errors.append(
-                f"{context_base}: slot 60 must include all slot 1 and slot 30 ingredients; missing {', '.join(missing_in_60)}"
-            )
 
         is_complete, reasons, completeness_rule = evaluate_completeness(
             slot_options,

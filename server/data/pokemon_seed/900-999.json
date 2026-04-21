@@ -125,8 +125,67 @@
               {
                 "name": "Bean Sausage",
                 "quantity": 6
+              },
+              {
+                "name": "Fiery Herb",
+                "quantity": 5
               }
             ]
+          }
+        }
+      ],
+      "subSkills": []
+    },
+    {
+      "dexNo": 910,
+      "name": "Crocalor",
+      "primaryType": "Fire",
+      "specialty": "Ingredients",
+      "profileImage": "910.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 909,
+          "name": "Fuecoco",
+          "levelRequired": 12,
+          "variantMapping": {
+            "default": "default"
+          }
+        },
+        "evolvesTo": {
+          "dexNo": 911,
+          "name": "Skeledirge",
+          "levelRequired": 27,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Crocalor",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:51:40",
+            "carryLimit": 16,
+            "friendshipPointsNeeded": 12,
+            "recruitExperience": 223,
+            "recruitShards": 210
+          },
+          "berries": [
+            {
+              "name": "Leppa Berry",
+              "quantity": 1
+            }
+          ],
+          "mainSkill": "Charge Energy S",
+          "detailImage": "910-default.png",
+          "shinyImage": "910-default-shiny.png",
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 909,
+            "variantKey": "default"
           }
         }
       ],

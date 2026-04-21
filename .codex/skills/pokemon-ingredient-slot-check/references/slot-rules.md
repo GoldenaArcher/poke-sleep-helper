@@ -7,13 +7,18 @@
 - A variant has a complete ingredient list when:
   - slot 1 has exactly 1 ingredient
   - slot 30 has exactly 2 ingredients
-  - slot 60 has exactly 3 ingredients
+  - slot 60 has exactly 3 ingredients for normal species
   - if an ingredient appears in a later slot and the earlier slot, the later-slot quantity must be greater
 - Special-case completeness rules currently supported:
+  - `Meowth` (`dex 52`): slot counts must be `1 / 2 / 2`
+  - `Cubone` (`dex 104`): slot counts must be `1 / 2 / 2`
+  - `Marowak` (`dex 105`): slot counts must be `1 / 2 / 2`
   - `Mew` (`dex 151`): slot counts must be `7 / 8 / 8`
   - `Darkrai` (`dex 491`): slot counts must be `8 / 8 / 8`
   - these special species still use the same increasing-quantity rule for inherited ingredients
-- When a higher-slot quantity is not confirmed yet, keep the inherited ingredient with a placeholder quantity instead of removing it.
+- The source of truth for these exceptions is `references/special-completeness-rules.json`.
+- When a higher-slot quantity is not confirmed yet, you may keep the inherited ingredient with a placeholder quantity.
+- If confirmed data is still incomplete and a higher-slot inherited ingredient is unknown, the checker may report that species as `INCOMPLETE` instead of failing validation.
 - If the user omits an ingredient quantity, treat it as `x1`.
 - Ingredient names may be provided in repo-specific shorthand:
   - prefer the ingredient's biological or meaningful noun over decorative prefixes such as `Greengrass`, `Soothing`, `Fancy`, `Snoozy`, or `Rousing`
