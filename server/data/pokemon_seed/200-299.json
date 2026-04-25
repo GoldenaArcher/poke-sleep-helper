@@ -237,6 +237,10 @@
               {
                 "name": "Fancy Egg",
                 "quantity": 2
+              },
+              {
+                "name": "Rousing Coffee",
+                "quantity": 2
               }
             ],
             "60": [
@@ -247,6 +251,10 @@
               {
                 "name": "Large Leek",
                 "quantity": 2
+              },
+              {
+                "name": "Rousing Coffee",
+                "quantity": 3
               }
             ]
           }

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-20T16:20:53.340Z",
+  "timestamp": "2026-04-20T17:11:38.264Z",
   "version": "1.0",
   "data": {
     "pokemon_box": [
@@ -2066,6 +2066,70 @@
         "is_shiny": 0,
         "created_at": "2026-04-20 15:55:11",
         "gender": "unknown"
+      },
+      {
+        "id": 176,
+        "species_dex_no": 380,
+        "variant_key": "default",
+        "nickname": null,
+        "level": 24,
+        "current_exp": 0,
+        "nature_id": 22,
+        "main_skill_level": 1,
+        "main_skill_value": null,
+        "main_skill_trigger_rate": 0.1,
+        "energy": 150,
+        "is_shiny": 0,
+        "created_at": "2026-04-20 16:42:11",
+        "gender": "female"
+      },
+      {
+        "id": 177,
+        "species_dex_no": 10,
+        "variant_key": "default",
+        "nickname": null,
+        "level": 13,
+        "current_exp": 0,
+        "nature_id": 5,
+        "main_skill_level": 1,
+        "main_skill_value": null,
+        "main_skill_trigger_rate": 0.1,
+        "energy": 150,
+        "is_shiny": 0,
+        "created_at": "2026-04-20 17:04:45",
+        "gender": "female"
+      },
+      {
+        "id": 178,
+        "species_dex_no": 447,
+        "variant_key": "default",
+        "nickname": null,
+        "level": 11,
+        "current_exp": 0,
+        "nature_id": 8,
+        "main_skill_level": 1,
+        "main_skill_value": null,
+        "main_skill_trigger_rate": 0.1,
+        "energy": 150,
+        "is_shiny": 0,
+        "created_at": "2026-04-20 17:05:26",
+        "gender": "male"
+      },
+      {
+        "id": 179,
+        "species_dex_no": 316,
+        "variant_key": "default",
+        "nickname": null,
+        "level": 12,
+        "current_exp": 0,
+        "nature_id": 3,
+        "main_skill_level": 1,
+        "main_skill_value": null,
+        "main_skill_trigger_rate": 0.1,
+        "energy": 150,
+        "is_shiny": 0,
+        "created_at": "2026-04-20 17:06:08",
+        "gender": "female"
       }
     ],
     "pokemon_box_sub_skills": [
@@ -4798,6 +4862,78 @@
         "ingredient_id": 10,
         "slot_level": 60,
         "quantity": 2
+      },
+      {
+        "box_id": 176,
+        "ingredient_id": 12,
+        "slot_level": 1,
+        "quantity": 1
+      },
+      {
+        "box_id": 176,
+        "ingredient_id": 18,
+        "slot_level": 30,
+        "quantity": 1
+      },
+      {
+        "box_id": 176,
+        "ingredient_id": 18,
+        "slot_level": 60,
+        "quantity": 2
+      },
+      {
+        "box_id": 177,
+        "ingredient_id": 9,
+        "slot_level": 1,
+        "quantity": 1
+      },
+      {
+        "box_id": 177,
+        "ingredient_id": 12,
+        "slot_level": 30,
+        "quantity": 2
+      },
+      {
+        "box_id": 177,
+        "ingredient_id": 9,
+        "slot_level": 60,
+        "quantity": 4
+      },
+      {
+        "box_id": 178,
+        "ingredient_id": 10,
+        "slot_level": 1,
+        "quantity": 1
+      },
+      {
+        "box_id": 178,
+        "ingredient_id": 4,
+        "slot_level": 30,
+        "quantity": 2
+      },
+      {
+        "box_id": 178,
+        "ingredient_id": 3,
+        "slot_level": 60,
+        "quantity": 4
+      },
+      {
+        "box_id": 179,
+        "ingredient_id": 15,
+        "slot_level": 1,
+        "quantity": 1
+      },
+      {
+        "box_id": 179,
+        "ingredient_id": 15,
+        "slot_level": 30,
+        "quantity": 2
+      },
+      {
+        "box_id": 179,
+        "ingredient_id": 15,
+        "slot_level": 60,
+        "quantity": 4
       }
     ],
     "settings": [
@@ -4855,13 +4991,13 @@
       },
       {
         "key": "version",
-        "value": "2197"
+        "value": "2203"
       }
     ],
     "bag_ingredients": [
       {
         "ingredient_id": 2,
-        "quantity": 22
+        "quantity": 13
       },
       {
         "ingredient_id": 3,
@@ -4869,11 +5005,11 @@
       },
       {
         "ingredient_id": 4,
-        "quantity": 58
+        "quantity": 42
       },
       {
         "ingredient_id": 5,
-        "quantity": 32
+        "quantity": 17
       },
       {
         "ingredient_id": 6,
@@ -4885,7 +5021,7 @@
       },
       {
         "ingredient_id": 8,
-        "quantity": 11
+        "quantity": 13
       },
       {
         "ingredient_id": 9,
@@ -4897,7 +5033,7 @@
       },
       {
         "ingredient_id": 11,
-        "quantity": 34
+        "quantity": 23
       },
       {
         "ingredient_id": 12,
@@ -4905,7 +5041,7 @@
       },
       {
         "ingredient_id": 13,
-        "quantity": 32
+        "quantity": 33
       },
       {
         "ingredient_id": 15,
@@ -5099,7 +5235,7 @@
       },
       {
         "id": 60,
-        "dish_level": 24
+        "dish_level": 25
       },
       {
         "id": 61,
@@ -5215,7 +5351,7 @@
     ]
   },
   "counts": {
-    "pokemon": 129,
+    "pokemon": 133,
     "settings": 14,
     "bag_items": 15,
     "dish_levels": 60,

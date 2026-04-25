@@ -961,6 +961,71 @@
       "subSkills": []
     },
     {
+      "dexNo": 177,
+      "name": "Natu",
+      "primaryType": "Psychic",
+      "specialty": "Berries",
+      "profileImage": "177.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Natu",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:15:00",
+            "carryLimit": 11,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 84,
+            "recruitShards": 165
+          },
+          "berries": [
+            {
+              "name": "Mago Berry",
+              "quantity": 2
+            }
+          ],
+          "mainSkill": "Ingredient Magnet S",
+          "detailImage": "177-default.png",
+          "shinyImage": "177-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Fancy Egg",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Fancy Egg",
+                "quantity": 2
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 2
+              }
+            ],
+            "60": [
+              {
+                "name": "Fancy Egg",
+                "quantity": 4
+              },
+              {
+                "name": "Soothing Cacao",
+                "quantity": 3
+              },
+              {
+                "name": "Fancy Apple",
+                "quantity": 5
+              }
+            ]
+          }
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 179,
       "name": "Mareep",
       "primaryType": "Electric",

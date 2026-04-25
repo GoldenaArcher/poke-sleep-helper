@@ -445,12 +445,16 @@
               {
                 "name": "Honey",
                 "quantity": 2
+              },
+              {
+                "name": "Snoozy Tomato",
+                "quantity": 2
               }
             ],
             "60": [
               {
                 "name": "Honey",
-                "quantity": 2
+                "quantity": 4
               },
               {
                 "name": "Snoozy Tomato",

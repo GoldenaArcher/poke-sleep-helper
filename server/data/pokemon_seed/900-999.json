@@ -366,6 +366,72 @@
         }
       ],
       "subSkills": []
+    },
+    {
+      "dexNo": 921,
+      "name": "Pawmi",
+      "primaryType": "Electric",
+      "specialty": "Skills",
+      "profileImage": "921.png",
+      "variants": [
+        {
+          "key": "default",
+          "name": "Pawmi",
+          "specialty": "Skills",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "01:16:40",
+            "carryLimit": 9,
+            "friendshipPointsNeeded": 5,
+            "recruitExperience": 52,
+            "recruitShards": 63
+          },
+          "berries": [
+            {
+              "name": "Grepa Berry",
+              "quantity": 1
+            }
+          ],
+          "mainSkill": "Energy for Everyone S",
+          "detailImage": "921-default.png",
+          "shinyImage": "921-default-shiny.png",
+          "ingredientOptions": {
+            "1": [
+              {
+                "name": "Soothing Cacao",
+                "quantity": 1
+              }
+            ],
+            "30": [
+              {
+                "name": "Soothing Cacao",
+                "quantity": 2
+              },
+              {
+                "name": "Moomoo Milk",
+                "quantity": 3
+              }
+            ],
+            "60": [
+              {
+                "name": "Soothing Cacao",
+                "quantity": 4
+              },
+              {
+                "name": "Fancy Egg",
+                "quantity": 5
+              },
+              {
+                "name": "Moomoo Milk",
+                "quantity": 6
+              }
+            ]
+          }
+        }
+      ],
+      "subSkills": []
     }
   ]
 }
