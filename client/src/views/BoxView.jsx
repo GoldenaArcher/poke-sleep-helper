@@ -12,6 +12,7 @@ import {
 import { IoMdMale, IoMdFemale } from "react-icons/io";
 import SearchSelect from "../components/SearchSelect.jsx";
 import PokemonDetailsModal from "../components/PokemonDetailsModal.jsx";
+import usePokemonGenderDefaults from "../hooks/usePokemonGenderDefaults.js";
 import useBagStore from "../stores/useBagStore.js";
 import useNaturesStore from "../stores/useNaturesStore.js";
 import usePokedexStore from "../stores/usePokedexStore.js";
@@ -24,6 +25,7 @@ const BoxView = () => {
   const ingredientCatalog = useBagStore((state) => state.ingredientDetails);
   const { natures } = useNaturesStore();
   const { pokedex } = usePokedexStore();
+  const { getDefaultGender } = usePokemonGenderDefaults();
   const berries = useResearchStore((state) => state.berries);
   const { settings, updateSettings } = useSettingsStore();
   const {
@@ -287,7 +289,8 @@ const BoxView = () => {
     setNewBoxEntry((prev) => ({
       ...prev,
       speciesId: String(matched.id),
-      variantId: defaultVariant?.id || ""
+      variantId: defaultVariant?.id || "",
+      gender: getDefaultGender(matched.id)
     }));
   };
   useEffect(() => {

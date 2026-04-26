@@ -263,6 +263,52 @@
       "subSkills": []
     },
     {
+      "dexNo": 253,
+      "name": "Grovyle",
+      "primaryType": "Grass",
+      "specialty": "Skills",
+      "profileImage": "253-default.png",
+      "evolutionChain": {
+        "evolvesFrom": {
+          "dexNo": 252,
+          "name": "Treecko",
+          "levelRequired": 12,
+          "variantMapping": {
+            "default": "default"
+          }
+        }
+      },
+      "variants": [
+        {
+          "key": "default",
+          "name": "Grovyle",
+          "isDefault": 1,
+          "isEvent": 0,
+          "notes": "Standard variant",
+          "stats": {
+            "baseFrequency": "00:55:00",
+            "carryLimit": 11,
+            "friendshipPointsNeeded": 12,
+            "recruitExperience": 183,
+            "recruitShards": 360
+          },
+          "berries": [
+            {
+              "name": "Durin Berry",
+              "quantity": 1
+            }
+          ],
+          "mainSkill": "Berry Burst",
+          "detailImage": "253-default.png",
+          "inheritIngredientOptionsFrom": {
+            "dexNo": 252,
+            "variantKey": "default"
+          }
+        }
+      ],
+      "subSkills": []
+    },
+    {
       "dexNo": 255,
       "name": "Torchic",
       "primaryType": "Fire",

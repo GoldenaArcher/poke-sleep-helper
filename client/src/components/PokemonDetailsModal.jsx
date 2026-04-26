@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { IoCloseOutline, IoMale, IoFemale } from "react-icons/io5";
+import usePokemonGenderDefaults from "../hooks/usePokemonGenderDefaults.js";
 import useNaturesStore from "../stores/useNaturesStore.js";
 import usePokemonBoxStore from "../stores/usePokemonBoxStore.js";
 
@@ -22,6 +23,7 @@ const formatMainSkillNotes = (mainSkill) => {
 
 const PokemonDetailsModal = ({ mode = "edit" }) => {
   const { natures } = useNaturesStore();
+  const { getDefaultGender } = usePokemonGenderDefaults();
   const {
     boxDetail,
     closeBoxDetail,
@@ -67,7 +69,10 @@ const PokemonDetailsModal = ({ mode = "edit" }) => {
       mainSkillOverride:
         typeof boxDetail.entry.main_skill_value === "number",
       isShiny: Boolean(boxDetail.entry.is_shiny),
-      gender: boxDetail.entry.gender || "unknown",
+      gender: getDefaultGender(
+        boxDetail.entry.species_dex_no ?? boxDetail.entry.dex_no,
+        boxDetail.entry.gender
+      ),
       ingredientSlots: ingredientSlotLevels.map((slotLevel) => {
         const slot = ingredientSlotMap.get(slotLevel);
         const rawQuantity = Number(slot?.quantity);
@@ -92,7 +97,7 @@ const PokemonDetailsModal = ({ mode = "edit" }) => {
       })
     });
     setAllowLockedEdit(false);
-  }, [boxDetail]);
+  }, [boxDetail, getDefaultGender]);
 
   const saveBoxDetail = async () => {
     if (!boxDetail || !boxDetailDraft) {
